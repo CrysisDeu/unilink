@@ -1,5 +1,8 @@
 # unilink
-CSE110 ClassProject- Off-campus housing app
+<p align="center">
+<img src="./logo.png" width="200" align="middle">  
+</p>
+CSE110 ClassProject- Off-campus housing app  
 
 All Members:
 
