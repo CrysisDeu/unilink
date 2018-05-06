@@ -30,17 +30,17 @@ public class SplashActivity extends AppCompatActivity {
                 FirebaseUser currentUser = mAuth.getCurrentUser();
 
                 // need register or login
-                if (currentUser == null) {
+                /*if (currentUser == null) {
                     Intent startIntent = new Intent(SplashActivity.this,StartActivity.class);
                     startActivity(startIntent);
                     finish();
 
                 // already logged in, go to home page
-                } else {
+                } else {*/
                     Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(mainIntent);
                     finish();
-                }
+                //}
 
             }
 

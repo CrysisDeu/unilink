@@ -29,13 +29,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/my_profile"
             android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
             android:layout_height="134dp"
             android:orientation="horizontal">
 
@@ -77,75 +78,43 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="84dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/my_profile"
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/my_favorite"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="0dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="Favorite"
-                android:textColor="@android:color/black"
-                android:textSize="36sp" />
-        </LinearLayout>
+                style="@style/menu_text"
+                android:text="@string/Favorite" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="81dp"
-            android:orientation="horizontal">
             <TextView
                 android:id="@+id/my_post"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="0dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="Post"
-                android:textColor="@android:color/black"
-                android:textSize="36sp" />
+                style="@style/menu_text"
+                android:text="Post" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="89dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/changePassword"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="0dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="Change Password"
-                android:textColor="@android:color/black"
-                android:textSize="36sp" />
-        </LinearLayout>
+                style="@style/menu_text"
+                android:gravity="center_horizontal"
+                android:text="Change Password" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="76dp"
-            android:orientation="horizontal">
             <TextView
                 android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="0dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="LOG OUT"
-                android:textColor="@android:color/black"
-                android:textSize="36sp" />
+                style="@style/menu_text"
+                android:gravity="center_horizontal"
+                android:textColor="#FF0000"
+                android:text="LOG OUT" />
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <!--LinearLayout
         android:layout_height="75dp"
