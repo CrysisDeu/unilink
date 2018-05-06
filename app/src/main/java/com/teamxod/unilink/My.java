@@ -1,4 +1,4 @@
-package com.example.user.mypage;
+package com.teamxod.unilink;
 
 import android.content.Intent;
 import android.os.Bundle;
