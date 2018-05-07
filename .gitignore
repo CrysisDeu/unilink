@@ -14,7 +14,8 @@ local.properties
 .signing/
 
 # User-specific configurations
-.idea/libraries/
+.idea/libraries/com
+.idea/
 .idea/caches/build_file_checksums.ser
 .idea/workspace.xml
 .idea/tasks.xml
