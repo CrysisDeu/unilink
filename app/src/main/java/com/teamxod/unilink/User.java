@@ -1,21 +1,23 @@
 package com.teamxod.unilink;
 
+import java.util.ArrayList;
+
 public class User {
     private String userPhoto;
     private String name;
     private String gender;
     private int year_of_grad;
-    private int[] favorite_houses;
-    private int[] my_house_posts;
-    private int[] favorite_roommates;
-    private int[] my_roommate_posts;
+    private ArrayList <Integer> favorite_houses;
+    private ArrayList <Integer> my_house_posts;
+    private ArrayList <Integer> favorite_roommates;
+    private ArrayList <Integer> my_roommate_posts;
 
     public User() {
     }
 
     public User(String userPhoto, String name, String gender, int year_of_grad,
-                int[] favorite_houses, int[] my_house_posts, int[]favorite_roommates,
-                int[] my_roommate_posts) {
+                ArrayList <Integer> favorite_houses, ArrayList <Integer> my_house_posts,
+                ArrayList <Integer>favorite_roommates, ArrayList <Integer> my_roommate_posts) {
         this.userPhoto = userPhoto;
         this.name = name;
         this.gender = gender;
