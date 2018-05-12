@@ -54,7 +54,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/sign_in_background"
                 android:layout_width="72dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
@@ -87,7 +87,7 @@
 
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/sign_in_logo"
                 android:layout_width="72dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
