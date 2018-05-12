@@ -15,6 +15,7 @@ public class My extends AppCompatActivity {
 
     private TextView my_favorite;
     private TextView my_post;
+    private TextView changeProfile;
     private TextView changePassword;
     private TextView logout;
 /*
@@ -50,6 +51,7 @@ public class My extends AppCompatActivity {
         my_favorite = (TextView) findViewById(R.id.my_favorite);
         my_post = (TextView) findViewById(R.id.my_post);
         changePassword = (TextView) findViewById(R.id.changePassword);
+        changeProfile = (TextView) findViewById(R.id.changeProfile);
         logout = (TextView) findViewById(R.id.logout);
 
         // set on click
@@ -73,6 +75,14 @@ public class My extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Intent i = new Intent(My.this, My_changePassword.class);
+                startActivity(i);
+            }
+        });
+
+        changeProfile.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(My.this, my_change_profile.class);
                 startActivity(i);
             }
         });
