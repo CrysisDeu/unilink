@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -29,7 +28,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     private static final String TAG = "StartActivity";
     private static final int RC_SIGN_IN = 9001;
-    private Button mSignInButton;
+    private SignInButton mSignInButton;
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
@@ -40,7 +39,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_start);
 
         // Assign fields
-        mSignInButton =  findViewById(R.id.google_sign_in_button);
+        mSignInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
 
         // Set click listeners
         mSignInButton.setOnClickListener(this);
