@@ -18,7 +18,10 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".My" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> d0668dffaa9d4f191df38d647318327f059f4873
         <activity android:name=".My_favorite" />
         <activity android:name=".My_post" />
         <activity android:name=".My_changePassword" />
@@ -28,7 +31,12 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+<<<<<<< HEAD
         <activity android:name=".StartActivity"/>
+=======
+        <activity android:name=".StartActivity" />
+        <activity android:name=".my_change_profile" />
+>>>>>>> d0668dffaa9d4f191df38d647318327f059f4873
     </application>
 
 </manifest>
