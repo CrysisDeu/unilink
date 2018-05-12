@@ -29,10 +29,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal"
             android:letterSpacing="0.285"
             android:text="@string/welcome_to"
             android:textColor="@android:color/background_light"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +43,7 @@
             android:letterSpacing="0.222"
             android:text="@string/unilink_cap"
             android:textColor="@android:color/background_light"
-            android:textSize="60sp" />
+            android:textSize="60dp" />
     </LinearLayout>
 
     <ImageView
@@ -77,8 +78,20 @@
                 android:id="@+id/google_sign_in_button"
                 android:layout_width="112dp"
                 android:layout_height="48dp"
-                android:layout_margin="32dp"
+                android:layout_margin="24dp"
+                android:layout_marginStart="24dp"
                 android:background="@drawable/google_connect" />
+
+
+            <Button
+                android:id="@+id/email_sign_up"
+                android:layout_width="112dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/google_sign_in_button"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/email_sign_up" />
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
