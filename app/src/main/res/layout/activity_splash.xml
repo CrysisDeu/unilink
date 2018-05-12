@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/roboto"
-            android:letterSpacing="0.20"
+            android:letterSpacing="0.285"
             android:text="@string/welcome_to"
             android:textColor="@android:color/background_light"
             android:textSize="20sp" />
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/roboto_black"
-            android:letterSpacing="0.20"
+            android:letterSpacing="0.222"
             android:text="@string/unilink_cap"
             android:textColor="@android:color/background_light"
             android:textSize="60sp" />
