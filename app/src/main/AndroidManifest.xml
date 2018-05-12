@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".My" />
-
         <activity android:name=".My_favorite" />
         <activity android:name=".My_post" />
         <activity android:name=".My_changePassword" />
@@ -28,7 +27,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".StartActivity"/>
+        <activity android:name=".StartActivity" />
+        <activity android:name=".AddHousePostActivity"></activity>
     </application>
 
 </manifest>
