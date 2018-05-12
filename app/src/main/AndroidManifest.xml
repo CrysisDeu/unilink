@@ -10,16 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
         <activity android:name=".SplashActivity">
-
-        </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".My" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-               <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".My" />
         <activity android:name=".My_favorite" />
         <activity android:name=".My_post" />
         <activity android:name=".My_changePassword" />
@@ -30,7 +28,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".StartActivity" />
-        <activity android:name=".my_change_profile"></activity>
+        <activity android:name=".my_change_profile" />
     </application>
 
 </manifest>
