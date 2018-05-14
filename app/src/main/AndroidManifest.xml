@@ -30,6 +30,7 @@
 
         <activity android:name=".StartActivity" />
         <activity android:name=".my_change_profile" />
+        <activity android:name=".SingleHousePostActivity" />
     </application>
 
 </manifest>
