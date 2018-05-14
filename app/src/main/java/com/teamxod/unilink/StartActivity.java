@@ -65,7 +65,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             Toast.makeText(this, "Welcome " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
             // Go back to the main activity
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(StartActivity.this, MainActivity.class));
         }
     }
 
@@ -96,7 +96,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-                Intent mainIntent = new Intent(StartActivity.this,MainActivity.class);
+                Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
                 startActivity(mainIntent);
                 finish();
             } else {

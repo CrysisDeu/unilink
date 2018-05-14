@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 // need register or login
                 if (currentUser == null) {
-                    Intent startIntent = new Intent(SplashActivity.this,StartActivity.class);
+                    Intent startIntent = new Intent(SplashActivity.this, StartActivity.class);
                     startActivity(startIntent);
                     finish();
 
