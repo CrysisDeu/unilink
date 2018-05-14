@@ -19,7 +19,6 @@
         </activity>
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".My" />
         <activity android:name=".My_favorite" />
         <activity android:name=".My_post" />
         <activity android:name=".My_changePassword" />

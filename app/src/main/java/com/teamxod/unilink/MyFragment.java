@@ -53,7 +53,7 @@ public class MyFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(getActivity(), My_logout.class);
+                Intent i = new Intent(getActivity(), SplashActivity.class);
                 startActivity(i);
             }
         });
