@@ -36,9 +36,9 @@ public class HousingFragment extends Fragment {
         //create an array of post
         ArrayList<HousePost> posts = new ArrayList<HousePost>();
         //posts.add(new HousePost());
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.my_bg));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.my_bg2));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
+        posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla",R.drawable.my_bg));
+        posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way",R.drawable.my_bg2));
+        posts.add(new HousePost("single room", "beautiful room","$90090/MO","Gary's house",R.drawable.my_bg3));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
@@ -55,7 +55,6 @@ public class HousingFragment extends Fragment {
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.abc_action_bar_default_height_material)));
         header.setBackgroundColor(Color.parseColor("#00000000"));
         listView.addHeaderView(header);
-
         touchSlop = (int) (ViewConfiguration.get(HousingFragment.this.getActivity()).getScaledTouchSlop() * 0.9);
 
         //set touch and scroll event for listView
@@ -95,11 +94,13 @@ public class HousingFragment extends Fragment {
             backAnimatorSet = new AnimatorSet();
             //move the element back to originial position
             ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchbar, "translationY", searchbar.getTranslationY(), 0f);
+            //ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), 0f);
 
             //add animator object to arraylist
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);
-
+            //animators.add(listAnimator);
+            //animators.add(naviAnimator);
 
             backAnimatorSet.setDuration(400);
             backAnimatorSet.playTogether(animators);
@@ -121,9 +122,11 @@ public class HousingFragment extends Fragment {
         } else {
             hideAnimatorSet = new AnimatorSet();
             ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchbar, "translationY", searchbar.getTranslationY(), -2*searchbar.getHeight());
+            //ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), -0.11f*listView.getHeight());
 
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);
+            //animators.add(listAnimator);
 
             hideAnimatorSet.setDuration(300);
             hideAnimatorSet.playTogether(animators);

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="240dp">
@@ -39,6 +39,28 @@
                     android:layout_marginTop="@dimen/small_margin"
                     android:background="@drawable/icon_empty_heart"
                     android:contentDescription="@string/Favorite" />
+
+                <ImageButton
+                    android:id="@+id/house_button_share"
+                    android:layout_width="@dimen/small_icon_side"
+                    android:layout_height="@dimen/small_icon_side"
+                    android:layout_alignEnd="@id/house_button_favourite"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="@dimen/xlarge_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:background="@drawable/icon_share"
+                    android:contentDescription="@string/button_share" />
+
+                <ImageButton
+                    android:id="@+id/house_button_back"
+                    android:layout_width="@dimen/small_icon_side"
+                    android:layout_height="@dimen/small_icon_side"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/icon_back_arrow"
+                    android:contentDescription="@string/button_back"/>
 
             </RelativeLayout>
 
@@ -113,6 +135,19 @@
                 style="@style/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/available_room" />
+
+            <ListView
+                style="@style/house_content"
+                android:id="@+id/house_rooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <TextView
+                style="@style/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/description" />
 
             <TextView
@@ -157,7 +192,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/location" />
-            
+
             <ImageView
                 style="@style/house_content"
                 android:layout_width="match_parent"
