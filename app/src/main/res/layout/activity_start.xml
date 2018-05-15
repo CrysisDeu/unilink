@@ -14,7 +14,9 @@
         android:layout_alignParentTop="true"
         android:foreground="@drawable/splash_gradient"
         android:scaleType="centerCrop"
-        android:src="@drawable/splash_background" />
+        android:src="@drawable/splash_background"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <LinearLayout
         android:id="@+id/welcome_to_unilink"
@@ -33,23 +35,24 @@
             android:letterSpacing="0.285"
             android:text="@string/welcome_to"
             android:textColor="@android:color/background_light"
-            android:textSize="20dp" />
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/roboto_black"
             android:letterSpacing="0.222"
             android:text="@string/unilink_cap"
             android:textColor="@android:color/background_light"
-            android:textSize="60dp" />
+            android:textSize="36dp" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/sign_in_logo"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="128dp"
         app:layout_constraintBottom_toTopOf="@+id/sign_in_card"
         app:layout_constraintTop_toBottomOf="@+id/welcome_to_unilink"
         app:layout_constraintVertical_bias="0.39"
