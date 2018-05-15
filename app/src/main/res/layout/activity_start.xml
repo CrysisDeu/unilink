@@ -21,8 +21,8 @@
     <LinearLayout
         android:id="@+id/welcome_to_unilink"
         android:layout_width="match_parent"
-        android:layout_height="116dp"
-        android:layout_marginTop="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -40,7 +40,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/roboto_black"
             android:letterSpacing="0.222"
@@ -55,7 +54,7 @@
         android:layout_height="128dp"
         app:layout_constraintBottom_toTopOf="@+id/sign_in_card"
         app:layout_constraintTop_toBottomOf="@+id/welcome_to_unilink"
-        app:layout_constraintVertical_bias="0.39"
+        app:layout_constraintVertical_bias="0.40"
         app:srcCompat="@drawable/logo_white" />
 
 
@@ -120,11 +119,6 @@
                         android:paddingRight="4dp"
                         android:textColor="#003F9F"
                         android:text="Sign in" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="here!" />
 
                 </LinearLayout>
 
