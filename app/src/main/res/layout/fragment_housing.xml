@@ -9,38 +9,41 @@
 
     <ListView
         android:id="@+id/list_view"
-        android:layout_width="296dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:headerDividersEnabled="false"
-        android:paddingTop="60dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"/>
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="60dp" />
 
 
     <LinearLayout
         android:id="@+id/searchView"
-        android:layout_width="296dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp"
         android:background="@drawable/edit_search_bar"
-        android:gravity="center"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp">
+
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="horizontal">
 
         <SearchView
-            android:layout_width="256dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="Search Here"/>
+            android:layout_marginRight="40dp"
+            />
+
         <Button
             android:id="@+id/filter"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@drawable/ic_equalizer"
-            android:layout_marginRight="16dp"
-            />
+            android:background="@drawable/ic_equalizer" />
+
+
 
     </LinearLayout>
 
