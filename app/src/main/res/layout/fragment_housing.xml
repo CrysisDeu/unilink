@@ -14,7 +14,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:headerDividersEnabled="false"
-        android:paddingTop="60dp" />
+        android:paddingTop="60dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"/>
 
 
     <LinearLayout
@@ -24,7 +26,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp"
         android:background="@drawable/edit_search_bar"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
 
         <SearchView
             android:layout_width="256dp"
