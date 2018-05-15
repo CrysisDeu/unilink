@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MyFragment extends Fragment {
 
     private TextView my_favorite;
     private TextView my_post;
     private TextView changePassword;
     private TextView logout;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,12 +56,28 @@ public class MyFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(getActivity(), SplashActivity.class);
+                Intent i = new Intent(getActivity(), StartActivity.class);
                 startActivity(i);
+//                FirebaseAuth.getInstance().signOut();
             }
         });
 
         return layout;
     }
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
+//    }
+//
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if(mAuthStateListener != null) {
+//            FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
+//        }
+//
+//    }
 }
