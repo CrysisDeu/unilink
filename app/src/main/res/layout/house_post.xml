@@ -9,123 +9,235 @@
 
     <ScrollView
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="1"
         android:layout_width="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp">
 
-            <ImageButton
-                android:id="@+id/button_favourite"
-                android:layout_width="@dimen/small_icon_side"
-                android:layout_height="@dimen/small_icon_side"
-                app:srcCompat="@drawable/icon_empty_heart"
-                android:contentDescription="@string/button_contact" />
+                <ImageView
+                    android:id="@+id/house_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    android:src="@drawable/default_image"
+                    android:contentDescription="@string/house_image"/>
+
+                <ImageButton
+                    android:id="@+id/house_button_favourite"
+                    android:layout_width="@dimen/small_icon_side"
+                    android:layout_height="@dimen/small_icon_side"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:background="@drawable/icon_empty_heart"
+                    android:contentDescription="@string/Favorite" />
+
+            </RelativeLayout>
 
             <TextView
+                style="@style/house_content"
                 android:id="@+id/house_type"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                tools:text="3b2b" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin"
+                android:textSize="@dimen/m_font_size"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                tools:text="3B2B · Town House" />
 
             <TextView
-                android:id="@+id/house_name"
+                style="@style/house_content"
+                android:id="@+id/house_title"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
-                tools:text="My House" />
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/l_font_size"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:text="Beautiful Town House in a Quiet Area Near UTC" />
 
-            <LinearLayout
+            <RelativeLayout
+                style="@style/house_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="4"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/large_margin"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/address"
+                        android:id="@+id/house_name"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="bottom"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/m_font_size"
+                        android:fontFamily="@font/roboto_thin"
                         tools:text="Costa Verde, San Diego" />
 
                     <TextView
-                        android:id="@+id/poster"
+                        android:id="@+id/house_poster"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="top"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/m_font_size"
+                        android:fontFamily="@font/roboto_thin"
                         tools:text="posted by kevin" />
 
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/house_landlord_image"
                     android:layout_width="@dimen/large_icon_side"
                     android:layout_height="@dimen/large_icon_side"
-                    android:layout_weight="0"
-                    app:srcCompat="@drawable/ic_account" />
+                    android:layout_alignParentEnd="true"
+                    app:srcCompat="@drawable/ic_account"
+                    android:contentDescription="@string/user_image" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description" />
+
+            <TextView
+                android:id="@+id/house_description"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/s_font_size"
+                android:textColor="@color/black"
+                tools:text="this is the sample display UI for house post, not completed yet. lot of parts is under construction" />
+
+            <TextView
+                style="@style/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/roommate" />
+
+            <ListView
+                style="@style/house_content"
+                android:id="@+id/roommate_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <TextView
+                style="@style/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/facility" />
+
+            <LinearLayout
+                style="@style/house_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView15"
+                style="@style/subtitle"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                tools:text="random word" />
+                android:layout_height="wrap_content"
+                android:text="@string/location" />
+            
+            <ImageView
+                style="@style/house_content"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                tools:src="@drawable/my_bg" />
+
 
         </LinearLayout>
 
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="56dp"
+        android:layout_weight="0"
         android:orientation="horizontal"
+        android:background="@drawable/shadow_bar"
         android:layout_gravity="bottom">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_marginStart="@dimen/large_margin"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/bottom_price"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                tools:text="$1000 per month" />
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/house_bottom_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:textSize="@dimen/m_font_size"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="$ 1000 " />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:textSize="@dimen/m_font_size"
+                    android:textColor="@color/black"
+                    android:text="@string/bottom_per_month"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/bottom_time_info"
+                android:id="@+id/house_bottom_time"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                tools:text="Annual Lease | Start in May" />
+                android:gravity="top"
+                android:textSize="@dimen/m_font_size"
+                android:textColor="@color/black"
+                tools:text="Annual Lease · Start in May" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/button_contact"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:background="@android:color/holo_blue_dark"
-            android:text="@string/button_contact" />
+            android:id="@+id/house_button_contact"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:background="@drawable/round_button"
+            android:textColor="@color/white"
+            android:text="@string/button_contact"
+            android:textSize="@dimen/m_font_size"
+            android:textStyle="bold"
+            />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>
