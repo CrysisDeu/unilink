@@ -16,7 +16,7 @@
 
     <LinearLayout
         android:id="@+id/searchView"
-        android:layout_width="296dp"
+        android:layout_width="340dp"
         android:layout_height="48dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp"
@@ -24,8 +24,9 @@
         android:gravity="center">
 
         <SearchView
-            android:layout_width="256dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
+            android:layout_weight="1"
             android:hint="Search Here"/>
         <Button
             android:id="@+id/filter"
@@ -33,6 +34,7 @@
             android:layout_height="24dp"
             android:background="@drawable/ic_equalizer"
             android:layout_marginRight="16dp"
+            android:layout_marginLeft="8dp"
             />
 
 </LinearLayout>
