@@ -12,6 +12,10 @@ public class HousePost {
 
     private int imageResourceId;
 
+
+
+
+
     public HousePost(String p_room_type, String p_room_title, String p_room_price,
                 String p_room_location, int p_imageResourceId)
     {
@@ -20,7 +24,10 @@ public class HousePost {
         room_price = p_room_price;
         room_location = p_room_location;
         imageResourceId = p_imageResourceId;
+
     }
+
+
 
     public String getRoom_type() {
         return room_type;
@@ -41,4 +48,6 @@ public class HousePost {
     public int getImageResourceId() {
         return imageResourceId;
     }
+
+
 }

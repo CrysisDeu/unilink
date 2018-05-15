@@ -25,10 +25,13 @@ public class HousePostAdapter extends ArrayAdapter<HousePost> {
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         // Check if the existing view is being reused, otherwise inflate the view
         View listItemView = view;
+
+
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
         }
+
         HousePost my_post= (HousePost) getItem(position);
 
         TextView typeTextView = (TextView) listItemView.findViewById(R.id.room_type);
