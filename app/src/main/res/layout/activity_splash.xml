@@ -33,7 +33,7 @@
             android:letterSpacing="0.285"
             android:text="@string/welcome_to"
             android:textColor="@android:color/background_light"
-            android:textSize="20sp" />
+            android:textSize="14dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
             android:letterSpacing="0.222"
             android:text="@string/unilink_cap"
             android:textColor="@android:color/background_light"
-            android:textSize="60sp" />
+            android:textSize="36sp" />
 
     </LinearLayout>
 
