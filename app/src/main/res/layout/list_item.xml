@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    >
 
 
 
@@ -22,7 +24,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
             android:textColor="#000000"
-            android:textSize="14dp"
+            android:textSize="@dimen/m_font_size"
             android:textStyle="bold"
             tools:text="single room . town house" />
 
@@ -32,7 +34,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
             android:textColor="#000000"
-            android:textSize="24dp"
+            android:textSize="@dimen/l_font_size"
             android:textStyle="bold"
             tools:text="beautiful bedroom" />
 
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
             android:textColor="#000000"
-            android:textSize="14dp"
+            android:textSize="@dimen/m_font_size"
             tools:text="$1199/MO Annual lease" />
 
         <TextView
@@ -51,7 +53,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
             android:textColor="#000000"
-            android:textSize="14dp"
+            android:textSize="@dimen/m_font_size"
             tools:text="Costa Verde, San Diego"
             android:layout_marginBottom="16dp"/>
 
