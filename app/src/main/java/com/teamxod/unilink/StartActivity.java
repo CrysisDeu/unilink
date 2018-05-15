@@ -1,5 +1,6 @@
 package com.teamxod.unilink;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,16 +45,33 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        // Assign fields
+        // start card
         mStartCard = findViewById(R.id.sign_in_card);
         mGoogleSignInButton =  findViewById(R.id.google_sign_in_button);
         mEmailSignUpButton = findViewById(R.id.email_sign_up);
         mSignInPrompt = findViewById(R.id.sign_in_prompt);
+
+        // sign-in card
+        LinearLayout mSignInCard = new LinearLayout(this);
+        mSignInCard.setOrientation(LinearLayout.VERTICAL);
+        mSignInCard.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        TextView valueTV = new TextView(this);
+        valueTV.setText("Email");
+        valueTV.setId(1);
+        valueTV.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        mStartCard.addView(valueTV);
+        //EditText newEmail = new EditText(mSignInCard,);
+
+
+        // sign-up card
 
         // Define the animators
         final Animation fadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
@@ -81,22 +100,44 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         mEmailSignUpButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                mGoogleSignInButton.startAnimation(fadeOutAnimation);
-                mEmailSignUpButton.startAnimation(fadeOutAnimation);
-                mSignInPrompt.startAnimation(fadeOutAnimation);
-                mGoogleSignInButton.setVisibility(View.GONE);
-                mEmailSignUpButton.setVisibility(View.GONE);
-                mSignInPrompt.setVisibility(View.GONE);
-                ViewGroup.LayoutParams cardParam = mStartCard.getLayoutParams();
-                cardParam.height = 600;
-                mStartCard.setLayoutParams(cardParam);
-                mStartCard.requestLayout();
-                /*Intent i = new Intent(StartActivity.this, abc.class);
-                startActivity(i);*/
+                startFadeOut();
+                resizeAnimation(mStartCard,500,450);
+                //mStartCard.addView();
+
             }
         });
+        /*fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationStart(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationEnd(Animation animation) {
+
+            }
+        });*/
+
+
     }
 
+    private void startFadeOut () {
+        // Define the animators
+        final Animation fadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
+        // Duration of animation
+        fadeOutAnimation.setDuration(225);
+        mGoogleSignInButton.startAnimation(fadeOutAnimation);
+        mEmailSignUpButton.startAnimation(fadeOutAnimation);
+        mSignInPrompt.startAnimation(fadeOutAnimation);
+        mGoogleSignInButton.setVisibility(View.GONE);
+        mEmailSignUpButton.setVisibility(View.GONE);
+        mSignInPrompt.setVisibility(View.GONE);
+    }
+    private void resizeAnimation (View view, int target, int duration) {
+        ResizeAnimation resizeAnimation = new ResizeAnimation(
+                view,
+                target,
+                view.getHeight()
+        );
+        resizeAnimation.setDuration(duration);
+        view.startAnimation(resizeAnimation);
+    }
     private void handleFirebaseAuthResult(AuthResult authResult) {
         if (authResult != null) {
             // Welcome the user
