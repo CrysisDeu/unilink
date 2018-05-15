@@ -21,7 +21,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/my_bg3"
+                android:src="@drawable/my_bg4"
                 android:scaleType="centerCrop"/>
 
             <ImageView
@@ -211,7 +211,6 @@
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:gravity="center_vertical|center_horizontal"
                 android:text="Log out"
                 android:textColor="@android:color/holo_red_dark"

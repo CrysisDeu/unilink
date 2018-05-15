@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,14 +28,16 @@ public class HousingFragment extends Fragment {
     ListView listView;
     LinearLayout searchbar;
     Button filterButton;
-    int touchSlop=10;
+    View header;
+    int touchSlop=5;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_housing, container, false); // get the GUI
         //create an array of post
         ArrayList<HousePost> posts = new ArrayList<HousePost>();
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
+        //posts.add(new HousePost());
+        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.my_bg));
+        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.my_bg2));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
@@ -47,6 +50,11 @@ public class HousingFragment extends Fragment {
         filterButton = layout.findViewById(R.id.filter);
 
         listView.setAdapter(adapter);
+
+        header = new View(this.getActivity());
+        header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.abc_action_bar_default_height_material)));
+        header.setBackgroundColor(Color.parseColor("#00000000"));
+        listView.addHeaderView(header);
         touchSlop = (int) (ViewConfiguration.get(HousingFragment.this.getActivity()).getScaledTouchSlop() * 0.9);
 
         //set touch and scroll event for listView
@@ -86,13 +94,12 @@ public class HousingFragment extends Fragment {
             backAnimatorSet = new AnimatorSet();
             //move the element back to originial position
             ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchbar, "translationY", searchbar.getTranslationY(), 0f);
-            ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), 0f);
-            //ObjectAnimator naviAnimator = ObjectAnimator.ofFloat(navibar, "translationY", navibar.getTranslationY(), 0f);
+            //ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), 0f);
 
             //add animator object to arraylist
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);
-            animators.add(listAnimator);
+            //animators.add(listAnimator);
             //animators.add(naviAnimator);
 
             backAnimatorSet.setDuration(400);
@@ -115,13 +122,12 @@ public class HousingFragment extends Fragment {
         } else {
             hideAnimatorSet = new AnimatorSet();
             ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchbar, "translationY", searchbar.getTranslationY(), -2*searchbar.getHeight());
-            ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), -0.15f*listView.getHeight());
-            //ObjectAnimator naviAnimator = ObjectAnimator.ofFloat(navibar, "translationY", navibar.getTranslationY(), navibar.getHeight());//将ToolBar隐藏到上面
+            //ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), -0.11f*listView.getHeight());
 
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);
-            animators.add(listAnimator);
-            //animators.add(naviAnimator);
+            //animators.add(listAnimator);
+
             hideAnimatorSet.setDuration(300);
             hideAnimatorSet.playTogether(animators);
             hideAnimatorSet.start();
