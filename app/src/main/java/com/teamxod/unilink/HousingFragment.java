@@ -36,9 +36,9 @@ public class HousingFragment extends Fragment {
         //create an array of post
         ArrayList<HousePost> posts = new ArrayList<HousePost>();
         //posts.add(new HousePost());
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.my_bg));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.my_bg2));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
+        posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla",R.drawable.my_bg));
+        posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way",R.drawable.my_bg2));
+        posts.add(new HousePost("single room", "beautiful room","$90090/MO","Gary's house",R.drawable.my_bg3));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));

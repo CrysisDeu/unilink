@@ -4,9 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -14,7 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +35,10 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     private static final String TAG = "StartActivity";
     private static final int RC_SIGN_IN = 9001;
-    private Button mSignInButton;
+    private CardView mStartCard;
+    private Button mGoogleSignInButton;
+    private Button mEmailSignUpButton;
+    private LinearLayout mSignInPrompt;
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
@@ -40,10 +49,22 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_start);
 
         // Assign fields
-        mSignInButton =  findViewById(R.id.google_sign_in_button);
+        mStartCard = findViewById(R.id.sign_in_card);
+        mGoogleSignInButton =  findViewById(R.id.google_sign_in_button);
+        mEmailSignUpButton = findViewById(R.id.email_sign_up);
+        mSignInPrompt = findViewById(R.id.sign_in_prompt);
+
+        // Define the animators
+        final Animation fadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
+        final Animation fadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
+
+        // Duration of animation
+        fadeInAnimation.setDuration(300);
+        fadeOutAnimation.setDuration(300);
+
 
         // Set click listeners
-        mSignInButton.setOnClickListener(this);
+        mGoogleSignInButton.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -56,6 +77,24 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
         // Initialize FirebaseAuth
         mFirebaseAuth = FirebaseAuth.getInstance();
+
+        mEmailSignUpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                mGoogleSignInButton.startAnimation(fadeOutAnimation);
+                mEmailSignUpButton.startAnimation(fadeOutAnimation);
+                mSignInPrompt.startAnimation(fadeOutAnimation);
+                mGoogleSignInButton.setVisibility(View.GONE);
+                mEmailSignUpButton.setVisibility(View.GONE);
+                mSignInPrompt.setVisibility(View.GONE);
+                ViewGroup.LayoutParams cardParam = mStartCard.getLayoutParams();
+                cardParam.height = 600;
+                mStartCard.setLayoutParams(cardParam);
+                mStartCard.requestLayout();
+                /*Intent i = new Intent(StartActivity.this, abc.class);
+                startActivity(i);*/
+            }
+        });
     }
 
     private void handleFirebaseAuthResult(AuthResult authResult) {

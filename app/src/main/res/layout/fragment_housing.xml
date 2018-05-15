@@ -9,14 +9,15 @@
 
     <ListView
         android:id="@+id/list_view"
-        android:layout_width="296dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:headerDividersEnabled="false"
-        android:paddingTop="60dp"
+        android:paddingTop="72dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"/>
+
 
 
     <LinearLayout
