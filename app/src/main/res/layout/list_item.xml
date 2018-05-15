@@ -3,30 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:orientation="horizontal">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp"
+
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/image"
-
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/my_bg" />
 
 
         <TextView
             android:id="@+id/room_type"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto"
             android:textColor="#000000"
             android:textSize="14dp"
@@ -59,7 +55,8 @@
             android:fontFamily="@font/roboto"
             android:textColor="#000000"
             android:textSize="14dp"
-            tools:text="Costa Verde, San Diego" />
+            tools:text="Costa Verde, San Diego"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 
