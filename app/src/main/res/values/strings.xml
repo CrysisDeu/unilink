@@ -14,4 +14,7 @@
     <string name="roommate">Roommates</string>
     <string name="facility">Facilities</string>
     <string name="location">Location</string>
+    <string name="available_room">Available Rooms</string>
+    <string name="button_back">Back button</string>
+    <string name="button_share">Share button</string>
 </resources>
