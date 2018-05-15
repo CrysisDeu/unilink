@@ -11,12 +11,13 @@
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:headerDividersEnabled="false"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="60dp" />
+        android:paddingTop="72dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"/>
+
 
 
     <LinearLayout
@@ -26,24 +27,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="72dp"
         android:background="@drawable/edit_search_bar"
-
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
 
         <SearchView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginRight="40dp"
-            />
-
+            android:layout_weight="1"
+            android:hint="Search Here"/>
         <Button
             android:id="@+id/filter"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:background="@drawable/ic_equalizer" />
-
-
+            android:background="@drawable/ic_equalizer"
+            android:layout_marginRight="16dp"
+            />
 
     </LinearLayout>
 
