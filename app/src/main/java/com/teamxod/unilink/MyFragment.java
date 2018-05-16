@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MyFragment extends Fragment {
@@ -16,11 +18,17 @@ public class MyFragment extends Fragment {
     private TextView my_post;
     private TextView changePassword;
     private TextView logout;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_my, container, false); // get the GUI
+
+        // GoogleApiClient to logout
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity
+                //.enableAutoManage(this /* FragmentActivity */, connectionFailedListener)
+                .addApi(Auth.GOOGLE_SIGN_IN_API)
+                .build();
 
         // my :
         my_favorite = (TextView) layout.findViewById(R.id.my_favorite);
@@ -57,6 +65,11 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view){
                 FirebaseAuth.getInstance().signOut();
+                if (mGoogleApiClient.isConnected()) {
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+                    mGoogleApiClient.disconnect();
+                    mGoogleApiClient.connect();
+                }
                 Intent reset = new Intent(getActivity(), StartActivity.class);
                 reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(reset);
@@ -66,19 +79,18 @@ public class MyFragment extends Fragment {
         return layout;
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
-//    }
-//
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        if(mAuthStateListener != null) {
-//            FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
-//        }
-//
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
 }
