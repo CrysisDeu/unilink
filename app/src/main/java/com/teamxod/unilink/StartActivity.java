@@ -82,12 +82,12 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         mSignInCard.setOrientation(LinearLayout.VERTICAL);
         mSignInCard.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));*/
 
-        EditText emailInput = createEditText("email");
+        /*EditText emailInput = createEditText("email");
         emailInput.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         EditText passwordInput = createEditText("password");
         passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
         mSignInContainer.addView(emailInput);
-        mSignInContainer.addView(passwordInput);
+        mSignInContainer.addView(passwordInput);*/
         //mStartCard.addView(mSignInCard);*/
 
 
@@ -124,8 +124,8 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
                 //fadeout and resize
                 FadeOutAnimation(mStartContainer,225);
-                FadeOutAnimation(mSignInLogo,300);
-                resizeAnimation(mStartCard,500,450);
+                //FadeOutAnimation(mSignInLogo,300);
+                resizeAnimation(mStartCard,dpToPx(136),450);
                 //sign-in card test
                 mSignInContainer = findViewById(R.id.sign_in_container);
                 FadeInAnimation(mSignInContainer,225);

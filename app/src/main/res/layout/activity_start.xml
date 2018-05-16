@@ -78,6 +78,44 @@
             android:orientation="vertical"
             android:padding="24dp"
             android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="E-mail"/>
+
+            <EditText
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="myname@unilink.com"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Password"/>
+
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="666666"/>
+
+            <Button
+                android:id="@+id/confirm_sign_up"
+                android:layout_width="112dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/email_sign_up2" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,7 +160,6 @@
                     android:layout_width="92dp"
                     android:layout_height="1dp"
                     android:layout_gravity="center_vertical"
-
                     android:background="#BBBBBB"></LinearLayout>
 
                 <TextView
