@@ -123,7 +123,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 //fadeout and resize
                 FadeOutAnimation(mStartContainer,225);
                 FadeOutAnimation(mSignInLogo,300);
-                resizeAnimation(mStartCard,dpToPx(200),450);
+                resizeAnimation(mStartCard,dpToPx(344),450);//200
                 FadeInAnimation(mSignUpContainer,225);
 
             }
@@ -136,7 +136,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
                 //fadeout and resize
                 FadeOutAnimation(mSignUpContainer,225);
-                resizeAnimation(mStartCard,dpToPx(-200),450);
+                resizeAnimation(mStartCard,dpToPx(144),450); //-200
                 FadeInAnimation(mStartContainer,225);
                 FadeInAnimation(mSignInLogo,300);
 
@@ -152,7 +152,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 //fadeout and resize
                 FadeOutAnimation(mStartContainer,225);
                 //FadeOutAnimation(mSignInLogo,300);
-                resizeAnimation(mStartCard,dpToPx(136),450);
+                resizeAnimation(mStartCard,dpToPx(280),300);//136
                 mSignInContainer = findViewById(R.id.sign_in_container);
                 FadeInAnimation(mSignInContainer,225);
 
@@ -166,7 +166,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
                 //fadeout and resize
                 FadeOutAnimation(mSignInContainer,225);
-                resizeAnimation(mStartCard,dpToPx(-136),450);
+                resizeAnimation(mStartCard,dpToPx(144),300);//-136
                 FadeInAnimation(mStartContainer,225);
 
             }
