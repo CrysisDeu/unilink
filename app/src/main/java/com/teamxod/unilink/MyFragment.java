@@ -56,9 +56,10 @@ public class MyFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(getActivity(), StartActivity.class);
-                startActivity(i);
-//                FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
+                Intent reset = new Intent(getActivity(), StartActivity.class);
+                reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(reset);
             }
         });
 
