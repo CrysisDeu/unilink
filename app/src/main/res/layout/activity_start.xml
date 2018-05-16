@@ -89,7 +89,7 @@
                     android:layout_width="112dp"
                     android:layout_height="48dp"
                     android:layout_marginRight="12dp"
-                    android:background="@drawable/google_connect" />
+                    android:background="@drawable/google_connect2" />
 
 
                 <Button
@@ -97,7 +97,7 @@
                     android:layout_width="112dp"
                     android:layout_height="48dp"
                     android:layout_marginLeft="12dp"
-                    android:background="@drawable/email_sign_up" />
+                    android:background="@drawable/email_sign_up2" />
 
 
             </LinearLayout>

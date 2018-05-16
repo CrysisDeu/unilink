@@ -18,6 +18,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     private static final String TAG = "StartActivity";
     private static final int RC_SIGN_IN = 9001;
+    private ImageView mSignInLogo;
     private CardView mStartCard;
     private LinearLayout mStartLayoutContainer;
     private Button mGoogleSignInButton;
@@ -55,6 +57,9 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        //logo
+        mSignInLogo = findViewById(R.id.sign_in_logo);
 
         // start card
         mStartCard = findViewById(R.id.sign_in_card);
@@ -144,7 +149,10 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         // Duration of animation
         fadeOutAnimation.setDuration(225);
         mStartLayoutContainer.startAnimation(fadeOutAnimation);
+        mSignInLogo.startAnimation(fadeOutAnimation);
         mStartLayoutContainer.setVisibility(View.GONE);
+        mSignInLogo.setVisibility(View.GONE);
+
     }
     private void resizeAnimation (View view, int target, int duration) {
         ResizeAnimation resizeAnimation = new ResizeAnimation(
