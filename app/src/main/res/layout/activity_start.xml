@@ -71,9 +71,17 @@
         android:animateLayoutChanges="true"
         tools:layout_editor_absoluteX="32dp">
 
+        <LinearLayout
+            android:id="@+id/sign_in_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="invisible">
+        </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/sign_in_card_container"
+            android:id="@+id/start_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -82,8 +90,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/google_sign_in_button"
                     android:layout_width="112dp"
@@ -101,37 +110,39 @@
 
 
             </LinearLayout>
+
             <LinearLayout
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="92dp"
                     android:layout_height="1dp"
-                    android:background="#BBBBBB"
+                    android:layout_gravity="center_vertical"
 
-                    android:layout_gravity="center_vertical">
-                </LinearLayout>
+                    android:background="#BBBBBB"></LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_gravity="center_vertical"
                     android:text="OR"
                     android:textColor="#BBBBBB"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
+
                 <LinearLayout
                     android:layout_width="92dp"
                     android:layout_height="1dp"
-                    android:background="#BBBBBB"
-                    android:layout_gravity="center_vertical">
-                </LinearLayout>
+                    android:layout_gravity="center_vertical"
+                    android:background="#BBBBBB"></LinearLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/sign_in_prompt"
                 android:layout_width="match_parent"
@@ -154,19 +165,15 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
-                        android:textColor="#003F9F"
-                        android:text="Sign in" />
+                        android:text="Sign in"
+                        android:textColor="#003F9F" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
 
-
-
-
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
 
 </android.support.constraint.ConstraintLayout>
