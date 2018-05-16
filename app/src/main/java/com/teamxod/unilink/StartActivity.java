@@ -53,9 +53,11 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     //sign-up card
     private LinearLayout mSignUpContainer;
+    private ImageView mCancleSignUpButton;
 
     //sign-in card
     private LinearLayout mSignInContainer;
+    private ImageView mCancleSignInButton;
 
 
     //firebase
@@ -81,12 +83,12 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         // sign-up card
         mSignUpContainer = findViewById(R.id.sign_up_container);
         mSignUpButton = findViewById(R.id.email_sign_up);
+        mCancleSignUpButton = findViewById(R.id.cancle_sign_up_button);
 
         // sign-in card
         mSignInContainer = findViewById(R.id.sign_in_container);
         mSignInButton = findViewById(R.id.sign_in_button);
-
-
+        mCancleSignInButton = findViewById(R.id.cancle_sign_in_button);
 
 
         // Define the animators
@@ -127,7 +129,22 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        //SignIn onClick
+        //Cancle SignUp onClick
+        mCancleSignUpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                //fadeout and resize
+                FadeOutAnimation(mSignUpContainer,225);
+                resizeAnimation(mStartCard,dpToPx(-200),450);
+                FadeInAnimation(mStartContainer,225);
+                FadeInAnimation(mSignInLogo,300);
+
+            }
+        });
+
+
+                //SignIn onClick
         mSignInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -142,6 +159,18 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+        //Cancle SignIn onClick
+        mCancleSignInButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                //fadeout and resize
+                FadeOutAnimation(mSignInContainer,225);
+                resizeAnimation(mStartCard,dpToPx(-136),450);
+                FadeInAnimation(mStartContainer,225);
+
+            }
+        });
 
         /*fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationStart(Animation animation) {}
@@ -277,6 +306,11 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        moveTaskToBack(true);
+    }
 
     //helper method
     private int dpToPx (int dp) {

@@ -61,7 +61,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/sign_in_card"
         android:layout_width="296dp"
-        android:layout_height="136dp"
+        android:layout_height="144dp"
         android:layout_marginBottom="64dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
@@ -78,6 +78,14 @@
             android:orientation="vertical"
             android:padding="24dp"
             android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/cancle_sign_in_button"
+                android:layout_height="32dp"
+                android:layout_width="32dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="-24dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -125,6 +133,14 @@
             android:orientation="vertical"
             android:padding="24dp"
             android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/cancle_sign_up_button"
+                android:layout_height="32dp"
+                android:layout_width="32dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="-24dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -246,6 +262,7 @@
                 android:id="@+id/sign_in_prompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
