@@ -31,10 +31,6 @@
         <activity android:name=".StartActivity" />
         <activity android:name=".my_change_profile" />
         <activity android:name=".SingleHousePostActivity" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAOPazI_4H_bsrwNtlTJmblI-xQdpyyvFM"/>
     </application>
 
 </manifest>
