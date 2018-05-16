@@ -12,4 +12,5 @@
         android:layout_height="151dp"
         android:text="THIS IS YOUR FAVORITE LIST"
         android:textSize="30sp" />
+
 </android.support.design.widget.CoordinatorLayout>

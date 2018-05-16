@@ -2,12 +2,16 @@ package com.teamxod.unilink;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -61,14 +65,14 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         LinearLayout mSignInCard = new LinearLayout(this);
         mSignInCard.setOrientation(LinearLayout.VERTICAL);
         mSignInCard.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        TextView valueTV = new TextView(this);
-        valueTV.setText("Email");
-        valueTV.setId(1);
-        valueTV.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
-        mStartCard.addView(valueTV);
-        //EditText newEmail = new EditText(mSignInCard,);
+
+        EditText emailInput = createEditText("email");
+        emailInput.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        EditText passwordInput = createEditText("password");
+        passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        mSignInCard.addView(emailInput);
+        mSignInCard.addView(passwordInput);
+        mStartCard.addView(mSignInCard);
 
 
         // sign-up card
@@ -97,6 +101,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         // Initialize FirebaseAuth
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        //email on click
         mEmailSignUpButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -117,6 +122,20 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     }
 
+
+    //
+    private EditText createEditText (String hint) {
+        EditText newInputView = new EditText(this);
+        newInputView.setHint(hint);
+        newInputView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        newInputView.setMaxLines(1);
+        return newInputView;
+    }
+
+    //Animation helpers
     private void startFadeOut () {
         // Define the animators
         final Animation fadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
@@ -138,6 +157,8 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         resizeAnimation.setDuration(duration);
         view.startAnimation(resizeAnimation);
     }
+
+
     private void handleFirebaseAuthResult(AuthResult authResult) {
         if (authResult != null) {
             // Welcome the user
@@ -218,4 +239,11 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
+
+    //helper method
+    private int dpToPx (int dp) {
+        Resources r = getResources();
+        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+        return px;
+    }
 }
