@@ -110,6 +110,68 @@
                 android:hint="666666"/>
 
             <Button
+                android:id="@+id/confirm_sign_in"
+                android:layout_width="112dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/email_sign_up2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sign_up_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="E-mail"/>
+
+            <EditText
+                android:id="@+id/email_sign_up_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="myname@unilink.com"/>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="Password"/>
+
+            <EditText
+                android:id="@+id/password_sign_up_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="666666"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Re-enter Password"/>
+
+            <EditText
+                android:id="@+id/password_reenter_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="666666"/>
+
+            <Button
                 android:id="@+id/confirm_sign_up"
                 android:layout_width="112dp"
                 android:layout_height="48dp"
@@ -198,6 +260,7 @@
                         android:text="Already have an account?" />
 
                     <TextView
+                        android:id="@+id/sign_in_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="4dp"

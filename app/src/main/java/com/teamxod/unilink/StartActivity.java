@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -47,8 +48,11 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     private CardView mStartCard;
     private LinearLayout mStartContainer;
     private Button mGoogleSignInButton;
-    private Button mEmailSignUpButton;
-    private LinearLayout mSignInPrompt;
+    private Button mSignUpButton;
+    private TextView mSignInButton;
+
+    //sign-up card
+    private LinearLayout mSignUpContainer;
 
     //sign-in card
     private LinearLayout mSignInContainer;
@@ -71,27 +75,19 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         // start card
         mStartContainer = findViewById(R.id.start_container);
         mGoogleSignInButton =  findViewById(R.id.google_sign_in_button);
-        mEmailSignUpButton = findViewById(R.id.email_sign_up);
-        mSignInPrompt = findViewById(R.id.sign_in_prompt);
-
-
-
-        // sign-in card
-        mSignInContainer = findViewById(R.id.sign_in_container);
-        /*final LinearLayout mSignInCard = new LinearLayout(this);
-        mSignInCard.setOrientation(LinearLayout.VERTICAL);
-        mSignInCard.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));*/
-
-        /*EditText emailInput = createEditText("email");
-        emailInput.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        EditText passwordInput = createEditText("password");
-        passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        mSignInContainer.addView(emailInput);
-        mSignInContainer.addView(passwordInput);*/
-        //mStartCard.addView(mSignInCard);*/
+        mSignUpButton = findViewById(R.id.email_sign_up);
 
 
         // sign-up card
+        mSignUpContainer = findViewById(R.id.sign_up_container);
+        mSignUpButton = findViewById(R.id.email_sign_up);
+
+        // sign-in card
+        mSignInContainer = findViewById(R.id.sign_in_container);
+        mSignInButton = findViewById(R.id.sign_in_button);
+
+
+
 
         // Define the animators
         final Animation fadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
@@ -117,8 +113,22 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         // Initialize FirebaseAuth
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        //email on click
-        mEmailSignUpButton.setOnClickListener(new View.OnClickListener(){
+        //SignUp onClick
+        mSignUpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                //fadeout and resize
+                FadeOutAnimation(mStartContainer,225);
+                FadeOutAnimation(mSignInLogo,300);
+                resizeAnimation(mStartCard,dpToPx(200),450);
+                FadeInAnimation(mSignUpContainer,225);
+
+            }
+        });
+
+        //SignIn onClick
+        mSignInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
@@ -126,12 +136,13 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 FadeOutAnimation(mStartContainer,225);
                 //FadeOutAnimation(mSignInLogo,300);
                 resizeAnimation(mStartCard,dpToPx(136),450);
-                //sign-in card test
                 mSignInContainer = findViewById(R.id.sign_in_container);
                 FadeInAnimation(mSignInContainer,225);
 
             }
         });
+
+
         /*fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationStart(Animation animation) {}
             public void onAnimationRepeat(Animation animation) {}
