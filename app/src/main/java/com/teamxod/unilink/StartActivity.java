@@ -42,6 +42,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     private static final String TAG = "StartActivity";
     private static final int RC_SIGN_IN = 9001;
     private CardView mStartCard;
+    private LinearLayout mStartLayoutContainer;
     private Button mGoogleSignInButton;
     private Button mEmailSignUpButton;
     private LinearLayout mSignInPrompt;
@@ -57,6 +58,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
         // start card
         mStartCard = findViewById(R.id.sign_in_card);
+        mStartLayoutContainer = findViewById(R.id.sign_in_card_container);
         mGoogleSignInButton =  findViewById(R.id.google_sign_in_button);
         mEmailSignUpButton = findViewById(R.id.email_sign_up);
         mSignInPrompt = findViewById(R.id.sign_in_prompt);
@@ -72,7 +74,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         passwordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
         mSignInCard.addView(emailInput);
         mSignInCard.addView(passwordInput);
-        mStartCard.addView(mSignInCard);
+        //mStartCard.addView(mSignInCard);
 
 
         // sign-up card
@@ -141,12 +143,8 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         final Animation fadeOutAnimation = new AlphaAnimation(1.0f, 0.0f);
         // Duration of animation
         fadeOutAnimation.setDuration(225);
-        mGoogleSignInButton.startAnimation(fadeOutAnimation);
-        mEmailSignUpButton.startAnimation(fadeOutAnimation);
-        mSignInPrompt.startAnimation(fadeOutAnimation);
-        mGoogleSignInButton.setVisibility(View.GONE);
-        mEmailSignUpButton.setVisibility(View.GONE);
-        mSignInPrompt.setVisibility(View.GONE);
+        mStartLayoutContainer.startAnimation(fadeOutAnimation);
+        mStartLayoutContainer.setVisibility(View.GONE);
     }
     private void resizeAnimation (View view, int target, int duration) {
         ResizeAnimation resizeAnimation = new ResizeAnimation(

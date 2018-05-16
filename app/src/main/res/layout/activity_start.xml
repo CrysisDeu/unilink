@@ -61,7 +61,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/sign_in_card"
         android:layout_width="296dp"
-        android:layout_height="128dp"
+        android:layout_height="136dp"
         android:layout_marginBottom="64dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
@@ -72,41 +72,76 @@
         tools:layout_editor_absoluteX="32dp">
 
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/sign_in_card_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-            <Button
-                android:id="@+id/google_sign_in_button"
-                android:layout_width="112dp"
-                android:layout_height="48dp"
-                android:layout_margin="24dp"
-                android:layout_marginStart="24dp"
-                android:background="@drawable/google_connect" />
-
-
-            <Button
-                android:id="@+id/email_sign_up"
-                android:layout_width="112dp"
-                android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/google_sign_in_button"
-                android:layout_marginEnd="24dp"
-                android:background="@drawable/email_sign_up" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+                <Button
+                    android:id="@+id/google_sign_in_button"
+                    android:layout_width="112dp"
+                    android:layout_height="48dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/google_connect" />
 
 
+                <Button
+                    android:id="@+id/email_sign_up"
+                    android:layout_width="112dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/email_sign_up" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center_horizontal">
+
+                <LinearLayout
+                    android:layout_width="92dp"
+                    android:layout_height="1dp"
+                    android:background="#BBBBBB"
+
+                    android:layout_gravity="center_vertical">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="OR"
+                    android:textColor="#BBBBBB"
+                    android:textSize="11sp"/>
+                <LinearLayout
+                    android:layout_width="92dp"
+                    android:layout_height="1dp"
+                    android:background="#BBBBBB"
+                    android:layout_gravity="center_vertical">
+                </LinearLayout>
+
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/sign_in_prompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom='true'
-                android:layout_margin="16dp">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <TextView
@@ -127,7 +162,10 @@
             </LinearLayout>
 
 
-        </RelativeLayout>
+
+
+
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 
