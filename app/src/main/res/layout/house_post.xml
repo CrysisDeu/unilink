@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,9 +8,9 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_width="match_parent">
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,13 +21,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp">
 
-                <ImageView
+                <android.support.v4.view.ViewPager
                     android:id="@+id/house_image"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/black"
-                    android:src="@drawable/default_image"
-                    android:contentDescription="@string/house_image"/>
+                    android:layout_height="match_parent">
+                </android.support.v4.view.ViewPager>
 
                 <ImageButton
                     android:id="@+id/house_button_favourite"
@@ -38,7 +36,7 @@
                     android:layout_marginEnd="@dimen/large_margin"
                     android:layout_marginTop="@dimen/small_margin"
                     android:background="@drawable/icon_empty_heart"
-                    android:contentDescription="@string/Favorite" />
+                    android:contentDescription="@string/button_favorite" />
 
                 <ImageButton
                     android:id="@+id/house_button_share"
@@ -73,7 +71,7 @@
                 android:textSize="@dimen/m_font_size"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                tools:text="3B2B · Town House" />
+                android:text="3B2B · Town House" />
 
             <TextView
                 style="@style/house_content"
@@ -83,7 +81,7 @@
                 android:textSize="@dimen/l_font_size"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                tools:text="Beautiful Town House in a Quiet Area Near UTC" />
+                android:text="Beautiful Town House in a Quiet Area Near UTC" />
 
             <RelativeLayout
                 style="@style/house_content"
@@ -106,7 +104,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/m_font_size"
                         android:fontFamily="@font/roboto_thin"
-                        tools:text="Costa Verde, San Diego" />
+                        android:text="Costa Verde, San Diego" />
 
                     <TextView
                         android:id="@+id/house_poster"
@@ -117,7 +115,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/m_font_size"
                         android:fontFamily="@font/roboto_thin"
-                        tools:text="posted by kevin" />
+                        android:text="posted by kevin" />
 
                 </LinearLayout>
 
@@ -158,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/s_font_size"
                 android:textColor="@color/black"
-                tools:text="this is the sample display UI for house post, not completed yet. lot of parts is under construction" />
+                android:text="this is the sample display UI for house post, not completed yet. lot of parts is under construction" />
 
             <TextView
                 style="@style/subtitle"
@@ -185,6 +183,150 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
+                <LinearLayout
+                    android:id="@+id/house_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/middle_icon_side"
+                            android:layout_height="@dimen/middle_icon_side"
+                            android:src="@drawable/icon_tv"
+                            android:contentDescription="@string/tv"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal|top"
+                            android:textSize="@dimen/s_font_size"
+                            android:fontFamily="@font/roboto_thin"
+                            android:textColor="@color/black"
+                            android:text="@string/tv"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/house_wifi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/middle_icon_side"
+                        android:layout_height="@dimen/middle_icon_side"
+                        android:src="@drawable/icon_wifi"
+                        android:contentDescription="@string/wifi"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|top"
+                        android:textSize="@dimen/s_font_size"
+                        android:fontFamily="@font/roboto_thin"
+                        android:textColor="@color/black"
+                        android:text="@string/wifi"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/house_bus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/middle_icon_side"
+                        android:layout_height="@dimen/middle_icon_side"
+                        android:src="@drawable/icon_bus"
+                        android:contentDescription="@string/bus"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|top"
+                        android:textSize="@dimen/s_font_size"
+                        android:fontFamily="@font/roboto_thin"
+                        android:textColor="@color/black"
+                        android:text="@string/bus"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/house_gym"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/middle_icon_side"
+                        android:layout_height="@dimen/middle_icon_side"
+                        android:src="@drawable/icon_gym"
+                        android:contentDescription="@string/gym"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|top"
+                        android:textSize="@dimen/s_font_size"
+                        android:fontFamily="@font/roboto_thin"
+                        android:textColor="@color/black"
+                        android:text="@string/gym"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/house_game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/middle_icon_side"
+                        android:layout_height="@dimen/middle_icon_side"
+                        android:src="@drawable/icon_game"
+                        android:contentDescription="@string/game"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|top"
+                        android:textSize="@dimen/s_font_size"
+                        android:fontFamily="@font/roboto_thin"
+                        android:textColor="@color/black"
+                        android:text="@string/game"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/house_ac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/middle_icon_side"
+                        android:layout_height="@dimen/middle_icon_side"
+                        android:src="@drawable/icon_ac"
+                        android:contentDescription="@string/AC"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|top"
+                        android:textSize="@dimen/s_font_size"
+                        android:fontFamily="@font/roboto_thin"
+                        android:textColor="@color/black"
+                        android:text="@string/AC"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <TextView
@@ -197,7 +339,7 @@
                 style="@style/house_content"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                tools:src="@drawable/my_bg" />
+                android:src="@drawable/my_bg" />
 
 
         </LinearLayout>
@@ -207,16 +349,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_weight="0"
-        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@drawable/shadow_bar"
-        android:layout_gravity="bottom">
+        android:orientation="horizontal"
+        android:alpha="0.92">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/large_margin"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -230,18 +373,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="bottom"
-                    android:textSize="@dimen/m_font_size"
+                    android:text="$ 1000 "
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    tools:text="$ 1000 " />
+                    android:textSize="@dimen/m_font_size"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="bottom"
-                    android:textSize="@dimen/m_font_size"
+                    android:text="@string/bottom_per_month"
                     android:textColor="@color/black"
-                    android:text="@string/bottom_per_month"/>
+                    android:textSize="@dimen/m_font_size" />
 
             </LinearLayout>
 
@@ -251,9 +394,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="top"
-                android:textSize="@dimen/m_font_size"
+                android:text="Annual Lease · Start in May"
                 android:textColor="@color/black"
-                tools:text="Annual Lease · Start in May" />
+                android:textSize="@dimen/m_font_size" />
 
         </LinearLayout>
 
@@ -262,17 +405,16 @@
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginBottom="@dimen/small_margin"
             android:layout_marginEnd="@dimen/large_margin"
             android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/small_margin"
             android:background="@drawable/round_button"
-            android:textColor="@color/white"
             android:text="@string/button_contact"
+            android:textColor="@color/white"
             android:textSize="@dimen/m_font_size"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
