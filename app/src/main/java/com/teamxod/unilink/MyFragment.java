@@ -1,13 +1,18 @@
 package com.teamxod.unilink;
 
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,10 +29,20 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_my, container, false); // get the GUI
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         // change name
-        final TextView mTextView = (TextView) layout.findViewById(R.id.name);
-        if(FirebaseAuth.getInstance() != null) {
-            mTextView.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        final TextView mName = (TextView) layout.findViewById(R.id.name);
+        final ImageView mProfilePic = (ImageView) layout.findViewById(R.id.profile_pic);
+        if(mAuth != null) {
+            mName.setText(mAuth.getCurrentUser().getDisplayName());
+            Uri mPhoto = mAuth.getCurrentUser().getPhotoUrl();
+            if (mPhoto != null) {
+                Glide.with(this)
+                        .load(mPhoto)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(mProfilePic);
+            }
+
         }
 
         // my :

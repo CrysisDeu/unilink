@@ -10,7 +10,8 @@
         android:id="@+id/user_profile_image"
         android:layout_width="@dimen/large_icon_side"
         android:layout_height="@dimen/large_icon_side"
-        android:src="@drawable/my_bg" />
+        android:src="@drawable/my_bg"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/user_name"
