@@ -10,6 +10,7 @@
 
     <string name="house_image">house image</string>
     <string name="user_image">user image</string>
+    <string name="house_post">Post</string>
 
     <string name="description">Description</string>
     <string name="roommate">Roommates</string>
