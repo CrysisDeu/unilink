@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Unilink</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="unilink_cap">UNILINK</string>
+    <string name="welcome_to">WELCOME TO</string>
+    <string name="button_contact">Contact</string>
+    <string name="Favorite">Favorite</string>
+    <string name="bottom_per_month">per month</string>
+    <string name="house_image">house image</string>
+    <string name="user_image">user image</string>
+    <string name="description">Description</string>
+    <string name="roommate">Roommates</string>
+    <string name="facility">Facilities</string>
+    <string name="location">Location</string>
+    <string name="available_room">Available Rooms</string>
+    <string name="button_back">Back button</string>
+    <string name="button_share">Share button</string>
+</resources>

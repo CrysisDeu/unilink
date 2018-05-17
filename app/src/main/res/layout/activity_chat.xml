@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#6d48e5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:fontFamily="@font/roboto"
+        android:text="USER NAME"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/l_font_size"
+        android:textStyle="bold" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/scrollView">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/layout1">
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/message_bottom"
+        android:paddingHorizontal="8dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/photoPickerButton"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_image"
+            android:layout_weight="4"/>
+
+        <EditText
+            android:id="@+id/messageEditText"
+            android:layout_width="270dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="12dp"
+            android:background="@drawable/round_rect_shape" />
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+
+            android:background="@drawable/ic_send_message"
+
+            />
+
+    </LinearLayout>
+
+</>

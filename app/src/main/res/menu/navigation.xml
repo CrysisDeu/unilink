@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_housing"
+        android:icon="@drawable/ic_home"
+        android:title="House" />
+
+    <item
+        android:id="@+id/navigation_roommate"
+        android:icon="@drawable/ic_people"
+        android:title="Roommate" />
+
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/ic_chat"
+        android:title="Chat" />
+
+    <item
+        android:id="@+id/navigation_my"
+        android:icon="@drawable/ic_account"
+        android:title="My" />
+
+</menu>

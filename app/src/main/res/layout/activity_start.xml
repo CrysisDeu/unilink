@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StartActivity">
+
+    <ImageView
+        android:id="@+id/sign_in_background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:foreground="@drawable/splash_gradient"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splash_background"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <LinearLayout
+        android:id="@+id/welcome_to_unilink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_horizontal"
+            android:letterSpacing="0.285"
+            android:text="@string/welcome_to"
+            android:textColor="@android:color/background_light"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/roboto_black"
+            android:letterSpacing="0.222"
+            android:text="@string/unilink_cap"
+            android:textColor="@android:color/background_light"
+            android:textSize="36dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/sign_in_logo"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_card"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_to_unilink"
+        app:layout_constraintVertical_bias="0.40"
+        app:srcCompat="@drawable/logo_white" />
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/sign_in_card"
+        android:layout_width="296dp"
+        android:layout_height="128dp"
+        android:layout_marginBottom="64dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_in_background"
+        android:animateLayoutChanges="true"
+        tools:layout_editor_absoluteX="32dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/google_sign_in_button"
+                android:layout_width="112dp"
+                android:layout_height="48dp"
+                android:layout_margin="24dp"
+                android:layout_marginStart="24dp"
+                android:background="@drawable/google_connect" />
+
+
+            <Button
+                android:id="@+id/email_sign_up"
+                android:layout_width="112dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/google_sign_in_button"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/email_sign_up" />
+
+
+            <LinearLayout
+                android:id="@+id/sign_in_prompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom='true'
+                android:layout_margin="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Already have an account?" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:textColor="#003F9F"
+                        android:text="Sign in" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</android.support.constraint.ConstraintLayout>
