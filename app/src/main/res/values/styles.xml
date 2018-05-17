@@ -33,7 +33,7 @@
         <item name="android:textSize">@dimen/m_font_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:layout_marginTop">@dimen/xlarge_margin</item>
+        <item name="android:layout_marginTop">@dimen/xxlarge_margin</item>
         <item name="android:layout_marginBottom">@dimen/small_margin</item>
     </style>
 
