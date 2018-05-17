@@ -24,17 +24,24 @@ public class MyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_my, container, false); // get the GUI
 
-        // GoogleApiClient to logout
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity
-                //.enableAutoManage(this /* FragmentActivity */, connectionFailedListener)
-                .addApi(Auth.GOOGLE_SIGN_IN_API)
-                .build();
+        // change name
+        final TextView mTextView = (TextView) layout.findViewById(R.id.name);
+        if(FirebaseAuth.getInstance() != null) {
+            mTextView.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        }
 
         // my :
         my_favorite = (TextView) layout.findViewById(R.id.my_favorite);
         my_post = (TextView) layout.findViewById(R.id.my_post);
         changePassword = (TextView) layout.findViewById(R.id.changePassword);
         logout = (TextView) layout.findViewById(R.id.logout);
+
+        // GoogleApiClient to logout
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity
+                //.enableAutoManage(this /* FragmentActivity */, connectionFailedListener)
+                .addApi(Auth.GOOGLE_SIGN_IN_API)
+                .build();
+
 
         // set on click
         my_favorite.setOnClickListener(new View.OnClickListener(){
