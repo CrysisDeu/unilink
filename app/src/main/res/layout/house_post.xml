@@ -44,7 +44,7 @@
                     android:layout_height="@dimen/small_icon_side"
                     android:layout_alignEnd="@id/house_button_favourite"
                     android:layout_alignParentTop="true"
-                    android:layout_marginEnd="@dimen/xlarge_margin"
+                    android:layout_marginEnd="@dimen/xxlarge_margin"
                     android:layout_marginTop="@dimen/small_margin"
                     android:background="@drawable/icon_share"
                     android:contentDescription="@string/button_share" />
@@ -103,7 +103,7 @@
                         android:gravity="bottom"
                         android:textColor="@color/black"
                         android:textSize="@dimen/m_font_size"
-                        android:fontFamily="@font/roboto_thin"
+                        android:fontFamily="sans-serif-light"
                         android:text="Costa Verde, San Diego" />
 
                     <TextView
@@ -114,18 +114,18 @@
                         android:gravity="top"
                         android:textColor="@color/black"
                         android:textSize="@dimen/m_font_size"
-                        android:fontFamily="@font/roboto_thin"
+                        android:fontFamily="sans-serif-light"
                         android:text="posted by kevin" />
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/house_landlord_image"
+                <com.teamxod.unilink.CircularImageView
+                    android:id="@+id/House_profile_image"
                     android:layout_width="@dimen/large_icon_side"
                     android:layout_height="@dimen/large_icon_side"
-                    android:layout_alignParentEnd="true"
-                    app:srcCompat="@drawable/ic_account"
-                    android:contentDescription="@string/user_image" />
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/my_bg"
+                    android:layout_alignParentEnd="true" />
 
             </RelativeLayout>
 
@@ -164,12 +164,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/roommate" />
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 style="@style/house_content"
                 android:id="@+id/roommate_list"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                android:layout_height="wrap_content"/>
 
             <TextView
                 style="@style/subtitle"
@@ -201,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal|top"
                             android:textSize="@dimen/s_font_size"
-                            android:fontFamily="@font/roboto_thin"
+                            android:fontFamily="sans-serif-light"
                             android:textColor="@color/black"
                             android:text="@string/tv"/>
 
@@ -225,7 +224,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal|top"
                         android:textSize="@dimen/s_font_size"
-                        android:fontFamily="@font/roboto_thin"
+                        android:fontFamily="sans-serif-light"
                         android:textColor="@color/black"
                         android:text="@string/wifi"/>
 
@@ -249,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal|top"
                         android:textSize="@dimen/s_font_size"
-                        android:fontFamily="@font/roboto_thin"
+                        android:fontFamily="sans-serif-light"
                         android:textColor="@color/black"
                         android:text="@string/bus"/>
 
@@ -273,7 +272,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal|top"
                         android:textSize="@dimen/s_font_size"
-                        android:fontFamily="@font/roboto_thin"
+                        android:fontFamily="sans-serif-light"
                         android:textColor="@color/black"
                         android:text="@string/gym"/>
 
@@ -297,7 +296,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal|top"
                         android:textSize="@dimen/s_font_size"
-                        android:fontFamily="@font/roboto_thin"
+                        android:fontFamily="sans-serif-light"
                         android:textColor="@color/black"
                         android:text="@string/game"/>
 
@@ -321,7 +320,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal|top"
                         android:textSize="@dimen/s_font_size"
-                        android:fontFamily="@font/roboto_thin"
+                        android:fontFamily="sans-serif-light"
                         android:textColor="@color/black"
                         android:text="@string/AC"/>
 

@@ -3,7 +3,8 @@
     <dimen name="small_margin">8dp</dimen>
     <dimen name="middle_margin">12dp</dimen>
     <dimen name="large_margin">16dp</dimen>
-    <dimen name="xlarge_margin">32dp</dimen>
+    <dimen name="xlarge_margin">24dp</dimen>
+    <dimen name="xxlarge_margin">32dp</dimen>
     <dimen name="small_icon_side">24dp</dimen>
     <dimen name="middle_icon_side">36dp</dimen>
     <dimen name="large_icon_side">64dp</dimen>

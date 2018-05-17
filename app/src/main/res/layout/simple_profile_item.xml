@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_marginEnd="@dimen/large_margin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.teamxod.unilink.CircularImageView
+        android:id="@+id/user_profile_image"
+        android:layout_width="@dimen/large_icon_side"
+        android:layout_height="@dimen/large_icon_side"
+        android:src="@drawable/my_bg" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/m_font_size"
+        android:fontFamily="sans-serif-light"
+        tools:text="kevin"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/user_school_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/m_font_size"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center_horizontal"
+        tools:text="2nd Year"/>
+
+</LinearLayout>
