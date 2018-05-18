@@ -15,10 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SearchView;
 
 
 import java.util.ArrayList;
@@ -26,10 +24,11 @@ import java.util.ArrayList;
 public class HousingFragment extends Fragment {
 
     ListView listView;
-    LinearLayout searchbar;
+    LinearLayout searchBar;
     Button filterButton;
     View header;
-    int touchSlop=5;
+    int touchSlop = 5;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_housing, container, false); // get the GUI
@@ -46,7 +45,7 @@ public class HousingFragment extends Fragment {
 
         //initialize
         listView = (ListView) layout.findViewById(R.id.list_view);
-        searchbar = layout.findViewById(R.id.searchView);
+        searchBar = layout.findViewById(R.id.searchView);
         filterButton = layout.findViewById(R.id.filter);
 
         listView.setAdapter(adapter);
@@ -93,7 +92,7 @@ public class HousingFragment extends Fragment {
         } else {
             backAnimatorSet = new AnimatorSet();
             //move the element back to originial position
-            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchbar, "translationY", searchbar.getTranslationY(), 0f);
+            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchBar, "translationY", searchBar.getTranslationY(), 0f);
             //ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), 0f);
 
             //add animator object to arraylist
@@ -121,7 +120,7 @@ public class HousingFragment extends Fragment {
 
         } else {
             hideAnimatorSet = new AnimatorSet();
-            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchbar, "translationY", searchbar.getTranslationY(), -2*searchbar.getHeight());
+            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchBar, "translationY", searchBar.getTranslationY(), -2* searchBar.getHeight());
             //ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), -0.11f*listView.getHeight());
 
             ArrayList<Animator> animators = new ArrayList<>();

@@ -3,36 +3,41 @@ package com.teamxod.unilink;
 import java.util.ArrayList;
 
 public class User {
-    private String userPhoto;
+    private int userPhoto;
     private String name;
     private String gender;
-    private int year_of_grad;
+    private String yearGraduate;
     private ArrayList <Integer> favorite_houses;
     private ArrayList <Integer> my_house_posts;
     private ArrayList <Integer> favorite_roommates;
     private ArrayList <Integer> my_roommate_posts;
 
+    //temporary constructor
     public User() {
+        name = "Kevin";
+        gender = "male";
+        userPhoto = R.drawable.my_bg;
+        yearGraduate = "Sophomore";
     }
 
-    public User(String userPhoto, String name, String gender, int year_of_grad,
+    public User(int userPhoto, String name, String gender, String yearGraduate,
                 ArrayList <Integer> favorite_houses, ArrayList <Integer> my_house_posts,
                 ArrayList <Integer>favorite_roommates, ArrayList <Integer> my_roommate_posts) {
         this.userPhoto = userPhoto;
         this.name = name;
         this.gender = gender;
-        this.year_of_grad = year_of_grad;
+        this.yearGraduate = yearGraduate;
         this.favorite_houses = favorite_houses;
         this.my_house_posts = my_house_posts;
         this.favorite_roommates = favorite_roommates;
         this. my_roommate_posts = my_roommate_posts;
     }
 
-    public String getUserPhoto() {
+    public int getUserPhoto() {
         return userPhoto;
     }
 
-    public void setUserPhoto(String photoUrl) {
+    public void setUserPhoto(int photoUrl) {
         this.userPhoto = photoUrl;
     }
 
@@ -52,12 +57,12 @@ public class User {
         this.gender = gender;
     }
 
-    public int getYear_of_grad() {
-        return year_of_grad;
+    public String getYearGraduate() {
+        return yearGraduate;
     }
 
-    public void setYear_of_grad(int year_of_grad) {
-        this.year_of_grad = year_of_grad;
+    public void setYearGraduate(String yearGraduate) {
+        this.yearGraduate = yearGraduate;
     }
 
     //FIXME

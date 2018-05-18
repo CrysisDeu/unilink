@@ -17,15 +17,65 @@ public class House {
 
     private String houseDescription;
 
-    private ArrayList<String> housePictures;
+    private ArrayList<Integer> housePictures;
 
     private ArrayList<Room> rooms;
 
-    private boolean pet;
+    private boolean tv;
+
+    private boolean wifi;
+
+    private boolean bus;
+
+    private boolean gym;
+
+    private boolean ac;
+
+    private boolean game;
+
+    public boolean hasWifi() {
+        return wifi;
+    }
+
+    public void setWifi(boolean wifi) {
+        this.wifi = wifi;
+    }
+
+    public boolean hasBus() {
+        return bus;
+    }
+
+    public void setBus(boolean bus) {
+        this.bus = bus;
+    }
+
+    public boolean hasGym() {
+        return gym;
+    }
+
+    public void setGym(boolean gym) {
+        this.gym = gym;
+    }
+
+    public boolean hasAc() {
+        return ac;
+    }
+
+    public void setAc(boolean ac) {
+        this.ac = ac;
+    }
+
+    public boolean hasGame() {
+        return game;
+    }
+
+    public void setGame(boolean game) {
+        this.game = game;
+    }
 
 
     //public constructor
-    public House(String postId, String posterId, String houseType, String name, String houseDescription, ArrayList<String> housePictures, ArrayList<Room> rooms, boolean pet) {
+    public House() {
         this.postId = postId;
         this.posterId = posterId;
         this.houseType = houseType;
@@ -33,7 +83,12 @@ public class House {
         this.houseDescription = houseDescription;
         this.housePictures = housePictures;
         this.rooms = rooms;
-        this.pet = pet;
+        this.tv = tv;
+        this.wifi = wifi;
+        this.bus = bus;
+        this.gym = gym;
+        this.ac = ac;
+        this.game = game;
     }
 
 
@@ -62,7 +117,7 @@ public class House {
         return houseDescription;
     }
 
-    public ArrayList<String> getHousePictures() {
+    public ArrayList<Integer> getHousePictures() {
         return housePictures;
     }
 
@@ -70,8 +125,8 @@ public class House {
         return rooms;
     }
 
-    public boolean AllowPet() {
-        return pet;
+    public boolean hasTv() {
+        return tv;
     }
 
 
@@ -88,11 +143,11 @@ public class House {
         location = newLocation;
     }
 
-    public void addPicture(String newPicture) {
+    public void addPicture(Integer newPicture) {
         housePictures.add(newPicture);
     }
 
-    public void removePicture(String Picture) {
+    public void removePicture(Integer Picture) {
         housePictures.remove(Picture);
     }
 
@@ -108,8 +163,8 @@ public class House {
         rooms.remove(room);
     }
 
-    public void setPet(boolean pet) {
-        this.pet = pet;
+    public void setTv(boolean tv) {
+        this.tv = tv;
     }
 
 }

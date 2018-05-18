@@ -28,7 +28,7 @@ public class HousePostAdapter extends ArrayAdapter<HousePost> {
 
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.list_item, parent, false);
+                    R.layout.house_list_item, parent, false);
         }
 
         HousePost my_post= (HousePost) getItem(position);

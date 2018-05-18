@@ -5,16 +5,28 @@
     <string name="title_notifications">Notifications</string>
     <string name="unilink_cap">UNILINK</string>
     <string name="welcome_to">WELCOME TO</string>
-    <string name="button_contact">Contact</string>
-    <string name="Favorite">Favorite</string>
+
     <string name="bottom_per_month">per month</string>
+
     <string name="house_image">house image</string>
     <string name="user_image">user image</string>
+    <string name="house_post">Post</string>
+
     <string name="description">Description</string>
     <string name="roommate">Roommates</string>
     <string name="facility">Facilities</string>
     <string name="location">Location</string>
     <string name="available_room">Available Rooms</string>
+
+    <string name="button_contact">Contact</string>
+    <string name="button_favorite">Favorite</string>
     <string name="button_back">Back button</string>
     <string name="button_share">Share button</string>
+
+    <string name="tv">TV</string>
+    <string name="bus">Bus</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="gym">Gym</string>
+    <string name="game">Game</string>
+    <string name="AC">AC</string>
 </resources>

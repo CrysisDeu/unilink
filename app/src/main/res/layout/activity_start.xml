@@ -61,7 +61,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/sign_in_card"
         android:layout_width="296dp"
-        android:layout_height="128dp"
+        android:layout_height="144dp"
         android:layout_marginBottom="64dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
@@ -71,64 +71,227 @@
         android:animateLayoutChanges="true"
         tools:layout_editor_absoluteX="32dp">
 
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/sign_in_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/cancle_sign_in_button"
+                android:layout_height="32dp"
+                android:layout_width="32dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="-24dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="E-mail"/>
+
+            <EditText
+                android:id="@+id/email_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="myname@unilink.com"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Password"/>
+
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="666666"/>
 
             <Button
-                android:id="@+id/google_sign_in_button"
+                android:id="@+id/confirm_sign_in"
                 android:layout_width="112dp"
                 android:layout_height="48dp"
-                android:layout_margin="24dp"
-                android:layout_marginStart="24dp"
-                android:background="@drawable/google_connect" />
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/email_sign_up2" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/sign_up_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/cancle_sign_up_button"
+                android:layout_height="32dp"
+                android:layout_width="32dp"
+                android:layout_gravity="right"
+                android:layout_marginBottom="-24dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="E-mail"/>
+
+            <EditText
+                android:id="@+id/email_sign_up_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:hint="myname@unilink.com"/>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="Password"/>
+
+            <EditText
+                android:id="@+id/password_sign_up_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="666666"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="Re-enter Password"/>
+
+            <EditText
+                android:id="@+id/password_reenter_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="666666"/>
 
             <Button
-                android:id="@+id/email_sign_up"
+                android:id="@+id/confirm_sign_up"
                 android:layout_width="112dp"
                 android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/google_sign_in_button"
-                android:layout_marginEnd="24dp"
-                android:background="@drawable/email_sign_up" />
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/email_sign_up2" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/start_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/google_sign_in_button"
+                    android:layout_width="112dp"
+                    android:layout_height="48dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/google_connect2" />
+
+
+                <Button
+                    android:id="@+id/email_sign_up"
+                    android:layout_width="112dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/email_sign_up2" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="92dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="#BBBBBB"></LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="OR"
+                    android:textColor="#BBBBBB"
+                    android:textSize="11sp" />
+
+                <LinearLayout
+                    android:layout_width="92dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="#BBBBBB"></LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/sign_in_prompt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom='true'
-                android:layout_margin="16dp">
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="12dp"
                         android:text="Already have an account?" />
 
                     <TextView
+                        android:id="@+id/sign_in_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="4dp"
-                        android:paddingRight="4dp"
-                        android:textColor="#003F9F"
-                        android:text="Sign in" />
+                        android:paddingRight="16dp"
+                        android:text="Sign in"
+                        android:textColor="#003F9F" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
 
-        </RelativeLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
-
 
 </android.support.constraint.ConstraintLayout>
