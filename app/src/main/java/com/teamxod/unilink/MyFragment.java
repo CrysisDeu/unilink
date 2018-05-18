@@ -23,6 +23,7 @@ public class MyFragment extends Fragment {
     private TextView my_post;
     private TextView changePassword;
     private TextView logout;
+    private TextView changeProfile;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -50,6 +51,7 @@ public class MyFragment extends Fragment {
         my_post = (TextView) layout.findViewById(R.id.my_post);
         changePassword = (TextView) layout.findViewById(R.id.changePassword);
         logout = (TextView) layout.findViewById(R.id.logout);
+        changeProfile = (TextView) layout.findViewById(R.id.changeProfile);
 
         // GoogleApiClient to logout
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity
@@ -71,6 +73,14 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view){
                 Intent i = new Intent(getActivity(), My_post.class);
+                startActivity(i);
+            }
+        });
+
+        changeProfile.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(getActivity(), my_change_profile.class);
                 startActivity(i);
             }
         });
