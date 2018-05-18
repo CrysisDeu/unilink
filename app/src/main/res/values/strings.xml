@@ -12,9 +12,8 @@
     <string name="user_image">user image</string>
     <string name="house_post">Post</string>
 
-    <string name="description">Description</string>
     <string name="roommate">Roommates</string>
-    <string name="facility">Facilities</string>
+    <string name="facility">Facts and Features</string>
     <string name="location">Location</string>
     <string name="available_room">Available Rooms</string>
 

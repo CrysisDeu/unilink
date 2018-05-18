@@ -95,33 +95,30 @@
             </RelativeLayout>
 
             <TextView
+                style="@style/house_content"
+                android:id="@+id/house_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin"
+                android:text="this is the sample display UI for house post, not completed yet. lot of parts is under construction"
+                android:textColor="@color/black"
+                android:textSize="@dimen/s_font_size" />
+
+            <View style="@style/separate_line"/>
+
+            <TextView
                 style="@style/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/available_room" />
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/house_rooms"
                 style="@style/house_content"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                android:layout_height="wrap_content" />
 
-            <TextView
-                style="@style/subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/description" />
-
-            <TextView
-                android:id="@+id/house_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
-                android:text="this is the sample display UI for house post, not completed yet. lot of parts is under construction"
-                android:textColor="@color/black"
-                android:textSize="@dimen/s_font_size" />
+            <View style="@style/separate_line"/>
 
             <TextView
                 style="@style/subtitle"
@@ -130,10 +127,12 @@
                 android:text="@string/roommate" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/roommate_list"
+                android:id="@+id/house_roommate"
                 style="@style/house_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <View style="@style/separate_line"/>
 
             <TextView
                 style="@style/subtitle"
@@ -293,6 +292,8 @@
 
             </LinearLayout>
 
+            <View style="@style/separate_line"/>
+
             <TextView
                 style="@style/subtitle"
                 android:layout_width="match_parent"
@@ -393,11 +394,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/house_post"
+            android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#729EC3"
-            android:layout_centerInParent="true"/>
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/house_button_favourite"
@@ -407,19 +408,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/small_margin"
             android:layout_marginTop="@dimen/small_margin"
-            android:background="@drawable/icon_empty_heart"
+            android:background="@drawable/icon_more"
             android:contentDescription="@string/button_favorite" />
-
-        <ImageButton
-            android:id="@+id/house_button_share"
-            android:layout_width="@dimen/small_icon_side"
-            android:layout_height="@dimen/small_icon_side"
-            android:layout_alignEnd="@id/house_button_favourite"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="@dimen/xxlarge_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            android:background="@drawable/icon_share"
-            android:contentDescription="@string/button_share" />
 
         <ImageButton
             android:id="@+id/house_button_back"
