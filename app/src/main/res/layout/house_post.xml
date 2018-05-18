@@ -300,11 +300,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/location" />
 
-            <ImageView
-                style="@style/house_content"
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:id="@+id/house_map"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:src="@drawable/my_bg" />
+                android:layout_height="240dp"/>
 
             <ImageView
                 android:layout_width="match_parent"
