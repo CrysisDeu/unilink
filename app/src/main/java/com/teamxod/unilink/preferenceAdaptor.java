@@ -61,7 +61,9 @@ public class preferenceAdaptor extends ArrayAdapter<Question>{
         }
         Question preference = (Question)getItem(position);
         TextView q = (TextView)listItem.findViewById((R.id.question));
+        q.setText(preference.getQuestion());
         CheckBox checkBox = (CheckBox)listItem.findViewById(R.id.checkBox);
+
         return listItem;
     }
 }
