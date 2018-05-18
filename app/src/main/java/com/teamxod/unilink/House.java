@@ -76,19 +76,8 @@ public class House {
 
     //public constructor
     public House() {
-        this.postId = postId;
-        this.posterId = posterId;
-        this.houseType = houseType;
-        this.name = name;
-        this.houseDescription = houseDescription;
-        this.housePictures = housePictures;
-        this.rooms = rooms;
-        this.tv = tv;
-        this.wifi = wifi;
-        this.bus = bus;
-        this.gym = gym;
-        this.ac = ac;
-        this.game = game;
+        this.name = "Costa Verde";
+        this.location = "3465 Lebon Drive";
     }
 
 
