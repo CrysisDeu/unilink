@@ -24,14 +24,14 @@
                 android:src="@drawable/my_bg4"
                 android:scaleType="centerCrop"/>
 
-            <ImageView
+            <com.teamxod.unilink.CircularImageView
                 android:id="@+id/profile_pic"
-                android:layout_width="match_parent"
+                android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:layout_gravity="center_vertical"
+                android:layout_centerInParent="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="56dp"
-                app:srcCompat="@drawable/ic_male_profile_without_pic" />
+                android:src="@drawable/ic_male_profile_without_pic"/>
 
             <TextView
                 android:id="@+id/name"
@@ -193,12 +193,6 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class SingleHousePostActivity extends AppCompatActivity {
 
     private ViewPager housePicture;
-    private UserPictureAdapter userPictureAdapter;
     private RecyclerView roommateListView;
 
     @Override
@@ -32,7 +31,7 @@ public class SingleHousePostActivity extends AppCompatActivity {
         roommateList.add(new User());
         roommateList.add(new User());
 
-        roommateListView = (RecyclerView) findViewById(R.id.roommate_list);
+        roommateListView = (RecyclerView) findViewById(R.id.house_roommate);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         roommateListView.setLayoutManager(layoutManager);
         roommateListView.setHasFixedSize(true);
