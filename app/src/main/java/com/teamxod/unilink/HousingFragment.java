@@ -35,12 +35,12 @@ public class HousingFragment extends Fragment {
         //create an array of post
         ArrayList<HousePost> posts = new ArrayList<HousePost>();
         //posts.add(new HousePost());
-        posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla",R.drawable.my_bg));
-        posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way",R.drawable.my_bg2));
-        posts.add(new HousePost("single room", "beautiful room","$90090/MO","Gary's house",R.drawable.my_bg3));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego",R.drawable.ic_launcher_background));
+        posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg"));
+        posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg"));
+        posts.add(new HousePost("single room", "beautiful room","$90090/MO","Gary's house","https://vignette.wikia.nocookie.net/animal-jam-clans-1/images/e/ea/Chic-Rich-Houses-with-Pool.jpg"));
+        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://media.gettyimages.com/photos/exterior-view-of-custom-home-picture-id159087139"));
+        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg"));
+        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg"));
         HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts);
 
         //initialize

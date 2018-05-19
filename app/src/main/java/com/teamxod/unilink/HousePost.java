@@ -10,14 +10,14 @@ public class HousePost {
 
     private String room_location;
 
-    private int imageResourceId;
+    private String imageResourceId;
 
 
 
 
 
     public HousePost(String p_room_type, String p_room_title, String p_room_price,
-                String p_room_location, int p_imageResourceId)
+                String p_room_location, String p_imageResourceId)
     {
         room_type = p_room_type;
         room_title = p_room_title;
@@ -45,7 +45,7 @@ public class HousePost {
         return room_location;
     }
 
-    public int getImageResourceId() {
+    public String getImageResourceId() {
         return imageResourceId;
     }
 

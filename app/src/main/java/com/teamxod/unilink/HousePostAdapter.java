@@ -3,6 +3,7 @@ package com.teamxod.unilink;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ public class HousePostAdapter extends ArrayAdapter<HousePost> {
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         // Check if the existing view is being reused, otherwise inflate the view
         View listItemView = view;
-
 
         if(listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
@@ -51,8 +51,11 @@ public class HousePostAdapter extends ArrayAdapter<HousePost> {
 
         ImageView imageImageView = (ImageView) listItemView.findViewById(R.id.image);
 
+        imageImageView.setTag(my_post.getImageResourceId());
+        NewsAsyncTask task = new NewsAsyncTask(imageImageView,my_post.getImageResourceId());
 
-        imageImageView.setImageResource(my_post.getImageResourceId());
+        task.showImageByAsyncTask(imageImageView,my_post.getImageResourceId());
+        //imageImageView.setImageResource(my_post.getImageResourceId());
 
 
         return listItemView;
