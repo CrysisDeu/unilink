@@ -174,8 +174,9 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                     return;
                 }
 
-                if (mPassword != mPasswordReenter) {
-
+                if (!mPassword.equals(mPasswordReenter)) {
+                    Log.d("mPassword",mPassword);
+                    Log.d("mPasswordReenter",mPasswordReenter);
                     Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_NOT_MATCH,
                             Toast.LENGTH_SHORT);
                     toast.show();
