@@ -19,7 +19,8 @@ public class HousePictureAdapter extends PagerAdapter {
 
     public HousePictureAdapter(Context context, House house) {
         this.context = context;
-        images = house.getHousePictures();
+        //images = house.getHousePictures();
+        images.add(R.drawable.my_bg3);
     }
 
     public HousePictureAdapter(Context context) {
