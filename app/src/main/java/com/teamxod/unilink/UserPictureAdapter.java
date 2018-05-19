@@ -15,7 +15,7 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
 
     private ArrayList<User> users;
 
-    public UserPictureAdapter(ArrayList<User> users){
+    UserPictureAdapter(ArrayList<User> users){
         this.users = users;
     }
 
@@ -41,6 +41,7 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
         holder.nameTextView.setText(user.getName());
 
         holder.pictureImageView.setImageResource(user.getUserPhoto());
+
     }
 
     @Override
@@ -53,7 +54,7 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
         TextView nameTextView;
         TextView yearTextView;
 
-        public SimpleProfileViewHolder (View itemView) {
+        SimpleProfileViewHolder (View itemView) {
             super(itemView);
             pictureImageView = (ImageView) itemView.findViewById(R.id.user_profile_image);
             nameTextView = (TextView) itemView.findViewById(R.id.user_name);

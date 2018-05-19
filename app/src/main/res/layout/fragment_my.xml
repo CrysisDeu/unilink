@@ -24,7 +24,7 @@
                 android:src="@drawable/my_bg4"
                 android:scaleType="centerCrop"/>
 
-            <com.teamxod.unilink.CircularImageView
+            <ImageView
                 android:id="@+id/profile_pic"
                 android:layout_width="96dp"
                 android:layout_height="96dp"

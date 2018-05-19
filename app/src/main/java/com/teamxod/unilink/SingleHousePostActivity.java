@@ -1,25 +1,54 @@
 package com.teamxod.unilink;
 
+import android.content.Context;
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.os.ResultReceiver;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-public class SingleHousePostActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class SingleHousePostActivity extends AppCompatActivity/* implements OnMapReadyCallback*/{
 
-    private MapFragment mapFragment;
+    House house;
+    ArrayList<User> roommateList;
+    GoogleMap googleMap;
 
-    private House house;
+    ViewPager housePicture;
+    MapView mapView;
+    RecyclerView roommateListView;
+    ImageView posterImageView;
+
+    HousePictureAdapter housePictureAdapter;
+    UserPictureAdapter roommateAdapter;
+
+    LinearLayoutManager layoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,57 +58,74 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         //data needed later from database
 
         house = new House();
-        ArrayList<User> roommateList;
         roommateList = new ArrayList<User>();
         roommateList.add(new User());
         roommateList.add(new User());
 
-        //google map
-        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.house_map);
-        mapFragment.getMapAsync(this);
+        //set imageView round
+        //Glide.with(context).load(url).apply(RequestOptions.circleCropTransform()).into(posterImageView);
 
         //house picture list setting
-        ViewPager housePicture = (ViewPager)findViewById(R.id.house_image);
-        HousePictureAdapter housePictureAdapter = new HousePictureAdapter(this);//housePictureAdapter = new HousePictureAdapter(this, house);
+        housePicture = (ViewPager)findViewById(R.id.house_image);
+        housePictureAdapter = new HousePictureAdapter(this);//housePictureAdapter = new HousePictureAdapter(this, house);
         housePicture.setAdapter(housePictureAdapter);
 
         //roommate list setting
-        RecyclerView roommateListView = (RecyclerView) findViewById(R.id.house_roommate);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        roommateListView = (RecyclerView) findViewById(R.id.house_roommate);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         roommateListView.setLayoutManager(layoutManager);
         roommateListView.setHasFixedSize(true);
-        UserPictureAdapter roommateAdapter = new UserPictureAdapter(roommateList);
+        roommateAdapter = new UserPictureAdapter(roommateList);
         roommateListView.setAdapter(roommateAdapter);
+
+        //google map
+
+       /* mapView = (MapView) findViewById(R.id.house_map);
+        Bundle mapViewBundle = null;
+        if (savedInstanceState != null) {
+            mapViewBundle = savedInstanceState.getBundle("i hate google map");
+        }
+        mapView.onCreate(mapViewBundle);
+        mapView.getMapAsync(this);*/
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        mapFragment.onResume();
+        //mapView.onResume();
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        mapFragment.onDestroy();
+        //mapView.onDestroy();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mapFragment.onLowMemory();
+        //mapView.onLowMemory();
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
-        mapFragment.onPause();
+        //mapView.onPause();
     }
 
+    /*
     @Override
     public void onMapReady(GoogleMap map) {
-        map.addMarker(new MarkerOptions()
-                .position(new LatLng(0, 0))
-                .title(house.getName()));
-    }
+        Address address = house.getAddress();
+        double lat = address.getLatitude();
+        double lon = address.getLongitude();
+
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(address.getLatitude(), address.getLongitude()));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
+
+        map.moveCamera(center);
+        map.animateCamera(zoom);s
+
+    }*/
 }
+

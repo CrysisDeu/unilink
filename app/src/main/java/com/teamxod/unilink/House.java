@@ -1,5 +1,15 @@
 package com.teamxod.unilink;
 
+import android.content.Intent;
+import android.location.Address;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.os.ResultReceiver;
+import android.view.View;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import java.net.URL;
 import java.util.ArrayList;
 
 public class House {
@@ -17,7 +27,7 @@ public class House {
 
     private String houseDescription;
 
-    private ArrayList<Integer> housePictures;
+    private ArrayList<URL> housePictures;
 
     private ArrayList<Room> rooms;
 
@@ -73,11 +83,10 @@ public class House {
         this.game = game;
     }
 
-
     //public constructor
-    public House() {
+    House() {
         this.name = "Costa Verde";
-        this.location = "3465 Lebon Drive";
+        this.location = "3465 Lebon Drive,San Diego";
     }
 
 
@@ -106,7 +115,7 @@ public class House {
         return houseDescription;
     }
 
-    public ArrayList<Integer> getHousePictures() {
+    public ArrayList<URL> getHousePictures() {
         return housePictures;
     }
 
@@ -132,11 +141,11 @@ public class House {
         location = newLocation;
     }
 
-    public void addPicture(Integer newPicture) {
+    public void addPicture(URL newPicture) {
         housePictures.add(newPicture);
     }
 
-    public void removePicture(Integer Picture) {
+    public void removePicture(URL Picture) {
         housePictures.remove(Picture);
     }
 
