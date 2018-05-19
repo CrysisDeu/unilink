@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.text.InputType;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -40,6 +38,10 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     private static final String TAG = "StartActivity";
     private static final int RC_SIGN_IN = 9001;
+    private final String INVALID_EMAIL = "Please enter a valid Email!";
+    private final String PASSWORD_TOO_SHORT = "Your Password is too short!";
+    private final String PASSWORD_TOO_SHORT_2 = "Password is at least 6 characters long";
+    private final String PASSWORD_NOT_MATCH = "Your Password does not match!";
 
     //logo
     private ImageView mSignInLogo;
@@ -54,15 +56,17 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     //sign-up card
     private LinearLayout mSignUpContainer;
     private ImageView mCancleSignUpButton;
+    private Button mConfirmSignUp;
 
     //sign-in card
     private LinearLayout mSignInContainer;
     private ImageView mCancleSignInButton;
+    private Button mConfirmSignIn;
 
 
     //firebase
     private GoogleApiClient mGoogleApiClient;
-    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth mAuth;
 
     @SuppressLint("ResourceType")
     @Override
@@ -84,11 +88,13 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         mSignUpContainer = findViewById(R.id.sign_up_container);
         mSignUpButton = findViewById(R.id.email_sign_up);
         mCancleSignUpButton = findViewById(R.id.cancle_sign_up_button);
+        mConfirmSignUp = findViewById(R.id.confirm_sign_up);
 
         // sign-in card
         mSignInContainer = findViewById(R.id.sign_in_container);
         mSignInButton = findViewById(R.id.sign_in_button);
         mCancleSignInButton = findViewById(R.id.cancle_sign_in_button);
+        mConfirmSignIn = findViewById(R.id.confirm_sign_in);
 
 
         // Define the animators
@@ -113,7 +119,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
 
         // Initialize FirebaseAuth
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         //SignUp onClick
         mSignUpButton.setOnClickListener(new View.OnClickListener(){
@@ -139,6 +145,44 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 resizeAnimation(mStartCard,dpToPx(144),450); //-200
                 FadeInAnimation(mStartContainer,225);
                 FadeInAnimation(mSignInLogo,300);
+
+            }
+        });
+
+        //Confirm SignUp onClick
+        mConfirmSignUp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                EditText mEmailSignUpInput = findViewById(R.id.email_sign_up_input);
+                String mEmail = mEmailSignUpInput.getText().toString();
+
+                EditText mPasswordSignUpInput = findViewById(R.id.password_sign_up_input);
+                String mPassword = mPasswordSignUpInput.getText().toString();
+
+                EditText mPasswordReenterInput = findViewById(R.id.password_reenter_input);
+                String mPasswordReenter = mPasswordReenterInput.getText().toString();
+                if(!isEmailValid(mEmail)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), INVALID_EMAIL,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                if (mPassword.length() < 6) {
+                    Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_TOO_SHORT,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+                if (mPassword != mPasswordReenter) {
+
+                    Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_NOT_MATCH,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+
 
             }
         });
@@ -172,6 +216,30 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+        //Confirm SignIn onClick
+        mConfirmSignIn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                EditText mEmailInput = findViewById(R.id.email_input);
+                String mEmail = mEmailInput.getText().toString();
+                EditText mPasswordInput = findViewById(R.id.password_input);
+                String mPassword = mPasswordInput.getText().toString();
+
+                if(!isEmailValid(mEmail)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), INVALID_EMAIL,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                if (mPassword.length() < 6) {
+                    Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_TOO_SHORT_2,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+
+            }
+        });
         /*fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationStart(Animation animation) {}
             public void onAnimationRepeat(Animation animation) {}
@@ -278,7 +346,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mFirebaseAuth.signInWithCredential(credential)
+        mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -321,5 +389,9 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         Resources r = getResources();
         int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
         return px;
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

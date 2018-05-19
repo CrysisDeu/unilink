@@ -24,6 +24,7 @@ public class MyFragment extends Fragment {
     private TextView changePassword;
     private TextView logout;
     private TextView changeProfile;
+    private TextView preference;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -52,6 +53,12 @@ public class MyFragment extends Fragment {
         changePassword = (TextView) layout.findViewById(R.id.changePassword);
         logout = (TextView) layout.findViewById(R.id.logout);
         changeProfile = (TextView) layout.findViewById(R.id.changeProfile);
+        preference = (TextView)layout.findViewById(R.id.setPreference);
+        /*View my_favorite = layout.findViewById(R.id.my_favorite);
+        View my_post = layout.findViewById(R.id.my_post);
+        View changePassword = layout.findViewById(R.id.changePassword);
+        View logout = layout.findViewById(R.id.logout);
+        View preference = layout.findViewById(R.id.setPreference);*/
 
         // GoogleApiClient to logout
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity
@@ -92,6 +99,14 @@ public class MyFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        preference.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(),My_preference.class);
+                startActivity(i);
+        }
+    });
 
         logout.setOnClickListener(new View.OnClickListener(){
             @Override

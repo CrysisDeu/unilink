@@ -37,12 +37,12 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
+                android:layout_width="25dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                app:srcCompat="@drawable/icon_back" />
+                app:srcCompat="@drawable/white_back_arrow" />
 
         </RelativeLayout>
 
