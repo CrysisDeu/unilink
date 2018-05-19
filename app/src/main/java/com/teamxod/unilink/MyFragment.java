@@ -54,6 +54,11 @@ public class MyFragment extends Fragment {
         logout = (TextView) layout.findViewById(R.id.logout);
         changeProfile = (TextView) layout.findViewById(R.id.changeProfile);
         preference = (TextView)layout.findViewById(R.id.setPreference);
+        /*View my_favorite = layout.findViewById(R.id.my_favorite);
+        View my_post = layout.findViewById(R.id.my_post);
+        View changePassword = layout.findViewById(R.id.changePassword);
+        View logout = layout.findViewById(R.id.logout);
+        View preference = layout.findViewById(R.id.setPreference);*/
 
         // GoogleApiClient to logout
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity
