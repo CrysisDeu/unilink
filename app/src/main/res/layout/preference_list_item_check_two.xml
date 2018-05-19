@@ -10,9 +10,16 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <CheckedTextView
+        android:id="@+id/checked1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CheckBox" />
+        android:text="CheckedTextView" />
+
+    <CheckedTextView
+        android:id="@+id/checked2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CheckedTextView" />
+
 </LinearLayout>
