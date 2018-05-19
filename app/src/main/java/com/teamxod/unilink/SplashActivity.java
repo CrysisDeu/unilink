@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME = 2000;
+    private static int SPLASH_TIME = 1000;
 
     // Firebase
     private FirebaseAuth mAuth;
