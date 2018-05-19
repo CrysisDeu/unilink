@@ -82,10 +82,10 @@ public class preferenceAdaptor extends ArrayAdapter<Question>{
         TextView q = (TextView)listItem.findViewById((R.id.question));
         q.setText(preference.getQuestion());
 
-        CheckedTextView checkOne = (CheckedTextView)listItem.findViewById(R.id.checked1);
+        final CheckedTextView checkOne = (CheckedTextView)listItem.findViewById(R.id.checked1);
         checkOne.setText(preference.getChoiceOne());
 
-        CheckedTextView checkTwo = (CheckedTextView)listItem.findViewById((R.id.checked2));
+        final CheckedTextView checkTwo = (CheckedTextView)listItem.findViewById((R.id.checked2));
         checkTwo.setText(preference.getChoiceTwo());
 
         checkOne.setOnClickListener(new View.OnClickListener() {
@@ -93,9 +93,15 @@ public class preferenceAdaptor extends ArrayAdapter<Question>{
             public void onClick(View v) {
                 if(!preference.getfirstChecked()){
                     preference.setfirstChecked(true);
+                    checkOne.setChecked(true);
+                    checkOne.setCheckMarkDrawable(R.drawable.check);
                     preference.setSecondChecked(false);
+                    checkTwo.setChecked(false);
+                    checkTwo.setCheckMarkDrawable(null);
                 }else{
                     preference.setfirstChecked(false);
+                    checkOne.setChecked(false);
+                    checkOne.setCheckMarkDrawable(null);
                 }
             }
         });
@@ -105,9 +111,15 @@ public class preferenceAdaptor extends ArrayAdapter<Question>{
             public void onClick(View v) {
                 if(!preference.getSecondChecked()) {
                     preference.setfirstChecked(false);
+                    checkOne.setChecked(false);
+                    checkOne.setCheckMarkDrawable(null);
                     preference.setSecondChecked(true);
+                    checkTwo.setChecked(true);
+                    checkTwo.setCheckMarkDrawable(R.drawable.check);
                 }else{
                     preference.setSecondChecked(false);
+                    checkTwo.setChecked(false);
+                    checkTwo.setCheckMarkDrawable(null);
                 }
             }
         });
