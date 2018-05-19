@@ -175,18 +175,19 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 }
 
                 if (!mPassword.equals(mPasswordReenter)) {
-                    Log.d("mPassword",mPassword);
-                    Log.d("mPasswordReenter",mPasswordReenter);
                     Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_NOT_MATCH,
                             Toast.LENGTH_SHORT);
                     toast.show();
                     return;
+                } else {
+                    createAccount(mEmail,mPassword);
                 }
 
 
 
             }
         });
+
 
 
                 //SignIn onClick
@@ -237,6 +238,8 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                             Toast.LENGTH_SHORT);
                     toast.show();
                     return;
+                } else {
+                    signIn(mEmail,mPassword);
                 }
 
             }
@@ -343,6 +346,69 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             }
         }
     }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
+            startActivity(mainIntent);
+            finish();
+        } else {
+            Log.e(TAG, "Sign up failed.");
+        }
+    }
+
+    private void createAccount(String email, String password) {
+        Log.d(TAG, "createAccount:" + email);
+        // [START create_user_with_email]
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(StartActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        // [END create_user_with_email]
+    }
+
+    private void signIn(String email, String password) {
+        Log.d(TAG, "signIn:" + email);
+
+        // [START sign_in_with_email]
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(StartActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // [END_EXCLUDE]
+                    }
+                });
+        // [END sign_in_with_email]
+    }
+
+
+
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
