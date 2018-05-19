@@ -54,6 +54,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/my_favorite_l"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#fff"
@@ -85,9 +86,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/my_post_l"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="1dp"
                 android:background="#fff"
                 android:orientation="horizontal">
 
@@ -112,7 +114,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:paddingLeft="8dp"
-                    android:text="My Posts"
+                    android:text="My Post"
                     android:textColor="@android:color/black"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -126,6 +128,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/change_profile_l"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#fff"
@@ -158,43 +161,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/set_preference_l"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="0dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="0"
-                    android:padding="8dp"
-                    android:paddingLeft="0dp"
-                    app:srcCompat="@drawable/lock" />
-
-                <TextView
-                    android:id="@+id/changePassword"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="Change Password"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="1dp"
                 android:background="#fff"
                 android:orientation="horizontal">
 
@@ -225,6 +195,44 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/change_password_l"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:background="#fff"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="0"
+                    android:padding="8dp"
+                    android:paddingLeft="0dp"
+                    app:srcCompat="@drawable/lock" />
+
+                <TextView
+                    android:id="@+id/changePassword"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="8dp"
+                    android:text="Change Password"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+
         </LinearLayout>
 
 
@@ -239,6 +247,7 @@
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="Log out"
                 android:textColor="@android:color/holo_red_dark"
