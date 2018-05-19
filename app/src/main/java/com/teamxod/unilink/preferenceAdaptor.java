@@ -11,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 class Question{
@@ -61,6 +63,15 @@ class Question{
 
 }
 public class preferenceAdaptor extends ArrayAdapter<Question>{
+    // viewHolder to potimize the loading speed
+
+    static class ViewHolder {
+        private TextView q;
+        private CheckedTextView checkOne;
+        private CheckedTextView checkTwo;
+    }
+
+
         private List<Question> questionList;
         private Context context;
 
@@ -71,59 +82,63 @@ public class preferenceAdaptor extends ArrayAdapter<Question>{
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         // inflate the view if null
-        View listItem = view;
-        if(listItem == null) {
-            listItem = LayoutInflater.from(getContext()).inflate(
+        final ViewHolder holder = (view == null? new ViewHolder() : (ViewHolder)view.getTag());
+        if(view == null) {
+            view = LayoutInflater.from(getContext()).inflate(
                     R.layout.preference_list_item_check_two, parent, false);
+            holder.q = (TextView)view.findViewById(R.id.question);
+            holder.checkOne = (CheckedTextView)view.findViewById(R.id.checked1);
+            holder.checkTwo = (CheckedTextView)view.findViewById(R.id.checked2);
+            view.setTag(holder);
         }
         // set Question's text fields
         final Question preference = (Question)getItem(position);
 
-        TextView q = (TextView)listItem.findViewById((R.id.question));
-        q.setText(preference.getQuestion());
+      //  TextView q = (TextView)view.findViewById((R.id.question));
+        holder.q.setText(preference.getQuestion());
 
-        final CheckedTextView checkOne = (CheckedTextView)listItem.findViewById(R.id.checked1);
-        checkOne.setText(preference.getChoiceOne());
+       // final CheckedTextView checkOne = (CheckedTextView)view.findViewById(R.id.checked1);
+        holder.checkOne.setText(preference.getChoiceOne());
 
-        final CheckedTextView checkTwo = (CheckedTextView)listItem.findViewById((R.id.checked2));
-        checkTwo.setText(preference.getChoiceTwo());
+       // final CheckedTextView checkTwo = (CheckedTextView)view.findViewById((R.id.checked2));
+        holder.checkTwo.setText(preference.getChoiceTwo());
 
-        checkOne.setOnClickListener(new View.OnClickListener() {
+        holder.checkOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!preference.getfirstChecked()){
                     preference.setfirstChecked(true);
-                    checkOne.setChecked(true);
-                    checkOne.setCheckMarkDrawable(R.drawable.check);
+                    holder.checkOne.setChecked(true);
+                    holder.checkOne.setCheckMarkDrawable(R.drawable.check);
                     preference.setSecondChecked(false);
-                    checkTwo.setChecked(false);
-                    checkTwo.setCheckMarkDrawable(null);
+                    holder.checkTwo.setChecked(false);
+                    holder.checkTwo.setCheckMarkDrawable(null);
                 }else{
                     preference.setfirstChecked(false);
-                    checkOne.setChecked(false);
-                    checkOne.setCheckMarkDrawable(null);
+                    holder.checkOne.setChecked(false);
+                    holder.checkOne.setCheckMarkDrawable(null);
                 }
             }
         });
 
-        checkTwo.setOnClickListener(new View.OnClickListener() {
+        holder.checkTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!preference.getSecondChecked()) {
                     preference.setfirstChecked(false);
-                    checkOne.setChecked(false);
-                    checkOne.setCheckMarkDrawable(null);
+                    holder.checkOne.setChecked(false);
+                    holder.checkOne.setCheckMarkDrawable(null);
                     preference.setSecondChecked(true);
-                    checkTwo.setChecked(true);
-                    checkTwo.setCheckMarkDrawable(R.drawable.check);
+                    holder.checkTwo.setChecked(true);
+                    holder.checkTwo.setCheckMarkDrawable(R.drawable.check);
                 }else{
                     preference.setSecondChecked(false);
-                    checkTwo.setChecked(false);
-                    checkTwo.setCheckMarkDrawable(null);
+                    holder.checkTwo.setChecked(false);
+                    holder.checkTwo.setCheckMarkDrawable(null);
                 }
             }
         });
 
-        return listItem;
+        return view;
     }
 }
