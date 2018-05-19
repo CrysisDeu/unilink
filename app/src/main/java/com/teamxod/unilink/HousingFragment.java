@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +35,7 @@ public class HousingFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_housing, container, false); // get the GUI
         //create an array of post
         ArrayList<HousePost> posts = new ArrayList<HousePost>();
+
         //posts.add(new HousePost());
         posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg"));
         posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg"));
@@ -41,14 +43,16 @@ public class HousingFragment extends Fragment {
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://media.gettyimages.com/photos/exterior-view-of-custom-home-picture-id159087139"));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg"));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg"));
-        HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts);
+
 
         //initialize
         listView = (ListView) layout.findViewById(R.id.list_view);
         searchBar = layout.findViewById(R.id.searchView);
         filterButton = layout.findViewById(R.id.filter);
 
+        HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts,listView);
         listView.setAdapter(adapter);
+       // listView.setOnScrollListener(adapter);
 
         header = new View(this.getActivity());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.abc_action_bar_default_height_material)));
@@ -58,7 +62,7 @@ public class HousingFragment extends Fragment {
 
         //set touch and scroll event for listView
         listView.setOnTouchListener(onTouchListener);
-        listView.setOnScrollListener(onScrollListener);
+        //listView.setOnScrollListener(onScrollListener);
 
         //set onClickListener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,6 +82,7 @@ public class HousingFragment extends Fragment {
         });*/
         return layout;
     }
+
 
     //set the back animator
     AnimatorSet backAnimatorSet;
@@ -184,7 +189,7 @@ public class HousingFragment extends Fragment {
     };
 
 
-    //set onScrollListener
+  /*  //set onScrollListener
     AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
 
         //meet the situation when user's finger leaves screen,
@@ -213,6 +218,6 @@ public class HousingFragment extends Fragment {
             }
             lastPosition = firstVisibleItem;
         }
-    };
+    };*/
 
 }
