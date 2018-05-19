@@ -11,7 +11,7 @@
 
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/house_list_image"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:src="@drawable/my_bg" />
