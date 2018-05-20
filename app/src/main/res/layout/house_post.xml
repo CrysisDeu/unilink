@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="40dp" />
 
@@ -83,8 +83,8 @@
 
                 </LinearLayout>
 
-                <com.teamxod.unilink.CircularImageView
-                    android:id="@+id/House_profile_image"
+                <ImageView
+                    android:id="@+id/house_poster_image"
                     android:layout_width="@dimen/large_icon_side"
                     android:layout_height="@dimen/large_icon_side"
                     android:layout_alignParentEnd="true"
@@ -300,13 +300,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/location" />
 
-            <ImageView
+            <com.google.android.gms.maps.MapView
                 style="@style/house_content"
+                android:id="@+id/house_map"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:src="@drawable/my_bg" />
+                android:layout_height="240dp"/>
 
-            <ImageView
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="56dp" />
 

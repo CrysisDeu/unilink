@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,11 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MyFragment extends Fragment {
 
-    private TextView my_favorite;
-    private TextView my_post;
-    private TextView changePassword;
+    private LinearLayout my_favorite;
+    private LinearLayout my_post;
+    private LinearLayout changePassword;
     private TextView logout;
-    private TextView changeProfile;
+    private LinearLayout changeProfile;
+    private LinearLayout preference;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -47,11 +49,17 @@ public class MyFragment extends Fragment {
         }
 
         // my :
-        my_favorite = (TextView) layout.findViewById(R.id.my_favorite);
-        my_post = (TextView) layout.findViewById(R.id.my_post);
-        changePassword = (TextView) layout.findViewById(R.id.changePassword);
+        my_favorite = (LinearLayout) layout.findViewById(R.id.my_favorite_l);
+        my_post = (LinearLayout) layout.findViewById(R.id.my_post_l);
+        changePassword = (LinearLayout) layout.findViewById(R.id.change_password_l);
         logout = (TextView) layout.findViewById(R.id.logout);
-        changeProfile = (TextView) layout.findViewById(R.id.changeProfile);
+        changeProfile = (LinearLayout) layout.findViewById(R.id.change_profile_l);
+        preference = (LinearLayout) layout.findViewById(R.id.set_preference_l);
+        /*View my_favorite = layout.findViewById(R.id.my_favorite);
+        View my_post = layout.findViewById(R.id.my_post);
+        View changePassword = layout.findViewById(R.id.changePassword);
+        View logout = layout.findViewById(R.id.logout);
+        View preference = layout.findViewById(R.id.setPreference);*/
 
         // GoogleApiClient to logout
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity
@@ -92,6 +100,14 @@ public class MyFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        preference.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(),My_preference.class);
+                startActivity(i);
+        }
+    });
 
         logout.setOnClickListener(new View.OnClickListener(){
             @Override

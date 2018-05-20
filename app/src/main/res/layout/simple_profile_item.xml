@@ -6,7 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.teamxod.unilink.CircularImageView
+    <ImageView
         android:id="@+id/user_profile_image"
         android:layout_width="@dimen/large_icon_side"
         android:layout_height="@dimen/large_icon_side"

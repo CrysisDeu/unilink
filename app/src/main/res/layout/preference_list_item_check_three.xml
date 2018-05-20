@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="@dimen/middle_icon_side" />
+
+    <CheckedTextView
+        android:id="@+id/checked3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="CheckedTextView"
+        android:textSize="@dimen/small_icon_side" />
+
+    <CheckedTextView
+        android:id="@+id/checked4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="CheckedTextView"
+        android:textSize="@dimen/small_icon_side" />
+
+    <CheckedTextView
+        android:id="@+id/checked5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="CheckedTextView"
+        android:textSize="@dimen/small_icon_side" />
+
+</LinearLayout>
