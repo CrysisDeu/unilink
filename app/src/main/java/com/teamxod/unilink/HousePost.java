@@ -12,18 +12,21 @@ public class HousePost {
 
     private String imageResourceId;
 
+    private boolean isFavorite;
+
 
 
 
 
     public HousePost(String p_room_type, String p_room_title, String p_room_price,
-                String p_room_location, String p_imageResourceId)
+                String p_room_location, String p_imageResourceId, boolean favorite)
     {
         room_type = p_room_type;
         room_title = p_room_title;
         room_price = p_room_price;
         room_location = p_room_location;
         imageResourceId = p_imageResourceId;
+        isFavorite = favorite;
 
     }
 
@@ -50,4 +53,11 @@ public class HousePost {
     }
 
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 }
