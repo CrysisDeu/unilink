@@ -84,7 +84,7 @@ public class ImageLoader {
 
         Bitmap bitmap = getBitmapFromLrucache(url);
         if (bitmap == null) {
-            imageView.setImageResource(R.drawable.my_bg);
+            imageView.setImageResource(R.drawable.grey_rect);
         } else {
             imageView.setImageBitmap(bitmap);
         }

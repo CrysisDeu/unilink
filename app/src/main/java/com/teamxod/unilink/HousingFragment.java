@@ -27,6 +27,7 @@ public class HousingFragment extends Fragment {
     ListView listView;
     LinearLayout searchBar;
     Button filterButton;
+    Button addPost;
     View header;
     int touchSlop = 5;
 
@@ -49,10 +50,11 @@ public class HousingFragment extends Fragment {
         listView = (ListView) layout.findViewById(R.id.list_view);
         searchBar = layout.findViewById(R.id.searchView);
         filterButton = layout.findViewById(R.id.filter);
+        addPost = layout.findViewById(R.id.add_post_btn);
 
         HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts,listView);
         listView.setAdapter(adapter);
-       // listView.setOnScrollListener(adapter);
+        // listView.setOnScrollListener(adapter);
 
         header = new View(this.getActivity());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.abc_action_bar_default_height_material)));
@@ -96,15 +98,16 @@ public class HousingFragment extends Fragment {
 
         } else {
             backAnimatorSet = new AnimatorSet();
+
             //move the element back to originial position
             ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchBar, "translationY", searchBar.getTranslationY(), 0f);
-            //ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), 0f);
+            ObjectAnimator addPostAnimator = ObjectAnimator.ofFloat(addPost, "translationY", addPost.getTranslationY(), 0f);
 
             //add animator object to arraylist
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);
-            //animators.add(listAnimator);
-            //animators.add(naviAnimator);
+            animators.add(addPostAnimator);
+
 
             backAnimatorSet.setDuration(400);
             backAnimatorSet.playTogether(animators);
@@ -126,13 +129,13 @@ public class HousingFragment extends Fragment {
         } else {
             hideAnimatorSet = new AnimatorSet();
             ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchBar, "translationY", searchBar.getTranslationY(), -2* searchBar.getHeight());
-            //ObjectAnimator listAnimator = ObjectAnimator.ofFloat(listView, "translationY", listView.getTranslationY(), -0.11f*listView.getHeight());
+            ObjectAnimator addPostAnimator = ObjectAnimator.ofFloat(addPost, "translationY", addPost.getTranslationY(), 2*addPost.getHeight());
 
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);
-            //animators.add(listAnimator);
+            animators.add(addPostAnimator);
 
-            hideAnimatorSet.setDuration(300);
+            hideAnimatorSet.setDuration(400);
             hideAnimatorSet.playTogether(animators);
             hideAnimatorSet.start();
         }
@@ -191,19 +194,15 @@ public class HousingFragment extends Fragment {
 
   /*  //set onScrollListener
     AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
-
         //meet the situation when user's finger leaves screen,
         //but the screen is still scrolling
-
         int lastPosition = 0;
         int state = SCROLL_STATE_IDLE;
-
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
             //record current list statement
             state = scrollState;
         }
-
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             if (firstVisibleItem == 0) {
@@ -214,7 +213,6 @@ public class HousingFragment extends Fragment {
                     //if the position of last time is smaller than current, hide
                     animateHide();
                 }
-
             }
             lastPosition = firstVisibleItem;
         }

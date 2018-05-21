@@ -46,5 +46,12 @@
         <item name="android:layout_marginTop">@dimen/large_margin</item>
     </style>
 
+    <style name="back_button">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">56dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+    </style>
+
 
 </resources>
