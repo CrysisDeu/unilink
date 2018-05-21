@@ -89,7 +89,6 @@ import java.util.List;
          // viewHolder.vhImage.setImageResource(R.drawable.my_bg);
 
           //imageLoader.showImageByAsyncTask(viewHolder.vhImage,mList.get(position).getImageResourceId());
-          //Log.d("checkTag","**************");
           imageLoader.showImage(viewHolder.vhImage, mList.get(position).getImageResourceId());
 
 
@@ -137,9 +136,9 @@ import java.util.List;
 
           mStart=firstVisibleItem;
           mEnd=firstVisibleItem+visibleItemCount-1;
-          //Log.d("Tag","addBitmapToLrucaches"+visibleItemCount);
+
           if(isFirstIn&&visibleItemCount>0){
-              //Log.d("checkTag","**************");
+
               imageLoader.loadImages(mStart,mEnd);
               isFirstIn=false;
           }
