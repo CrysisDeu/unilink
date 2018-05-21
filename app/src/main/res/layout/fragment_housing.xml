@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -46,27 +47,8 @@
 
     </LinearLayout>
 
-    <!--
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="296dp"
-        android:layout_height="48dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/edit_search_bar"
-        android:gravity="center"
-        android:hint="Search Here"
-        />search bar-->
 
 
-    <Button
-        android:id="@+id/addPost"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignEnd="@+id/action_bar"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/large_margin"
-        android:background="@drawable/ic_add_button"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/action_bar"
@@ -85,7 +67,7 @@
         android:textSize="@dimen/l_font_size"
         android:textStyle="bold" />
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_post_btn"
         android:layout_width="64dp"
         android:layout_height="64dp"
@@ -93,9 +75,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/ic_add_post" />
-
-
+        android:src="@drawable/ic_plus"
+        app:backgroundTint="#6d48e5"/>
 
 
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class HousingFragment extends Fragment {
     ListView listView;
     LinearLayout searchBar;
     Button filterButton;
-    Button addPost;
+    FloatingActionButton addPost;
     View header;
     int touchSlop = 5;
 

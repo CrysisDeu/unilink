@@ -10,30 +10,31 @@
 
 
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp">
+
                 <ToggleButton
                     android:id="@+id/favorite_btn"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:textOn=""
-                    android:textOff=""
-                    android:text=""
-                    android:focusable="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/selector_favorite_btn"
                     android:clickable="true"
-                    android:background="@drawable/selector_favorite_btn"/>
+                    android:focusable="false"
+                    android:text=""
+                    android:textOff=""
+                    android:textOn="" />
                 <ImageView
                     android:id="@+id/house_list_image"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/my_bg" />
-        </FrameLayout>
+        </RelativeLayout>
 
 
 
