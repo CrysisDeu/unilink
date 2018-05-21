@@ -59,14 +59,14 @@
         />search bar-->
 
 
-    <Button
+    <!--Button
         android:id="@+id/addPost"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignEnd="@+id/action_bar"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="@dimen/large_margin"
-        android:background="@drawable/ic_add_button"/>
+        android:background="@drawable/ic_add_button"/-->
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/action_bar"
