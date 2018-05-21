@@ -48,8 +48,6 @@
     </LinearLayout>
 
 
-
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
