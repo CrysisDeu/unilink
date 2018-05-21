@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +33,7 @@ public class My_changePassword extends AppCompatActivity {
     private EditText original_password;
     private EditText new_password;
     private EditText confirm_password;
-    private TextView done;
+    private CardView done;
     private TextView forget_password;
     private FirebaseAuth mAuth;
 
@@ -53,7 +54,7 @@ public class My_changePassword extends AppCompatActivity {
         original_password = (EditText) findViewById(R.id.original_password);
         new_password = (EditText) findViewById(R.id.new_password);
         confirm_password = (EditText) findViewById(R.id.confirm_password);
-        done = (TextView) findViewById(R.id.Done);
+        done = (CardView) findViewById(R.id.Done);
         forget_password = (TextView) findViewById(R.id.forget_password);
         original_password.addTextChangedListener(new TextWatcher() {
 
