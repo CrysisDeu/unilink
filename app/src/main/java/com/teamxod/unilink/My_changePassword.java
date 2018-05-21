@@ -2,19 +2,30 @@ package com.teamxod.unilink;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextWatcher;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.text.Editable;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.security.CryptoPrimitive;
 
 public class My_changePassword extends AppCompatActivity {
 
@@ -23,6 +34,7 @@ public class My_changePassword extends AppCompatActivity {
     private EditText confirm_password;
     private TextView done;
     private TextView forget_password;
+    private FirebaseAuth mAuth;
 
     private final int done_orig_size = 13;
 
@@ -37,12 +49,12 @@ public class My_changePassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_change_password);
 
+        mAuth = FirebaseAuth.getInstance();
         original_password = (EditText) findViewById(R.id.original_password);
         new_password = (EditText) findViewById(R.id.new_password);
         confirm_password = (EditText) findViewById(R.id.confirm_password);
         done = (TextView) findViewById(R.id.Done);
         forget_password = (TextView) findViewById(R.id.forget_password);
-
         original_password.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -134,13 +146,51 @@ public class My_changePassword extends AppCompatActivity {
                 // check new == confirm then
                 else if (! new_password.getText().toString().equals(confirm_password.getText().toString())){
 
-                        Snackbar.make(findViewById(R.id.Coordinator), "Please make sure your new password is same as your confirm password !",
-                                Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.Coordinator), "Please make sure your new password is same as your confirm password !",
+                            Snackbar.LENGTH_LONG).show();
                 }
                 // ok
                 else {
-                    Snackbar.make(findViewById(R.id.Coordinator), "OJBK !" , Snackbar.LENGTH_LONG)
-                            .show();
+
+                    //reauth to verify old password
+
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), original_password.getText().toString());
+                    user.reauthenticate(credential)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()) {
+                                        Log.d("My_changePassword", "User re-authenticated.");
+
+                                        // update password
+                                        mAuth.getCurrentUser().updatePassword(new_password.getText().toString())
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                           @Override
+                                                                           public void onComplete(@NonNull Task<Void> task) {
+                                                                               if (task.isSuccessful()) {
+                                                                                   Log.d("My_changePassword", "User password updated.");
+                                                                                   // logout user
+                                                                                   Snackbar.make(findViewById(R.id.Coordinator), "Your password has been changed!" , Snackbar.LENGTH_LONG)
+                                                                                           .show();
+                                                                                   FirebaseAuth.getInstance().signOut();
+                                                                                   Intent reset = new Intent(My_changePassword.this, StartActivity.class);
+                                                                                   reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                                   startActivity(reset);
+                                                                               } else {
+                                                                                       Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
+                                                                                               .show();
+                                                                               }
+                                                                           }
+                                                                       }
+                                                );
+                                    } else {
+                                            Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
+                                                    .show();
+                                    }
+                                }
+                            });
+
                 }
                 // clear the inputs
                 new_password.setText("");
@@ -158,11 +208,35 @@ public class My_changePassword extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+                sendRestEmail(mAuth.getCurrentUser().getEmail());
                 Snackbar.make(findViewById(R.id.Coordinator), "Your password is sent to your account email !",
                         Snackbar.LENGTH_LONG).show();
 
             }
         });
 
+    }
+
+    private void sendRestEmail(String email) {
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Foreget passowrd", "Email sent.");
+                        }
+                    }
+                });
+    }
+
+    private void reAuth(String password) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        AuthCredential credential = EmailAuthProvider.getCredential(mAuth.getCurrentUser().getEmail(), password);
+        user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("My_changePassword", "User re-authenticated.");
+                    }
+                });
     }
 }

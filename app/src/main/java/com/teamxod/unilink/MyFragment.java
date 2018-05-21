@@ -5,18 +5,21 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserInfo;
 
 public class MyFragment extends Fragment {
 
@@ -27,12 +30,13 @@ public class MyFragment extends Fragment {
     private LinearLayout changeProfile;
     private LinearLayout preference;
     private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_my, container, false); // get the GUI
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         // change name
         final TextView mName = (TextView) layout.findViewById(R.id.name);
         final ImageView mProfilePic = (ImageView) layout.findViewById(R.id.profile_pic);
@@ -96,8 +100,12 @@ public class MyFragment extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(getActivity(), My_changePassword.class);
-                startActivity(i);
+                if (!getLoginmethod()) {
+                    Intent i = new Intent(getActivity(), My_changePassword.class);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(getActivity(),"You can only change your password if you sign in using email.",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -141,4 +149,17 @@ public class MyFragment extends Fragment {
         }
     }
 
+    private boolean getLoginmethod() {
+        if(mAuth != null) {
+            for (UserInfo user : mAuth.getCurrentUser().getProviderData()) {
+                Log.d("TAG",user.getProviderId());
+                if (user.getProviderId().equals("google.com")) { // google login
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return true; // not login
+        }
+    }
 }
