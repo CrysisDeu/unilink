@@ -30,6 +30,24 @@
     <string name="AC">AC</string>
     <string name="title_activity_maps">Map</string>
 
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Not Disclose</item>
+    </string-array>
+
+    <string-array name="years">
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+        <item>2023</item>
+        <item>2024</item>
+        <item>2025</item>
+        <item>2026</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

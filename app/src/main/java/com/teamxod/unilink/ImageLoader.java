@@ -65,12 +65,12 @@ public class ImageLoader {
     public void loadImages(int start, int end) {
 
         for (int i = start; i < end; i++) {
-
+            //Log.d("Tag","endendedn"+end+"iiiii"+i);
             String loadUrl = mUrls[i];
             if (getBitmapFromLrucache(loadUrl) != null && (ImageView) mListView.findViewWithTag(loadUrl)!=null) {
-
+                //Log.d("Tag","getBitmapFromLrucache"+loadUrl);
                 ImageView imageView = (ImageView) mListView.findViewWithTag(loadUrl);
-
+                //Log.d("Tag","imageview"+imageView+"index"+i);
                 imageView.setImageBitmap(getBitmapFromLrucache(loadUrl));
             } else {
                 NewsAsyncTask mNewsAsyncTask = new NewsAsyncTask(loadUrl);
@@ -99,7 +99,28 @@ public class ImageLoader {
 
     }
 
+   /* private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            if (mImageView.getTag().equals(mUrl)) {
+                mImageView.setImageBitmap((Bitmap) msg.obj);
+            }
+        };
+    };
 
+   /* // 1.���̵߳ķ���
+    public void showImageByThead(ImageView iv, final String url) {
+        mImageView = iv;
+        mUrl = url;
+        new Thread() {
+            public void run() {
+                Bitmap bitmap = getBitmapFromUrl(url);
+                Message message = Message.obtain();
+                message.obj = bitmap;
+                mHandler.sendMessage(message);
+            };
+        }.start();
+    }*/
     public Bitmap getBitmapFromUrl(String urlString) {
         Bitmap bitmap;
         InputStream is = null;
@@ -163,6 +184,9 @@ public class ImageLoader {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
+            //if(myImageView.getTag().equals(mUrl)){
+            //    myImageView.setImageBitmap(bitmap);
+            //}
 
             ImageView imageView = (ImageView) mListView.findViewWithTag(mUrl);
 

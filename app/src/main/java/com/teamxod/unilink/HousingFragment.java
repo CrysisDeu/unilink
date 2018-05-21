@@ -54,7 +54,7 @@ public class HousingFragment extends Fragment {
 
         HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts,listView);
         listView.setAdapter(adapter);
-       // listView.setOnScrollListener(adapter);
+        // listView.setOnScrollListener(adapter);
 
         header = new View(this.getActivity());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.abc_action_bar_default_height_material)));
@@ -194,19 +194,15 @@ public class HousingFragment extends Fragment {
 
   /*  //set onScrollListener
     AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
-
         //meet the situation when user's finger leaves screen,
         //but the screen is still scrolling
-
         int lastPosition = 0;
         int state = SCROLL_STATE_IDLE;
-
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
             //record current list statement
             state = scrollState;
         }
-
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             if (firstVisibleItem == 0) {
@@ -217,7 +213,6 @@ public class HousingFragment extends Fragment {
                     //if the position of last time is smaller than current, hide
                     animateHide();
                 }
-
             }
             lastPosition = firstVisibleItem;
         }
