@@ -74,7 +74,9 @@
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="24dp"
         android:src="@drawable/ic_plus"
-        app:backgroundTint="#6d48e5"/>
+        app:backgroundTint="#6d48e5"
+        android:clickable="true"
+        android:focusable="false"/>
 
 
 </RelativeLayout>
