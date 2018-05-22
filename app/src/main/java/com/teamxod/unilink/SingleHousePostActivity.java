@@ -57,70 +57,90 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.house_post);
 
-        //data needed later from database
+        loadData();
 
-        house = new House();
-        roommateList = new ArrayList<User>();
-        roommateList.add(new User());
-        roommateList.add(new User());
+        setupBasicData();
 
-        //set poster image
-        ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
-        String url = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
-        Glide.with(this).load(url).apply(RequestOptions.circleCropTransform()).into(posterImageView);
+        setupHousePicture();
 
-        //house picture list setting
-        housePicture = (ViewPager)findViewById(R.id.house_image);
-        housePictureAdapter = new HousePictureAdapter(this, house);//housePictureAdapter = new HousePictureAdapter(this, house);
-        housePicture.setAdapter(housePictureAdapter);
+        setupRoom();
 
-        //roommate list setting
-        roommateListView = (RecyclerView) findViewById(R.id.house_roommate);
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        roommateListView.setLayoutManager(layoutManager);
-        roommateListView.setHasFixedSize(true);
-        roommateAdapter = new UserPictureAdapter(this, roommateList);
-        roommateListView.setAdapter(roommateAdapter);
+        setupRoommate();
 
-        //map
-        mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
-        mapFragment.getMapAsync(this);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        //mapView.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //mapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        //mapView.onLowMemory();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //mapView.onPause();
+        setupMap();
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
+
         houseMap = map;
-        LatLng houseLatLng = new LatLng(40.7487, -73.9857);
+        LatLng houseLatLng;
+
+        String location = house.getLocation();
+        List<Address> addressList = new ArrayList<>();
+        if(location != null || !location.equals("")) {
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(location, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Address address = addressList.get(0);
+            houseLatLng = new LatLng(address.getLatitude(), address.getLongitude());
+        } else {
+            houseLatLng = new LatLng(40.7487, -73.9857);
+        }
+
         CameraPosition target = CameraPosition.builder().target(houseLatLng).zoom(15).build();
         houseMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
         MarkerOptions houseMarker = new MarkerOptions()
                 .position(houseLatLng)
                 .title(house.getLocation());
         houseMap.addMarker(houseMarker);
+    }
+
+    private void loadData(){
+        house = new House();
+        roommateList = new ArrayList<>();
+        roommateList.add(new User());
+        roommateList.add(new User());
+    }
+
+    private void setupBasicData() {
+        //set poster view
+        ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
+        String url = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
+        Glide.with(this)
+                .load(url)
+                .apply(RequestOptions.circleCropTransform())
+                .into(posterImageView);
+
+        //TODO
+    }
+
+    private void setupHousePicture() {
+        housePicture = (ViewPager)findViewById(R.id.house_image);
+        housePictureAdapter = new HousePictureAdapter(this, house);//housePictureAdapter = new HousePictureAdapter(this, house);
+        housePicture.setAdapter(housePictureAdapter);
+    }
+
+    private void setupRoom() {
+        //TODO
+    }
+
+    private void setupRoommate() {
+        //TODO
+        roommateListView = (RecyclerView) findViewById(R.id.house_roommate);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        roommateListView.setLayoutManager(layoutManager);
+        roommateListView.setHasFixedSize(true);
+        roommateAdapter = new UserPictureAdapter(this, roommateList);
+        roommateListView.setAdapter(roommateAdapter);
+    }
+
+    private void setupMap() {
+        mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
+        mapFragment.getMapAsync(this);
     }
 }
 
