@@ -198,7 +198,7 @@ public class My_changePassword extends AppCompatActivity {
         mBackButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
     }
