@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.text.Editable;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import java.security.CryptoPrimitive;
 
 public class My_changePassword extends AppCompatActivity {
 
+    private ImageView mBackButton;
     private EditText original_password;
     private EditText new_password;
     private EditText confirm_password;
@@ -49,6 +51,8 @@ public class My_changePassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_change_password);
+
+        mBackButton = findViewById(R.id.back_button);
 
         mAuth = FirebaseAuth.getInstance();
         original_password = (EditText) findViewById(R.id.original_password);
@@ -216,6 +220,12 @@ public class My_changePassword extends AppCompatActivity {
             }
         });
 
+        mBackButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void sendRestEmail(String email) {
