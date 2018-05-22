@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.text.Editable;
 import android.widget.Toast;
@@ -30,14 +31,15 @@ import java.security.CryptoPrimitive;
 
 public class My_changePassword extends AppCompatActivity {
 
+    private ImageView mBackButton;
     private EditText original_password;
     private EditText new_password;
     private EditText confirm_password;
-    private TextView done;
+    private CardView save;
     private TextView forget_password;
     private FirebaseAuth mAuth;
+    private String newpasswd;
 
-    private final int done_orig_size = 13;
 
     @Override
     protected void onUserLeaveHint() {
@@ -50,11 +52,13 @@ public class My_changePassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_change_password);
 
+        mBackButton = findViewById(R.id.back_button);
+
         mAuth = FirebaseAuth.getInstance();
         original_password = (EditText) findViewById(R.id.original_password);
         new_password = (EditText) findViewById(R.id.new_password);
         confirm_password = (EditText) findViewById(R.id.confirm_password);
-        done = (TextView) findViewById(R.id.Done);
+        save = (CardView) findViewById(R.id.Save);
         forget_password = (TextView) findViewById(R.id.forget_password);
         original_password.addTextChangedListener(new TextWatcher() {
 
@@ -65,14 +69,6 @@ public class My_changePassword extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(s.length() != 0 && !new_password.getText().toString().equals("") && !confirm_password.getText().toString().equals("")) {
-                    done.setTextSize(20);
-                    done.setTypeface(null, Typeface.BOLD);
-                }
-                else{
-                    done.setTextSize(done_orig_size);
-                    done.setTypeface(null, Typeface.NORMAL);
-                }
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -88,14 +84,6 @@ public class My_changePassword extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(s.length() != 0 && !original_password.getText().toString().equals("") && !confirm_password.getText().toString().equals("")) {
-                    done.setTextSize(20);
-                    done.setTypeface(null, Typeface.BOLD);
-                }
-                else{
-                    done.setTextSize(done_orig_size);
-                    done.setTypeface(null, Typeface.NORMAL);
-                }
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -111,23 +99,17 @@ public class My_changePassword extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(s.length() != 0 && !new_password.getText().toString().equals("") && !original_password.getText().toString().equals("")) {
-                    done.setTextSize(20);
-                    done.setTypeface(null, Typeface.BOLD);
-                }
-                else{
-                    done.setTextSize(done_orig_size);
-                    done.setTypeface(null, Typeface.NORMAL);
-                }
             }
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
 
-        done.setOnClickListener(new View.OnClickListener(){
+        save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+
+                newpasswd = new_password.getText().toString();
 
                 // hide kb
                 View v = findViewById(android.R.id.content);
@@ -135,9 +117,6 @@ public class My_changePassword extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
-                // change done icon back
-                done.setTextSize(done_orig_size);
-                done.setTypeface(null, Typeface.NORMAL);
 
                 // check all filled first
                 if( new_password.getText().toString().equals("")||new_password.getText().toString().equals("") ||original_password.getText().toString().equals("")) {
@@ -153,7 +132,7 @@ public class My_changePassword extends AppCompatActivity {
                 // ok
                 else {
 
-                    //reauth to verify old password
+                    //re-auth to verify old password
 
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), original_password.getText().toString());
@@ -165,7 +144,7 @@ public class My_changePassword extends AppCompatActivity {
                                         Log.d("My_changePassword", "User re-authenticated.");
 
                                         // update password
-                                        mAuth.getCurrentUser().updatePassword(new_password.getText().toString())
+                                        mAuth.getCurrentUser().updatePassword(newpasswd)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                            @Override
                                                                            public void onComplete(@NonNull Task<Void> task) {
@@ -179,24 +158,24 @@ public class My_changePassword extends AppCompatActivity {
                                                                                    reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                                    startActivity(reset);
                                                                                } else {
-                                                                                       Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
-                                                                                               .show();
+                                                                                   Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
+                                                                                           .show();
                                                                                }
                                                                            }
                                                                        }
                                                 );
                                     } else {
-                                            Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
-                                                    .show();
+                                        Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
+                                                .show();
                                     }
                                 }
                             });
 
                 }
                 // clear the inputs
-                new_password.setText("");
-                original_password.setText("");
-                confirm_password.setText("");
+//                new_password.setText("");
+//                original_password.setText("");
+//                confirm_password.setText("");
             }
         });
 
@@ -216,6 +195,12 @@ public class My_changePassword extends AppCompatActivity {
             }
         });
 
+        mBackButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void sendRestEmail(String email) {
@@ -229,15 +214,4 @@ public class My_changePassword extends AppCompatActivity {
                 });
     }
 
-    private void reAuth(String password) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        AuthCredential credential = EmailAuthProvider.getCredential(mAuth.getCurrentUser().getEmail(), password);
-        user.reauthenticate(credential)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("My_changePassword", "User re-authenticated.");
-                    }
-                });
-    }
 }
