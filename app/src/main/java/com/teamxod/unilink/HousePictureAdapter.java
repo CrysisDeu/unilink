@@ -19,9 +19,9 @@ public class HousePictureAdapter extends PagerAdapter {
     private Context context;
     private ArrayList<String> images;
 
-    public HousePictureAdapter(Context context, House house) {
+    public HousePictureAdapter(Context context, ArrayList<String> images) {
         this.context = context;
-        images = house.getHousePictures();
+        this.images = images;
     }
 
     @Override

@@ -174,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/facility" />
-
+        <!--
             <LinearLayout
                 style="@style/house_content"
                 android:layout_width="match_parent"
@@ -326,6 +326,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+            -->
 
             <View style="@style/separate_line" />
 
@@ -341,7 +342,17 @@
                 android:layout_height="240dp"
                 android:name="com.google.android.gms.maps.MapFragment" />
 
+            <GridLayout
+                style="@style/house_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount = "4"
+                android:columnCount="2">
+
+            </GridLayout>
         </LinearLayout>
+
+
 
     </ScrollView>
 

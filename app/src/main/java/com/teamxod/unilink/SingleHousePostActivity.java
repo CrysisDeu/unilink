@@ -107,7 +107,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
 
     private void setupHousePicture() {
         housePicture = (ViewPager)findViewById(R.id.house_image);
-        housePictureAdapter = new HousePictureAdapter(this, house);//housePictureAdapter = new HousePictureAdapter(this, house);
+        housePictureAdapter = new HousePictureAdapter(this, house.getHousePictures());
         housePicture.setAdapter(housePictureAdapter);
     }
 
