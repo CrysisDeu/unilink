@@ -29,7 +29,7 @@
         <activity android:name=".My_post" />
         <activity android:name=".My_changePassword" />
         <activity android:name=".My_logout" />
-        <activity android:name=".My_preference"/>
+        <activity android:name=".My_preference" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -52,8 +52,9 @@
 
         <service
             android:name=".LoadMapIntentService"
-            android:exported="false"/>
+            android:exported="false" />
 
+        <activity android:name=".Profile"></activity>
     </application>
 
 </manifest>

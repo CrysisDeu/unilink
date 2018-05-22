@@ -23,12 +23,15 @@ import com.google.firebase.auth.UserInfo;
 
 public class MyFragment extends Fragment {
 
+    private ImageView mProfilePic;
     private LinearLayout my_favorite;
     private LinearLayout my_post;
     private LinearLayout changePassword;
     private TextView logout;
     private LinearLayout changeProfile;
     private LinearLayout preference;
+
+
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
 
@@ -39,7 +42,7 @@ public class MyFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         // change name
         final TextView mName = (TextView) layout.findViewById(R.id.name);
-        final ImageView mProfilePic = (ImageView) layout.findViewById(R.id.profile_pic);
+        mProfilePic = (ImageView) layout.findViewById(R.id.profile_pic);
         if(mAuth != null) {
             mName.setText(mAuth.getCurrentUser().getDisplayName());
             Uri mPhoto = mAuth.getCurrentUser().getPhotoUrl();
@@ -71,6 +74,14 @@ public class MyFragment extends Fragment {
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 
+
+        mProfilePic.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(getActivity(), Profile.class);
+                startActivity(i);
+            }
+        });
 
         // set on click
         my_favorite.setOnClickListener(new View.OnClickListener(){
