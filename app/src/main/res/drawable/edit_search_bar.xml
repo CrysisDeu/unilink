@@ -7,13 +7,18 @@
 
     <!-- Bottom 2dp Shadow -->
     <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#bfbfbf" />
+        <!-- show rectangle area -->
+        <shape android:shape="rectangle" >
+            <gradient
+                android:angle="270"
+                android:startColor="#FFFFFF"
+                android:centerColor="#000000"
+                android:endColor="#FFFFFF"/>
         </shape>
     </item>
 
     <!-- White Top color -->
-    <item android:bottom="3dp" android:right="2dp">
+    <item android:bottom="5dp">
         <shape android:shape="rectangle">
             <solid android:color="#FFFFFF" />
         </shape>

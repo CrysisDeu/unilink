@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp">
+
+        <ImageView
+            android:id="@+id/headShot"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/ic_girl"/>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/rName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Jenny Smith"/>
+
+            <TextView
+                android:id="@+id/rMajor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Computer Science Major"/>
+
+            <TextView
+                android:id="@+id/rYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="4th Year"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:orientation="vertical"
+
+            android:layout_marginEnd="12dp">
+
+            <ProgressBar
+                android:id="@+id/rScore"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/rScore_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Matching Score"
+                android:textSize="9.5sp"/>
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+    <com.teamxod.unilink.TagViewGroup
+        android:id="@+id/proTag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </com.teamxod.unilink.TagViewGroup>
+
+    <com.teamxod.unilink.TagViewGroup
+        android:id="@+id/conTag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </com.teamxod.unilink.TagViewGroup>
+
+</LinearLayout>
