@@ -1,30 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="0"
+        android:background="@drawable/bottom_bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/house_post"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/house_button_more"
+            android:layout_width="@dimen/small_icon_side"
+            android:layout_height="@dimen/small_icon_side"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:background="@drawable/icon_more"
+            android:contentDescription="@string/button_favorite" />
+
+        <Button
+            android:id="@+id/house_button_back"
+            android:layout_width="@dimen/small_icon_side"
+            android:layout_height="@dimen/small_icon_side"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/icon_back"
+            android:contentDescription="@string/button_back"/>
+
+    </RelativeLayout>
+
     <ScrollView
         android:id="@+id/house_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="40dp" />
-
             <android.support.v4.view.ViewPager
                 android:id="@+id/house_image"
                 android:layout_width="match_parent"
-                android:layout_height="240dp">
-            </android.support.v4.view.ViewPager>
+                android:layout_height="240dp"></android.support.v4.view.ViewPager>
 
             <TextView
                 android:id="@+id/house_type"
@@ -95,8 +128,8 @@
             </RelativeLayout>
 
             <TextView
-                style="@style/house_content"
                 android:id="@+id/house_description"
+                style="@style/house_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/large_margin"
@@ -104,7 +137,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/s_font_size" />
 
-            <View style="@style/separate_line"/>
+            <View style="@style/separate_line" />
 
             <TextView
                 style="@style/subtitle"
@@ -118,7 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <View style="@style/separate_line"/>
+            <View style="@style/separate_line" />
 
             <TextView
                 style="@style/subtitle"
@@ -132,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <View style="@style/separate_line"/>
+            <View style="@style/separate_line" />
 
             <TextView
                 style="@style/subtitle"
@@ -292,7 +325,7 @@
 
             </LinearLayout>
 
-            <View style="@style/separate_line"/>
+            <View style="@style/separate_line" />
 
             <TextView
                 style="@style/subtitle"
@@ -301,15 +334,10 @@
                 android:text="@string/location" />
 
             <com.google.android.gms.maps.MapView
-                style="@style/house_content"
                 android:id="@+id/house_map"
+                style="@style/house_content"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="56dp" />
-
+                android:layout_height="240dp" />
 
         </LinearLayout>
 
@@ -318,10 +346,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="@drawable/bottom_bar"
-        android:orientation="horizontal">
+        android:layout_weight="0"
+        android:background="@drawable/bottom_bar" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -384,45 +410,4 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:alpha="0.95"
-        android:background="@drawable/bottom_bar">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/house_post"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/house_button_favourite"
-            android:layout_width="@dimen/small_icon_side"
-            android:layout_height="@dimen/small_icon_side"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="@dimen/small_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            android:background="@drawable/icon_more"
-            android:contentDescription="@string/button_favorite" />
-
-        <ImageButton
-            android:id="@+id/house_button_back"
-            android:layout_width="@dimen/small_icon_side"
-            android:layout_height="@dimen/small_icon_side"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginStart="@dimen/small_margin"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/icon_back"
-            android:contentDescription="@string/button_back"/>
-
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</LinearLayout>

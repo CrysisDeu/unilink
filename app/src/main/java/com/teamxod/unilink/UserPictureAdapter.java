@@ -9,14 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
 public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.SimpleProfileViewHolder> {
 
     private ArrayList<User> users;
 
-    UserPictureAdapter(ArrayList<User> users){
+    Context context;
+
+    UserPictureAdapter(Context context, ArrayList<User> users){
         this.users = users;
+        this.context = context;
     }
 
     @NonNull
@@ -40,8 +46,7 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
 
         holder.nameTextView.setText(user.getName());
 
-        holder.pictureImageView.setImageResource(user.getUserPhoto());
-
+        Glide.with(context).load(user.getUserPhoto()).apply(RequestOptions.circleCropTransform()).into(holder.pictureImageView);
     }
 
     @Override

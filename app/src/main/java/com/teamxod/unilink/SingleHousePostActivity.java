@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -37,12 +38,11 @@ public class SingleHousePostActivity extends AppCompatActivity/* implements OnMa
 
     House house;
     ArrayList<User> roommateList;
-    GoogleMap googleMap;
 
     ViewPager housePicture;
-    MapView mapView;
     RecyclerView roommateListView;
     ImageView posterImageView;
+
 
     HousePictureAdapter housePictureAdapter;
     UserPictureAdapter roommateAdapter;
@@ -63,11 +63,13 @@ public class SingleHousePostActivity extends AppCompatActivity/* implements OnMa
         roommateList.add(new User());
 
         //set imageView round
-        //Glide.with(context).load(url).apply(RequestOptions.circleCropTransform()).into(posterImageView);
+        posterImageView = (ImageView)findViewById(R.id.house_poster_image);
+        String url = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
+        Glide.with(this).load(url).apply(RequestOptions.circleCropTransform()).into(posterImageView);
 
         //house picture list setting
         housePicture = (ViewPager)findViewById(R.id.house_image);
-        housePictureAdapter = new HousePictureAdapter(this);//housePictureAdapter = new HousePictureAdapter(this, house);
+        housePictureAdapter = new HousePictureAdapter(this, house);//housePictureAdapter = new HousePictureAdapter(this, house);
         housePicture.setAdapter(housePictureAdapter);
 
         //roommate list setting
@@ -75,7 +77,7 @@ public class SingleHousePostActivity extends AppCompatActivity/* implements OnMa
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         roommateListView.setLayoutManager(layoutManager);
         roommateListView.setHasFixedSize(true);
-        roommateAdapter = new UserPictureAdapter(roommateList);
+        roommateAdapter = new UserPictureAdapter(this, roommateList);
         roommateListView.setAdapter(roommateAdapter);
 
         //google map

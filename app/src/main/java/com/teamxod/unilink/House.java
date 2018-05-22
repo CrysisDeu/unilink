@@ -27,7 +27,7 @@ public class House {
 
     private String houseDescription;
 
-    private ArrayList<URL> housePictures;
+    private ArrayList<String> housePictures;
 
     private ArrayList<Room> rooms;
 
@@ -87,6 +87,12 @@ public class House {
     House() {
         this.name = "Costa Verde";
         this.location = "3465 Lebon Drive,San Diego";
+        housePictures = new ArrayList<String>();
+        housePictures.add("http://www.xiugei.com/askimg/116615/tw1468549796178.png");
+        housePictures.add("http://img.wayes.cn/wayes_sys/imgdata/htmlimg/20160119/bj2016_01_19_09_56_36.jpg");
+        housePictures.add("http://www.sinaimg.cn/dy/slidenews/24_img/2015_27/66519_1233621_259753.jpg");
+        housePictures.add("http://www.sinaimg.cn/dy/slidenews/24_img/2015_27/66519_1233620_131928.jpg");
+
     }
 
 
@@ -115,7 +121,7 @@ public class House {
         return houseDescription;
     }
 
-    public ArrayList<URL> getHousePictures() {
+    public ArrayList<String> getHousePictures() {
         return housePictures;
     }
 
@@ -141,11 +147,11 @@ public class House {
         location = newLocation;
     }
 
-    public void addPicture(URL newPicture) {
+    public void addPicture(String newPicture) {
         housePictures.add(newPicture);
     }
 
-    public void removePicture(URL Picture) {
+    public void removePicture(String Picture) {
         housePictures.remove(Picture);
     }
 

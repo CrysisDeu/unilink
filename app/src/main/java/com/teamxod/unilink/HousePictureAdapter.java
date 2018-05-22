@@ -9,27 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
 public class HousePictureAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private ArrayList<Integer> images  = new ArrayList<Integer>();
+    private ArrayList<String> images  = new ArrayList<String>();
 
     public HousePictureAdapter(Context context, House house) {
         this.context = context;
-        //images = house.getHousePictures();
-        images.add(R.drawable.my_bg3);
-    }
-
-    public HousePictureAdapter(Context context) {
-        this.context = context;
-        images.add(R.drawable.default_image);
-        images.add(R.drawable.my_bg);
-        images.add(R.drawable.my_bg2);
-        images.add(R.drawable.my_bg3);
-        images.add(R.drawable.my_bg4);
+        images = house.getHousePictures();
     }
 
     @Override
@@ -48,7 +41,9 @@ public class HousePictureAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.house_picture, null);
         ImageView housePicture = (ImageView) view.findViewById(R.id.house_image);
-        housePicture.setImageResource(images.get(position));
+        Glide.with(context)
+                .load(images.get(position))
+                .into(housePicture);
 
         ViewPager vp = (ViewPager) container;
         vp.addView(view, 0);
