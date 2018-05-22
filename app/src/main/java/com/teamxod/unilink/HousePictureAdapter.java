@@ -17,8 +17,7 @@ import java.util.ArrayList;
 public class HousePictureAdapter extends PagerAdapter {
 
     private Context context;
-    private LayoutInflater layoutInflater;
-    private ArrayList<String> images  = new ArrayList<String>();
+    private ArrayList<String> images;
 
     public HousePictureAdapter(Context context, House house) {
         this.context = context;
@@ -38,7 +37,7 @@ public class HousePictureAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.house_picture, null);
         ImageView housePicture = (ImageView) view.findViewById(R.id.house_image);
         Glide.with(context)

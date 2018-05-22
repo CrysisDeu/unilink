@@ -25,7 +25,9 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -34,21 +36,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class SingleHousePostActivity extends AppCompatActivity/* implements OnMapReadyCallback*/{
+public class SingleHousePostActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     House house;
     ArrayList<User> roommateList;
 
     ViewPager housePicture;
     RecyclerView roommateListView;
-    ImageView posterImageView;
-
 
     HousePictureAdapter housePictureAdapter;
     UserPictureAdapter roommateAdapter;
 
     LinearLayoutManager layoutManager;
 
+    GoogleMap houseMap;
+    MapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +64,8 @@ public class SingleHousePostActivity extends AppCompatActivity/* implements OnMa
         roommateList.add(new User());
         roommateList.add(new User());
 
-        //set imageView round
-        posterImageView = (ImageView)findViewById(R.id.house_poster_image);
+        //set poster image
+        ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
         String url = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
         Glide.with(this).load(url).apply(RequestOptions.circleCropTransform()).into(posterImageView);
 
@@ -80,15 +82,9 @@ public class SingleHousePostActivity extends AppCompatActivity/* implements OnMa
         roommateAdapter = new UserPictureAdapter(this, roommateList);
         roommateListView.setAdapter(roommateAdapter);
 
-        //google map
-
-       /* mapView = (MapView) findViewById(R.id.house_map);
-        Bundle mapViewBundle = null;
-        if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle("i hate google map");
-        }
-        mapView.onCreate(mapViewBundle);
-        mapView.getMapAsync(this);*/
+        //map
+        mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -115,19 +111,16 @@ public class SingleHousePostActivity extends AppCompatActivity/* implements OnMa
         //mapView.onPause();
     }
 
-    /*
     @Override
     public void onMapReady(GoogleMap map) {
-        Address address = house.getAddress();
-        double lat = address.getLatitude();
-        double lon = address.getLongitude();
-
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(address.getLatitude(), address.getLongitude()));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-
-        map.moveCamera(center);
-        map.animateCamera(zoom);s
-
-    }*/
+        houseMap = map;
+        LatLng houseLatLng = new LatLng(40.7487, -73.9857);
+        CameraPosition target = CameraPosition.builder().target(houseLatLng).zoom(15).build();
+        houseMap.moveCamera(CameraUpdateFactory.newCameraPosition(target));
+        MarkerOptions houseMarker = new MarkerOptions()
+                .position(houseLatLng)
+                .title(house.getLocation());
+        houseMap.addMarker(houseMarker);
+    }
 }
 
