@@ -3,42 +3,36 @@ package com.teamxod.unilink;
 import java.util.ArrayList;
 
 public class User {
-    private String userPhoto;
     private String name;
+    private String picture;
     private String gender;
     private String yearGraduate;
-    private ArrayList <Integer> favorite_houses;
-    private ArrayList <Integer> my_house_posts;
-    private ArrayList <Integer> favorite_roommates;
-    private ArrayList <Integer> my_roommate_posts;
+    private String description;
 
     //temporary constructor
     User() {
         name = "Stella";
-        gender = "female";
-        userPhoto = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
-        yearGraduate = "Sophomore";
+        picture = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
+        gender = "Female";
+        yearGraduate = "2019";
+        description = "I am cool!";
     }
 
-    public User(String userPhoto, String name, String gender, String yearGraduate,
-                ArrayList <Integer> favorite_houses, ArrayList <Integer> my_house_posts,
-                ArrayList <Integer>favorite_roommates, ArrayList <Integer> my_roommate_posts) {
-        this.userPhoto = userPhoto;
+    public User(String name, String picture, String gender, String yearGraduate,
+                String description) {
+        this.picture = picture;
         this.name = name;
         this.gender = gender;
         this.yearGraduate = yearGraduate;
-        this.favorite_houses = favorite_houses;
-        this.my_house_posts = my_house_posts;
-        this.favorite_roommates = favorite_roommates;
-        this. my_roommate_posts = my_roommate_posts;
+        this.description = description;
     }
 
-    public String getUserPhoto() {
-        return userPhoto;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setUserPhoto(String photoUrl) {
-        this.userPhoto = photoUrl;
+    public void setPicture(String photoUrl) {
+        this.picture = photoUrl;
     }
 
     public String getName() {

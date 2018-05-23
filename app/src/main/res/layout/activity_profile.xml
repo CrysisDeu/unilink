@@ -64,6 +64,7 @@
 
 
                     <TextView
+                        android:id="@+id/name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -81,6 +82,7 @@
 
 
                     <TextView
+                        android:id="@+id/gender"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -99,6 +101,7 @@
 
 
                     <TextView
+                        android:id="@+id/year"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -127,6 +130,7 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"

@@ -43,7 +43,7 @@ public class MyFragment extends Fragment {
         // change name
         final TextView mName = (TextView) layout.findViewById(R.id.name);
         mProfilePic = (ImageView) layout.findViewById(R.id.profile_pic);
-        if(mAuth != null) {
+        if(mAuth != null && mAuth.getCurrentUser() != null) {
             mName.setText(mAuth.getCurrentUser().getDisplayName());
             Uri mPhoto = mAuth.getCurrentUser().getPhotoUrl();
             if (mPhoto != null) {
@@ -79,6 +79,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view){
                 Intent i = new Intent(getActivity(), Profile.class);
+                i.putExtra("uid", mAuth.getCurrentUser().getUid());
                 startActivity(i);
             }
         });
@@ -161,7 +162,7 @@ public class MyFragment extends Fragment {
     }
 
     private boolean getLoginmethod() {
-        if(mAuth != null) {
+        if(mAuth != null && mAuth.getCurrentUser() != null) {
             for (UserInfo user : mAuth.getCurrentUser().getProviderData()) {
                 Log.d("TAG",user.getProviderId());
                 if (user.getProviderId().equals("google.com")) { // google login
