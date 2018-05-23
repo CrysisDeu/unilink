@@ -1,87 +1,125 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="12dp">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="88dp">
+        android:layout_height="90dp"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/headShot"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/ic_girl"/>
+
 
         <LinearLayout
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="76dp"
+            android:layout_marginTop="14dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/rName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:text="Jenny Smith"/>
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:textStyle="bold"
+                android:text="Jenny Smith" />
 
             <TextView
                 android:id="@+id/rMajor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Computer Science Major"/>
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:text="Computer Science Major" />
 
             <TextView
                 android:id="@+id/rYear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4th Year"/>
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:text="4th Year" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="88dp"
-            android:layout_height="88dp"
-            android:orientation="vertical"
-
-            android:layout_marginEnd="12dp">
-
-            <ProgressBar
-                android:id="@+id/rScore"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:id="@+id/rScore_text"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Matching Score"
-                android:textSize="9.5sp"/>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/rScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="32dp"
+                    android:textColor="#000000"
+                    android:text="10"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/roboto"
+                    android:textStyle="bold"/>
+
+                <com.app.progresviews.ProgressWheel
+                    android:id="@+id/rProgress"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="6dp"
+                    app:barWidth="6dp"
+                    app:countText=""
+                    app:countTextColor="#000000"
+                    app:countTextSize="20sp"
+                    app:defTextColor="#000000"
+                    app:defTextSize="0sp"
+                    app:definitionText=""
+                    app:marginBtwText="0dp"
+                    app:percentage="360"
+                    app:progressColor="#6d48e5" />
+
+
+                <TextView
+                    android:id="@+id/rScore_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="Matching Score"
+                    android:textSize="10sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_thin" />
+            </RelativeLayout>
+
+    </RelativeLayout>
 
 
 
-
-    </LinearLayout>
 
 
     <com.teamxod.unilink.TagViewGroup
         android:id="@+id/proTag"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent" />
 
-    </com.teamxod.unilink.TagViewGroup>
 
     <com.teamxod.unilink.TagViewGroup
         android:id="@+id/conTag"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent" />
 
-    </com.teamxod.unilink.TagViewGroup>
+
 
 </LinearLayout>

@@ -30,8 +30,8 @@ public class RoommateFragment extends Fragment {
 
         String [] pros = {"clean","quite","sleep early"};
         String [] cons = {"drink often","smoke"};
-        roommates.add(new RoommateSimp("Jenney Smith", "http://cdn.kingston.ac.uk/includes/img/cms/site-images/resized/e57c559-kingston-university-bfe85b4-eason-chan.jpg",
-                "Computer Science", 98, 4,pros, cons));
+        roommates.add(new RoommateSimp("Eason Chan", "http://cdn.kingston.ac.uk/includes/img/cms/site-images/resized/e57c559-kingston-university-bfe85b4-eason-chan.jpg",
+                "Computer Science", 9, 4,pros, cons));
 
         listView = layout.findViewById(R.id.roomate_list);
 
@@ -45,22 +45,6 @@ public class RoommateFragment extends Fragment {
     }
 
 
-    /*private void initChildViews() {
 
-
-        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.leftMargin = 5;
-        lp.rightMargin = 5;
-        lp.topMargin = 5;
-        lp.bottomMargin = 5;
-        for(int i = 0; i < mNames.length; i ++){
-            TextView view = new TextView(this.getActivity());
-            view.setText(mNames[i]);
-            view.setTextColor(Color.WHITE);
-            view.setBackgroundResource(R.drawable.roommate_tag_layout);
-            tagViewLayout.addView(view,lp);
-        }
-    }*/
 
 }
