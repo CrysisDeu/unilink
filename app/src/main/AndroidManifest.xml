@@ -31,7 +31,6 @@
         <activity android:name=".My_favorite" />
         <activity android:name=".My_post" />
         <activity android:name=".My_changePassword" />
-        <activity android:name=".My_logout" />
         <activity android:name=".My_preference" />
 
         <meta-data
