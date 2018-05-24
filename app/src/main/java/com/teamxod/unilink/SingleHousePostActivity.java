@@ -7,8 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -45,7 +48,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.house_post);
 
-        loadData();
+        initializePost();
 
         setupBasicData();
 
@@ -73,10 +76,17 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Address address = addressList.get(0);
-            houseLatLng = new LatLng(address.getLatitude(), address.getLongitude());
+            if (addressList == null || addressList.size() < 1) {
+                houseLatLng = new LatLng(40.7487, -73.9857);
+                Toast.makeText(this, "Invalid Location", Toast.LENGTH_LONG).show();
+            } else {
+                Address address = addressList.get(0);
+                houseLatLng = new LatLng(address.getLatitude(), address.getLongitude());
+            }
+
         } else {
             houseLatLng = new LatLng(40.7487, -73.9857);
+            Toast.makeText(this, "Invalid Location", Toast.LENGTH_LONG).show();
         }
 
         CameraPosition target = CameraPosition.builder().target(houseLatLng).zoom(15).build();
@@ -87,11 +97,20 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         houseMap.addMarker(houseMarker);
     }
 
-    private void loadData(){
+    private void initializePost(){
+        Button backBtn = (Button)findViewById(R.id.house_button_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         house = new House();
         roommateList = new ArrayList<>();
         roommateList.add(new User());
         roommateList.add(new User());
+        //TODO
     }
 
     private void setupBasicData() {
@@ -132,6 +151,10 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         map_container.setScrollView(scrollView);
         mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
         mapFragment.getMapAsync(this);
+    }
+
+    private void setupFeatures() {
+        //TODO
     }
 }
 
