@@ -26,6 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.ByteArrayOutputStream;
 
 public class InitiateProfile extends AppCompatActivity {
+    private final String MALE_PROFILE_PIC = "https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/male.png?alt=media&token=02a80321-a6ae-4194-af4d-bd658de9348f";
+    private final String FEMALE_PROFILE_PIC = "https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/female.png?alt=media&token=69a0c9c9-eda5-481d-9043-b718d899121b";
+
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String uid;
@@ -42,7 +45,7 @@ public class InitiateProfile extends AppCompatActivity {
     private Spinner mYearSpinner;
     private EditText mDescription;
     private Bitmap imageBitmap;
-    private CardView save;
+    private CardView mSave;
 
     private final int PICK_IMAGE_REQUEST = 71;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -58,7 +61,7 @@ public class InitiateProfile extends AppCompatActivity {
         mGenderSpinner = findViewById(R.id.gender_spinner);
         mYearSpinner = findViewById(R.id.year_spinner);
         mDescription = findViewById(R.id.description);
-        save = findViewById(R.id.save);
+        mSave = findViewById(R.id.save);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -88,16 +91,22 @@ public class InitiateProfile extends AppCompatActivity {
                 dispatchTakePictureIntent();
             }
         });
-        save.setOnClickListener(new View.OnClickListener() {
+        mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = mEditName.getText().toString();
+                gender = mGenderSpinner.getSelectedItem().toString();
                 if (imageBitmap != null) {
                     picture = encodeBitmap(imageBitmap);
                 } else {
-                    picture = "";
+                    //FIXME check gender and set default pic
+                    if (gender == "female") {
+                        picture = FEMALE_PROFILE_PIC;
+                    }
+                    else {
+                        picture = MALE_PROFILE_PIC;
+                    }
                 }
-                gender = mGenderSpinner.getSelectedItem().toString();
                 yearGraduate = mYearSpinner.getSelectedItem().toString();
                 description = mDescription.getText().toString();
                 writeNewUser(name, picture,gender,yearGraduate,description);
