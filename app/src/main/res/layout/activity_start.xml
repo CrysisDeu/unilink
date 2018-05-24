@@ -101,7 +101,7 @@
                 android:ems="10"
                 android:inputType="textEmailAddress"
                 android:hint="myname@unilink.com"
-                android:backgroundTint="#6d48e5"/>
+                style="@style/edit_text"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="666666"
-                android:backgroundTint="#6d48e5"/>
+                style="@style/edit_text"/>
 
             <Button
                 android:id="@+id/confirm_sign_in"
@@ -125,7 +125,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/email_sign_up2" />
+                android:background="@drawable/sign_in_button" />
         </LinearLayout>
 
         <LinearLayout
@@ -158,7 +158,7 @@
                 android:ems="10"
                 android:inputType="textEmailAddress"
                 android:hint="myname@unilink.com"
-                android:backgroundTint="#6d48e5"/>
+                style="@style/edit_text"/>
 
             <TextView
             android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="666666"
-                android:backgroundTint="#6d48e5"/>
+                style="@style/edit_text"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -190,7 +190,7 @@
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="666666"
-                android:backgroundTint="#6d48e5"/>
+                style="@style/edit_text"/>
 
             <Button
                 android:id="@+id/confirm_sign_up"
