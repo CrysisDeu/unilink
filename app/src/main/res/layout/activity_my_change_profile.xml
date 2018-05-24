@@ -24,7 +24,7 @@
                 android:id="@+id/back_button"
                 style="@style/back_button"
                 android:tint="#ffffff"
-                app:srcCompat="@drawable/icon_back" />
+                app:srcCompat="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="wrap_content"

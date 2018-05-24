@@ -22,13 +22,16 @@
     <string name="button_back">Back button</string>
     <string name="button_share">Share button</string>
 
+    <string name="default_value">No Data</string>
+    <string name="parking">Parking</string>
+    <string name="ac">AC set</string>
+    <string name="pet">Pets</string>
     <string name="tv">TV</string>
     <string name="bus">Bus</string>
-    <string name="wifi">Wi-Fi</string>
+    <string name="laundry">Laundry</string>
     <string name="gym">Gym</string>
-    <string name="game">Game</string>
-    <string name="AC">AC</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="Game">Video Game</string>
+
 
     <string-array name="genders">
         <item>Male</item>

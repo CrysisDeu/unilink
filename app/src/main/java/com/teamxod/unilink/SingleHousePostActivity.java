@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -126,6 +127,9 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void setupMap() {
+        ScrollView scrollView = (ScrollView) findViewById(R.id.house_content);
+        MapContainer map_container = (MapContainer) findViewById(R.id.map_container);
+        map_container.setScrollView(scrollView);
         mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
         mapFragment.getMapAsync(this);
     }

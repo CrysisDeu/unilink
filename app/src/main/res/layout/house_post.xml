@@ -27,7 +27,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="@dimen/small_margin"
             android:layout_marginTop="@dimen/small_margin"
-            android:background="@drawable/icon_more"
+            android:background="@drawable/ic_more"
             android:contentDescription="@string/button_favorite" />
 
         <Button
@@ -38,7 +38,7 @@
             android:layout_marginStart="@dimen/small_margin"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:background="@drawable/icon_back"
+            android:background="@drawable/ic_back"
             android:contentDescription="@string/button_back"/>
 
     </RelativeLayout>
@@ -153,8 +153,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <View style="@style/separate_line" />
-
             <TextView
                 style="@style/subtitle"
                 android:layout_width="match_parent"
@@ -167,166 +165,282 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <View style="@style/separate_line" />
-
             <TextView
                 style="@style/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/facility" />
-        <!--
-            <LinearLayout
+
+            <GridLayout
                 style="@style/house_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:columnCount="2"
+                android:rowCount="4">
 
+                <!-- Ac -->
                 <LinearLayout
-                    android:id="@+id/house_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/large_margin"
-                    android:orientation="vertical">
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_row="0"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="@dimen/middle_icon_side"
                         android:layout_height="@dimen/middle_icon_side"
-                        android:contentDescription="@string/tv"
-                        android:src="@drawable/icon_tv" />
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_ac" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center_horizontal|top"
-                        android:text="@string/tv"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/s_font_size" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/category"
+                            android:text="@string/ac" />
+
+                        <TextView
+                            android:id="@+id/house_ac"
+                            style="@style/data" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <!-- heating -->
                 <LinearLayout
-                    android:id="@+id/house_wifi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/large_margin"
-                    android:orientation="vertical">
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_row="0"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="@dimen/middle_icon_side"
                         android:layout_height="@dimen/middle_icon_side"
-                        android:contentDescription="@string/wifi"
-                        android:src="@drawable/icon_wifi" />
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_pets" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center_horizontal|top"
-                        android:text="@string/wifi"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/s_font_size" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/category"
+                            android:text="@string/pet" />
+
+                        <TextView
+                            android:id="@+id/house_pet"
+                            style="@style/data" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <!-- parking -->
                 <LinearLayout
-                    android:id="@+id/house_bus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/large_margin"
-                    android:orientation="vertical">
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_row="1"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="@dimen/middle_icon_side"
                         android:layout_height="@dimen/middle_icon_side"
-                        android:contentDescription="@string/bus"
-                        android:src="@drawable/icon_bus" />
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_parking" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center_horizontal|top"
-                        android:text="@string/bus"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/s_font_size" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/category"
+                            android:text="@string/parking" />
+
+                        <TextView
+                            android:id="@+id/house_parking"
+                            style="@style/data" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <!-- bus -->
                 <LinearLayout
-                    android:id="@+id/house_gym"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/large_margin"
-                    android:orientation="vertical">
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_row="1"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="@dimen/middle_icon_side"
                         android:layout_height="@dimen/middle_icon_side"
-                        android:contentDescription="@string/gym"
-                        android:src="@drawable/icon_gym" />
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_bus" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center_horizontal|top"
-                        android:text="@string/gym"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/s_font_size" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/category"
+                            android:text="@string/bus" />
+
+                        <TextView
+                            android:id="@+id/house_bus"
+                            style="@style/data" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <!-- TV -->
                 <LinearLayout
-                    android:id="@+id/house_game"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/large_margin"
-                    android:orientation="vertical">
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_row="2"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="@dimen/middle_icon_side"
                         android:layout_height="@dimen/middle_icon_side"
-                        android:contentDescription="@string/game"
-                        android:src="@drawable/icon_game" />
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_tv" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center_horizontal|top"
-                        android:text="@string/game"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/s_font_size" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/category"
+                            android:text="@string/tv" />
+
+                        <TextView
+                            android:id="@+id/house_tv"
+                            style="@style/data" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <!-- Game -->
                 <LinearLayout
-                    android:id="@+id/house_ac"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/large_margin"
-                    android:orientation="vertical">
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_row="2"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="@dimen/middle_icon_side"
                         android:layout_height="@dimen/middle_icon_side"
-                        android:contentDescription="@string/AC"
-                        android:src="@drawable/icon_ac" />
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_video_game" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:gravity="center_horizontal|top"
-                        android:text="@string/AC"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/s_font_size" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/category"
+                            android:text="@string/Game" />
+
+                        <TextView
+                            android:id="@+id/house_game"
+                            style="@style/data" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-            -->
+                <!-- Gym -->
+                <LinearLayout
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_row="3"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/middle_icon_side"
+                        android:layout_height="@dimen/middle_icon_side"
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_gym" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/category"
+                            android:text="@string/gym" />
+
+                        <TextView
+                            android:id="@+id/house_gym"
+                            style="@style/data" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- laundry -->
+                <LinearLayout
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_row="3"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/middle_icon_side"
+                        android:layout_height="@dimen/middle_icon_side"
+                        android:layout_marginEnd="@dimen/small_margin"
+                        android:layout_weight="0"
+                        android:src="@drawable/ic_laundry" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/category"
+                            android:text="@string/laundry" />
+
+                        <TextView
+                            android:id="@+id/house_laundry"
+                            style="@style/data" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </GridLayout>
 
             <View style="@style/separate_line" />
 
@@ -336,23 +450,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/location" />
 
-            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/house_map"
-                android:layout_width="match_parent"
+            <com.teamxod.unilink.MapContainer
+                android:id="@+id/map_container"
                 android:layout_height="240dp"
-                android:name="com.google.android.gms.maps.MapFragment" />
+                android:layout_width="match_parent">
 
-            <GridLayout
-                style="@style/house_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:rowCount = "4"
-                android:columnCount="2">
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/house_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.google.android.gms.maps.MapFragment" />
 
-            </GridLayout>
+            </com.teamxod.unilink.MapContainer>
+
         </LinearLayout>
-
-
 
     </ScrollView>
 
