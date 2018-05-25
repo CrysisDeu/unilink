@@ -55,7 +55,7 @@ public class MyFragment extends Fragment {
         //Retrieve Profile from Firebase
         final TextView mName = (TextView) layout.findViewById(R.id.name);
         mProfilePic = (ImageView) layout.findViewById(R.id.profile_pic);
-        if(mAuth != null && mAuth.getCurrentUser() != null) {
+        //if(mAuth != null && mAuth.getCurrentUser() != null) {
             mName.setText(mAuth.getCurrentUser().getDisplayName());
             Uri mPhoto = mAuth.getCurrentUser().getPhotoUrl();
             if (mPhoto != null) {
@@ -63,7 +63,7 @@ public class MyFragment extends Fragment {
                         .load(mPhoto)
                         .apply(RequestOptions.circleCropTransform())
                         .into(mProfilePic);
-            }
+            //}
 
         }
 
