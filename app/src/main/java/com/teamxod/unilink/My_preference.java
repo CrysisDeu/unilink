@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import junit.framework.Test;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 
@@ -78,10 +80,76 @@ public class My_preference extends AppCompatActivity {
         // button groups for yes and no
         SegmentedGroup bring = (SegmentedGroup)findViewById(R.id.bring_button);
         bring.setTintColor(Color.parseColor("#cc66ff"));
+
         SegmentedGroup pet = (SegmentedGroup)findViewById(R.id.pet_button);
         pet.setTintColor(Color.parseColor("#cc66ff"));
+
         SegmentedGroup cook = (SegmentedGroup)findViewById(R.id.cook_button);
         cook.setTintColor(Color.parseColor("#cc66ff"));
+
+        // hobbies section
+        final CheckedTextView surfing = (CheckedTextView)findViewById(R.id.surfing);
+        surfing.setCheckMarkDrawable(R.drawable.unchecked);
+        final CheckedTextView hiking = (CheckedTextView)findViewById(R.id.hiking);
+        hiking.setCheckMarkDrawable(R.drawable.unchecked);
+        final CheckedTextView skiing = (CheckedTextView)findViewById(R.id.skiing);
+        skiing.setCheckMarkDrawable(R.drawable.unchecked);
+        final CheckedTextView gaming = (CheckedTextView)findViewById(R.id.gaming);
+        gaming.setCheckMarkDrawable(R.drawable.unchecked);
+
+
+        surfing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!surfing.isChecked()) {
+                    surfing.setChecked(true);
+                    surfing.setCheckMarkDrawable(R.drawable.checked);
+                }else{
+                    surfing.setChecked(false);
+                    surfing.setCheckMarkDrawable(R.drawable.unchecked);
+                }
+
+            }
+        });
+
+        hiking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!hiking.isChecked()){
+                    hiking.setCheckMarkDrawable(R.drawable.checked);
+                    hiking.setChecked(true);
+                }else {
+                    hiking.setCheckMarkDrawable(R.drawable.unchecked);
+                    hiking.setChecked(false);
+                }
+            }
+        });
+
+        skiing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!skiing.isChecked()){
+                    skiing.setChecked(true);
+                    skiing.setCheckMarkDrawable(R.drawable.checked);
+                }else {
+                    skiing.setCheckMarkDrawable(R.drawable.unchecked);
+                    skiing.setChecked(false);
+                }
+            }
+        });
+
+        gaming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!gaming.isChecked()){
+                    gaming.setChecked(true);
+                    gaming.setCheckMarkDrawable(R.drawable.checked);
+                }else {
+                    gaming.setCheckMarkDrawable(R.drawable.unchecked);
+                    gaming.setChecked(false);
+                }
+            }
+        });
 
         // spinner for the language spinner
         Spinner languageSpinner = (Spinner)findViewById(R.id.languege_spinner);
