@@ -152,7 +152,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
             //Mandatory to refresh image from Uri.
             // upload to firebase storage
             uploadToFirebase(r.getUri());
-            mProfilePic.setImageURI(picture);
 
 
         } else {
@@ -192,7 +191,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
-                        picture = profile_images.getDownloadUrl().getResult();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -202,6 +200,19 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                         // ...
                     }
                 });
+
+        profile_images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                picture = uri;
+                mProfilePic.setImageURI(picture);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
     }
 
 }
