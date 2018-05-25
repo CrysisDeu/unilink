@@ -32,6 +32,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class StartActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -190,7 +195,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
 
 
-                //SignIn onClick
+        //SignIn onClick
         mSignInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -205,7 +210,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        //Cancle SignIn onClick
+        //Cancel SignIn onClick
         mCancleSignInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -244,14 +249,6 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
             }
         });
-        /*fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
-            public void onAnimationStart(Animation animation) {}
-            public void onAnimationRepeat(Animation animation) {}
-            public void onAnimationEnd(Animation animation) {
-
-            }
-        });*/
-
 
     }
 
@@ -336,10 +333,6 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-                Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
-                startActivity(mainIntent);
-                finish();
-
             } else {
                 // Google Sign In failed
                 Log.e(TAG, "Google Sign In failed.");
@@ -349,9 +342,32 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
-            startActivity(mainIntent);
-            finish();
+            DatabaseReference users = FirebaseDatabase.getInstance().getReference();
+            users.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+
+                    // already set profile
+                    /*if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {*/
+                        Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
+                        startActivity(mainIntent);
+                        finish();
+
+                    // need to set profile
+                    /*} else {
+                        Intent initiateProfileIntent = new Intent(StartActivity.this, InitiateProfile.class);
+                        startActivity(initiateProfileIntent);
+                        finish();
+                    }*/
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
         } else {
             Log.e(TAG, "Sign up failed.");
         }
@@ -398,7 +414,6 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(StartActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
 
                         // [END_EXCLUDE]
@@ -429,6 +444,8 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                         } else {
                             try {
                                 Toast.makeText(StartActivity.this, "Welcome " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                updateUI(user);
                             } catch (Exception e) {
 
                             }

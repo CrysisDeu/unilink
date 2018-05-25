@@ -79,13 +79,13 @@ public class My_preference extends AppCompatActivity {
 
         // button groups for yes and no
         SegmentedGroup bring = (SegmentedGroup)findViewById(R.id.bring_button);
-        bring.setTintColor(Color.parseColor("#cc66ff"));
+        bring.setTintColor(Color.parseColor("#885ead"));
 
         SegmentedGroup pet = (SegmentedGroup)findViewById(R.id.pet_button);
-        pet.setTintColor(Color.parseColor("#cc66ff"));
+        pet.setTintColor(Color.parseColor("#885ead"));
 
         SegmentedGroup cook = (SegmentedGroup)findViewById(R.id.cook_button);
-        cook.setTintColor(Color.parseColor("#cc66ff"));
+        cook.setTintColor(Color.parseColor("#885ead"));
 
         // hobbies section
         final CheckedTextView surfing = (CheckedTextView)findViewById(R.id.surfing);
@@ -150,6 +150,59 @@ public class My_preference extends AppCompatActivity {
                 }
             }
         });
+
+
+        // smoke and drink section
+        SegmentedGroup smoke = (SegmentedGroup)findViewById(R.id.smoke_button);
+        smoke.setTintColor(Color.parseColor("#885ead"));
+        SegmentedGroup drink = (SegmentedGroup)findViewById(R.id.drink_button);
+        drink.setTintColor(Color.parseColor("#885ead"));
+
+        SeekBar smoke_seekBar = (SeekBar)findViewById(R.id.smoke_seekbar);
+        smoke_seekBar.setMax(7);
+        final TextView smoke_seebar_text = (TextView)findViewById(R.id.smoke_seekbar_text);
+        smoke_seebar_text.setText("0 times - 7 times");
+        smoke_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressV;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressV = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                smoke_seebar_text.setText(progressV + " times");
+            }
+        });
+
+        SeekBar drink_seekBar = (SeekBar)findViewById(R.id.drink_seekbar);
+        drink_seekBar.setMax(7);
+        final TextView drink_seebar_text = (TextView)findViewById(R.id.drink_seekbar_text);
+        drink_seebar_text.setText("0 times - 7 times");
+        drink_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressV;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progressV = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                drink_seebar_text.setText(progressV + " times");
+            }
+        });
+
+        // party
+        SegmentedGroup party = (SegmentedGroup)findViewById(R.id.party_button);
+        party.setTintColor(Color.parseColor("#885ead"));
 
         // spinner for the language spinner
         Spinner languageSpinner = (Spinner)findViewById(R.id.languege_spinner);
