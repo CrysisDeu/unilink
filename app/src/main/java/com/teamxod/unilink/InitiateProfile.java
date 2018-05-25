@@ -15,25 +15,33 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.listeners.IPickClick;
+import com.vansuita.pickimage.listeners.IPickResult;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URL;
 
-public class InitiateProfile extends AppCompatActivity {
-    private final String MALE_PROFILE_PIC = "https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/male.png?alt=media&token=02a80321-a6ae-4194-af4d-bd658de9348f";
-    private final String FEMALE_PROFILE_PIC = "https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/female.png?alt=media&token=69a0c9c9-eda5-481d-9043-b718d899121b";
+public class InitiateProfile extends AppCompatActivity implements IPickResult {
+    private final Uri MALE_PROFILE_PIC = Uri.parse("https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/male.png?alt=media&token=02a80321-a6ae-4194-af4d-bd658de9348f");
+    private final Uri FEMALE_PROFILE_PIC = Uri.parse("https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/female.png?alt=media&token=69a0c9c9-eda5-481d-9043-b718d899121b");
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String uid;
     private String name;
-    private String picture;
+    private Uri picture;
     private String gender;
     private String yearGraduate;
     private String description;
@@ -46,6 +54,7 @@ public class InitiateProfile extends AppCompatActivity {
     private EditText mDescription;
     private Bitmap imageBitmap;
     private CardView mSave;
+    private PickImageDialog dialog;
 
     private final int PICK_IMAGE_REQUEST = 71;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -85,22 +94,24 @@ public class InitiateProfile extends AppCompatActivity {
             mEmail.setText(mAuth.getCurrentUser().getEmail());
         }
 
+        //choose picture from camera or gallery
         mProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakePictureIntent();
+                dialog = PickImageDialog.build(new PickSetup()).show(InitiateProfile.this);
+
             }
         });
+
+
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = mEditName.getText().toString();
                 gender = mGenderSpinner.getSelectedItem().toString();
-                if (imageBitmap != null) {
-                    picture = encodeBitmap(imageBitmap);
-                } else {
+                if(picture == null) {
                     //FIXME check gender and set default pic
-                    if (gender == "female") {
+                    if (gender.equals("Female")) {
                         picture = FEMALE_PROFILE_PIC;
                     }
                     else {
@@ -109,43 +120,51 @@ public class InitiateProfile extends AppCompatActivity {
                 }
                 yearGraduate = mYearSpinner.getSelectedItem().toString();
                 description = mDescription.getText().toString();
-                writeNewUser(name, picture,gender,yearGraduate,description);
+                writeNewUser(name, picture.toString(),gender,yearGraduate,description);
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .setPhotoUri(picture)
+                        .build();
+                mAuth.getCurrentUser().updateProfile(profileUpdates);
+                Intent mainIntent = new Intent(InitiateProfile.this, MainActivity.class);
+                startActivity(mainIntent);
                 finish();
             }
         });
 
 
-
     }
 
+    //PickImage Plug-in
+    //choose picture from camera or gallery
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-            mProfilePic.setImageBitmap(imageBitmap);
-//            encodeBitmapAndSaveToFirebase(imageBitmap);
+    public void onPickResult(PickResult r) {
+        if (r.getError() == null) {
+            //If you want the Uri.
+            //Mandatory to refresh image from Uri.
+            picture = r.getUri();
+            mProfilePic.setImageURI(picture);
+
+
+            //Setting the real returned image.
+            //getImageView().setImageURI(r.getUri());
+
+            //If you want the Bitmap.
+            //getImageView().setImageBitmap(r.getBitmap());
+
+            //Image path
+            //r.getPath();
+        } else {
+            Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
-
-    public String  encodeBitmap(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-//        DatabaseReference ref = FirebaseDatabase.getInstance()
-//                .getReference("Users")
-//                .child(uid)
-//                .child("picture");
-//        ref.setValue(imageEncoded);
-        return imageEncoded;
-    }
 
     private void writeNewUser(String name, String picture, String gender, String yearGraduate,
                               String description) {
         User user = new User(name, picture, gender, yearGraduate, description);
 
-        //mDatabase.child("Users").child(uid).setValue(user);
+        mDatabase.child("Users").child(uid).setValue(user);
     }
 
     private void chooseImage() {
@@ -165,7 +184,7 @@ public class InitiateProfile extends AppCompatActivity {
             }
             return false;
         } else {
-            return true; // not login
+            return true; // not login, no profile photo
         }
     }
 

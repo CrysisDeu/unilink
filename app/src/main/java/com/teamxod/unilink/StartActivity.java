@@ -190,7 +190,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
 
 
-                //SignIn onClick
+        //SignIn onClick
         mSignInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -205,7 +205,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        //Cancle SignIn onClick
+        //Cancel SignIn onClick
         mCancleSignInButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -244,14 +244,6 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
             }
         });
-        /*fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
-            public void onAnimationStart(Animation animation) {}
-            public void onAnimationRepeat(Animation animation) {}
-            public void onAnimationEnd(Animation animation) {
-
-            }
-        });*/
-
 
     }
 
@@ -367,8 +359,11 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            //FirebaseUser user = mAuth.getCurrentUser();
+                            Intent initiateProfileIntent = new Intent(StartActivity.this, InitiateProfile.class);
+                            startActivity(initiateProfileIntent);
+                            finish();
+                            //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
