@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -19,11 +20,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
@@ -39,6 +45,8 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private StorageReference mStorageRef;
+
     private String uid;
     private String name;
     private Uri picture;
@@ -73,6 +81,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
         mSave = findViewById(R.id.save);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth != null && mAuth.getCurrentUser() != null) {
@@ -87,10 +96,9 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                             .load(mPhoto)
                             .apply(RequestOptions.circleCropTransform())
                             .into(mProfilePic);
+                    picture = mPhoto;
                 }
             }
-
-
             mEmail.setText(mAuth.getCurrentUser().getEmail());
         }
 
@@ -140,20 +148,13 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
     @Override
     public void onPickResult(PickResult r) {
         if (r.getError() == null) {
-            //If you want the Uri.
+
             //Mandatory to refresh image from Uri.
-            picture = r.getUri();
+            // upload to firebase storage
+            uploadToFirebase(r.getUri());
             mProfilePic.setImageURI(picture);
 
 
-            //Setting the real returned image.
-            //getImageView().setImageURI(r.getUri());
-
-            //If you want the Bitmap.
-            //getImageView().setImageBitmap(r.getBitmap());
-
-            //Image path
-            //r.getPath();
         } else {
             Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -167,12 +168,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
         mDatabase.child("Users").child(uid).setValue(user);
     }
 
-    private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
+
 
     private boolean getLoginmethod() {
         if(mAuth != null && mAuth.getCurrentUser() != null) {
@@ -188,12 +184,24 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
         }
     }
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
+    private void uploadToFirebase (Uri uri) {
+        final StorageReference profile_images = mStorageRef.child("Profile_Images").child(mAuth.getCurrentUser().getUid());
 
+        profile_images.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+                        picture = profile_images.getDownloadUrl().getResult();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                    }
+                });
+    }
 
 }
