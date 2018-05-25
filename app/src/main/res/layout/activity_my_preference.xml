@@ -3,35 +3,192 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="@dimen/middle_margin"
+    android:paddingLeft="@dimen/large_margin"
+    android:paddingRight="@dimen/large_margin"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#6d48e5"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/back_button"
-            style="@style/back_button"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:tint="#ffffff"
-            app:srcCompat="@drawable/ic_back" />
+    <!-- sleep seekbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/middle_margin"
+        >
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Profile"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:text="What time do you sleep?"
+            android:textSize="@dimen/m_font_size"
+            android:textColor="@color/black"/>
 
-    </LinearLayout>
-    <ListView
-        android:id="@+id/my_preference_list"
+        <TextView
+            android:id="@+id/sleep_seekbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/m_font_size"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black"/>
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/sleep_seekbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:thumb="@color/purple"
+        android:backgroundTint="@color/white"
+        android:progressTint="@color/purple" />
 
-         />
+    <!--  clean seekbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/middle_margin"
+        android:paddingTop="@dimen/large_margin"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How many times did you clean the public area last month?"
+            android:textSize="@dimen/m_font_size"
+            android:layout_toLeftOf="@id/clean_seekbar_text"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/clean_seekbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/m_font_size"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:paddingLeft="@dimen/large_margin"/>
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/clean_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:thumb="@color/purple"
+        android:backgroundTint="@color/white"
+        android:progressTint="@color/purple" />
+
+    <!--  Three yes or no question -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Will you bring other people to stay overnight?"
+        android:textSize="@dimen/m_font_size"
+        android:textColor="@color/black"
+        android:paddingTop="@dimen/large_margin"/>
+
+    <info.hoang8f.android.segmented.SegmentedGroup
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/bring_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/bring_button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            style="@style/RadioButton" />
+
+        <RadioButton
+            android:id="@+id/bring_button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            style="@style/RadioButton" />
+
+        <RadioButton
+            android:id="@+id/bring_button_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maybe"
+            style="@style/RadioButton" />
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you have a pet?"
+        android:textSize="@dimen/m_font_size"
+        android:textColor="@color/black"
+        android:paddingTop="@dimen/large_margin"/>
+
+    <info.hoang8f.android.segmented.SegmentedGroup
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pet_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/pet_button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            style="@style/RadioButton" />
+
+        <RadioButton
+            android:id="@+id/pet_button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            style="@style/RadioButton" />
+
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you cook?"
+        android:textSize="@dimen/m_font_size"
+        android:textColor="@color/black"
+        android:paddingTop="@dimen/large_margin"/>
+
+    <info.hoang8f.android.segmented.SegmentedGroup
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cook_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/cook_button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            style="@style/RadioButton" />
+
+        <RadioButton
+            android:id="@+id/cook_button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            style="@style/RadioButton" />
+
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <!-- hobbies -->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First Language"
+        android:textSize="@dimen/m_font_size"/>
+
+    <Spinner
+        android:id="@+id/languege_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
 </LinearLayout>
