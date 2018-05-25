@@ -79,7 +79,7 @@
                         android:layout_marginRight="16dp"
                         android:layout_weight="1"
                         android:gravity="right|center_vertical"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:hint="Your Name"
                         android:textSize="20sp"
                         style="@style/edit_text"/>

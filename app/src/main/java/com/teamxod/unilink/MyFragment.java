@@ -20,6 +20,11 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MyFragment extends Fragment {
 
@@ -33,14 +38,21 @@ public class MyFragment extends Fragment {
 
 
     private GoogleApiClient mGoogleApiClient;
+    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
+    private String uid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_my, container, false); // get the GUI
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        // change name
+        uid = mAuth.getCurrentUser().getUid();
+        DatabaseReference mUserReference = mDatabase.child("Users").child(uid);
+
+
+        //Retrieve Profile from Firebase
         final TextView mName = (TextView) layout.findViewById(R.id.name);
         mProfilePic = (ImageView) layout.findViewById(R.id.profile_pic);
         if(mAuth != null && mAuth.getCurrentUser() != null) {
@@ -55,18 +67,15 @@ public class MyFragment extends Fragment {
 
         }
 
+
+
         // my :
-        my_favorite = (LinearLayout) layout.findViewById(R.id.my_favorite_l);
-        my_post = (LinearLayout) layout.findViewById(R.id.my_post_l);
-        changePassword = (LinearLayout) layout.findViewById(R.id.change_password_l);
-        logout = (TextView) layout.findViewById(R.id.logout);
-        changeProfile = (LinearLayout) layout.findViewById(R.id.change_profile_l);
-        preference = (LinearLayout) layout.findViewById(R.id.set_preference_l);
-        /*View my_favorite = layout.findViewById(R.id.my_favorite);
-        View my_post = layout.findViewById(R.id.my_post);
-        View changePassword = layout.findViewById(R.id.changePassword);
-        View logout = layout.findViewById(R.id.logout);
-        View preference = layout.findViewById(R.id.setPreference);*/
+        my_favorite = layout.findViewById(R.id.my_favorite_l);
+        my_post = layout.findViewById(R.id.my_post_l);
+        changePassword = layout.findViewById(R.id.change_password_l);
+        logout = layout.findViewById(R.id.logout);
+        changeProfile = layout.findViewById(R.id.change_profile_l);
+        preference = layout.findViewById(R.id.set_preference_l);
 
         // GoogleApiClient to logout
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity

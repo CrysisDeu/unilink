@@ -348,17 +348,17 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 public void onDataChange(DataSnapshot snapshot) {
 
                     // already set profile
-                    if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    /*if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {*/
                         Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
                         startActivity(mainIntent);
                         finish();
 
                     // need to set profile
-                    } else {
+                    /*} else {
                         Intent initiateProfileIntent = new Intent(StartActivity.this, InitiateProfile.class);
                         startActivity(initiateProfileIntent);
                         finish();
-                    }
+                    }*/
                 }
 
                 @Override

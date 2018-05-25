@@ -118,7 +118,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                 name = mEditName.getText().toString();
                 gender = mGenderSpinner.getSelectedItem().toString();
                 if(picture == null) {
-                    //FIXME check gender and set default pic
                     if (gender.equals("Female")) {
                         picture = FEMALE_PROFILE_PIC;
                     }
