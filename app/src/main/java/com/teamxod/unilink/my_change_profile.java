@@ -85,7 +85,7 @@ public class my_change_profile extends AppCompatActivity {
                         .into(mProfilePic);
                 mEmail.setText(mAuth.getCurrentUser().getEmail());
                 mGenderSpinner.setSelection(getGenderSelection(user.getGender()));
-                mYearSpinner.setSelection(getGenderSelection(user.getYearGraduate()));
+                mYearSpinner.setSelection(getYearSelection(user.getYearGraduate()));
             }
 
             @Override
