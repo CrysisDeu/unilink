@@ -1,6 +1,7 @@
 package com.teamxod.unilink;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private String name;
@@ -11,15 +12,10 @@ public class User {
 
     //temporary constructor
     User() {
-        name = "Stella";
-        picture = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
-        gender = "Female";
-        yearGraduate = "2019";
-        description = "I am cool!";
     }
 
-    public User(String name, String picture, String gender, String yearGraduate,
-                String description) {
+    User(String name, String picture, String gender, String yearGraduate,
+         String description) {
         this.picture = picture;
         this.name = name;
         this.gender = gender;

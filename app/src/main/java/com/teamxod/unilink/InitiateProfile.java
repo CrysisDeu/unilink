@@ -101,7 +101,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
             }
             mEmail.setText(mAuth.getCurrentUser().getEmail());
         }
-
         //choose picture from camera or gallery
         mProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +132,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                         .setPhotoUri(picture)
                         .build();
                 mAuth.getCurrentUser().updateProfile(profileUpdates);
+                uploadToFirebase(picture);
                 Intent mainIntent = new Intent(InitiateProfile.this, MainActivity.class);
                 startActivity(mainIntent);
                 finish();
@@ -150,9 +150,12 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
 
             //Mandatory to refresh image from Uri.
             // upload to firebase storage
-            uploadToFirebase(r.getUri());
 
-
+            picture = r.getUri();
+            Glide.with(InitiateProfile.this)
+                    .load(picture)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(mProfilePic);
         } else {
             Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -194,10 +197,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                             @Override
                             public void onSuccess(Uri uri) {
                                 picture = uri;
-                                Glide.with(InitiateProfile.this)
-                                        .load(picture)
-                                        .apply(RequestOptions.circleCropTransform())
-                                        .into(mProfilePic);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
