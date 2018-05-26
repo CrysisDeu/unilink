@@ -38,6 +38,8 @@ import com.vansuita.pickimage.listeners.IPickResult;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InitiateProfile extends AppCompatActivity implements IPickResult {
     private final Uri MALE_PROFILE_PIC = Uri.parse("https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/male.png?alt=media&token=02a80321-a6ae-4194-af4d-bd658de9348f");
@@ -164,7 +166,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
 
     private void writeNewUser(String name, String picture, String gender, String yearGraduate,
                               String description) {
-        User user = new User(name, picture, gender, yearGraduate, description);
+        User user = new User(name, picture, gender, yearGraduate, description,(List<String>) new ArrayList<String>(0),(List<String>) new ArrayList<String>(0));
 
         mDatabase.child("Users").child(uid).setValue(user);
     }

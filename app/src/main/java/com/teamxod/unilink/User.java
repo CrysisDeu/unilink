@@ -10,18 +10,22 @@ public class User {
     private String gender;
     private String yearGraduate;
     private String description;
+    private List<String> favorite_houses;
+    private List<String> my_house_posts;
 
     //temporary constructor
     User() {
     }
 
     User(String name, String picture, String gender, String yearGraduate,
-         String description) {
+         String description, List<String> favorite_houses, List<String> my_house_posts) {
         this.picture = picture;
         this.name = name;
         this.gender = gender;
         this.yearGraduate = yearGraduate;
         this.description = description;
+        this.favorite_houses = favorite_houses;
+        this.my_house_posts = my_house_posts;
     }
 
     public String getPicture() {
@@ -57,6 +61,26 @@ public class User {
     }
     public String getDescription() {
         return this.description;
+    }
+
+    public List<String> getFavorite_houses() {
+        return favorite_houses;
+    }
+
+    public List<String> getMy_house_posts() {
+        return my_house_posts;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setFavorite_houses(List<String> favorite_houses) {
+        this.favorite_houses = favorite_houses;
+    }
+
+    public void setMy_house_posts(List<String> my_house_posts) {
+        this.my_house_posts = my_house_posts;
     }
 
     //FIXME
