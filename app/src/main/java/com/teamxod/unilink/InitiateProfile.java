@@ -118,7 +118,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                 name = mEditName.getText().toString();
                 gender = mGenderSpinner.getSelectedItem().toString();
                 if(picture == null) {
-                    //FIXME check gender and set default pic
                     if (gender.equals("Female")) {
                         picture = FEMALE_PROFILE_PIC;
                     }
@@ -191,6 +190,21 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         // Get a URL to the uploaded content
+                        profile_images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                picture = uri;
+                                Glide.with(InitiateProfile.this)
+                                        .load(picture)
+                                        .apply(RequestOptions.circleCropTransform())
+                                        .into(mProfilePic);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -201,18 +215,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                     }
                 });
 
-        profile_images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                picture = uri;
-                mProfilePic.setImageURI(picture);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
+
     }
 
 }

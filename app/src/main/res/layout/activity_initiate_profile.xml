@@ -71,11 +71,11 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="16dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#6d48e5"
                         android:gravity="right|center_vertical"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:hint="Your Name"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        style="@style/edit_text"/>
 
                 </LinearLayout>
 
@@ -188,7 +188,8 @@
                         android:layout_marginRight="16dp"
                         android:backgroundTint="#6d48e5"
                         android:hint="Tell us about you more!"
-                        android:maxHeight="112dp" />
+                        android:maxHeight="112dp"
+                        style="@style/edit_text"/>
 
 
                 </LinearLayout>

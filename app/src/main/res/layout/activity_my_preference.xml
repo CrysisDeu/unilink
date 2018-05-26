@@ -1,37 +1,494 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="@dimen/large_margin">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#6d48e5"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/back_button"
-            style="@style/back_button"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:tint="#ffffff"
-            app:srcCompat="@drawable/ic_back" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="#6d48e5"
+            android:orientation="horizontal">
+
+            <ImageView
+                style="@style/back_button"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:tint="#ffffff"
+                app:srcCompat="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Survey"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:paddingLeft="@dimen/large_margin"
+         android:paddingRight="@dimen/large_margin"
+         android:orientation="vertical">
+
+    <!-- sleep seekbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/large_margin"
+        android:paddingBottom="@dimen/middle_margin"
+        >
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Profile"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:text="What time do you sleep?"
+            android:textSize="@dimen/m_font_size"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
 
-    </LinearLayout>
-    <ListView
-        android:id="@+id/my_preference_list"
+        <TextView
+            android:id="@+id/sleep_seekbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/m_font_size"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/sleep_seekbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:thumb="@color/purple"
+        android:backgroundTint="@color/white"
+        android:progressTint="@color/purple" />
 
-         />
-</LinearLayout>
+    <!--  clean seekbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/middle_margin"
+        android:paddingTop="@dimen/large_margin"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How many days did you clean the public area last month?"
+            android:textSize="@dimen/m_font_size"
+            android:layout_toLeftOf="@id/clean_seekbar_text"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/clean_seekbar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/m_font_size"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:paddingLeft="@dimen/large_margin"/>
+    </RelativeLayout>
+
+    <SeekBar
+        android:id="@+id/clean_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:thumb="@color/purple"
+        android:backgroundTint="@color/white"
+        android:progressTint="@color/purple" />
+
+    <!--  Four yes or no question -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Will you bring other people to stay overnight?"
+        android:textSize="@dimen/m_font_size"
+        android:textColor="@color/black"
+        android:paddingTop="@dimen/large_margin"
+        android:textStyle="bold"/>
+
+    <info.hoang8f.android.segmented.SegmentedGroup
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/bring_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/bring_button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            style="@style/RadioButton"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/bring_button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            style="@style/RadioButton"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/bring_button_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maybe"
+            style="@style/RadioButton"
+            android:textStyle="bold"/>
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you have a pet?"
+        android:textSize="@dimen/m_font_size"
+        android:textColor="@color/black"
+        android:paddingTop="@dimen/large_margin"
+        android:textStyle="bold"/>
+
+    <info.hoang8f.android.segmented.SegmentedGroup
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pet_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/pet_button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            style="@style/RadioButton"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/pet_button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            style="@style/RadioButton"
+            android:textStyle="bold"/>
+
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you cook?"
+        android:textSize="@dimen/m_font_size"
+        android:textColor="@color/black"
+        android:paddingTop="@dimen/large_margin"
+        android:textStyle="bold"/>
+
+    <info.hoang8f.android.segmented.SegmentedGroup
+        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cook_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/cook_button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            style="@style/RadioButton"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/cook_button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            style="@style/RadioButton"
+            android:textStyle="bold"/>
+
+    </info.hoang8f.android.segmented.SegmentedGroup>
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Are you planning on hosting parties?"
+             android:textSize="@dimen/m_font_size"
+             android:textColor="@color/black"
+             android:paddingTop="@dimen/large_margin"
+             android:textStyle="bold"/>
+
+         <info.hoang8f.android.segmented.SegmentedGroup
+             xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/party_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/small_margin"
+             android:orientation="horizontal">
+
+             <RadioButton
+                 android:id="@+id/party_button_1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Yes"
+                 style="@style/RadioButton"
+                 android:textStyle="bold"/>
+
+             <RadioButton
+                 android:id="@+id/party_button_2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="No"
+                 style="@style/RadioButton"
+                 android:textStyle="bold"/>
+
+             <RadioButton
+                 android:id="@+id/party_button_3"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Maybe"
+                 style="@style/RadioButton"
+                 android:textStyle="bold"/>
+
+         </info.hoang8f.android.segmented.SegmentedGroup>
+
+    <!-- hobbies -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/m_font_size"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Hobbies"
+        android:paddingTop="@dimen/large_margin"/>
+
+    <CheckedTextView
+        android:id="@+id/surfing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/middle_margin"
+        android:textColor="@color/black"
+        android:textSize="@dimen/m_font_size"
+        android:text="Surfing"
+        android:checkMark="@drawable/checked"
+        android:checked="false"
+        />
+
+    <CheckedTextView
+        android:id="@+id/hiking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/middle_margin"
+        android:textColor="@color/black"
+        android:textSize="@dimen/m_font_size"
+        android:text="Hiking"
+        android:checkMark="@drawable/checked"
+        android:checked="false"
+        />
+
+    <CheckedTextView
+        android:id="@+id/skiing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/middle_margin"
+        android:textColor="@color/black"
+        android:textSize="@dimen/m_font_size"
+        android:text="Skiing"
+        android:checkMark="@drawable/checked"
+        android:checked="false"
+        />
+
+    <CheckedTextView
+        android:id="@+id/gaming"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/middle_margin"
+        android:textColor="@color/black"
+        android:textSize="@dimen/m_font_size"
+        android:text="Gaming"
+        android:checkMark="@drawable/checked"
+        android:checked="false"
+        />
+
+
+    <!-- smoke section-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you smoke?"
+            android:textSize="@dimen/m_font_size"
+            android:textColor="@color/black"
+            android:paddingTop="@dimen/large_margin"
+            android:textStyle="bold"/>
+
+        <info.hoang8f.android.segmented.SegmentedGroup
+            xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/smoke_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/small_margin"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/smoke_button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                style="@style/RadioButton"
+                android:textStyle="bold"/>
+
+            <RadioButton
+                android:id="@+id/smoke_button_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                style="@style/RadioButton"
+                android:textStyle="bold"/>
+
+        </info.hoang8f.android.segmented.SegmentedGroup>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/large_margin"
+            android:paddingTop="@dimen/large_margin"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="If so, how many days per week?"
+                android:textSize="@dimen/m_font_size"
+                android:textColor="@color/black"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/smoke_seekbar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/m_font_size"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+        <SeekBar
+            android:id="@+id/smoke_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:thumb="@color/purple"
+            android:backgroundTint="@color/white"
+            android:progressTint="@color/purple" />
+
+
+
+     <!-- drink section-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you drink?"
+            android:textSize="@dimen/m_font_size"
+            android:textColor="@color/black"
+            android:paddingTop="@dimen/large_margin"
+            android:textStyle="bold"/>
+
+        <info.hoang8f.android.segmented.SegmentedGroup
+            xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/drink_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/small_margin"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/drink_button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                style="@style/RadioButton"
+                android:textStyle="bold"/>
+
+            <RadioButton
+                android:id="@+id/drink_button_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                style="@style/RadioButton"
+                android:textStyle="bold"/>
+
+        </info.hoang8f.android.segmented.SegmentedGroup>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/large_margin"
+            android:paddingTop="@dimen/large_margin"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="If so, how many days per week?"
+                android:textSize="@dimen/m_font_size"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/drink_seekbar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/m_font_size"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+        <SeekBar
+            android:id="@+id/drink_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:thumb="@color/purple"
+            android:backgroundTint="@color/white"
+            android:progressTint="@color/purple" />
+
+
+    <!-- language spinner -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First Language"
+        android:textSize="@dimen/m_font_size"
+        android:textColor="@color/black"
+        android:paddingTop="@dimen/large_margin"
+        android:textStyle="bold"/>
+
+    <Spinner
+        android:id="@+id/languege_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
+
+     </LinearLayout>
+    </LinearLayout>
+</ScrollView>
