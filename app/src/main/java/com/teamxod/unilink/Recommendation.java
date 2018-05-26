@@ -19,9 +19,10 @@ public class Recommendation {
      *  Proper lengths of individual component are dealed in getData()
      */
     public double calculate(){
+        // final result
         double score = 0;
 
-        // intermediate value
+        // intermediate values
         int innerProduct = 0;
         double lengthOne = 0;
         double lengthTwo = 0;
