@@ -1,18 +1,31 @@
 package com.teamxod.unilink;
 
-import android.content.Intent;
-import android.location.Address;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.os.ResultReceiver;
-import android.view.View;
-
-import com.google.android.gms.maps.model.LatLng;
-
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
-public class House {
+class House {
+
+    public House(String postId, String posterId, String houseType, String title, String location, String description, int price, long startDate, long endDate, List<String> pictures, List<Room> rooms, String tv, String ac, String bus, String parking, String videoGame, String gym, String laundry, String pet) {
+        this.postId = postId;
+        this.posterId = posterId;
+        this.houseType = houseType;
+        this.title = title;
+        this.location = location;
+        this.description = description;
+        this.price = price;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.pictures = pictures;
+        this.rooms = rooms;
+        this.tv = tv;
+        this.ac = ac;
+        this.bus = bus;
+        this.parking = parking;
+        this.videoGame = videoGame;
+        this.gym = gym;
+        this.laundry = laundry;
+        this.pet = pet;
+    }
 
     //private field
     private String postId;
@@ -21,82 +34,34 @@ public class House {
 
     private String houseType;
 
-    private String name;
+    private String title;
 
     private String location;
 
-    private String houseDescription;
+    private String description;
 
-    private ArrayList<String> housePictures;
+    private int price;
 
-    private ArrayList<Room> rooms;
+    private long startDate;
 
-    private boolean tv;
+    private long endDate;
 
-    private boolean wifi;
+    private List<String> pictures;
 
-    private boolean bus;
+    private List<Room> rooms;
 
-    private boolean gym;
+    private String tv;
 
-    private boolean ac;
+    private String ac;
 
-    private boolean game;
+    private String bus;
 
-    public boolean hasWifi() {
-        return wifi;
-    }
+    private String parking;
 
-    public void setWifi(boolean wifi) {
-        this.wifi = wifi;
-    }
+    private String videoGame;
 
-    public boolean hasBus() {
-        return bus;
-    }
+    private String gym;
 
-    public void setBus(boolean bus) {
-        this.bus = bus;
-    }
-
-    public boolean hasGym() {
-        return gym;
-    }
-
-    public void setGym(boolean gym) {
-        this.gym = gym;
-    }
-
-    public boolean hasAc() {
-        return ac;
-    }
-
-    public void setAc(boolean ac) {
-        this.ac = ac;
-    }
-
-    public boolean hasGame() {
-        return game;
-    }
-
-    public void setGame(boolean game) {
-        this.game = game;
-    }
-
-    //public constructor
-    House() {
-        this.name = "Costa Verde";
-        this.location = "3465 Lebon Drive,San Diego";
-        housePictures = new ArrayList<String>();
-        housePictures.add("http://www.xiugei.com/askimg/116615/tw1468549796178.png");
-        housePictures.add("http://img.wayes.cn/wayes_sys/imgdata/htmlimg/20160119/bj2016_01_19_09_56_36.jpg");
-        housePictures.add("http://www.sinaimg.cn/dy/slidenews/24_img/2015_27/66519_1233621_259753.jpg");
-        housePictures.add("http://www.sinaimg.cn/dy/slidenews/24_img/2015_27/66519_1233620_131928.jpg");
-
-    }
-
-
-    //get methods
     public String getPostId() {
         return postId;
     }
@@ -109,8 +74,8 @@ public class House {
         return houseType;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getLocation() {
@@ -118,57 +83,74 @@ public class House {
     }
 
     public String getDescription() {
-        return houseDescription;
+        return description;
     }
 
-    public ArrayList<String> getHousePictures() {
-        return housePictures;
+    public int getPrice() {
+        return price;
     }
 
-    public ArrayList<Room> getRooms() {
+    public long getStartDate() {
+        return startDate;
+    }
+
+    public long getEndDate() {
+        return endDate;
+    }
+
+    public List<String> getPictures() {
+        return pictures;
+    }
+
+    public List<Room> getRooms() {
         return rooms;
     }
 
-    public boolean hasTv() {
+    public String getTv() {
         return tv;
     }
 
-
-    //set&edit methods
-    public void setHouseType(String newHouseType) {
-        houseType = newHouseType;
+    public String getAc() {
+        return ac;
     }
 
-    public void setName(String newName) {
-        name = newName;
+    public String getBus() {
+        return bus;
     }
 
-    public void setLocation(String newLocation) {
-        location = newLocation;
+    public String getParking() {
+        return parking;
     }
 
-    public void addPicture(String newPicture) {
-        housePictures.add(newPicture);
+    public String getVideoGame() {
+        return videoGame;
     }
 
-    public void removePicture(String Picture) {
-        housePictures.remove(Picture);
+    public String getGym() {
+        return gym;
     }
 
-    public void setHouseDescription(String newDescription) {
-        houseDescription = newDescription;
+    public String getLaundry() {
+        return laundry;
     }
 
-    public void addRoom(Room newRoom) {
-        rooms.add(newRoom);
+    public String getPet() {
+        return pet;
     }
 
-    public void removeRoom(Room room) {
-        rooms.remove(room);
-    }
+    private String laundry;
 
-    public void setTv(boolean tv) {
-        this.tv = tv;
+    private String pet;
+
+    //public constructor
+    House() {
+        this.title = "Costa Verde";
+        this.location = "3465 Lebon Drive,San Diego";
+        pictures = new ArrayList<>();
+        pictures.add("http://www.xiugei.com/askimg/116615/tw1468549796178.png");
+        pictures.add("http://img.wayes.cn/wayes_sys/imgdata/htmlimg/20160119/bj2016_01_19_09_56_36.jpg");
+        pictures.add("http://www.sinaimg.cn/dy/slidenews/24_img/2015_27/66519_1233621_259753.jpg");
+        pictures.add("http://www.sinaimg.cn/dy/slidenews/24_img/2015_27/66519_1233620_131928.jpg");
     }
 
 }
