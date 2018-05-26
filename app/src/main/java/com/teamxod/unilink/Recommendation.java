@@ -3,7 +3,7 @@ package com.teamxod.unilink;
 import java.sql.Array;
 import java.math.*;
 
-public class Recomendation {
+public class Recommendation {
     private final int paramNumber = 13;
     int Array1[] = new int[paramNumber];
     int Array2[] = new int[paramNumber];
