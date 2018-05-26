@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/large_margin">
-
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="56dp"
+        android:background="#6d48e5"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#6d48e5"
-            android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/back_button"
+            style="@style/back_button"
+            android:tint="#ffffff"
+            app:srcCompat="@drawable/ic_back" />
 
-            <ImageView
-                style="@style/back_button"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:tint="#ffffff"
-                app:srcCompat="@drawable/ic_back" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="My Preference"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Survey"
-                android:textColor="#fff"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+    </LinearLayout>
 
-        </LinearLayout>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/large_margin">
 
      <LinearLayout
          android:layout_width="match_parent"
@@ -89,7 +91,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="How many days did you clean the public area last month?"
+            android:text="How many times did you clean the public area last week?"
             android:textSize="@dimen/m_font_size"
             android:layout_toLeftOf="@id/clean_seekbar_text"
             android:textColor="@color/black"
@@ -184,41 +186,6 @@
 
         <RadioButton
             android:id="@+id/pet_button_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No"
-            style="@style/RadioButton"
-            android:textStyle="bold"/>
-
-    </info.hoang8f.android.segmented.SegmentedGroup>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Do you cook?"
-        android:textSize="@dimen/m_font_size"
-        android:textColor="@color/black"
-        android:paddingTop="@dimen/large_margin"
-        android:textStyle="bold"/>
-
-    <info.hoang8f.android.segmented.SegmentedGroup
-        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cook_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_margin"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/cook_button_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yes"
-            style="@style/RadioButton"
-            android:textStyle="bold"/>
-
-        <RadioButton
-            android:id="@+id/cook_button_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No"
@@ -489,6 +456,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></Spinner>
 
-     </LinearLayout>
+
+    <!-- save button -->
+         <android.support.v7.widget.CardView
+             android:id="@+id/save"
+             android:layout_width="96dp"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginTop="@dimen/xlarge_margin"
+             android:layout_marginBottom="@dimen/large_margin"
+             app:cardBackgroundColor="#6d48e5"
+             app:cardElevation="4dp">
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:text="SAVE"
+                 android:layout_gravity="center"
+                 android:paddingTop="@dimen/middle_margin"
+                 android:paddingBottom="@dimen/middle_margin"
+                 android:paddingLeft="@dimen/middle_margin"
+                 android:paddingRight="@dimen/middle_margin"
+                 android:textColor="#FFFFFF"
+                 android:textSize="@dimen/m_font_size"
+                 android:textStyle="bold"/>
+         </android.support.v7.widget.CardView>
+
+
+
     </LinearLayout>
 </ScrollView>
+</LinearLayout>
+
