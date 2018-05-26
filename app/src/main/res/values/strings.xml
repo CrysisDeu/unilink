@@ -12,6 +12,7 @@
     <string name="house_image">house image</string>
     <string name="user_image">user image</string>
     <string name="post">Post</string>
+    <string name="major">Major:</string>
 
     <string name="roommate">Roommates</string>
     <string name="facility">Facts and Features</string>

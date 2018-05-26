@@ -27,6 +27,13 @@
         <item name="android:layout_marginEnd">@dimen/large_margin</item>
     </style>
 
+    <style name="normal_text">
+        <item name="android:textSize">@dimen/m_font_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <style name="subtitle">
         <item name="android:layout_marginStart">@dimen/large_margin</item>
         <item name="android:layout_marginEnd">@dimen/large_margin</item>

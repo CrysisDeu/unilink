@@ -45,7 +45,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="168dp"
+                android:layout_height="112dp"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/small_margin">
 
@@ -63,6 +63,33 @@
                     android:layout_width="142dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/roommate_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Kevin Spencer"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        style="@style/normal_text"
+                        android:text="@string/major"/>
+
+                    <TextView
+                        style="@style/normal_text"
+                        android:id="@+id/roommate_major"
+                        android:text="Computer Science"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/small_margin"
+                        style="@style/normal_text"
+                        android:text="4th year"/>
+
+                    <TextView
+                        style="@style/normal_text"
+                        android:text="Graduating 2018"/>
 
                 </LinearLayout>
 
@@ -99,7 +126,6 @@
                         app:progressColor="#6d48e5" />
 
                     <TextView
-                        android:id="@+id/rScore_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@id/roommate_progress"
