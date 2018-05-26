@@ -4,7 +4,7 @@ import java.sql.Array;
 import java.math.*;
 
 public class Recommendation {
-    private final int paramNumber = 13;
+    private final int paramNumber = 12;
     int Array1[] = new int[paramNumber];
     int Array2[] = new int[paramNumber];
     /** get data from the database and put them into corresponding slots of arrays.
