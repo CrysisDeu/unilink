@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 public class my_change_profile extends AppCompatActivity {
 
     //spinner selector
@@ -34,7 +36,7 @@ public class my_change_profile extends AppCompatActivity {
 
     //Button
     private ImageView mBackButton;
-    private CardView saveProfile;
+    private CardView mSaveButton;
 
     //Views
     private ImageView mProfilePic;
@@ -57,7 +59,7 @@ public class my_change_profile extends AppCompatActivity {
 
         //Button
         mBackButton = findViewById(R.id.back_button);
-        saveProfile = findViewById(R.id.save);
+        mSaveButton = findViewById(R.id.save);
 
         //Views
         mProfilePic = findViewById(R.id.profile_pic);
@@ -71,7 +73,7 @@ public class my_change_profile extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-        DatabaseReference mUserReference = mDatabase.child("Users").child(uid);
+        final DatabaseReference mUserReference = mDatabase.child("Users").child(uid);
 
         mUserReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,6 +88,7 @@ public class my_change_profile extends AppCompatActivity {
                 mEmail.setText(mAuth.getCurrentUser().getEmail());
                 mGenderSpinner.setSelection(getGenderSelection(user.getGender()));
                 mYearSpinner.setSelection(getYearSelection(user.getYearGraduate()));
+                mDescription.setText(user.getDescription());
             }
 
             @Override
@@ -94,44 +97,34 @@ public class my_change_profile extends AppCompatActivity {
             }
         });
 
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            StateListAnimator stateListAnimator = AnimatorInflater
-                    .loadStateListAnimator(this, R.animator.lift_on_touch);
-            card.setStateListAnimator(stateListAnimator);
-        }*/
-
-
-        // change name
-        /*final TextView mName = (TextView) findViewById(R.id.name);
-        mProfilePic = (ImageView) findViewById(R.id.profile_pic);
-        if (mAuth != null && mAuth.getCurrentUser() != null) {
-            mEditName.setText(mAuth.getCurrentUser().getDisplayName());
-            Uri mPhoto = mAuth.getCurrentUser().getPhotoUrl();
-            if (mPhoto != null) {
-                Glide.with(this)
-                        .load(mPhoto)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(mProfilePic);
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.setName(mEditName.getText().toString());
+                user.setGender(mGenderSpinner.getSelectedItem().toString());
+                user.setYearGraduate(mYearSpinner.getSelectedItem().toString());
+                user.setDescription(mDescription.getText().toString());
+                mUserReference.setValue(user);
+                finish();
             }
-            mEmail.setText(mAuth.getCurrentUser().getEmail());*/
+        });
 
-
-            mBackButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //}
     }
 
     private int getGenderSelection(String gender) {
         int genderSelection;
-        switch(gender) {
-            case "Male" :
+        switch (gender) {
+            case "Male":
                 genderSelection = GENDER_MALE;
                 break;
-            case "Female" :
+            case "Female":
                 genderSelection = GENDER_FEMALE;
                 break;
             default:

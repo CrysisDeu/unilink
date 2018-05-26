@@ -54,7 +54,6 @@ public class MyFragment extends Fragment {
         mName = layout.findViewById(R.id.name);
         mProfilePic = layout.findViewById(R.id.profile_pic);
 
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
