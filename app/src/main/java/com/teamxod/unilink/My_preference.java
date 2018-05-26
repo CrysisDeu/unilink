@@ -40,17 +40,19 @@ public class My_preference extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-            }
+             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if(progressV < 4) {
                     int time = progressV + 9;
                     sleep_seebar_text.setText(time + " PM");
+                    Toast.makeText(getApplicationContext(), "Setting to " + time + " AM", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     int time = progressV - 3;
                     sleep_seebar_text.setText(time + " AM");
+                    Toast.makeText(getApplicationContext(),"Setting to " + time + " AM", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -59,7 +61,7 @@ public class My_preference extends AppCompatActivity {
         SeekBar clean_seekBar = (SeekBar)findViewById(R.id.clean_seekbar);
         clean_seekBar.setMax(7);
         final TextView clean_seebar_text = (TextView)findViewById(R.id.clean_seekbar_text);
-        clean_seebar_text.setText("0 times - 7 times");
+        clean_seebar_text.setText("0 days - 7 days");
         clean_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressV;
             @Override
@@ -69,11 +71,13 @@ public class My_preference extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                clean_seebar_text.setText("             " + progressV + " times");
+                clean_seebar_text.setText("             " + progressV + " days");
+                Toast.makeText(getApplicationContext(),"Setting to " + progressV + " days", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -157,11 +161,15 @@ public class My_preference extends AppCompatActivity {
         smoke.setTintColor(Color.parseColor("#885ead"));
         SegmentedGroup drink = (SegmentedGroup)findViewById(R.id.drink_button);
         drink.setTintColor(Color.parseColor("#885ead"));
+        // party
+        SegmentedGroup party = (SegmentedGroup)findViewById(R.id.party_button);
+        party.setTintColor(Color.parseColor("#885ead"));
+
 
         SeekBar smoke_seekBar = (SeekBar)findViewById(R.id.smoke_seekbar);
         smoke_seekBar.setMax(7);
         final TextView smoke_seebar_text = (TextView)findViewById(R.id.smoke_seekbar_text);
-        smoke_seebar_text.setText("0 times - 7 times");
+        smoke_seebar_text.setText("0 days - 7 days");
         smoke_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressV;
             @Override
@@ -175,14 +183,15 @@ public class My_preference extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                smoke_seebar_text.setText(progressV + " times");
+                smoke_seebar_text.setText(progressV + " days");
+                Toast.makeText(getApplicationContext(), "Setting to " + progressV + " days", Toast.LENGTH_SHORT).show();
             }
         });
 
         SeekBar drink_seekBar = (SeekBar)findViewById(R.id.drink_seekbar);
         drink_seekBar.setMax(7);
         final TextView drink_seebar_text = (TextView)findViewById(R.id.drink_seekbar_text);
-        drink_seebar_text.setText("0 times - 7 times");
+        drink_seebar_text.setText("0 days - 7 days");
         drink_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressV;
             @Override
@@ -196,13 +205,10 @@ public class My_preference extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                drink_seebar_text.setText(progressV + " times");
+                drink_seebar_text.setText(progressV + " days");
+                Toast.makeText(getApplicationContext(), "setting to " + progressV + " days", Toast.LENGTH_SHORT).show();
             }
         });
-
-        // party
-        SegmentedGroup party = (SegmentedGroup)findViewById(R.id.party_button);
-        party.setTintColor(Color.parseColor("#885ead"));
 
         // spinner for the language spinner
         Spinner languageSpinner = (Spinner)findViewById(R.id.languege_spinner);

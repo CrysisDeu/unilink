@@ -89,7 +89,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="How many times did you clean the public area last month?"
+            android:text="How many days did you clean the public area last month?"
             android:textSize="@dimen/m_font_size"
             android:layout_toLeftOf="@id/clean_seekbar_text"
             android:textColor="@color/black"
@@ -114,7 +114,7 @@
         android:backgroundTint="@color/white"
         android:progressTint="@color/purple" />
 
-    <!--  Three yes or no question -->
+    <!--  Four yes or no question -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -227,13 +227,58 @@
 
     </info.hoang8f.android.segmented.SegmentedGroup>
 
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Are you planning on hosting parties?"
+             android:textSize="@dimen/m_font_size"
+             android:textColor="@color/black"
+             android:paddingTop="@dimen/large_margin"
+             android:textStyle="bold"/>
+
+         <info.hoang8f.android.segmented.SegmentedGroup
+             xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/party_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/small_margin"
+             android:orientation="horizontal">
+
+             <RadioButton
+                 android:id="@+id/party_button_1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Yes"
+                 style="@style/RadioButton"
+                 android:textStyle="bold"/>
+
+             <RadioButton
+                 android:id="@+id/party_button_2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="No"
+                 style="@style/RadioButton"
+                 android:textStyle="bold"/>
+
+             <RadioButton
+                 android:id="@+id/party_button_3"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Maybe"
+                 style="@style/RadioButton"
+                 android:textStyle="bold"/>
+
+         </info.hoang8f.android.segmented.SegmentedGroup>
+
     <!-- hobbies -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/m_font_size"
         android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:text="Hobbies"
+        android:paddingTop="@dimen/large_margin"/>
 
     <CheckedTextView
         android:id="@+id/surfing"
@@ -245,7 +290,6 @@
         android:text="Surfing"
         android:checkMark="@drawable/checked"
         android:checked="false"
-        android:textStyle="bold"
         />
 
     <CheckedTextView
@@ -258,7 +302,6 @@
         android:text="Hiking"
         android:checkMark="@drawable/checked"
         android:checked="false"
-        android:textStyle="bold"
         />
 
     <CheckedTextView
@@ -271,7 +314,6 @@
         android:text="Skiing"
         android:checkMark="@drawable/checked"
         android:checked="false"
-        android:textStyle="bold"
         />
 
     <CheckedTextView
@@ -284,7 +326,6 @@
         android:text="Gaming"
         android:checkMark="@drawable/checked"
         android:checked="false"
-        android:textStyle="bold"
         />
 
 
@@ -329,16 +370,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/large_margin"
+            android:paddingTop="@dimen/large_margin"
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="If so, how often per week?"
+                android:text="If so, how many days per week?"
                 android:textSize="@dimen/m_font_size"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:paddingTop="@dimen/large_margin"/>
+                android:textStyle="bold"></TextView>
 
             <TextView
                 android:id="@+id/smoke_seekbar_text"
@@ -402,16 +443,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/large_margin"
+            android:paddingTop="@dimen/large_margin"
             >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="If so, how often per week?"
+                android:text="If so, how many days per week?"
                 android:textSize="@dimen/m_font_size"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:paddingTop="@dimen/large_margin"
                 />
 
             <TextView
@@ -431,51 +472,6 @@
             android:thumb="@color/purple"
             android:backgroundTint="@color/white"
             android:progressTint="@color/purple" />
-
-    <!-- parties -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Are you planning on hosting parties?"
-            android:textSize="@dimen/m_font_size"
-            android:textColor="@color/black"
-            android:paddingTop="@dimen/large_margin"
-            android:textStyle="bold"/>
-
-        <info.hoang8f.android.segmented.SegmentedGroup
-            xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/party_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/small_margin"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/party_button_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Yes"
-                style="@style/RadioButton"
-                android:textStyle="bold"/>
-
-            <RadioButton
-                android:id="@+id/party_button_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No"
-                style="@style/RadioButton"
-                android:textStyle="bold"/>
-
-            <RadioButton
-                android:id="@+id/party_button_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Maybe"
-                style="@style/RadioButton"
-                android:textStyle="bold"/>
-
-        </info.hoang8f.android.segmented.SegmentedGroup>
-
 
 
     <!-- language spinner -->
