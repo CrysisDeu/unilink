@@ -60,11 +60,56 @@
                 <LinearLayout
                     android:layout_marginStart="@dimen/small_margin"
                     android:layout_marginEnd="@dimen/small_margin"
-                    android:layout_width="122dp"
+                    android:layout_width="142dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
                 </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/roommate_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="36dp"
+                        android:textColor="#000000"
+                        android:text="10"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/roboto"
+                        android:textStyle="bold"/>
+
+                    <com.app.progresviews.ProgressWheel
+                        android:id="@+id/roommate_progress"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        app:barWidth="6dp"
+                        app:countText=""
+                        app:countTextColor="#000000"
+                        app:countTextSize="20sp"
+                        app:defTextColor="#000000"
+                        app:defTextSize="0sp"
+                        app:definitionText=""
+                        app:marginBtwText="0dp"
+                        app:percentage="100"
+                        app:progressColor="#6d48e5" />
+
+                    <TextView
+                        android:id="@+id/rScore_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/roommate_progress"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="96dp"
+                        android:text="@string/matching_score"
+                        android:textSize="12sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="sans-serif-light" />
+                </RelativeLayout>
             </LinearLayout>
 
             <TextView

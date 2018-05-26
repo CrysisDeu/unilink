@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:text="Matching Score"
+                    android:text="@string/matching_score"
                     android:textSize="10sp"
                     android:textColor="#000000"
                     android:fontFamily="@font/roboto_thin" />
