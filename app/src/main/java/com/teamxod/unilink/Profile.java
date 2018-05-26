@@ -11,11 +11,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Profile extends AppCompatActivity {
+import java.io.Serializable;
+
+public class Profile extends AppCompatActivity implements Serializable{
 
     private ImageView mBackButton;
     private String uid;
     private FirebaseAuth mAuth;
+    private User user;
 
     //Views
     private ImageView mProfilePic;
@@ -28,7 +31,6 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
         mBackButton = findViewById(R.id.back_button);
         mAuth = FirebaseAuth.getInstance();
         mProfilePic = findViewById(R.id.profile_pic);
@@ -37,8 +39,11 @@ public class Profile extends AppCompatActivity {
         mYear = findViewById(R.id.year);
         mDescription = findViewById(R.id.description);
 
-        Bundle b = getIntent().getExtras();
-        uid = b.getString("uid");
+        user = (User) getIntent().getSerializableExtra("USER");
+
+//        Bundle b = getIntent().getExtras();
+//        uid = b.getString("uid");
+
 
 
 

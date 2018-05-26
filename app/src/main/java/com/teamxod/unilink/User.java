@@ -1,5 +1,6 @@
 package com.teamxod.unilink;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,9 @@ public class User {
 
     public void setYearGraduate(String yearGraduate) {
         this.yearGraduate = yearGraduate;
+    }
+    public String getDescription() {
+        return this.description;
     }
 
     //FIXME
