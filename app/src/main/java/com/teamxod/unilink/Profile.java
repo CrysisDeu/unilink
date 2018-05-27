@@ -73,7 +73,7 @@ public class Profile extends AppCompatActivity implements Serializable{
         mName.setText(user.getName());
         Uri mPhoto = Uri.parse(user.getPicture());
         if (mPhoto != null) {
-            Glide.with(this)
+            Glide.with(getApplicationContext())
                     .load(mPhoto)
                     .apply(RequestOptions.circleCropTransform())
                     .into(mProfilePic);

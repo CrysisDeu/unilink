@@ -14,8 +14,8 @@ public class User {
     private String gender;
     private String yearGraduate;
     private String description;
-    private List<String> favorite_houses = new ArrayList<>(0);
-    private List<String> my_house_posts = new ArrayList<>(0);
+    private List<String> favorite_houses;
+    private List<String> my_house_posts;
 
     //temporary constructor
     User() {

@@ -64,6 +64,7 @@ public class my_change_profile extends AppCompatActivity implements IPickResult 
     private String uid;
     private User user;
     private Uri picture;
+    private DatabaseReference mUserReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +88,13 @@ public class my_change_profile extends AppCompatActivity implements IPickResult 
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference();
-        final DatabaseReference mUserReference = mDatabase.child("Users").child(uid);
+        mUserReference = mDatabase.child("Users").child(uid);
 
         mUserReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
+                picture = Uri.parse(user.getPicture());
                 mEditName.setText(user.getName());
                 Uri mPhoto = (Uri.parse(user.getPicture()));
                 Glide.with(getApplicationContext())
@@ -124,7 +126,6 @@ public class my_change_profile extends AppCompatActivity implements IPickResult 
                 mUserReference.child("gender").setValue(mGenderSpinner.getSelectedItem().toString());
                 mUserReference.child("yearGraduate").setValue(mYearSpinner.getSelectedItem().toString());
                 mUserReference.child("description").setValue(mDescription.getText().toString());
-                mUserReference.child("picture").setValue(picture.toString());
                 finish();
             }
         });
@@ -176,6 +177,7 @@ public class my_change_profile extends AppCompatActivity implements IPickResult 
                             @Override
                             public void onSuccess(Uri uri) {
                                 picture = uri;
+                                mUserReference.child("picture").setValue(picture.toString());
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
