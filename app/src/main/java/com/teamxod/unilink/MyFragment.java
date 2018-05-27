@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 
-public class MyFragment extends Fragment implements Serializable {
+public class MyFragment extends Fragment {
 
     private ImageView mProfilePic;
     private TextView mName;
@@ -53,7 +53,6 @@ public class MyFragment extends Fragment implements Serializable {
 
         mName = layout.findViewById(R.id.name);
         mProfilePic = layout.findViewById(R.id.profile_pic);
-
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -102,7 +101,7 @@ public class MyFragment extends Fragment implements Serializable {
             @Override
             public void onClick(View view){
                 Intent i = new Intent(getActivity(), Profile.class);
-                i.putExtra("USER", (Serializable) user);
+                i.putExtra("uid", uid);
                 startActivity(i);
             }
         });

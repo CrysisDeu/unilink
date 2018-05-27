@@ -42,7 +42,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".StartActivity" />
-        <activity android:name=".my_change_profile" />
+        <activity android:name=".my_change_profile"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".SingleHousePostActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

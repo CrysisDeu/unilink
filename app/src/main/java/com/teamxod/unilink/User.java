@@ -1,7 +1,12 @@
 package com.teamxod.unilink;
 
+import com.google.firebase.database.Exclude;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
     private String name;
@@ -9,18 +14,22 @@ public class User {
     private String gender;
     private String yearGraduate;
     private String description;
+    private List<String> favorite_houses;
+    private List<String> my_house_posts;
 
     //temporary constructor
     User() {
     }
 
     User(String name, String picture, String gender, String yearGraduate,
-         String description) {
+         String description, List<String> favorite_houses, List<String> my_house_posts) {
         this.picture = picture;
         this.name = name;
         this.gender = gender;
         this.yearGraduate = yearGraduate;
         this.description = description;
+        this.favorite_houses = favorite_houses;
+        this.my_house_posts = my_house_posts;
     }
 
     public String getPicture() {
@@ -53,6 +62,42 @@ public class User {
 
     public void setYearGraduate(String yearGraduate) {
         this.yearGraduate = yearGraduate;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+
+    public List<String> getFavorite_houses() {
+        return favorite_houses;
+    }
+
+    public List<String> getMy_house_posts() {
+        return my_house_posts;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setFavorite_houses(List<String> favorite_houses) {
+        this.favorite_houses = favorite_houses;
+    }
+
+    public void setMy_house_posts(List<String> my_house_posts) {
+        this.my_house_posts = my_house_posts;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("picture", picture);
+        result.put("gender", gender);
+        result.put("yearGraduate", yearGraduate);
+        result.put("description", description);
+        result.put("favorite_houses", favorite_houses);
+        result.put("my_house_posts",my_house_posts);
+        return result;
     }
 
     //FIXME
