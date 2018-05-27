@@ -17,25 +17,155 @@
           android:layout_height="wrap_content"
           android:orientation="vertical">
 
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="4">
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="56dp"
+              android:layout_weight="0"
+              android:background="#6d48e5">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="10dp"
-                    app:srcCompat="@drawable/camera" />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:text="Add Post"
+                  android:textColor="@color/white"
+                  android:textSize="24sp" />
 
-            </GridLayout>
+              <Button
+                  android:id="@+id/house_button_back"
+                  android:layout_width="@dimen/small_icon_side"
+                  android:layout_height="@dimen/small_icon_side"
+                  android:layout_alignParentStart="true"
+                  android:layout_centerVertical="true"
+                  android:layout_marginStart="@dimen/small_margin"
+                  android:background="@drawable/ic_back"
+                  android:backgroundTint="@color/white" />
+
+          </RelativeLayout>
+
+          <GridLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#eee"
+              android:columnCount="4">
+
+              <ImageView
+                  android:layout_width="80dp"
+                  android:layout_height="80dp"
+                  android:layout_margin="10dp"
+                  app:srcCompat="@drawable/camera" />
+
+          </GridLayout>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="left"
+              android:layout_marginLeft="16dp"
+              android:paddingTop="@dimen/large_margin"
+              android:text="Title"
+              android:textColor="@color/black"
+              android:textSize="@dimen/m_font_size"
+              android:textStyle="bold" />
+
+          <EditText
+              android:id="@+id/title"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:hint="Title of the post"
+              android:textSize="@dimen/m_font_size" />
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="16dp"
+                  android:paddingTop="@dimen/large_margin"
+                  android:text="Price Per Month"
+                  android:textColor="@color/black"
+                  android:textSize="@dimen/m_font_size"
+                  android:textStyle="bold" />
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="152dp"
+                  android:paddingTop="@dimen/large_margin"
+                  android:text="$"
+                  android:textColor="@color/black"
+                  android:textSize="@dimen/m_font_size"
+                  android:textStyle="bold" />
+
+              <EditText
+                  android:id="@+id/price"
+                  android:layout_width="80dp"
+                  android:layout_height="wrap_content"
+                  android:layout_marginRight="0dp"
+                  android:gravity="center_horizontal"
+                  android:hint="Price"
+                  android:inputType="number"
+                  android:textSize="@dimen/m_font_size" />
+          </LinearLayout>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="left"
+              android:layout_marginLeft="16dp"
+              android:paddingTop="@dimen/large_margin"
+              android:text="Street Address"
+              android:textColor="@color/black"
+              android:textSize="@dimen/m_font_size"
+              android:textStyle="bold" />
+
+          <EditText
+              android:id="@+id/street"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:hint="Street and Number"
+              android:textSize="@dimen/m_font_size" />
+
+          <EditText
+              android:id="@+id/building"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:hint="Apartment, Suite, Unit, Building, etc."
+              android:textSize="@dimen/m_font_size" />
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="16dp"
+              android:paddingTop="@dimen/large_margin"
+              android:text="City"
+              android:textColor="@color/black"
+              android:textSize="@dimen/m_font_size"
+              android:textStyle="bold" />
+
+          <EditText
+              android:id="@+id/city"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:hint="City Name"
+              android:textSize="@dimen/m_font_size" />
+
 
           <!-- One Question -->
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="left"
-              android:layout_marginLeft="24dp"
+              android:layout_marginLeft="16dp"
               android:paddingTop="@dimen/large_margin"
               android:text="Room Type"
               android:textColor="@color/black"
@@ -82,9 +212,9 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="left"
-              android:layout_marginLeft="24dp"
+              android:layout_marginLeft="16dp"
               android:paddingTop="@dimen/large_margin"
-              android:text="Room Type"
+              android:text="House Type"
               android:textColor="@color/black"
               android:textSize="@dimen/m_font_size"
               android:textStyle="bold" />
@@ -129,7 +259,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="left"
-              android:layout_marginLeft="24dp"
+              android:layout_marginLeft="16dp"
               android:paddingTop="@dimen/large_margin"
               android:text="Total Badroom Amounts"
               android:textColor="@color/black"
@@ -191,7 +321,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="left"
-              android:layout_marginLeft="24dp"
+              android:layout_marginLeft="16dp"
               android:paddingTop="@dimen/large_margin"
               android:text="Total Badroom Amounts"
               android:textColor="@color/black"
@@ -253,7 +383,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="left"
-              android:layout_marginLeft="24dp"
+              android:layout_marginLeft="16dp"
               android:paddingTop="@dimen/large_margin"
               android:text="Lease Length"
               android:textColor="@color/black"
@@ -279,11 +409,11 @@
                   android:textStyle="bold" />
 
               <RadioButton
-                  android:id="@+id/quaterly"
+                  android:id="@+id/quarterly"
                   style="@style/RadioButton"
                   android:layout_width="120dp"
                   android:layout_height="wrap_content"
-                  android:text="Quaterly"
+                  android:text="Quarterly"
                   android:textStyle="bold" />
 
               <RadioButton
@@ -298,7 +428,7 @@
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="24dp"
+              android:layout_marginLeft="16dp"
               android:paddingTop="@dimen/large_margin"
               android:text="Start Date"
               android:textColor="@color/black"
@@ -306,7 +436,7 @@
 
 
           <CalendarView
-              android:id="@+id/calendarView"
+              android:id="@+id/start_date"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
 
@@ -314,14 +444,15 @@
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="24dp"
+              android:layout_marginLeft="16dp"
               android:paddingTop="@dimen/large_margin"
               android:text="Facilities"
               android:textColor="@color/black"
               android:textStyle="bold" />
 
+
           <CheckedTextView
-              android:id="@+id/AC"
+              android:id="@+id/ac"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:checkMark="@drawable/checked"
@@ -345,7 +476,7 @@
               android:textSize="@dimen/m_font_size" />
 
           <CheckedTextView
-              android:id="@+id/Parking"
+              android:id="@+id/parking"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:checkMark="@drawable/checked"
@@ -357,7 +488,7 @@
               android:textSize="@dimen/m_font_size" />
 
           <CheckedTextView
-              android:id="@+id/TV"
+              android:id="@+id/tv"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:checkMark="@drawable/checked"
@@ -420,33 +551,42 @@
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="24dp"
+              android:layout_marginLeft="16dp"
               android:paddingTop="@dimen/large_margin"
               android:text="Description"
               android:textColor="@color/black"
               android:textStyle="bold" />
 
           <EditText
+              android:id="@+id/description"
               style="@style/Widget.AppCompat.EditText"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"
-              android:layout_marginTop="0dp"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:layout_marginTop="8dp"
               android:gravity="top"
               android:hint="More information about the place"
-              android:lines="8" />
+              android:lines="4"
+              android:textSize="@dimen/m_font_size" />
 
           <Button
               android:id="@+id/submit"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_gravity="bottom|center"
-              android:text="Submit" />
+              android:layout_gravity="center_horizontal|center"
+              android:layout_marginBottom="16dp"
+              android:layout_marginTop="8dp"
+              android:layout_weight="0"
+              android:background="@drawable/cursor"
+              android:gravity="center_horizontal|center"
+              android:text="SUBMIT"
+              android:textColor="#fff" />
 
 
       </LinearLayout>
     </ScrollView>
+
 
 
 </android.support.design.widget.CoordinatorLayout>

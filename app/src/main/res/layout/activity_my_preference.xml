@@ -197,11 +197,11 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="Are you planning on hosting parties?"
-             android:textSize="@dimen/m_font_size"
-             android:textColor="@color/black"
              android:paddingTop="@dimen/large_margin"
-             android:textStyle="bold"/>
+             android:text="Are you planning on hosting parties?"
+             android:textColor="@color/black"
+             android:textSize="@dimen/m_font_size"
+             android:textStyle="bold" />
 
          <info.hoang8f.android.segmented.SegmentedGroup
              xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
