@@ -2,12 +2,10 @@ package com.teamxod.unilink;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -60,20 +58,18 @@ public class My_preference extends AppCompatActivity {
     private RadioButton party2;
     private RadioButton party3;
 
-    // indicators of button value
+    // preference variables
     private int Bring;
     private int Pet;
     private int Smoke;
     private int Drink;
     private int Party;
-
-    // preference variables
-    private int sleepTime;
-    private int cleanTime;
-    private int surfingOrNot;
-    private int hikingOrNot;
-    private int skiingOrNot;
-    private int gamingOrNot;
+    private int Sleep;
+    private int Clean;
+    private int Surfing;
+    private int Hiking;
+    private int Skiing;
+    private int Gaming;
     private int language;
 
     // firebase variables
@@ -88,14 +84,52 @@ public class My_preference extends AppCompatActivity {
         // firebase logic
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-
+       // DatabaseReference ref = mDatabase.child("preference");
         uid = mAuth.getCurrentUser().getUid();
+
+/**
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                preference preference = dataSnapshot.getValue(preference.class);
+                System.out.println(preference.getBring());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+        // if the user has finished the survey before, we will load the choices they made
+        mDatabase.child("preference").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // if the user is already in our database, we load the data they put in
+                if(dataSnapshot.exists()){
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+*/
+
         save = (CardView)findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sleepTime = sleep_seekBar.getProgress();
-                cleanTime = clean_seekBar.getProgress();
+                // map getProgress() to value between -1 and 1.
+                Sleep = 1 - sleep_seekBar.getProgress() / 9;
+                Clean = 1 - clean_seekBar.getProgress() / 7;
+                if(Smoke == 1){
+                    Smoke = -1 + smoke_seekBar.getProgress() / 7;
+                }
+                if(Drink == 1){
+                    Drink = -1 + drink_seekBar.getProgress() / 7;
+                }
                 String languageSelected = languageSpinner.getSelectedItem().toString();
                 switch(languageSelected) {
                     case "Arabic": language = 0;
@@ -122,7 +156,8 @@ public class My_preference extends AppCompatActivity {
                                          break;
                     default: language = 11;
                 }
-                newPreference(sleepTime, cleanTime, language);
+                // report data to the firebase
+                newPreference();
             }
         });
 
@@ -210,11 +245,11 @@ public class My_preference extends AppCompatActivity {
             public void onClick(View v) {
                 if(!surfing.isChecked()) {
                     surfing.setChecked(true);
-                    surfingOrNot = 1;
+                    Surfing = 1;
                     surfing.setCheckMarkDrawable(R.drawable.checked);
                 }else{
                     surfing.setChecked(false);
-                    surfingOrNot = 0;
+                    Surfing = -1;
                     surfing.setCheckMarkDrawable(R.drawable.unchecked);
                 }
 
@@ -227,11 +262,11 @@ public class My_preference extends AppCompatActivity {
                 if(!hiking.isChecked()){
                     hiking.setCheckMarkDrawable(R.drawable.checked);
                     hiking.setChecked(true);
-                    hikingOrNot = 1;
+                    Hiking = 1;
                 }else {
                     hiking.setCheckMarkDrawable(R.drawable.unchecked);
                     hiking.setChecked(false);
-                    hikingOrNot = 0;
+                    Hiking = -1;
                 }
             }
         });
@@ -242,11 +277,11 @@ public class My_preference extends AppCompatActivity {
                 if(!skiing.isChecked()){
                     skiing.setChecked(true);
                     skiing.setCheckMarkDrawable(R.drawable.checked);
-                    skiingOrNot = 1;
+                    Skiing = 1;
                 }else {
                     skiing.setCheckMarkDrawable(R.drawable.unchecked);
                     skiing.setChecked(false);
-                    skiingOrNot = 0;
+                    Skiing = -1;
                 }
             }
         });
@@ -257,9 +292,11 @@ public class My_preference extends AppCompatActivity {
                 if(!gaming.isChecked()){
                     gaming.setChecked(true);
                     gaming.setCheckMarkDrawable(R.drawable.checked);
+                    Gaming = 1;
                 }else {
                     gaming.setCheckMarkDrawable(R.drawable.unchecked);
                     gaming.setChecked(false);
+                    Gaming = -1;
                 }
             }
         });
@@ -351,19 +388,19 @@ public class My_preference extends AppCompatActivity {
     bring1.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Bring = 01;
+            Bring = 1;
         }
     });
     bring2.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Bring = 00;
+            Bring = -1;
         }
     });
     bring3.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Bring = 10;
+            Bring = 0;
         }
     });
 
@@ -376,7 +413,7 @@ public class My_preference extends AppCompatActivity {
     pet2.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Pet = 0;
+            Pet = -1;
         }
     });
 
@@ -389,7 +426,7 @@ public class My_preference extends AppCompatActivity {
     smoke2.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Smoke = 0;
+            Smoke = -1;
         }
     });
 
@@ -402,34 +439,34 @@ public class My_preference extends AppCompatActivity {
     drink2.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Drink = 0;
+            Drink = -1;
         }
     });
 
     party1.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Party = 01;
+            Party = 1;
         }
     });
     party2.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Party = 00;
+            Party = -1;
         }
     });
     party3.setOnClickListener(new View.OnClickListener(){
         @Override
         public void onClick(View v){
-            Party = 10;
+            Party = 0;
         }
     });
     }
 
     // report new preference to the firebase
-    public void newPreference(int Sleep, int Clean, int Language){
-        preference preference = new preference(Sleep, Clean, Bring, Pet, surfingOrNot, hikingOrNot,
-                                                skiingOrNot, gamingOrNot, Smoke, Drink, Party, Language);
-        mDatabase.child("preference").child(uid).setValue(preference);
+    public void newPreference(){
+        preference preference = new preference(Sleep, Clean, Bring, Pet, Surfing, Hiking,
+                Skiing, Gaming, Smoke, Drink, Party, language);
+        mDatabase.child("Preference").child(uid).setValue(preference);
     }
 }
