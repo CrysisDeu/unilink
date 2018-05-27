@@ -67,27 +67,19 @@ public class My_preference extends AppCompatActivity {
     private int Drink;
     private int Party;
 
+    // preference variables
+    private int sleepTime;
+    private int cleanTime;
+    private int surfingOrNot;
+    private int hikingOrNot;
+    private int skiingOrNot;
+    private int gamingOrNot;
+    private int language;
 
     // firebase variables
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String uid;
-
-    // preference variables
-    private int sleepTime;
-    private int cleanTime;
-    private int bringOrNot;
-    private int petOrNot;
-    private int surfingOrNot;
-    private int hikingOrNot;
-    private int skiingOrNot;
-    private int gamingOrNot;
-    private int smokeOrNot;
-    private int drinkOrNot;
-    private int partyOrNot;
-    private int language;
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,11 +96,35 @@ public class My_preference extends AppCompatActivity {
             public void onClick(View v) {
                 sleepTime = sleep_seekBar.getProgress();
                 cleanTime = clean_seekBar.getProgress();
-                bringOrNot = Bring;
+                String languageSelected = languageSpinner.getSelectedItem().toString();
+                switch(languageSelected) {
+                    case "Arabic": language = 0;
+                                     break;
+                    case "Cantonese": language = 1;
+                                         break;
+                    case "Chinese": language = 2;
+                                      break;
+                    case "English": language = 3;
+                                      break;
+                    case "Hindi": language = 4;
+                                    break;
+                    case "Japanese": language = 5;
+                                       break;
+                    case "Korean": language = 6;
+                                     break;
+                    case "Portuguese": language = 7;
+                                         break;
+                    case "Russian": language = 8;
+                                      break;
+                    case "Spanish": language = 9;
+                                      break;
+                    case "Vietnamese": language = 10;
+                                         break;
+                    default: language = 11;
+                }
+                newPreference(sleepTime, cleanTime, language);
             }
         });
-
-
 
 
 
@@ -194,9 +210,11 @@ public class My_preference extends AppCompatActivity {
             public void onClick(View v) {
                 if(!surfing.isChecked()) {
                     surfing.setChecked(true);
+                    surfingOrNot = 1;
                     surfing.setCheckMarkDrawable(R.drawable.checked);
                 }else{
                     surfing.setChecked(false);
+                    surfingOrNot = 0;
                     surfing.setCheckMarkDrawable(R.drawable.unchecked);
                 }
 
@@ -209,9 +227,11 @@ public class My_preference extends AppCompatActivity {
                 if(!hiking.isChecked()){
                     hiking.setCheckMarkDrawable(R.drawable.checked);
                     hiking.setChecked(true);
+                    hikingOrNot = 1;
                 }else {
                     hiking.setCheckMarkDrawable(R.drawable.unchecked);
                     hiking.setChecked(false);
+                    hikingOrNot = 0;
                 }
             }
         });
@@ -222,9 +242,11 @@ public class My_preference extends AppCompatActivity {
                 if(!skiing.isChecked()){
                     skiing.setChecked(true);
                     skiing.setCheckMarkDrawable(R.drawable.checked);
+                    skiingOrNot = 1;
                 }else {
                     skiing.setCheckMarkDrawable(R.drawable.unchecked);
                     skiing.setChecked(false);
+                    skiingOrNot = 0;
                 }
             }
         });
@@ -402,5 +424,12 @@ public class My_preference extends AppCompatActivity {
             Party = 10;
         }
     });
+    }
+
+    // report new preference to the firebase
+    public void newPreference(int Sleep, int Clean, int Language){
+        preference preference = new preference(Sleep, Clean, Bring, Pet, surfingOrNot, hikingOrNot,
+                                                skiingOrNot, gamingOrNot, Smoke, Drink, Party, Language);
+        mDatabase.child("preference").child(uid).setValue(preference);
     }
 }

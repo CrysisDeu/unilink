@@ -15,7 +15,7 @@ public class preference {
     private int language;
 
     // constructor
-    public preference(int sleepTime, int cleanTime, int bring, int pet, int cook, int surfing,
+    public preference(int sleepTime, int cleanTime, int bring, int pet, int surfing,
                       int hiking, int skiing, int gaming, int smoke, int drink, int party, int language)
     {
         this.sleepTime = sleepTime;
