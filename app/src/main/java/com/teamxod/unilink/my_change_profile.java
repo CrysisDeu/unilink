@@ -41,6 +41,7 @@ public class my_change_profile extends AppCompatActivity implements IPickResult 
     private final int GENDER_MALE = 0;
     private final int GENDER_FEMALE = 1;
     private final int GENDER_NOT_DISCLOSE = 2;
+    private final String NAME_INVALID = "Please enter a valid name!";
 
     //the most recent graduate the user can choose
     private final int MIN_GRADUATE_YEAR = 2018;
@@ -121,6 +122,10 @@ public class my_change_profile extends AppCompatActivity implements IPickResult 
 //                user.setYearGraduate(mYearSpinner.getSelectedItem().toString());
 //                user.setDescription(mDescription.getText().toString());
 //                mUserReference.setValue(user);
+                if (mEditName.getText().toString().equals("")) {
+                    Toast.makeText(my_change_profile.this,NAME_INVALID,Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 uploadToFirebase(picture);
                 mUserReference.child("name").setValue(mEditName.getText().toString());
                 mUserReference.child("gender").setValue(mGenderSpinner.getSelectedItem().toString());
