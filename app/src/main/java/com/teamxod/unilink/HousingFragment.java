@@ -53,6 +53,13 @@ public class HousingFragment extends Fragment {
         filterButton = layout.findViewById(R.id.filter);
         addPost = layout.findViewById(R.id.add_post_btn);
 
+        addPost.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), AddPost.class);
+                startActivity(myIntent);
+            }
+        });
+
         HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts,listView);
         listView.setAdapter(adapter);
         // listView.setOnScrollListener(adapter);

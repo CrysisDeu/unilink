@@ -1,8 +1,12 @@
 package com.teamxod.unilink;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
     private String name;
@@ -81,6 +85,19 @@ public class User {
 
     public void setMy_house_posts(List<String> my_house_posts) {
         this.my_house_posts = my_house_posts;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("picture", picture);
+        result.put("gender", gender);
+        result.put("yearGraduate", yearGraduate);
+        result.put("description", description);
+        result.put("favorite_houses", favorite_houses);
+        result.put("my_house_posts",my_house_posts);
+        return result;
     }
 
     //FIXME
