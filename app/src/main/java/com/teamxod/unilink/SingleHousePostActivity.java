@@ -50,6 +50,8 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
 
         initializePost();
 
+        setupButton();
+
         setupBasicData();
 
         setupHousePicture();
@@ -98,13 +100,6 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void initializePost(){
-        Button backBtn = (Button)findViewById(R.id.house_button_back);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         house = new House();
         roommateList = new ArrayList<>();
@@ -153,6 +148,23 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         mapFragment.getMapAsync(this);
     }
 
+    private void setupButton() {
+        Button backBtn = (Button)findViewById(R.id.house_button_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        Button moreBtn = (Button)findViewById(R.id.house_button_favourite);
+        moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
     private void setupFeatures() {
         //TODO
     }

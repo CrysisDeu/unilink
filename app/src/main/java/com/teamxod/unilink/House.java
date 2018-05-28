@@ -5,7 +5,11 @@ import java.util.List;
 
 class House {
 
-    public House(String postId, String posterId, String houseType, String title, String location, String description, int price, long startDate, long endDate, List<String> pictures, List<Room> rooms, String tv, String ac, String bus, String parking, String videoGame, String gym, String laundry, String pet) {
+    public House(String postId, String posterId, String houseType, String title, String location,
+                 String description, int price, long startDate, String leasingLength,
+                 List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
+                 String parking, String videoGame, String gym, String laundry, String pet) {
+
         this.postId = postId;
         this.posterId = posterId;
         this.houseType = houseType;
@@ -14,7 +18,7 @@ class House {
         this.description = description;
         this.price = price;
         this.startDate = startDate;
-        this.endDate = endDate;
+        this.leasingLength = leasingLength;
         this.pictures = pictures;
         this.rooms = rooms;
         this.tv = tv;
@@ -44,7 +48,7 @@ class House {
 
     private long startDate;
 
-    private long endDate;
+    private String leasingLength;
 
     private List<String> pictures;
 
@@ -94,8 +98,8 @@ class House {
         return startDate;
     }
 
-    public long getEndDate() {
-        return endDate;
+    public String getLeasingLength() {
+        return leasingLength;
     }
 
     public List<String> getPictures() {

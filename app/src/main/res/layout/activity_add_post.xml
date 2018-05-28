@@ -425,7 +425,7 @@
                     style="@style/RadioButton"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="annual"
+                    android:text="Anually"
                     android:textStyle="bold" />
 
                 <RadioButton
@@ -441,7 +441,7 @@
                     style="@style/RadioButton"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="Short"
+                    android:text="Monthly"
                     android:textStyle="bold" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
@@ -470,7 +470,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
-                android:text="Facilities"
+                android:text="Facilities and Facts"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -562,7 +562,7 @@
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
                 android:paddingTop="@dimen/middle_margin"
-                android:text="Building Laundry"
+                android:text="Building-in Laundry"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size" />
 

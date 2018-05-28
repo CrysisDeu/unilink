@@ -22,9 +22,7 @@
 
     <string name="button_contact">Contact</string>
     <string name="button_favorite">Favorite</string>
-    <string name="button_back">Back button</string>
-    <string name="button_share">Share button</string>
-
+    <string name="button_cancel">Cancel</string>
     <string name="default_value">No Data</string>
     <string name="parking">Parking</string>
     <string name="ac">AC set</string>
@@ -52,6 +50,15 @@
         <item>2024</item>
         <item>2025</item>
         <item>2026</item>
+    </string-array>
+
+    <string-array name="Sort">
+        <item>Sort</item>
+        <item>Price: low to high</item>
+        <item>Price: high to low</item>
+        <item>Term: short to long</item>
+        <item>Term: long to short</item>
+
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
