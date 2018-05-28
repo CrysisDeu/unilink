@@ -171,7 +171,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
 
     private void writeNewUser(String name, String picture, String gender, String yearGraduate,
                               String description) {
-        User user = new User(name, picture, gender, yearGraduate, description,(List<String>) new ArrayList<String>(0),(List<String>) new ArrayList<String>(0));
+        User user = new User(name, picture, gender, yearGraduate, description,(List<User>)new ArrayList<User>(),(List<String>) new ArrayList<String>(0),(List<String>) new ArrayList<String>(0));
 
         mDatabase.child("Users").child(uid).setValue(user);
     }
