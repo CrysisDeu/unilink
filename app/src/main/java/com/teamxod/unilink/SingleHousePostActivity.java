@@ -3,6 +3,7 @@ package com.teamxod.unilink;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.TestLooperManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -112,7 +114,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference postReference = database.child("House_post").child(uid);
 
-        postReference.addValueEventListener(new ValueEventListener() {
+        postReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 house = dataSnapshot.getValue(House.class);
@@ -125,7 +127,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         });
 
         DatabaseReference posterReference = database.child("Users").child(house.getPosterId());
-        posterReference.addValueEventListener(new ValueEventListener() {
+        posterReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 poster = dataSnapshot.getValue(User.class);
@@ -137,21 +139,30 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-
     }
 
     private void setupBasicData() {
-        roommateList = new ArrayList<>();
+        roommateList = (ArrayList)(poster.getRoommates());
 
         //set poster view
         ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
-        String url = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
+        String url = poster.getPicture();
         Glide.with(this)
                 .load(url)
                 .apply(RequestOptions.circleCropTransform())
                 .into(posterImageView);
 
-        //TODO
+        TextView houseTypeTextView = (TextView)findViewById(R.id.house_type);
+        String houseType = house.getNumBedroom() + "B" + house.getNumBathroom() + "B · " + house.getHouseType();
+        houseTypeTextView.setText(houseType);
+
+        TextView houseTitleTextView = (TextView)findViewById(R.id.house_title);
+        houseTitleTextView.setText(house.getTitle());
+
+        TextView houseAddressTextView = (TextView)findViewById(R.id.house_address);
+        houseAddressTextView.setText(house.getLocation());
+
+
     }
 
     private void setupHousePicture() {
@@ -199,6 +210,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
             }
         });
     }
+
     private void setupFeatures() {
         //TODO
     }
