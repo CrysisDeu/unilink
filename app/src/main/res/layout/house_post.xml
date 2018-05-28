@@ -525,6 +525,8 @@
             android:layout_marginTop="@dimen/small_margin"
             android:background="@drawable/round_button"
             android:text="@string/button_contact"
+            android:fontFamily="sans-serif-regular"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/m_font_size"
             android:textStyle="bold" />

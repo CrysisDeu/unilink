@@ -7,9 +7,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -49,6 +54,8 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         setContentView(R.layout.house_post);
 
         initializePost();
+
+        setupButton();
 
         setupBasicData();
 
@@ -98,13 +105,6 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void initializePost(){
-        Button backBtn = (Button)findViewById(R.id.house_button_back);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         house = new House();
         roommateList = new ArrayList<>();
@@ -153,6 +153,23 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         mapFragment.getMapAsync(this);
     }
 
+    private void setupButton() {
+        Button backBtn = (Button)findViewById(R.id.house_button_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        Button moreBtn = (Button)findViewById(R.id.house_button_more);
+        moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+            }
+        });
+    }
     private void setupFeatures() {
         //TODO
     }
