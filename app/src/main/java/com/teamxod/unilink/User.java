@@ -17,6 +17,10 @@ public class User {
     private List<String> favorite_houses;
     private List<String> my_house_posts;
 
+    public User() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
     User(String name, String picture, String gender, String yearGraduate,
          String description, List<String> favorite_houses, List<String> my_house_posts) {
         this.picture = picture;

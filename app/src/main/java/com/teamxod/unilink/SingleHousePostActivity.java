@@ -35,6 +35,7 @@ import java.util.List;
 public class SingleHousePostActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     House house;
+    User poster;
     ArrayList<User> roommateList;
 
     ViewPager housePicture;
@@ -108,13 +109,13 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         Bundle bundle = getIntent().getExtras();
         String uid = bundle.getString("uid");
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mUserReference = mDatabase.child("House_post").child(uid);
-        mUserReference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference postReference = database.child("House_post").child(uid);
+
+        postReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 house = dataSnapshot.getValue(House.class);
-                //setProfileUI(user);
             }
 
             @Override
@@ -123,12 +124,25 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-        roommateList = new ArrayList<>();
+        DatabaseReference posterReference = database.child("Users").child(house.getPosterId());
+        posterReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                poster = dataSnapshot.getValue(User.class);
+            }
 
-        //TODO
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+
     }
 
     private void setupBasicData() {
+        roommateList = new ArrayList<>();
+
         //set poster view
         ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
         String url = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
