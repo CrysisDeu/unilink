@@ -29,19 +29,45 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/my_bg4" />
 
-                <ImageView
+                <!--ImageView
+                    android:layout_width="112dp"
+                    android:layout_height="112dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="56dp"
+                    android:src="@drawable/profile_circle_bg"/-->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/profile_card"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="56dp"
+                    app:cardBackgroundColor="#EEEEEE"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="48dp">
+
+                    <ImageView
+                    android:id="@+id/profile_pic"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="center" />
+
+                </android.support.v7.widget.CardView>
+
+                <!--ImageView
                     android:id="@+id/profile_pic"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginTop="56dp" />
+                    android:layout_marginTop="56dp" /-->
 
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_pic"
+                    android:layout_below="@id/profile_card"
                     android:layout_marginBottom="20dp"
                     android:gravity="center_horizontal"
                     android:text=""
@@ -101,7 +127,8 @@
                     <ImageView
                         android:id="@+id/sign_in_logo"
                         android:layout_width="60dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="0"
                         android:padding="8dp"
