@@ -1,12 +1,18 @@
 package com.teamxod.unilink;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 class House {
 
     public House(String posterId, String houseType, String title, String location,
-                 String description,long startDate, String leasingLength,
+                 String description,String startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
                  String parking, String videoGame, String gym, String laundry, String pet) {
 
@@ -41,7 +47,7 @@ class House {
 
     private String description;
 
-    private long startDate;
+    private String startDate;
 
     private String leasingLength;
 
@@ -81,7 +87,7 @@ class House {
         return description;
     }
 
-    public long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
