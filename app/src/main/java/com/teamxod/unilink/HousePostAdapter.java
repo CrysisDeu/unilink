@@ -18,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,7 @@ import java.util.List;
       private ImageLoader imageLoader;
       private ListView mListView;
       private LayoutInflater mInflater;
+      private Context mContext;
 
       private int mStart;
       private int mEnd;
@@ -40,6 +44,7 @@ import java.util.List;
           mInflater=LayoutInflater.from(context);
           mListView = listView;
           isFirstIn = true;
+          mContext = context;
 
           imageLoader = new ImageLoader(mListView);
           imageLoader.mUrls = new String[mList.size()];
@@ -85,12 +90,26 @@ import java.util.List;
           }
 
           HousePost post = (HousePost)getItem(position);
-          viewHolder.vhImage.setTag(mList.get(position).getImageResourceId());
+
+          //glide image
+          if (post != null) {
+              String url = post.getImageResourceId();
+              Glide.with(mContext)
+                      .load(url)
+                      .apply(RequestOptions.centerCropTransform())
+                      .into(viewHolder.vhImage);
+          } else {
+              viewHolder.vhImage.setImageDrawable(null);
+          }
+
+
+
+         // viewHolder.vhImage.setTag(mList.get(position).getImageResourceId());
          // viewHolder.vhImage.setImageResource(R.drawable.my_bg);
 
           //imageLoader.showImageByAsyncTask(viewHolder.vhImage,mList.get(position).getImageResourceId());
           //Log.d("checkTag","**************");
-          imageLoader.showImage(viewHolder.vhImage, mList.get(position).getImageResourceId());
+          //imageLoader.showImage(viewHolder.vhImage, mList.get(position).getImageResourceId());
 
 
           viewHolder.vhType.setText(mList.get(position).getRoom_type());
@@ -122,12 +141,14 @@ import java.util.List;
 
       @Override
       public void onScrollStateChanged(AbsListView view, int scrollState) {
+          /*
 
           if(scrollState==SCROLL_STATE_IDLE){
               imageLoader.loadImages(mStart,mEnd);
           }else{
               imageLoader.cancelAllAsyncTask();
           }
+          */
 
       }
 
@@ -135,14 +156,14 @@ import java.util.List;
       public void onScroll(AbsListView view, int firstVisibleItem,
                            int visibleItemCount, int totalItemCount) {
 
-          mStart=firstVisibleItem;
+          /*mStart=firstVisibleItem;
           mEnd=firstVisibleItem+visibleItemCount-1;
           //Log.d("Tag","addBitmapToLrucaches"+visibleItemCount);
           if(isFirstIn&&visibleItemCount>0){
               //Log.d("checkTag","**************");
               imageLoader.loadImages(mStart,mEnd);
               isFirstIn=false;
-          }
+          }*/
 
       }
   }

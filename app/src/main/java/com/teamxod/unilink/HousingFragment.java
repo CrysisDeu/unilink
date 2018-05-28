@@ -55,12 +55,11 @@ public class HousingFragment extends Fragment {
 
         final ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
-        HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts,listView);
-        listView.setAdapter(adapter);
+
 
         //firebase
         HouseDatabase = FirebaseDatabase.getInstance().getReference("House");
-        HouseDatabase.addValueEventListener(new ValueEventListener() {
+        HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -68,6 +67,7 @@ public class HousingFragment extends Fragment {
                // ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
                 for(DataSnapshot house : dataSnapshot.getChildren()){
+                    String HouseUid = house.toString();
                     String location = house.child("room_location").getValue(String.class);
                     String type = house.child("room_type").getValue(String.class);
                     String title = house.child("room_title").getValue(String.class);
@@ -75,8 +75,13 @@ public class HousingFragment extends Fragment {
                     String imageId = house.child("imageResourceId").getValue(String.class);
                     boolean favorite = (Boolean)house.child("isFavorite").getValue();
                     HousePost post = new HousePost(type,title,price,location,imageId,favorite);
+                    //HousePost post = house.getValue(HousePost.class);
                     posts.add(post);
 
+                }
+                if(!posts.isEmpty()){
+                    final HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+                    listView.setAdapter(adapter);
                 }
             }
 
@@ -89,8 +94,8 @@ public class HousingFragment extends Fragment {
         //Log.d("array size", "outside: "+posts.size());
 
 
-        /*//posts.add(new HousePost());
-        posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg",true));
+        //posts.add(new HousePost());
+       /* posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg",true));
         posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg",false));
         posts.add(new HousePost("single room", "beautiful room","$90090/MO","Gary's house","https://vignette.wikia.nocookie.net/animal-jam-clans-1/images/e/ea/Chic-Rich-Houses-with-Pool.jpg",true));
         posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://media.gettyimages.com/photos/exterior-view-of-custom-home-picture-id159087139",false));
