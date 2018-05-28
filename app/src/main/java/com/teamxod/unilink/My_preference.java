@@ -516,11 +516,11 @@ public class My_preference extends AppCompatActivity {
             gaming.setChecked(true);
             gaming.setCheckMarkDrawable(R.drawable.checked);
         }
-
+        
         if(existedPreference.getBring() == 1){
             bring1.toggle();
         }
-        if(existedPreference.getBring() == -1) {
+        else if(existedPreference.getBring() == -1) {
             bring2.toggle();
         }else{
             bring3.toggle();
@@ -535,7 +535,7 @@ public class My_preference extends AppCompatActivity {
         if(existedPreference.getParty() == 1){
             party1.toggle();
         }
-        if(existedPreference.getParty() == -1) {
+        else if(existedPreference.getParty() == -1) {
             party2.toggle();
         }else{
             party3.toggle();
