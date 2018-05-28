@@ -5,253 +5,257 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#eee"
     tools:context=".MyFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#eee"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="224dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/my_bg4"
-                android:scaleType="centerCrop"/>
+                android:layout_height="224dp"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/profile_pic"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="56dp"
-                />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/my_bg4" />
 
-            <TextView
-                android:id="@+id/name"
+                <ImageView
+                    android:id="@+id/profile_pic"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="56dp" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_pic"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:gravity="center_horizontal"
-                android:layout_below="@id/profile_pic"
-                android:text=""
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/my_favorite_l"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/sign_in_background"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="0"
-                    android:padding="8dp"
-                    android:paddingLeft="0dp"
-                    app:srcCompat="@drawable/favorite" />
-
-                <TextView
-                    android:id="@+id/my_favorite"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="My Favorite"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/my_post_l"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="1dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:id="@+id/sign_in_logo"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="0"
-                    android:padding="8dp"
-                    android:paddingLeft="0dp"
-                    app:srcCompat="@drawable/post" />
-
-                <TextView
-                    android:id="@+id/my_post"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="My Post"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/change_profile_l"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="0"
-                    android:padding="8dp"
-                    android:paddingLeft="0dp"
-                    app:srcCompat="@drawable/ic_account" />
-
-                <TextView
-                    android:id="@+id/changeProfile"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="Change Profile"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/set_preference_l"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="1dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="0"
-                    android:padding="8dp"
-                    android:paddingLeft="0dp"
-                    app:srcCompat="@drawable/clock" />
-
-                <TextView
-                    android:id="@+id/setPreference"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="Set Preference"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/change_password_l"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
-                android:background="#fff"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="0"
-                    android:padding="8dp"
-                    android:paddingLeft="0dp"
-                    app:srcCompat="@drawable/lock" />
-
-                <TextView
-                    android:id="@+id/changePassword"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="8dp"
-                    android:text="Change Password"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginBottom="16dp"
-            android:background="#fff"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="Log out"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="20sp" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/my_favorite_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#fff"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/sign_in_background"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="0"
+                        android:padding="8dp"
+                        android:paddingLeft="0dp"
+                        app:srcCompat="@drawable/favorite" />
+
+                    <TextView
+                        android:id="@+id/my_favorite"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="My Favorite"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/my_post_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="1dp"
+                    android:background="#fff"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/sign_in_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="0"
+                        android:padding="8dp"
+                        android:paddingLeft="0dp"
+                        app:srcCompat="@drawable/post" />
+
+                    <TextView
+                        android:id="@+id/my_post"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="My Post"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/change_profile_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#fff"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="0"
+                        android:padding="8dp"
+                        android:paddingLeft="0dp"
+                        app:srcCompat="@drawable/ic_account" />
+
+                    <TextView
+                        android:id="@+id/changeProfile"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="Change Profile"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/set_preference_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="1dp"
+                    android:background="#fff"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="0"
+                        android:padding="8dp"
+                        android:paddingLeft="0dp"
+                        app:srcCompat="@drawable/clock" />
+
+                    <TextView
+                        android:id="@+id/setPreference"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="Set Preference"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/change_password_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#fff"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="0"
+                        android:padding="8dp"
+                        android:paddingLeft="0dp"
+                        app:srcCompat="@drawable/lock" />
+
+                    <TextView
+                        android:id="@+id/changePassword"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:text="Change Password"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="16dp"
+                android:background="#fff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Log out"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </android.support.design.widget.CoordinatorLayout>
