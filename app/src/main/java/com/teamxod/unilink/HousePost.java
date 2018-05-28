@@ -15,7 +15,7 @@ public class HousePost {
     private boolean isFavorite;
 
 
-
+    public HousePost(){}
 
 
     public HousePost(String p_room_type, String p_room_title, String p_room_price,
