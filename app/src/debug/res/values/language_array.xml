@@ -2,14 +2,13 @@
 <resources>
     <string-array name="language_array">
         <item>Arabic</item>
-        <item>Bengali</item>
         <item>Cantonese</item>
         <item>Chinese</item>
         <item>English</item>
         <item>Hindi</item>
         <item>Japanese</item>
         <item>Korean</item>
-        <item>Portugese</item>
+        <item>Portuguese</item>
         <item>Russian</item>
         <item>Spanish</item>
         <item>Vietnamese</item>

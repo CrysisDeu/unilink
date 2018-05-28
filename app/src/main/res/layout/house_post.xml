@@ -19,13 +19,13 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/house_button_more"
+            android:id="@+id/house_button_favourite"
             android:layout_width="@dimen/small_icon_side"
             android:layout_height="@dimen/small_icon_side"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/small_margin"
-            android:background="@drawable/ic_more"
+            android:background="@drawable/ic_empty_heart"
             android:backgroundTint="@color/white" />
 
         <Button
@@ -92,7 +92,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/house_name"
+                        android:id="@+id/house_address"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -525,6 +525,8 @@
             android:layout_marginTop="@dimen/small_margin"
             android:background="@drawable/round_button"
             android:text="@string/button_contact"
+            android:fontFamily="sans-serif-regular"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/m_font_size"
             android:textStyle="bold" />

@@ -1,21 +1,30 @@
 package com.teamxod.unilink;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +60,7 @@ import java.util.List;
         (4) U can do a check to see if edit text all have input (not necessary i can do this)
         (5) Do what else we may need.
 */
-public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
+public class AddPost extends AppCompatActivity implements IPickResult {
 
     /* Copied from another file
     private final int PICK_IMAGE_REQUEST = 71;
@@ -62,6 +71,7 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
+    private DatabaseReference post;
 
     // Java fields (Used to create House obj and push to firebase)
     // TODO @ etsu  (bs. we use start date + lease length.  no end date)
@@ -94,14 +104,24 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
     private List<Room> rooms;
 
 
-
     //  ------------- UI fields ---------------- //
+
+    // gridview and things inside
+    private ImageView addpic;
+    private GridLayout photoGrid;
+    private ArrayList<LinearLayout> photoBoxList;
+    private PickImageDialog dialog;
+    private Uri picture;
+    private ArrayList<Uri> pictureList;
+
     // edit text
     private EditText title;
     private EditText price;
     private EditText street;
     private EditText building;
     private EditText city;
+    private EditText start_date;
+    private EditText description;
 
     // room type
     private RadioButton living_room;
@@ -128,9 +148,6 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
     private RadioButton quarterly;
     private RadioButton short_term;
 
-    // start date
-    private CalendarView start_date;
-
     // Facilities
     private CheckedTextView ac;
     private CheckedTextView allow_pet;
@@ -141,8 +158,15 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
     private CheckedTextView laundry;
     private CheckedTextView bus;
 
-    private EditText description;
     private Button submit;
+
+    // toolbar
+    private Toolbar toolbar;
+    private Button backBtn;
+
+    // variables
+    private boolean filledIn;
+    private final String INVALID_FORM = "Please fill in all the information!";
 
     // --------------- UI fields above --------------- //
 
@@ -151,12 +175,29 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
+
+        // variables
+        filledIn = false;
+
         // Data base part
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        // get UI
+        // get UI in gridlayout
+        addpic = findViewById(R.id.addpic_btn);
+        photoGrid = findViewById(R.id.gridlayout);
+        photoBoxList = new ArrayList<>();
+        pictureList = new ArrayList<>();
+
+        addpic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // pickImage
+                dialog = PickImageDialog.build(new PickSetup()).show(AddPost.this);
+            }
+        });
+
         title = findViewById(R.id.title);
         price = findViewById(R.id.price);
         street = findViewById(R.id.street);
@@ -190,9 +231,20 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
         laundry = findViewById(R.id.laundry);
         bus = findViewById(R.id.bus);
         description = findViewById(R.id.description);
+
         submit = findViewById(R.id.submit);
 
-       // set check text view, using helper method
+        // for validation
+        TextWatcher tw = new MyTextWatcher();
+        title.addTextChangedListener(tw);
+        price.addTextChangedListener(tw);
+        street.addTextChangedListener(tw);
+        building.addTextChangedListener(tw);
+        city.addTextChangedListener(tw);
+        start_date.addTextChangedListener(tw);
+        description.addTextChangedListener(tw);
+
+        // set check text view, using helper method
         setCheckedTextView(ac);
         setCheckedTextView(allow_pet);
         setCheckedTextView(parking);
@@ -207,6 +259,7 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
         living_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: what happens if clicked again
                 _roomType = "Living Room";
             }
         });
@@ -319,14 +372,17 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!filledIn) {
+                    Toast.makeText(AddPost.this, INVALID_FORM, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 _posterId = mAuth.getCurrentUser().getUid();
                 // TODO use Java fields values to create house obj
-                // TODO @Etsu: INFO FOR DATE :
-                // all xml elements' value are got, except the "date" from calendar. U can change the calender view and do that after.
 
                 // get edit text content
                 _title = title.getText().toString();
-                if(!price.getText().toString().equals(""))
+                if (!price.getText().toString().equals(""))
                     _price = Integer.parseInt(price.getText().toString());
                 _location = street.getText().toString() + ";" + building.getText().toString() + ";" + city.getText().toString();
 
@@ -345,31 +401,91 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
                 _description = description.getText().toString();
 
                 writeNewPost();
-
+                uploadToFirebase(pictureList);
+                Intent mainIntent = new Intent(AddPost.this, MainActivity.class);
+                startActivity(mainIntent);
                 // notify user submitted
-                Snackbar.make(findViewById(R.id.Coordinator), "Congrudulation, you successfully post your house! " , Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.Coordinator), "Congrudulation, you successfully post your house! ", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
+        // toolbar setup
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        // back button setup
+        backBtn = findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
     }// on create
 
-    /*
+    class MyTextWatcher implements TextWatcher {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (title.getText().toString().length() > 0 &&
+                    price.getText().toString().length() > 0 &&
+                    street.getText().toString().length() > 0 &&
+                    building.getText().toString().length() > 0 &&
+                    city.getText().toString().length() > 0 &&
+                    start_date.getText().toString().length() > 0 &&
+                    description.getText().toString().length() > 0) {
+                filledIn = true;
+            }
+            else {
+                filledIn = false;
+            }
+        }
+    }
+
+
     //PickImage Plug-in
     //choose picture from camera or gallery
     @Override
     public void onPickResult(PickResult r) {
         if (r.getError() == null) {
+            // create photo box
+            final LinearLayout photoBox = (LinearLayout) View.inflate(this,
+                    R.layout.add_photo, null);
+            photoBox.findViewById(R.id.deletepic_btn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int index = photoBoxList.indexOf(photoBox);
+                    photoBoxList.remove(index);
+                    pictureList.remove(index);
+                    photoBox.removeAllViews();
+                }
+            });
+            photoBoxList.add(photoBox);
 
             //Mandatory to refresh image from Uri.
             // upload to firebase storage
-            uploadToFirebase(r.getUri());
+            picture = r.getUri();
+            Glide.with(AddPost.this)
+                    .load(picture)
+                    .apply(RequestOptions.centerCropTransform())
+                    .into((ImageView) photoBoxList.get(photoBoxList.size() - 1).findViewById(R.id.pic));
 
+            // add photo box to UI
+            photoGrid.addView(photoBox);
+            pictureList.add(picture);
 
         } else {
             Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-    */
 
 
     // helper method for ChekedTextView in XML
@@ -379,10 +495,10 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
         ctv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!ctv.isChecked()) {
+                if (!ctv.isChecked()) {
                     ctv.setChecked(true);
                     ctv.setCheckMarkDrawable(R.drawable.checked);
-                }else{
+                } else {
                     ctv.setChecked(false);
                     ctv.setCheckMarkDrawable(R.drawable.unchecked);
                 }
@@ -392,7 +508,7 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
     }
 
     // Get content of check text view
-    private static String isChecked(final CheckedTextView ctv){
+    private static String isChecked(final CheckedTextView ctv) {
         if (ctv.isChecked())
             return "1";
         else
@@ -401,21 +517,22 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
 
 
     // TODO create house obj here
-    private void writeNewPost(){
+    private void writeNewPost() {
         List<String> list = new ArrayList<>();
         list.add("one");
         list.add("two");
-        TempHouse h = new TempHouse("User",true,list);
-        mDatabase.child("House_post").push().setValue(h);
+        TempHouse h = new TempHouse("User", true, list);
+        post = mDatabase.child("House_post").push();
+        post.setValue(h);
     }
 
     // TODO DELETE
-    static class TempHouse{
+    static class TempHouse {
         public String poster;
         public boolean gym;
         public List<String> pictures;
 
-        public TempHouse(String p, boolean g, List<String> pictures){
+        public TempHouse(String p, boolean g, List<String> pictures) {
             this.poster = new String(p);
             this.gym = g;
             this.pictures = pictures;
@@ -423,41 +540,39 @@ public class AddPost extends AppCompatActivity {//TODO implements IPickResult {
     }
 
 
+    private void uploadToFirebase(ArrayList<Uri> uriList) {
+        final StorageReference house_images = mStorageRef.child("House_Images").child(post.getKey());
 
-    /*
-    private void uploadToFirebase (Uri uri) {
-        final StorageReference profile_images = mStorageRef.child("Profile_Images").child(mAuth.getCurrentUser().getUid());
-
-        profile_images.putFile(uri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
-                        profile_images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                picture = uri;
-                                Glide.with(InitiateProfile.this)
+        for (Uri uri : uriList) {
+            house_images.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                            house_images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                /*picture = uri;
+                                Glide.with(AddPost.this)
                                         .load(picture)
                                         .apply(RequestOptions.circleCropTransform())
-                                        .into(mProfilePic);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle any errors
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                    }
-                });
-
+                                        .into(mProfilePic);*/
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+        }
     }
-    */
 }
