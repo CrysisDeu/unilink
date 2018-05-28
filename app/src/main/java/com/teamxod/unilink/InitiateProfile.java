@@ -38,10 +38,13 @@ import com.vansuita.pickimage.listeners.IPickResult;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InitiateProfile extends AppCompatActivity implements IPickResult {
     private final Uri MALE_PROFILE_PIC = Uri.parse("https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/male.png?alt=media&token=02a80321-a6ae-4194-af4d-bd658de9348f");
     private final Uri FEMALE_PROFILE_PIC = Uri.parse("https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/female.png?alt=media&token=69a0c9c9-eda5-481d-9043-b718d899121b");
+    private final String NAME_INVALID = "Please enter a valid name!";
 
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
@@ -101,7 +104,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
             }
             mEmail.setText(mAuth.getCurrentUser().getEmail());
         }
-
         //choose picture from camera or gallery
         mProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +118,10 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
             @Override
             public void onClick(View v) {
                 name = mEditName.getText().toString();
+                if (name.equals("")) {
+                    Toast.makeText(InitiateProfile.this,NAME_INVALID,Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 gender = mGenderSpinner.getSelectedItem().toString();
                 if(picture == null) {
                     if (gender.equals("Female")) {
@@ -133,6 +139,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                         .setPhotoUri(picture)
                         .build();
                 mAuth.getCurrentUser().updateProfile(profileUpdates);
+                uploadToFirebase(picture);
                 Intent mainIntent = new Intent(InitiateProfile.this, MainActivity.class);
                 startActivity(mainIntent);
                 finish();
@@ -150,9 +157,12 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
 
             //Mandatory to refresh image from Uri.
             // upload to firebase storage
-            uploadToFirebase(r.getUri());
 
-
+            picture = r.getUri();
+            Glide.with(InitiateProfile.this)
+                    .load(picture)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(mProfilePic);
         } else {
             Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -161,7 +171,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
 
     private void writeNewUser(String name, String picture, String gender, String yearGraduate,
                               String description) {
-        User user = new User(name, picture, gender, yearGraduate, description);
+        User user = new User(name, picture, gender, yearGraduate, description,(List<String>) new ArrayList<String>(0),(List<String>) new ArrayList<String>(0));
 
         mDatabase.child("Users").child(uid).setValue(user);
     }
@@ -194,10 +204,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                             @Override
                             public void onSuccess(Uri uri) {
                                 picture = uri;
-                                Glide.with(InitiateProfile.this)
-                                        .load(picture)
-                                        .apply(RequestOptions.circleCropTransform())
-                                        .into(mProfilePic);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

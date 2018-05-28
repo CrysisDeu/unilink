@@ -16,9 +16,12 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class HousingFragment extends Fragment {
 
     ListView listView;
     LinearLayout searchBar;
-    Button filterButton;
+    Spinner spinner;
     FloatingActionButton addPost;
     View header;
     int touchSlop = 5;
@@ -50,12 +53,59 @@ public class HousingFragment extends Fragment {
         //initialize
         listView = (ListView) layout.findViewById(R.id.list_view);
         searchBar = layout.findViewById(R.id.searchView);
-        filterButton = layout.findViewById(R.id.filter);
         addPost = layout.findViewById(R.id.add_post_btn);
+
+        addPost.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), AddPost.class);
+                startActivity(myIntent);
+            }
+        });
 
         HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts,listView);
         listView.setAdapter(adapter);
         // listView.setOnScrollListener(adapter);
+
+        spinner = (Spinner)layout.findViewById(R.id.spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.Sort, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(spinnerAdapter);
+        //set listener
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                switch(spinner.getSelectedItemPosition()) {
+                    //select sort --> do nothing
+                    case 0:
+                        break;
+                    //select price low to high
+                    case 1:
+                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
+                        break;
+                    //select price high to low
+                    case 2:
+                        break;
+                    //select term short to long
+                    case 3:
+                        break;
+                    //select term long to short
+                    case 4:
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
 
         header = new View(this.getActivity());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.abc_action_bar_default_height_material)));

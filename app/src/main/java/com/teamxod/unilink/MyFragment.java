@@ -1,5 +1,6 @@
 package com.teamxod.unilink;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -26,9 +27,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+
 public class MyFragment extends Fragment {
 
     private ImageView mProfilePic;
+    private TextView mName;
     private LinearLayout my_favorite;
     private LinearLayout my_post;
     private LinearLayout changePassword;
@@ -41,30 +45,39 @@ public class MyFragment extends Fragment {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String uid;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_my, container, false); // get the GUI
 
+        mName = layout.findViewById(R.id.name);
+        mProfilePic = layout.findViewById(R.id.profile_pic);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
+        if(mAuth != null && mAuth.getCurrentUser() != null) {
         uid = mAuth.getCurrentUser().getUid();
         DatabaseReference mUserReference = mDatabase.child("Users").child(uid);
+        mUserReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                setProfileUI(user);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
 
-        //Retrieve Profile from Firebase
-        final TextView mName = (TextView) layout.findViewById(R.id.name);
-        mProfilePic = (ImageView) layout.findViewById(R.id.profile_pic);
-        //if(mAuth != null && mAuth.getCurrentUser() != null) {
-            mName.setText(mAuth.getCurrentUser().getDisplayName());
-            Uri mPhoto = mAuth.getCurrentUser().getPhotoUrl();
-            if (mPhoto != null) {
-                Glide.with(this)
-                        .load(mPhoto)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(mProfilePic);
-            //}
-
+        // not logged in
+        } else {
+            Intent reset = new Intent(getActivity(), SplashActivity.class);
+            reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(reset);
         }
 
 
@@ -88,7 +101,7 @@ public class MyFragment extends Fragment {
             @Override
             public void onClick(View view){
                 Intent i = new Intent(getActivity(), Profile.class);
-                i.putExtra("uid", mAuth.getCurrentUser().getUid());
+                i.putExtra("uid", uid);
                 startActivity(i);
             }
         });
@@ -181,6 +194,17 @@ public class MyFragment extends Fragment {
             return false;
         } else {
             return true; // not login
+        }
+    }
+
+    private void setProfileUI(User user) {
+        mName.setText(user.getName());
+        Uri mPhoto = Uri.parse(user.getPicture());
+        if (mPhoto != null) {
+            Glide.with(getActivity())
+                    .load(mPhoto)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(mProfilePic);
         }
     }
 }

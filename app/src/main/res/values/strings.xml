@@ -52,6 +52,15 @@
         <item>2026</item>
     </string-array>
 
+    <string-array name="Sort">
+        <item>Sort</item>
+        <item>Price: low to high</item>
+        <item>Price: high to low</item>
+        <item>Term: short to long</item>
+        <item>Term: long to short</item>
+
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
