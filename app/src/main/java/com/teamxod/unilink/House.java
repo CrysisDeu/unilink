@@ -1,22 +1,26 @@
 package com.teamxod.unilink;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 class House {
 
-    public House(String postId, String posterId, String houseType, String title, String location,
-                 String description, int price, long startDate, String leasingLength,
+    public House(String posterId, String houseType, String title, String location,
+                 String description,String startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
                  String parking, String videoGame, String gym, String laundry, String pet) {
 
-        this.postId = postId;
         this.posterId = posterId;
         this.houseType = houseType;
         this.title = title;
         this.location = location;
         this.description = description;
-        this.price = price;
         this.startDate = startDate;
         this.leasingLength = leasingLength;
         this.pictures = pictures;
@@ -32,7 +36,6 @@ class House {
     }
 
     //private field
-    private String postId;
 
     private String posterId;
 
@@ -44,9 +47,7 @@ class House {
 
     private String description;
 
-    private int price;
-
-    private long startDate;
+    private String startDate;
 
     private String leasingLength;
 
@@ -65,10 +66,6 @@ class House {
     private String videoGame;
 
     private String gym;
-
-    public String getPostId() {
-        return postId;
-    }
 
     public String getPosterId() {
         return posterId;
@@ -90,11 +87,7 @@ class House {
         return description;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public long getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 

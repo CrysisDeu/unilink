@@ -22,6 +22,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,7 +53,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.house_post);
 
-        initializePost();
+        setupFirebase();
 
         setupButton();
 
@@ -99,12 +104,27 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         houseMap.addMarker(houseMarker);
     }
 
-    private void initializePost(){
+    private void setupFirebase(){
+        Bundle bundle = getIntent().getExtras();
+        String uid = bundle.getString("uid");
 
-        house = new House();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserReference = mDatabase.child("House_post").child(uid);
+        mUserReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                house = dataSnapshot.getValue(House.class);
+                //setProfileUI(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
         roommateList = new ArrayList<>();
-        roommateList.add(new User());
-        roommateList.add(new User());
+
         //TODO
     }
 
