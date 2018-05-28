@@ -6,7 +6,7 @@ import java.util.List;
 class House {
 
     public House(String postId, String posterId, String houseType, String title, String location,
-                 String description, int price, long startDate, String leasingLength,
+                 String description,long startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
                  String parking, String videoGame, String gym, String laundry, String pet) {
 
@@ -16,7 +16,6 @@ class House {
         this.title = title;
         this.location = location;
         this.description = description;
-        this.price = price;
         this.startDate = startDate;
         this.leasingLength = leasingLength;
         this.pictures = pictures;
@@ -43,8 +42,6 @@ class House {
     private String location;
 
     private String description;
-
-    private int price;
 
     private long startDate;
 
@@ -88,10 +85,6 @@ class House {
 
     public String getDescription() {
         return description;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public long getStartDate() {
