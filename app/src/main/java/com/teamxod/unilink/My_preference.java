@@ -2,7 +2,6 @@ package com.teamxod.unilink;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -16,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.data.ExifOrientationStream;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,10 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.SyncFailedException;
-
 import info.hoang8f.android.segmented.SegmentedGroup;
-
 
 public class My_preference extends AppCompatActivity {
 
@@ -69,11 +64,11 @@ public class My_preference extends AppCompatActivity {
     // preference variables, used to report to the firebase
     private int Bring;
     private int Pet;
-    private int Smoke;
-    private int Drink;
+    private double Smoke;
+    private double Drink;
     private int Party;
-    private int Sleep;
-    private int Clean;
+    private double Sleep;
+    private double Clean;
     private int Surfing;
     private int Hiking;
     private int Skiing;
@@ -91,28 +86,10 @@ public class My_preference extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_preference);
 
-        // firebase logic : check if the user has finished the survey.
+        // firebase declaration
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-
-        // if the user has finished the survey before, we will load the choices they made
-        mDatabase.child("Preference").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // if the user is already in our database, we load the data they put in
-                if (dataSnapshot.exists()) {
-                    existedPreference = dataSnapshot.getValue(preference.class);
-                    needToRestore = 1;
-                    restoreInfo();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
                 /**
                  * UI components logic, including :
@@ -139,7 +116,7 @@ public class My_preference extends AppCompatActivity {
                 smoke = (SegmentedGroup) findViewById(R.id.smoke_button);
                 drink = (SegmentedGroup) findViewById(R.id.drink_button);
                 smoke_seekBar = (SeekBar) findViewById(R.id.smoke_seekbar);
-                drink_seekBar = (SeekBar) findViewById(R.id.smoke_seekbar);
+                drink_seekBar = (SeekBar) findViewById(R.id.drink_seekbar);
                 smoke_seekbar_text = (TextView) findViewById(R.id.smoke_seekbar_text);
                 drink_seekbar_text = (TextView) findViewById(R.id.drink_seekbar_text);
                 smoke1 = (RadioButton) findViewById(R.id.smoke_button_1);
@@ -184,13 +161,13 @@ public class My_preference extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // map getProgress() to value between -1 and 1.
-                        Sleep = 1 - sleep_seekBar.getProgress() / 9;
-                        Clean = 1 - clean_seekBar.getProgress() / 7;
+                        Sleep = 1 - 2 * sleep_seekBar.getProgress() / 9;
+                        Clean = 1 - 2 * clean_seekBar.getProgress() / 7;
                         if (Smoke == 1) {
-                            Smoke = -1 + smoke_seekBar.getProgress() / 7;
+                            Smoke = -1 + 2 * smoke_seekBar.getProgress() / 7;
                         }
                         if (Drink == 1) {
-                            Drink = -1 + drink_seekBar.getProgress() / 7;
+                            Drink = -1 + 2 * drink_seekBar.getProgress() / 7;
                         }
                         String languageSelected = languageSpinner.getSelectedItem().toString();
                         setLanguage(languageSelected);
@@ -468,7 +445,25 @@ public class My_preference extends AppCompatActivity {
                         Party = 0;
                     }
                 });
+
+        // if the user has finished the survey before, we will load the choices they made
+        mDatabase.child("Preference").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // if the user is already in our database, we load the data they put in
+                if (dataSnapshot.exists()) {
+                    existedPreference = dataSnapshot.getValue(preference.class);
+                    needToRestore = 1;
+                    restoreInfo();
+                }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     // report new preference to the firebase
@@ -496,33 +491,14 @@ public class My_preference extends AppCompatActivity {
 
     // method to restore users' information if they have finished the survey before.
     public void restoreInfo(){
-        
-        System.out.println("<--         Testing restoring data          -->");
-
-        System.out.println("Sleep: " + existedPreference.getSleepTime());
-        System.out.println("Clean: " + existedPreference.getCleanTime());
-        System.out.println("Bring: " + existedPreference.getBring());
-        System.out.println("Pet: " + existedPreference.getPet());
-        System.out.println("Surfing: " + existedPreference.getSurfing());
-        System.out.println("Hiking: " + existedPreference.getHiking());
-        System.out.println("Skiing: " + existedPreference.getSkiing());
-        System.out.println("Gaming: " + existedPreference.getGaming());
-        System.out.println("Smoke: " + existedPreference.getSmoke());
-        System.out.println("Drink: " + existedPreference.getDrink());
-        System.out.println("Party: " + existedPreference.getParty());
-        System.out.println("language: " + existedPreference.getLanguage());
-
-
-
         languageSpinner.setSelection(existedPreference.getLanguage());
 
-        sleep_seekBar.setProgress((1 - existedPreference.getSleepTime()) * 9);
-        clean_seekBar.setProgress((1 - existedPreference.getCleanTime()) * 7);
+        sleep_seekBar.setProgress((int) ((1 - existedPreference.getSleepTime()) * 9 / 2));
+        clean_seekBar.setProgress((int) ((1 - existedPreference.getCleanTime()) * 7 / 2));
+        
+        smoke_seekBar.setProgress((int)((1 + existedPreference.getSmoke()) * 7 / 2));
+        drink_seekBar.setProgress((int)((1 + existedPreference.getDrink()) * 7 / 2));
 
-        smoke_seekBar.setProgress((1 + existedPreference.getSmoke()) * 7);
-        drink_seekBar.setProgress((1 + existedPreference.getDrink()) * 7);
-
-        System.out.println(existedPreference.getSmoke() + "feifei");
         if(existedPreference.getSmoke() != -1) {
             smoke1.toggle();
         }else{
