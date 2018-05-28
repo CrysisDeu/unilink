@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.data.ExifOrientationStream;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -472,6 +473,22 @@ public class My_preference extends AppCompatActivity {
 
     // report new preference to the firebase
     public void newPreference(){
+
+        System.out.println(" <--            Testing uploading           -->");
+        System.out.println("Sleep: " + Sleep);
+        System.out.println("Clean: " + Clean);
+        System.out.println("Bring: " + Bring);
+        System.out.println("Pet: " + Pet);
+        System.out.println("Surfing: " + Surfing);
+        System.out.println("Hiking: " + Hiking);
+        System.out.println("Skiing: " + Skiing);
+        System.out.println("Gaming: " + Gaming);
+        System.out.println("Smoke: " + Smoke);
+        System.out.println("Drink: " + Drink);
+        System.out.println("Party: " + Party);
+        System.out.println("language: " + language);
+
+
         preference preference = new preference(Sleep, Clean, Bring, Pet, Surfing, Hiking,
                 Skiing, Gaming, Smoke, Drink, Party, language);
         mDatabase.child("Preference").child(uid).setValue(preference);
@@ -479,6 +496,24 @@ public class My_preference extends AppCompatActivity {
 
     // method to restore users' information if they have finished the survey before.
     public void restoreInfo(){
+        
+        System.out.println("<--         Testing restoring data          -->");
+
+        System.out.println("Sleep: " + existedPreference.getSleepTime());
+        System.out.println("Clean: " + existedPreference.getCleanTime());
+        System.out.println("Bring: " + existedPreference.getBring());
+        System.out.println("Pet: " + existedPreference.getPet());
+        System.out.println("Surfing: " + existedPreference.getSurfing());
+        System.out.println("Hiking: " + existedPreference.getHiking());
+        System.out.println("Skiing: " + existedPreference.getSkiing());
+        System.out.println("Gaming: " + existedPreference.getGaming());
+        System.out.println("Smoke: " + existedPreference.getSmoke());
+        System.out.println("Drink: " + existedPreference.getDrink());
+        System.out.println("Party: " + existedPreference.getParty());
+        System.out.println("language: " + existedPreference.getLanguage());
+
+
+
         languageSpinner.setSelection(existedPreference.getLanguage());
 
         sleep_seekBar.setProgress((1 - existedPreference.getSleepTime()) * 9);
@@ -487,13 +522,14 @@ public class My_preference extends AppCompatActivity {
         smoke_seekBar.setProgress((1 + existedPreference.getSmoke()) * 7);
         drink_seekBar.setProgress((1 + existedPreference.getDrink()) * 7);
 
-        if(existedPreference.getSmoke() == 1) {
+        System.out.println(existedPreference.getSmoke() + "feifei");
+        if(existedPreference.getSmoke() != -1) {
             smoke1.toggle();
         }else{
             smoke2.toggle();
         }
 
-        if(existedPreference.getDrink() == 1) {
+        if(existedPreference.getDrink() != -1) {
             drink1.toggle();
         }else{
             drink2.toggle();
@@ -516,7 +552,7 @@ public class My_preference extends AppCompatActivity {
             gaming.setChecked(true);
             gaming.setCheckMarkDrawable(R.drawable.checked);
         }
-        
+
         if(existedPreference.getBring() == 1){
             bring1.toggle();
         }
