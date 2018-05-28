@@ -5,12 +5,11 @@ import java.util.List;
 
 class House {
 
-    public House(String postId, String posterId, String houseType, String title, String location,
+    public House(String posterId, String houseType, String title, String location,
                  String description,long startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
                  String parking, String videoGame, String gym, String laundry, String pet) {
 
-        this.postId = postId;
         this.posterId = posterId;
         this.houseType = houseType;
         this.title = title;
@@ -31,7 +30,6 @@ class House {
     }
 
     //private field
-    private String postId;
 
     private String posterId;
 
@@ -62,10 +60,6 @@ class House {
     private String videoGame;
 
     private String gym;
-
-    public String getPostId() {
-        return postId;
-    }
 
     public String getPosterId() {
         return posterId;

@@ -17,10 +17,6 @@ public class User {
     private List<String> favorite_houses;
     private List<String> my_house_posts;
 
-    //temporary constructor
-    User() {
-    }
-
     User(String name, String picture, String gender, String yearGraduate,
          String description, List<String> favorite_houses, List<String> my_house_posts) {
         this.picture = picture;
