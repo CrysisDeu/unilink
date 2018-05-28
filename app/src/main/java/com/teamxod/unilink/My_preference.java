@@ -2,6 +2,7 @@ package com.teamxod.unilink;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
@@ -15,8 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 
@@ -76,6 +80,7 @@ public class My_preference extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String uid;
+    private preference existedPreference;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,15 +89,16 @@ public class My_preference extends AppCompatActivity {
         // firebase logic
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-       // DatabaseReference ref = mDatabase.child("preference");
+        DatabaseReference ref = mDatabase.child("preference");
         uid = mAuth.getCurrentUser().getUid();
 
-/**
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                preference preference = dataSnapshot.getValue(preference.class);
-                System.out.println(preference.getBring());
+                if(dataSnapshot.exists()) {
+                    preference preference = dataSnapshot.getValue(preference.class);
+                    System.out.println(preference.getBring());
+                }
             }
 
             @Override
@@ -101,11 +107,16 @@ public class My_preference extends AppCompatActivity {
             }
         });
         // if the user has finished the survey before, we will load the choices they made
-        mDatabase.child("preference").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Preference").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // if the user is already in our database, we load the data they put in
                 if(dataSnapshot.exists()){
+                    existedPreference = dataSnapshot.getValue(preference.class);
+                    sleep_seekBar.setProgress((1 - existedPreference.getSleepTime()) * 9);
+                    clean_seekBar.setProgress((1 - existedPreference.getCleanTime()) * 7);
+                    languageSpinner.setSelection(existedPreference.getLanguage());
+                    System.out.println(languageSpinner.getSelectedItem().toString() + "kanwo");
                 }
             }
 
@@ -115,7 +126,6 @@ public class My_preference extends AppCompatActivity {
             }
         });
 
-*/
 
         save = (CardView)findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
