@@ -25,7 +25,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/small_margin"
-            android:background="@drawable/ic_more"
+            android:background="@drawable/ic_empty_heart"
             android:backgroundTint="@color/white" />
 
         <Button
