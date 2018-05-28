@@ -8,53 +8,71 @@
     android:layoutDirection="ltr"
     tools:context=".AddPost">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#6d48e5"
+        android:elevation="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/roboto"
+            android:text="Add Post"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/l_font_size"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/back_btn"
+            android:layout_width="@dimen/small_icon_side"
+            android:layout_height="@dimen/small_icon_side"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/small_margin"
+            android:background="@drawable/ic_back"
+            android:backgroundTint="@color/white"  />
+    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_weight="0"
-                android:background="#6d48e5">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Add Post"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/house_button_back"
-                    android:layout_width="@dimen/small_icon_side"
-                    android:layout_height="@dimen/small_icon_side"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="@dimen/small_margin"
-                    android:background="@drawable/ic_back"
-                    android:backgroundTint="@color/white" />
-
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Photo"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size"
+                android:textStyle="bold" />
 
             <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/gridlayout"
+                android:layout_width="360dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:background="#eee"
                 android:columnCount="4">
 
                 <ImageView
+                    android:id="@+id/addpic_btn"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_margin="10dp"
-                    app:srcCompat="@drawable/camera" />
+                    android:layout_margin="5dp"
+                    android:background="#fff"
+                    app:srcCompat="@drawable/camera"/>
 
             </GridLayout>
 
@@ -407,7 +425,7 @@
                     style="@style/RadioButton"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="annual"
+                    android:text="Anually"
                     android:textStyle="bold" />
 
                 <RadioButton
@@ -423,7 +441,7 @@
                     style="@style/RadioButton"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="Short"
+                    android:text="Monthly"
                     android:textStyle="bold" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
@@ -437,18 +455,22 @@
                 android:textStyle="bold" />
 
 
-            <CalendarView
+            <EditText
                 android:id="@+id/start_date"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:hint="Start Date"
+                android:textSize="@dimen/m_font_size"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
-                android:text="Facilities"
+                android:text="Facilities and Facts"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -540,7 +562,7 @@
                 android:paddingLeft="24dp"
                 android:paddingRight="24dp"
                 android:paddingTop="@dimen/middle_margin"
-                android:text="Building Laundry"
+                android:text="Building-in Laundry"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size" />
 

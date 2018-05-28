@@ -14,22 +14,30 @@ public class User {
     private String gender;
     private String yearGraduate;
     private String description;
+    private List<User> roommates;
     private List<String> favorite_houses;
     private List<String> my_house_posts;
 
-    //temporary constructor
-    User() {
+    public User() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     User(String name, String picture, String gender, String yearGraduate,
-         String description, List<String> favorite_houses, List<String> my_house_posts) {
+         String description,List<User> roommates, List<String> favorite_houses,
+         List<String> my_house_posts) {
+
         this.picture = picture;
         this.name = name;
         this.gender = gender;
         this.yearGraduate = yearGraduate;
         this.description = description;
+        this.roommates = roommates;
         this.favorite_houses = favorite_houses;
         this.my_house_posts = my_house_posts;
+    }
+
+    public List<User> getRoommates() {
+        return roommates;
     }
 
     public String getPicture() {

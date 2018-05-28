@@ -3,6 +3,7 @@ package com.teamxod.unilink;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.TestLooperManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +24,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +37,7 @@ import java.util.List;
 public class SingleHousePostActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     House house;
+    User poster;
     ArrayList<User> roommateList;
 
     ViewPager housePicture;
@@ -48,7 +56,9 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.house_post);
 
-        initializePost();
+        setupFirebase();
+
+        setupButton();
 
         setupBasicData();
 
@@ -97,32 +107,62 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         houseMap.addMarker(houseMarker);
     }
 
-    private void initializePost(){
-        Button backBtn = (Button)findViewById(R.id.house_button_back);
-        backBtn.setOnClickListener(new View.OnClickListener() {
+    private void setupFirebase(){
+        Bundle bundle = getIntent().getExtras();
+        String uid = bundle.getString("uid");
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference postReference = database.child("House_post").child(uid);
+
+        postReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                finish();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                house = dataSnapshot.getValue(House.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
 
-        house = new House();
-        roommateList = new ArrayList<>();
-        roommateList.add(new User());
-        roommateList.add(new User());
-        //TODO
+        DatabaseReference posterReference = database.child("Users").child(house.getPosterId());
+        posterReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                poster = dataSnapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
     }
 
     private void setupBasicData() {
+        roommateList = (ArrayList)(poster.getRoommates());
+
         //set poster view
         ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
-        String url = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
+        String url = poster.getPicture();
         Glide.with(this)
                 .load(url)
                 .apply(RequestOptions.circleCropTransform())
                 .into(posterImageView);
 
-        //TODO
+        TextView houseTypeTextView = (TextView)findViewById(R.id.house_type);
+        String houseType = house.getNumBedroom() + "B" + house.getNumBathroom() + "B · " + house.getHouseType();
+        houseTypeTextView.setText(houseType);
+
+        TextView houseTitleTextView = (TextView)findViewById(R.id.house_title);
+        houseTitleTextView.setText(house.getTitle());
+
+        TextView houseAddressTextView = (TextView)findViewById(R.id.house_address);
+        houseAddressTextView.setText(house.getLocation());
+
+
     }
 
     private void setupHousePicture() {
@@ -151,6 +191,24 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         map_container.setScrollView(scrollView);
         mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
         mapFragment.getMapAsync(this);
+    }
+
+    private void setupButton() {
+        Button backBtn = (Button)findViewById(R.id.house_button_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        Button moreBtn = (Button)findViewById(R.id.house_button_favourite);
+        moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void setupFeatures() {
