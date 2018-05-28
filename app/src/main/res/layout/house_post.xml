@@ -19,7 +19,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/house_button_more"
+            android:id="@+id/house_button_favourite"
             android:layout_width="@dimen/small_icon_side"
             android:layout_height="@dimen/small_icon_side"
             android:layout_centerVertical="true"
