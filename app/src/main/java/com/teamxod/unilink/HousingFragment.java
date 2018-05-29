@@ -71,8 +71,6 @@ public class HousingFragment extends Fragment {
                 int price = 1190;
                 for(DataSnapshot house : dataSnapshot.getChildren()){
 
-
-
                     String HouseUid = house.toString();
                     String location = house.child("room_location").getValue(String.class);
                     String type = house.child("room_type").getValue(String.class);
