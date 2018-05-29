@@ -38,7 +38,7 @@ import butterknife.OnClick;
  */
 public class RealtimeDbChatActivity extends AppCompatActivity
         implements FirebaseAuth.AuthStateListener {
-    private static final String TAG = "RealtimeDatabaseDemo";
+    private static final String TAG = "RealtimeDatabase";
 
     /**
      * Get the last 50 chat messages.
