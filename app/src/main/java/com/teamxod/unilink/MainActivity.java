@@ -47,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new RoommateFragment();
                         break;
                     case R.id.navigation_chat:
-                        fragment = new ChatFragment();
+                        fragment = new ChatsFragment();
+//                        Intent InitiateProfileIntent = new Intent(MainActivity.this, RealtimeDbChatActivity.class);
+//                        startActivity(InitiateProfileIntent);
+//                        finish();
                         break;
                     case R.id.navigation_my:
                         fragment = new MeFragment();
