@@ -38,11 +38,12 @@
         <activity android:name=".my_change_profile"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".SingleHousePostActivity" />
+        <activity android:name=".AddPost"/>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -69,7 +70,7 @@
                 android:resource="@xml/picker_provider_paths" />
         </provider>
 
-        <activity android:name=".AddPost"></activity>
+
     </application>
 
 </manifest>
