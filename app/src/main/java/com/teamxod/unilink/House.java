@@ -15,7 +15,7 @@ class House {
                  String description, String startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
                  String parking, String videoGame, String gym, String laundry, String pet,
-                 int numBedroom, int numBathroom) {
+                 String numBedroom, String numBathroom) {
 
         this.posterId = posterId;
         this.houseType = houseType;
@@ -43,9 +43,9 @@ class House {
     }
     //private field
 
-    private int numBedroom;
+    private String numBedroom;
 
-    private int numBathroom;
+    private String numBathroom;
 
     private String posterId;
 
@@ -77,11 +77,15 @@ class House {
 
     private String gym;
 
-    public int getNumBedroom() {
+    private String laundry;
+
+    private String pet;
+
+    public String getNumBedroom() {
         return numBedroom;
     }
 
-    public int getNumBathroom() {
+    public String getNumBathroom() {
         return numBathroom;
     }
 
@@ -153,8 +157,6 @@ class House {
         return pet;
     }
 
-    private String laundry;
 
-    private String pet;
 
 }

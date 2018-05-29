@@ -31,14 +31,13 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View view = inflater.inflate(R.layout.simple_profile_item, parent, false);
+        View view = inflater.inflate(R.layout.house_roommate, parent, false);
 
         return new SimpleProfileViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SimpleProfileViewHolder holder, int position) {
-        //User user = (User) getItemId(position);
 
         User user = users.get(position);
 
@@ -65,6 +64,6 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
             nameTextView = (TextView) itemView.findViewById(R.id.user_name);
             yearTextView = (TextView) itemView.findViewById(R.id.user_school_year);
         }
-
     }
+
 }

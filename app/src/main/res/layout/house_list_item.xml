@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/small_margin"
-    android:paddingHorizontal="24dp"
-    >
+    android:paddingHorizontal="24dp">
 
 
 
