@@ -114,7 +114,7 @@ import java.util.List;
 
           viewHolder.vhType.setText(mList.get(position).getRoom_type());
           viewHolder.vhTitle.setText(mList.get(position).getRoom_title());
-          viewHolder.vhPrice.setText(mList.get(position).getRoom_price());
+          viewHolder.vhPrice.setText("$"+mList.get(position).getRoom_price()+"/MO");
           viewHolder.vhLocation.setText(mList.get(position).getRoom_location());
           viewHolder.vhFavorate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
               @Override

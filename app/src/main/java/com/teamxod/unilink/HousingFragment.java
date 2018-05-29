@@ -31,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HousingFragment extends Fragment {
 
@@ -40,6 +42,7 @@ public class HousingFragment extends Fragment {
     FloatingActionButton addPost;
     View header;
     int touchSlop = 5;
+    final ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
     private DatabaseReference HouseDatabase;
     private String HouseUid;
@@ -53,7 +56,6 @@ public class HousingFragment extends Fragment {
         searchBar = layout.findViewById(R.id.searchView);
         addPost = layout.findViewById(R.id.add_post_btn);
 
-        final ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
 
 
@@ -66,21 +68,27 @@ public class HousingFragment extends Fragment {
                 //create an array of post
                // ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
+                int price = 1190;
                 for(DataSnapshot house : dataSnapshot.getChildren()){
+
+
+
                     String HouseUid = house.toString();
                     String location = house.child("room_location").getValue(String.class);
                     String type = house.child("room_type").getValue(String.class);
                     String title = house.child("room_title").getValue(String.class);
-                    String price = house.child("room_price").getValue(String.class);
+                    //int price = (int)house.child("room_price").getValue();
                     String imageId = house.child("imageResourceId").getValue(String.class);
-                    boolean favorite = (Boolean)house.child("isFavorite").getValue();
+                    boolean favorite = (boolean)house.child("isFavorite").getValue();
                     HousePost post = new HousePost(type,title,price,location,imageId,favorite);
                     //HousePost post = house.getValue(HousePost.class);
                     posts.add(post);
 
+                    price = price-200;
+
                 }
                 if(!posts.isEmpty()){
-                    final HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+                    HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
                     listView.setAdapter(adapter);
                 }
             }
@@ -135,16 +143,21 @@ public class HousingFragment extends Fragment {
                         break;
                     //select price low to high
                     case 1:
+                        sortPrice(true);
                         Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                     //select price high to low
                     case 2:
+                        sortPrice(false);
+                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                     //select term short to long
                     case 3:
+                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                     //select term long to short
                     case 4:
+                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -172,7 +185,7 @@ public class HousingFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SingleHousePostActivity.class);
-                //myIntent.putExtra("uid", );
+                //myIntent.putExtra("uid",HouseUid);
                 startActivity(myIntent);
 
             }
@@ -186,6 +199,38 @@ public class HousingFragment extends Fragment {
         });*/
         return layout;
     }
+
+    //sort method
+    private void sortPrice(boolean order){
+
+        Collections.sort(posts, new Comparator<HousePost>() {
+            @Override
+            public int compare(HousePost p1, HousePost p2) {
+                return p1.getRoom_price() - p2.getRoom_price();
+            }
+        });
+        if(!order) {
+            Collections.reverse(posts);
+        }
+
+        HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+        listView.setAdapter(adapter);
+    }
+    /*
+    private void sortTerm(boolean order){
+        Collections.sort(posts, new Comparator<HousePost>() {
+            @Override
+            public int compare(HousePost p1, HousePost p2) {
+                return p1.getRoom_price() - p2.getRoom_price();
+            }
+        });
+        if(!order) {
+            Collections.reverse(posts);
+        }
+
+        HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+        listView.setAdapter(adapter);
+    }*/
 
 
     //set the back animator
