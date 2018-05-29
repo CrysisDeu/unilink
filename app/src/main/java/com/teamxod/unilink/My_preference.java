@@ -2,7 +2,6 @@ package com.teamxod.unilink;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -23,10 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.SyncFailedException;
-
 import info.hoang8f.android.segmented.SegmentedGroup;
-
 
 public class My_preference extends AppCompatActivity {
 
@@ -68,11 +64,11 @@ public class My_preference extends AppCompatActivity {
     // preference variables, used to report to the firebase
     private int Bring;
     private int Pet;
-    private int Smoke;
-    private int Drink;
+    private double Smoke;
+    private double Drink;
     private int Party;
-    private int Sleep;
-    private int Clean;
+    private double Sleep;
+    private double Clean;
     private int Surfing;
     private int Hiking;
     private int Skiing;
@@ -90,28 +86,10 @@ public class My_preference extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_preference);
 
-        // firebase logic : check if the user has finished the survey.
+        // firebase declaration
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-
-        // if the user has finished the survey before, we will load the choices they made
-        mDatabase.child("Preference").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // if the user is already in our database, we load the data they put in
-                if (dataSnapshot.exists()) {
-                    existedPreference = dataSnapshot.getValue(preference.class);
-                    needToRestore = 1;
-                    restoreInfo();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
                 /**
                  * UI components logic, including :
@@ -138,7 +116,7 @@ public class My_preference extends AppCompatActivity {
                 smoke = (SegmentedGroup) findViewById(R.id.smoke_button);
                 drink = (SegmentedGroup) findViewById(R.id.drink_button);
                 smoke_seekBar = (SeekBar) findViewById(R.id.smoke_seekbar);
-                drink_seekBar = (SeekBar) findViewById(R.id.smoke_seekbar);
+                drink_seekBar = (SeekBar) findViewById(R.id.drink_seekbar);
                 smoke_seekbar_text = (TextView) findViewById(R.id.smoke_seekbar_text);
                 drink_seekbar_text = (TextView) findViewById(R.id.drink_seekbar_text);
                 smoke1 = (RadioButton) findViewById(R.id.smoke_button_1);
@@ -183,14 +161,15 @@ public class My_preference extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // map getProgress() to value between -1 and 1.
-                        Sleep = 1 - sleep_seekBar.getProgress() / 9;
-                        Clean = 1 - clean_seekBar.getProgress() / 7;
-                        if (Smoke == 1) {
-                            Smoke = -1 + smoke_seekBar.getProgress() / 7;
+                        Sleep = 1 - 2 * sleep_seekBar.getProgress() / (double)9;
+                        Clean = 1 - 2 * clean_seekBar.getProgress() / (double)7;
+                        if (Smoke != -1) {
+                            Smoke = -1 + 2 * smoke_seekBar.getProgress() / (double)7;
                         }
-                        if (Drink == 1) {
-                            Drink = -1 + drink_seekBar.getProgress() / 7;
+                        if (Drink != -1) {
+                            Drink = -1 + 2 * drink_seekBar.getProgress() / (double)7;
                         }
+
                         String languageSelected = languageSpinner.getSelectedItem().toString();
                         setLanguage(languageSelected);
                         // report data to the firebase
@@ -201,17 +180,7 @@ public class My_preference extends AppCompatActivity {
 
                 // sleep_seekBar and clean_seekBar logic
                 sleep_seekBar.setMax(9);
-                if (needToRestore == 1) {
-                    if (sleep_seekBar.getProgress() < 4) {
-                        int progress = sleep_seekBar.getProgress() + 9;
-                        sleep_seekbar_text.setText(progress + " PM");
-                    } else {
-                        int progress = sleep_seekBar.getProgress() - 3;
-                        sleep_seekbar_text.setText(progress + " AM");
-                    }
-                } else {
-                    sleep_seekbar_text.setText("9PM - 6AM");
-                }
+                sleep_seekbar_text.setText("9PM - 6AM");
                 sleep_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
@@ -239,11 +208,7 @@ public class My_preference extends AppCompatActivity {
                 });
 
                 clean_seekBar.setMax(7);
-                if (existedPreference != null) {
-                    clean_seekbar_text.setText(clean_seekBar.getProgress() + " times");
-                } else {
-                    clean_seekbar_text.setText("0 times - 7 times");
-                }
+                clean_seekbar_text.setText("0 times - 7 times");
                 clean_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
@@ -266,11 +231,7 @@ public class My_preference extends AppCompatActivity {
 
                 // smoke and drink seekBar with texts logic
                 smoke_seekBar.setMax(7);
-                if (existedPreference != null) {
-                    smoke_seekbar_text.setText(smoke_seekBar.getProgress() + " days");
-                } else {
-                    smoke_seekbar_text.setText("0 days - 7 days");
-                }
+                smoke_seekbar_text.setText("0 days - 7 days");
                 smoke_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
@@ -291,11 +252,7 @@ public class My_preference extends AppCompatActivity {
                 });
 
                 drink_seekBar.setMax(7);
-                if (existedPreference != null) {
-                    drink_seekbar_text.setText(drink_seekBar.getProgress() + " days");
-                } else {
-                    drink_seekbar_text.setText("0 days - 7 days");
-                }
+                drink_seekbar_text.setText("0 days - 7 days");
                 drink_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
@@ -467,7 +424,25 @@ public class My_preference extends AppCompatActivity {
                         Party = 0;
                     }
                 });
+
+        // if the user has finished the survey before, we will load the choices they made
+        mDatabase.child("Preference").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // if the user is already in our database, we load the data they put in
+                if (dataSnapshot.exists()) {
+                    existedPreference = dataSnapshot.getValue(preference.class);
+                    needToRestore = 1;
+                    restoreInfo();
+                }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     // report new preference to the firebase
@@ -479,21 +454,34 @@ public class My_preference extends AppCompatActivity {
 
     // method to restore users' information if they have finished the survey before.
     public void restoreInfo(){
+        Sleep = existedPreference.getSleepTime();
+        language = existedPreference.getLanguage();
+        Clean = existedPreference.getCleanTime();
+        Smoke = existedPreference.getSmoke();
+        Drink = existedPreference.getDrink();
+        Surfing = existedPreference.getSurfing();
+        Hiking = existedPreference.getHiking();
+        Skiing = existedPreference.getSkiing();
+        Gaming = existedPreference.getGaming();
+        Pet = existedPreference.getPet();
+        Bring = existedPreference.getBring();
+        Party = existedPreference.getParty();
+
         languageSpinner.setSelection(existedPreference.getLanguage());
 
-        sleep_seekBar.setProgress((1 - existedPreference.getSleepTime()) * 9);
-        clean_seekBar.setProgress((1 - existedPreference.getCleanTime()) * 7);
+        sleep_seekBar.setProgress((int) Math.rint(((1 - existedPreference.getSleepTime()) * 9 / 2)));
+        clean_seekBar.setProgress((int) Math.rint(((1 - existedPreference.getCleanTime()) * 7 / 2)));
 
-        smoke_seekBar.setProgress((1 + existedPreference.getSmoke()) * 7);
-        drink_seekBar.setProgress((1 + existedPreference.getDrink()) * 7);
+        smoke_seekBar.setProgress((int)Math.rint(((1 + existedPreference.getSmoke()) * 7 / 2)));
+        drink_seekBar.setProgress((int)Math.rint(((1 + existedPreference.getDrink()) * 7 / 2)));
 
-        if(existedPreference.getSmoke() == 1) {
+        if(existedPreference.getSmoke() != -1) {
             smoke1.toggle();
         }else{
             smoke2.toggle();
         }
 
-        if(existedPreference.getDrink() == 1) {
+        if(existedPreference.getDrink() != -1) {
             drink1.toggle();
         }else{
             drink2.toggle();
@@ -520,7 +508,7 @@ public class My_preference extends AppCompatActivity {
         if(existedPreference.getBring() == 1){
             bring1.toggle();
         }
-        if(existedPreference.getBring() == -1) {
+        else if(existedPreference.getBring() == -1) {
             bring2.toggle();
         }else{
             bring3.toggle();
@@ -535,11 +523,22 @@ public class My_preference extends AppCompatActivity {
         if(existedPreference.getParty() == 1){
             party1.toggle();
         }
-        if(existedPreference.getParty() == -1) {
+        else if(existedPreference.getParty() == -1) {
             party2.toggle();
         }else{
             party3.toggle();
         }
+
+        if (sleep_seekBar.getProgress() < 4) {
+            int progress = sleep_seekBar.getProgress() + 9;
+            sleep_seekbar_text.setText(progress + " PM");
+        } else {
+            int progress = sleep_seekBar.getProgress() - 3;
+            sleep_seekbar_text.setText(progress + " AM");
+        }
+        smoke_seekbar_text.setText(smoke_seekBar.getProgress() + " days");
+        drink_seekbar_text.setText(drink_seekBar.getProgress() + " days");
+        clean_seekbar_text.setText(clean_seekBar.getProgress() + " times");
 
 
     }

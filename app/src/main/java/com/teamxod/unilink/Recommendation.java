@@ -27,12 +27,12 @@ public class Recommendation {
      * The order is : Bring, Pet, Smoke, Drink, Party, sleepTime, cleanTime, surfing, hiking,
      *                skiing, gaming, language
      */
-    private int Array1[];
-    private int Array2[];
+    private double Array1[];
+    private double Array2[];
 
     public Recommendation(String user1, String user2){
-        Array1 = new int[paramNumber];
-        Array2 = new int[paramNumber];
+        Array1 = new double[paramNumber];
+        Array2 = new double[paramNumber];
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user1Data = mDatabase.child("Preference").child("user1");
         user2Data = mDatabase.child("Preference").child("user2");

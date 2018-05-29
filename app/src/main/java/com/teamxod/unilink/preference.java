@@ -1,16 +1,16 @@
 package com.teamxod.unilink;
 
 public class preference {
-    private int sleepTime;
-    private int cleanTime;
+    private double sleepTime;
+    private double cleanTime;
     private int bring;
     private int pet;
     private int surfing;
     private int hiking;
     private int skiing;
     private int gaming;
-    private int smoke;
-    private int drink;
+    private double smoke;
+    private double drink;
     private int party;
     private int language;
 
@@ -19,8 +19,8 @@ public class preference {
     public preference(){
     }
 
-    public preference(int sleepTime, int cleanTime, int bring, int pet, int surfing,
-                      int hiking, int skiing, int gaming, int smoke, int drink, int party, int language)
+    public preference(double sleepTime, double cleanTime, int bring, int pet, int surfing,
+                      int hiking, int skiing, int gaming, double smoke, double drink, int party, int language)
     {
         this.sleepTime = sleepTime;
         this.cleanTime = cleanTime;
@@ -37,7 +37,7 @@ public class preference {
     }
 
     // getter and setter
-    public int getSleepTime() {
+    public double getSleepTime() {
         return sleepTime;
     }
 
@@ -45,7 +45,7 @@ public class preference {
         this.sleepTime = sleepTime;
     }
 
-    public int getCleanTime() {
+    public double getCleanTime() {
         return cleanTime;
     }
 
@@ -101,7 +101,7 @@ public class preference {
         this.gaming = gaming;
     }
 
-    public int getSmoke() {
+    public double getSmoke() {
         return smoke;
     }
 
@@ -109,7 +109,7 @@ public class preference {
         this.smoke = smoke;
     }
 
-    public int getDrink() {
+    public double getDrink() {
         return drink;
     }
 

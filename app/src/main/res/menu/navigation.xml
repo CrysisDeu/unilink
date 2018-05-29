@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_housing"
         android:icon="@drawable/ic_home"
-        android:title="House" />
+        android:title="Housing" />
 
     <item
         android:id="@+id/navigation_roommate"
@@ -19,6 +19,6 @@
     <item
         android:id="@+id/navigation_my"
         android:icon="@drawable/ic_account"
-        android:title="My" />
+        android:title="Me" />
 
 </menu>
