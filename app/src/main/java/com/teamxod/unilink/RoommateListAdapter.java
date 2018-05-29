@@ -1,13 +1,8 @@
 package com.teamxod.unilink;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -16,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -29,14 +23,14 @@ import java.util.List;
 
 public class RoommateListAdapter extends BaseAdapter {
 
-    private ArrayList<RoommateSimp> mList;
+    private ArrayList<RoommateSimple> mList;
     private ListView mListView;
     private LayoutInflater mInflater;
     private Context mContext;
     final static int MARGIN = 15;
 
-    public RoommateListAdapter(Context context, List<RoommateSimp> objects, ListView listView) {
-        mList = (ArrayList<RoommateSimp>) objects;
+    public RoommateListAdapter(Context context, List<RoommateSimple> objects, ListView listView) {
+        mList = (ArrayList<RoommateSimple>) objects;
         mInflater=LayoutInflater.from(context);
         mListView = listView;
         mContext = context;
@@ -93,7 +87,7 @@ public class RoommateListAdapter extends BaseAdapter {
             viewHolder = (RoommateListAdapter.ViewHolder) view.getTag();
         }
 
-        RoommateSimp roommate = (RoommateSimp) getItem(position);
+        RoommateSimple roommate = (RoommateSimple) getItem(position);
 
         //glide image
         if (roommate != null) {
