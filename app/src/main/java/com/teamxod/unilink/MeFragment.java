@@ -122,7 +122,7 @@ public class MeFragment extends Fragment {
                 Fragment fragment = new MyPostFragment();
                 getFragmentManager()
                         .beginTransaction()
-                        .add(R.id.fragment_container,fragment,"favorite")
+                        .add(R.id.fragment_container,fragment,"my_post")
                         .commit();
             }
         });
