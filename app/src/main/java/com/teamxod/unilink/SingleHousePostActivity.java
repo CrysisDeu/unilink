@@ -41,9 +41,11 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
 
     ViewPager housePicture;
     RecyclerView roommateListView;
+    RecyclerView roomListView;
 
     HousePictureAdapter housePictureAdapter;
     UserPictureAdapter roommateAdapter;
+    RoomAdapter roomAdapter;
 
     LinearLayoutManager layoutManager;
 
@@ -146,6 +148,13 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
 
     private void setupRoom() {
         //TODO
+        ArrayList<Room> roomList = (ArrayList)house.getRooms();
+        roomListView = (RecyclerView) findViewById(R.id.house_rooms);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        roomListView.setLayoutManager(layoutManager);
+        roomListView.setHasFixedSize(true);
+        roomAdapter = new RoomAdapter(this, roomList);
+        roomListView.setAdapter(roomAdapter);
     }
 
     private void setupRoommate() {
@@ -179,7 +188,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
             }
         });
     }
