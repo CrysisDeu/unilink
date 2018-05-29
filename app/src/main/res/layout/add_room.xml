@@ -29,27 +29,27 @@
         android:paddingTop="@dimen/small_margin">
 
         <RadioButton
+            android:id="@+id/master_bedroom"
+            style="@style/RadioButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Master Bedroom"
+            android:textStyle="bold" />
+
+        <RadioButton
             android:id="@+id/living_room"
             style="@style/RadioButton"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="living Room"
+            android:text="Living Room"
             android:textStyle="bold" />
 
         <RadioButton
-            android:id="@+id/private_room"
+            android:id="@+id/loft"
             style="@style/RadioButton"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="Private Room"
-            android:textStyle="bold" />
-
-        <RadioButton
-            android:id="@+id/entire_place"
-            style="@style/RadioButton"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Entire Place"
+            android:text="Loft / Den"
             android:textStyle="bold" />
     </info.hoang8f.android.segmented.SegmentedGroup>
 
@@ -71,7 +71,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="152dp"
+            android:layout_marginStart="136dp"
             android:paddingTop="@dimen/large_margin"
             android:text="$"
             android:textColor="@color/black"
@@ -82,8 +82,9 @@
             android:id="@+id/price"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="0dp"
+            android:layout_marginEnd="0dp"
             android:gravity="center_horizontal"
+            android:layout_gravity="end"
             android:hint="Price"
             android:inputType="numberSigned"
             android:singleLine="true"
@@ -93,13 +94,15 @@
     <Button
         android:id="@+id/deleteroom_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_weight="0"
-        android:layout_margin="5dp"
-        android:background="@drawable/cursor"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:textAllCaps="false"
+        android:background="@drawable/round_button"
         android:gravity="center_horizontal|center"
-        android:text="Remove this room"
-        android:textColor="#fff"/>
+        android:padding="4dp"
+        android:text="Remove"
+        android:textColor="#fff" />
 
 </LinearLayout>

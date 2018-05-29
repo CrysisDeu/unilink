@@ -63,7 +63,7 @@
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:background="#eee"
                 android:columnCount="4">
 
@@ -71,7 +71,7 @@
                     android:id="@+id/addpic_btn"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:layout_margin="5dp"
+                    android:layout_margin="4dp"
                     android:background="#fff"
                     android:tint="#6d48e5"
                     app:srcCompat="@drawable/ic_plus" />
@@ -117,14 +117,14 @@
                 <Button
                     android:id="@+id/addroom_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/cursor"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/round_button"
                     android:gravity="center_horizontal|center"
                     android:text="Add room"
-                    android:textColor="#fff"/>
+                    android:textAllCaps="false"
+                    android:textColor="#fff" />
             </RelativeLayout>
 
             <LinearLayout
@@ -577,12 +577,12 @@
             <Button
                 android:id="@+id/submit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center_horizontal|center"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_weight="0"
-                android:background="@drawable/cursor"
+                android:background="@drawable/round_button"
                 android:gravity="center_horizontal|center"
                 android:text="SUBMIT"
                 android:textColor="#fff" />

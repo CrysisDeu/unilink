@@ -2,26 +2,19 @@ package com.teamxod.unilink;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.CheckedTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,9 +22,6 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -39,8 +29,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,7 +39,6 @@ import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.listeners.IPickResult;
 
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -544,23 +531,23 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
         });
 
         // Room type
-        roomBox.findViewById(R.id.living_room).setOnClickListener(new View.OnClickListener() {
+        roomBox.findViewById(R.id.master_bedroom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: change variable
+                room.setRoomType("Master Bedroom");
+            }
+        });
+        roomBox.findViewById(R.id.living_room).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 room.setRoomType("Living Room");
             }
         });
-        roomBox.findViewById(R.id.private_room).setOnClickListener(new View.OnClickListener() {
+        roomBox.findViewById(R.id.loft).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                room.setRoomType("Private Room");
-            }
-        });
-        roomBox.findViewById(R.id.entire_place).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                room.setRoomType("Entire Place");
+                room.setRoomType("Loft / Den");
             }
         });
 
