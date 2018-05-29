@@ -57,7 +57,7 @@ public class ChatsFragment extends Fragment {
 
         mMainView = inflater.inflate(R.layout.fragment_chats, container, false);
 
-        mConvList = (RecyclerView) mMainView.findViewById(R.id.conv_list);
+        mConvList = mMainView.findViewById(R.id.conv_list);
         mAuth = FirebaseAuth.getInstance();
 
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
@@ -101,7 +101,6 @@ public class ChatsFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull final ChatListViewHolder holder, int position, @NonNull Chat model) {
                 final String list_user_id = getRef(position).getKey();;
-//                final String list_user_id = "UlGDWS1vPVfOrL9OVb2NosoHC1o1";
 
                 Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
 
@@ -142,9 +141,6 @@ public class ChatsFragment extends Fragment {
 
                         final String userName = dataSnapshot.child("name").getValue().toString();
                         String userThumb = dataSnapshot.child("picture").getValue().toString();
-                        Log.d("ChatsFragment, name", userName);
-                        Log.d("ChatsFragment, image ", userThumb);
-//
 
                         holder.setName(userName);
                         holder.setUserImage(userThumb, getContext());
@@ -172,7 +168,6 @@ public class ChatsFragment extends Fragment {
         };
         mConvList.setAdapter(adapter);
         adapter.startListening();
-
     }
 
     @Override
@@ -180,7 +175,4 @@ public class ChatsFragment extends Fragment {
         super.onStop();
         adapter.stopListening();
     }
-
-
-
 }
