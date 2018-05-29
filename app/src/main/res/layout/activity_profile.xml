@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEEEEE"
     tools:context=".Profile">
 
     <LinearLayout
@@ -77,6 +78,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
+                    android:layout_marginTop="16dp"
                     android:background="#FFFFFF"
                     android:orientation="horizontal">
 
@@ -137,11 +139,10 @@
                         android:layout_marginRight="16dp"
                         android:text="Description of the user"
                         android:textColor="@android:color/black"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
 
                 </LinearLayout>
-
 
 
             </LinearLayout>

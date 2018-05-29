@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +36,7 @@ import java.util.List;
 public class SingleHousePostActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     House house;
+    User poster;
     ArrayList<User> roommateList;
 
     ViewPager housePicture;
@@ -53,11 +55,53 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.house_post);
 
-        setupFirebase();
+        loadHouseData();
+    }
 
+    private void loadHouseData(){
+        Bundle bundle = getIntent().getExtras();
+        String uid = bundle.getString("uid");
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference postReference = database.child("House_post").child(uid);
+
+        postReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                house = dataSnapshot.getValue(House.class);
+                loadPosterData();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void loadPosterData() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference posterReference = database.child("Users").child(house.getPosterId());
+        posterReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                poster = dataSnapshot.getValue(User.class);
+                updateUI();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void updateUI() {
         setupButton();
 
         setupBasicData();
+
+        setupFeatures();
 
         setupHousePicture();
 
@@ -66,6 +110,104 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         setupRoommate();
 
         setupMap();
+    }
+
+    private void setupBasicData() {
+        //set poster view
+        ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
+        String url = poster.getPicture();
+        Glide.with(this)
+                .load(url)
+                .apply(RequestOptions.circleCropTransform())
+                .into(posterImageView);
+
+        TextView houseTypeTextView = (TextView)findViewById(R.id.house_type);
+        String houseType = house.getNumBedroom() + "B" + house.getNumBathroom() + "B · " + house.getHouseType();
+        houseTypeTextView.setText(houseType);
+
+        TextView houseTitleTextView = (TextView)findViewById(R.id.house_title);
+        houseTitleTextView.setText(house.getTitle());
+
+        TextView houseAddressTextView = (TextView)findViewById(R.id.house_address);
+        houseAddressTextView.setText(house.getLocation());
+
+        TextView posterNameTextView = (TextView)findViewById(R.id.house_poster);
+        posterNameTextView.setText(poster.getName());
+
+        TextView houseDescriptionTextView = (TextView)findViewById(R.id.house_description);
+        houseDescriptionTextView.setText(house.getDescription());
+    }
+
+    private void setupHousePicture() {
+        housePicture = (ViewPager)findViewById(R.id.house_image);
+        housePictureAdapter = new HousePictureAdapter(this, (ArrayList<String>) house.getPictures());
+        housePicture.setAdapter(housePictureAdapter);
+    }
+
+    private void setupRoom() {
+        //TODO
+    }
+
+    private void setupRoommate() {
+        roommateList = (ArrayList)(poster.getRoommates());
+        roommateListView = (RecyclerView) findViewById(R.id.house_roommate);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        roommateListView.setLayoutManager(layoutManager);
+        roommateListView.setHasFixedSize(true);
+        roommateAdapter = new UserPictureAdapter(this, roommateList);
+        roommateListView.setAdapter(roommateAdapter);
+    }
+
+    private void setupMap() {
+        ScrollView scrollView = (ScrollView) findViewById(R.id.house_content);
+        MapContainer map_container = (MapContainer) findViewById(R.id.map_container);
+        map_container.setScrollView(scrollView);
+        mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
+        mapFragment.getMapAsync(this);
+    }
+
+    private void setupButton() {
+        Button backBtn = (Button)findViewById(R.id.house_button_back);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        Button moreBtn = (Button)findViewById(R.id.house_button_favourite);
+        moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void setupFeatures() {
+        TextView acTextView = (TextView)findViewById(R.id.house_ac);
+        acTextView.setText(house.getAc());
+
+        TextView tvTextView = (TextView)findViewById(R.id.house_tv);
+        tvTextView.setText(house.getTv());
+
+        TextView parkingTextView = (TextView)findViewById(R.id.house_parking);
+        parkingTextView.setText(house.getParking());
+
+        TextView busTextView = (TextView)findViewById(R.id.house_bus);
+        busTextView.setText(house.getBus());
+
+        TextView gymTextView = (TextView)findViewById(R.id.house_gym);
+        gymTextView.setText(house.getGym());
+
+        TextView gameTextView = (TextView)findViewById(R.id.house_game);
+        gameTextView.setText(house.getVideoGame());
+
+        TextView petTextView = (TextView)findViewById(R.id.house_pet);
+        petTextView.setText(house.getPet());
+
+        TextView laundryTextView = (TextView)findViewById(R.id.house_laundry);
+        laundryTextView.setText(house.getLaundry());
     }
 
     @Override
@@ -102,91 +244,6 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
                 .position(houseLatLng)
                 .title(house.getLocation());
         houseMap.addMarker(houseMarker);
-    }
-
-    private void setupFirebase(){
-        Bundle bundle = getIntent().getExtras();
-        String uid = bundle.getString("uid");
-
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mUserReference = mDatabase.child("House_post").child(uid);
-        mUserReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                house = dataSnapshot.getValue(House.class);
-                //setProfileUI(user);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-        roommateList = new ArrayList<>();
-
-        //TODO
-    }
-
-    private void setupBasicData() {
-        //set poster view
-        ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
-        String url = "http://k2.jsqq.net/uploads/allimg/1711/17_171129092304_1.jpg";
-        Glide.with(this)
-                .load(url)
-                .apply(RequestOptions.circleCropTransform())
-                .into(posterImageView);
-
-        //TODO
-    }
-
-    private void setupHousePicture() {
-        housePicture = (ViewPager)findViewById(R.id.house_image);
-        housePictureAdapter = new HousePictureAdapter(this, (ArrayList<String>) house.getPictures());
-        housePicture.setAdapter(housePictureAdapter);
-    }
-
-    private void setupRoom() {
-        //TODO
-    }
-
-    private void setupRoommate() {
-        //TODO
-        roommateListView = (RecyclerView) findViewById(R.id.house_roommate);
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        roommateListView.setLayoutManager(layoutManager);
-        roommateListView.setHasFixedSize(true);
-        roommateAdapter = new UserPictureAdapter(this, roommateList);
-        roommateListView.setAdapter(roommateAdapter);
-    }
-
-    private void setupMap() {
-        ScrollView scrollView = (ScrollView) findViewById(R.id.house_content);
-        MapContainer map_container = (MapContainer) findViewById(R.id.map_container);
-        map_container.setScrollView(scrollView);
-        mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
-        mapFragment.getMapAsync(this);
-    }
-
-    private void setupButton() {
-        Button backBtn = (Button)findViewById(R.id.house_button_back);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        Button moreBtn = (Button)findViewById(R.id.house_button_favourite);
-        moreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-    }
-    private void setupFeatures() {
-        //TODO
     }
 }
 

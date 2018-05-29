@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="My Profile"
+                android:text="Edit Profile"
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -69,8 +69,7 @@
                         android:layout_marginLeft="16dp"
                         android:gravity="center_vertical"
                         android:text="Name"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        style="@style/text_field" />
 
                     <EditText
                         android:id="@+id/edit_name"
@@ -101,8 +100,7 @@
                         android:layout_marginLeft="16dp"
                         android:gravity="center_vertical"
                         android:text="E-mail"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        style="@style/text_field" />
 
                     <TextView
                         android:id="@+id/email"
@@ -131,8 +129,7 @@
                         android:layout_marginLeft="16dp"
                         android:gravity="center_vertical"
                         android:text="Gender"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        style="@style/text_field" />
 
                     <Spinner
                         android:id="@+id/gender_spinner"
@@ -157,8 +154,7 @@
                         android:layout_marginLeft="16dp"
                         android:gravity="center_vertical"
                         android:text="Year of Graduation"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        style="@style/text_field" />
 
                     <Spinner
                         android:id="@+id/year_spinner"
@@ -184,8 +180,7 @@
                         android:layout_marginLeft="16dp"
                         android:gravity="center_vertical"
                         android:text="Description"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
+                        style="@style/text_field" />
 
                     <EditText
                         android:id="@+id/description"

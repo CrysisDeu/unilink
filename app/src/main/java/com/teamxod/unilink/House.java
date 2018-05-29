@@ -14,7 +14,8 @@ class House {
     public House(String posterId, String houseType, String title, String location,
                  String description, String startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
-                 String parking, String videoGame, String gym, String laundry, String pet) {
+                 String parking, String videoGame, String gym, String laundry, String pet,
+                 int numBedroom, int numBathroom) {
 
         this.posterId = posterId;
         this.houseType = houseType;
@@ -33,9 +34,18 @@ class House {
         this.gym = gym;
         this.laundry = laundry;
         this.pet = pet;
+        this.numBedroom = numBedroom;
+        this.numBathroom = numBathroom;
     }
 
+    public House(){
+        // Default constructor required for calls to DataSnapshot.getValue(House.class)
+    }
     //private field
+
+    private int numBedroom;
+
+    private int numBathroom;
 
     private String posterId;
 
@@ -66,6 +76,14 @@ class House {
     private String videoGame;
 
     private String gym;
+
+    public int getNumBedroom() {
+        return numBedroom;
+    }
+
+    public int getNumBathroom() {
+        return numBathroom;
+    }
 
     public String getPosterId() {
         return posterId;
@@ -138,16 +156,5 @@ class House {
     private String laundry;
 
     private String pet;
-
-    //public constructor
-    House() {
-        this.title = "Costa Verde";
-        this.location = "3465 Lebon Drive,San Diego";
-        pictures = new ArrayList<>();
-        pictures.add("http://www.xiugei.com/askimg/116615/tw1468549796178.png");
-        pictures.add("http://img.wayes.cn/wayes_sys/imgdata/htmlimg/20160119/bj2016_01_19_09_56_36.jpg");
-        pictures.add("http://www.sinaimg.cn/dy/slidenews/24_img/2015_27/66519_1233621_259753.jpg");
-        pictures.add("http://www.sinaimg.cn/dy/slidenews/24_img/2015_27/66519_1233620_131928.jpg");
-    }
 
 }

@@ -30,7 +30,9 @@
         android:background="@drawable/edit_search_bar"
         android:gravity="center"
         android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp">
+        android:layout_marginRight="24dp"
+        android:clickable="true"
+        android:focusable="false">
 
         <SearchView
             android:layout_width="0dp"
