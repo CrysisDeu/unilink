@@ -1,5 +1,7 @@
 package com.teamxod.unilink;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,11 +9,13 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckedTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -46,7 +51,11 @@ import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.listeners.IPickResult;
 
+import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /* TODO @ Etsu:
@@ -60,7 +69,7 @@ import java.util.List;
         (4) U can do a check to see if edit text all have input (not necessary i can do this)
         (5) Do what else we may need.
 */
-public class AddPost extends AppCompatActivity implements IPickResult {
+public class AddPost extends AppCompatActivity implements IPickResult, DatePickerDialog.OnDateSetListener {
 
     /* Copied from another file
     private final int PICK_IMAGE_REQUEST = 71;
@@ -86,9 +95,8 @@ public class AddPost extends AppCompatActivity implements IPickResult {
     private String _title;
     private String _location;
     private String _description;
-    private int _price;
 
-    private long _startDate;
+    private String _startDate;
     private String _leaseLength;
 
     private String _tv;
@@ -100,6 +108,7 @@ public class AddPost extends AppCompatActivity implements IPickResult {
     private String _laundry;
     private String _pet;
 
+    //TODO delete these
     private List<String> pictures;
     private List<Room> rooms;
 
@@ -114,11 +123,15 @@ public class AddPost extends AppCompatActivity implements IPickResult {
     private Uri picture;
     private ArrayList<Uri> pictureList;
 
+    // linearlayout for room
+    private Button addroom;
+    private LinearLayout roomContainer;
+    private ArrayList<LinearLayout> roomBoxList;
+    private ArrayList<Room> roomList;
+
     // edit text
     private EditText title;
-    private EditText price;
     private EditText street;
-    private EditText building;
     private EditText city;
     private EditText start_date;
     private EditText description;
@@ -164,9 +177,13 @@ public class AddPost extends AppCompatActivity implements IPickResult {
     private Toolbar toolbar;
     private Button backBtn;
 
-    // variables
+    // for validation
+    private TextWatcher tw;
     private boolean filledIn;
-    private final String INVALID_FORM = "Please fill in all the information!";
+    private final String INVALID_FORM_DUE_TO_FILLING = "Please fill in all the information!";
+    private final String INVALID_FORM_DUE_TO_ADDING = "Please add at least one picture and one room information!";
+    private final String INVALID_FORM_DUE_TO_SELECTING = "Please select all the choices!";
+
 
     // --------------- UI fields above --------------- //
 
@@ -178,6 +195,10 @@ public class AddPost extends AppCompatActivity implements IPickResult {
 
         // variables
         filledIn = false;
+        _houseType = "";
+        _bedroom_number = "";
+        _bathroom_number = "";
+        _leaseLength = "";
 
         // Data base part
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -189,7 +210,6 @@ public class AddPost extends AppCompatActivity implements IPickResult {
         photoGrid = findViewById(R.id.gridlayout);
         photoBoxList = new ArrayList<>();
         pictureList = new ArrayList<>();
-
         addpic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,14 +218,22 @@ public class AddPost extends AppCompatActivity implements IPickResult {
             }
         });
 
+        // get UI in gridlayout
+        addroom = findViewById(R.id.addroom_btn);
+        roomContainer = findViewById(R.id.linearlayout_room);
+        roomBoxList = new ArrayList<>();
+        roomList = new ArrayList<>();
+        addroom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // pickImage
+                addRoom();
+            }
+        });
+
         title = findViewById(R.id.title);
-        price = findViewById(R.id.price);
         street = findViewById(R.id.street);
-        building = findViewById(R.id.building);
         city = findViewById(R.id.city);
-        living_room = findViewById(R.id.living_room);
-        private_room = findViewById(R.id.private_room);
-        entire_place = findViewById(R.id.entire_place);
         apartment = findViewById(R.id.apartment);
         house = findViewById(R.id.house);
         town_house = findViewById(R.id.town_house);
@@ -235,13 +263,10 @@ public class AddPost extends AppCompatActivity implements IPickResult {
         submit = findViewById(R.id.submit);
 
         // for validation
-        TextWatcher tw = new MyTextWatcher();
+        tw = new MyTextWatcher();
         title.addTextChangedListener(tw);
-        price.addTextChangedListener(tw);
         street.addTextChangedListener(tw);
-        building.addTextChangedListener(tw);
         city.addTextChangedListener(tw);
-        start_date.addTextChangedListener(tw);
         description.addTextChangedListener(tw);
 
         // set check text view, using helper method
@@ -255,27 +280,15 @@ public class AddPost extends AppCompatActivity implements IPickResult {
         setCheckedTextView(bus);
 
         //  -------------- set listeners ---(pass values in xml to java)---------- //
-        // Room type
-        living_room.setOnClickListener(new View.OnClickListener() {
+        // date picker
+        start_date.setInputType(InputType.TYPE_NULL);
+        start_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: what happens if clicked again
-                _roomType = "Living Room";
+                DatePickerFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date");
             }
         });
-        private_room.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _roomType = "Private Room";
-            }
-        });
-        entire_place.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                _roomType = "Entire Place";
-            }
-        });
-
         // House type
         apartment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -372,21 +385,21 @@ public class AddPost extends AppCompatActivity implements IPickResult {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!filledIn) {
-                    Toast.makeText(AddPost.this, INVALID_FORM, Toast.LENGTH_LONG).show();
+                // validation
+                if (validation())
                     return;
-                }
 
                 _posterId = mAuth.getCurrentUser().getUid();
                 // TODO use Java fields values to create house obj
 
                 // get edit text content
                 _title = title.getText().toString();
-                if (!price.getText().toString().equals(""))
-                    _price = Integer.parseInt(price.getText().toString());
-                _location = street.getText().toString() + ";" + building.getText().toString() + ";" + city.getText().toString();
 
-                // choosing buttons done already by setting listeners
+                for (int i = 0; i < roomList.size(); i++)
+                    roomList.get(i).setPrice(Integer.parseInt(((EditText) roomBoxList.get(i).findViewById(R.id.price)).getText().toString()));
+                _location = street.getText().toString() + ", " + city.getText().toString();
+                _startDate = start_date.getText().toString();
+                _description = description.getText().toString();
 
                 // Facilities check box
                 _ac = isChecked(ac);
@@ -398,9 +411,13 @@ public class AddPost extends AppCompatActivity implements IPickResult {
                 _laundry = isChecked(laundry);
                 _bus = isChecked(bus);
 
-                _description = description.getText().toString();
-
-                writeNewPost();
+                ArrayList<String> pictureStringList = new ArrayList<>();
+                for (Uri uri : pictureList)
+                    pictureStringList.add(uri.toString());
+                writeNewPost(new House(_posterId, _houseType, _title, _location,
+                        _description, _startDate, _leaseLength,
+                        pictureStringList, roomList, _tv, _ac, _bus,
+                        _parking, _videoGame, _gym, _laundry, _pet));
                 uploadToFirebase(pictureList);
                 Intent mainIntent = new Intent(AddPost.this, MainActivity.class);
                 startActivity(mainIntent);
@@ -424,6 +441,55 @@ public class AddPost extends AppCompatActivity implements IPickResult {
 
     }// on create
 
+    // helper for date
+    private void setDate(final Calendar calendar) {
+        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        start_date.setText(dateFormat.format(calendar.getTime()));
+    }
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar cal = new GregorianCalendar(year, month, dayOfMonth);
+        setDate(cal);
+    }
+    public static class DatePickerFragment extends DialogFragment {
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(),
+                    (DatePickerDialog.OnDateSetListener)getActivity(), year, month, day);
+        }
+
+    }
+
+    // helper validation
+    private boolean validation() {
+        if (!filledIn || start_date.getText().toString().length() == 0) {
+            Toast.makeText(AddPost.this, INVALID_FORM_DUE_TO_FILLING, Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        if (_houseType.length() == 0 || _bedroom_number.length() == 0
+                || _bathroom_number.length() == 0 || _leaseLength.length() == 0) {
+            String str = _houseType + " " + _bedroom_number+ " " + _bathroom_number +" "+ _leaseLength;
+            Toast.makeText(AddPost.this, _houseType + " " + _bedroom_number+ " " + _bathroom_number +" "+ _leaseLength, Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (roomBoxList.isEmpty() || photoBoxList.isEmpty()) {
+            Toast.makeText(AddPost.this, INVALID_FORM_DUE_TO_ADDING, Toast.LENGTH_LONG).show();
+            return true;
+        }
+        for (Room r : roomList) {
+            if (r.getRoomType().length() == 0) {
+                Toast.makeText(AddPost.this, INVALID_FORM_DUE_TO_SELECTING, Toast.LENGTH_LONG).show();
+                return true;
+            }
+        }
+        return false;
+    }
+
     class MyTextWatcher implements TextWatcher {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -436,20 +502,62 @@ public class AddPost extends AppCompatActivity implements IPickResult {
         @Override
         public void afterTextChanged(Editable s) {
             if (title.getText().toString().length() > 0 &&
-                    price.getText().toString().length() > 0 &&
                     street.getText().toString().length() > 0 &&
-                    building.getText().toString().length() > 0 &&
                     city.getText().toString().length() > 0 &&
-                    start_date.getText().toString().length() > 0 &&
                     description.getText().toString().length() > 0) {
+                for (LinearLayout layout : roomBoxList)
+                    if (((EditText) layout.findViewById(R.id.price)).getText().toString().length() <= 0) {
+                        filledIn = false;
+                        return;
+                    }
                 filledIn = true;
-            }
-            else {
+            } else {
                 filledIn = false;
             }
         }
     }
 
+    // add room
+    private void addRoom() {
+        final LinearLayout roomBox = (LinearLayout) View.inflate(this,
+                R.layout.add_room, null);
+        final Room room = new Room("", 0);
+        roomBox.findViewById(R.id.deleteroom_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = roomBoxList.indexOf(roomBox);
+                roomBoxList.remove(index);
+                roomList.remove(index);
+                roomBox.removeAllViews();
+            }
+        });
+
+        // Room type
+        roomBox.findViewById(R.id.living_room).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: change variable
+                room.setRoomType("Living Room");
+            }
+        });
+        roomBox.findViewById(R.id.private_room).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                room.setRoomType("Private Room");
+            }
+        });
+        roomBox.findViewById(R.id.entire_place).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                room.setRoomType("Entire Place");
+            }
+        });
+
+        ((EditText) roomBox.findViewById(R.id.price)).addTextChangedListener(tw);
+        roomBoxList.add(roomBox);
+        roomList.add(room);
+        roomContainer.addView(roomBox);
+    }
 
     //PickImage Plug-in
     //choose picture from camera or gallery
@@ -487,7 +595,6 @@ public class AddPost extends AppCompatActivity implements IPickResult {
         }
     }
 
-
     // helper method for ChekedTextView in XML
     private static void setCheckedTextView(final CheckedTextView ctv) {
 
@@ -515,15 +622,10 @@ public class AddPost extends AppCompatActivity implements IPickResult {
             return "0";
     }
 
-
     // TODO create house obj here
-    private void writeNewPost() {
-        List<String> list = new ArrayList<>();
-        list.add("one");
-        list.add("two");
-        TempHouse h = new TempHouse("User", true, list);
+    private void writeNewPost(House house) {
         post = mDatabase.child("House_post").push();
-        post.setValue(h);
+        post.setValue(house);
     }
 
     // TODO DELETE
@@ -538,7 +640,6 @@ public class AddPost extends AppCompatActivity implements IPickResult {
             this.pictures = pictures;
         }
     }
-
 
     private void uploadToFirebase(ArrayList<Uri> uriList) {
         final StorageReference house_images = mStorageRef.child("House_Images").child(post.getKey());

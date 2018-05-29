@@ -12,7 +12,7 @@ import java.util.List;
 class House {
 
     public House(String posterId, String houseType, String title, String location,
-                 String description,String startDate, String leasingLength,
+                 String description, String startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
                  String parking, String videoGame, String gym, String laundry, String pet) {
 

@@ -73,7 +73,8 @@
                     android:layout_height="80dp"
                     android:layout_margin="5dp"
                     android:background="#fff"
-                    app:srcCompat="@drawable/camera" />
+                    android:tint="#6d48e5"
+                    app:srcCompat="@drawable/ic_plus" />
 
             </GridLayout>
 
@@ -83,7 +84,7 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
-                android:text="Title"
+                android:text="Post Title"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size"
                 android:textStyle="bold" />
@@ -98,17 +99,33 @@
                 android:singleLine="true"
                 android:textSize="@dimen/m_font_size" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="16dp"
-                android:paddingTop="@dimen/large_margin"
-                android:text="Rooms"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="16dp"
+                    android:paddingTop="@dimen/large_margin"
+                    android:text="Rooms"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/m_font_size"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/addroom_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/cursor"
+                    android:gravity="center_horizontal|center"
+                    android:text="Add room"
+                    android:textColor="#fff"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/linearlayout_room"
@@ -119,6 +136,7 @@
                 android:background="#eee"
                 android:orientation="vertical">
 
+                <!-- room will be dynamically added here -->
 
             </LinearLayout>
 
@@ -142,7 +160,7 @@
                 android:hint="Street and Number"
                 android:singleLine="true"
                 android:textSize="@dimen/m_font_size" />
-
+<!--
             <EditText
                 android:id="@+id/building"
                 android:layout_width="match_parent"
@@ -152,7 +170,7 @@
                 android:hint="Apartment, Suite, Unit, Building, etc."
                 android:singleLine="true"
                 android:textSize="@dimen/m_font_size" />
-
+-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -172,8 +190,6 @@
                 android:hint="City Name"
                 android:singleLine="true"
                 android:textSize="@dimen/m_font_size" />
-
-
 
             <!-- One Question -->
             <TextView
@@ -393,26 +409,32 @@
                     android:textStyle="bold" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:paddingTop="@dimen/large_margin"
-                android:text="Start Date"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
 
-
-            <EditText
-                android:id="@+id/start_date"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:hint="Start Date"
-                android:inputType="date"
-                android:singleLine="true"
-                android:textSize="@dimen/m_font_size" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:paddingTop="@dimen/large_margin"
+                    android:text="Leasing Start Date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/m_font_size"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/start_date"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Start Date"
+                    android:inputType="none"
+                    android:textSize="@dimen/m_font_size" />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
