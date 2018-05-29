@@ -242,6 +242,7 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
         bed_two = findViewById(R.id.bed_two);
         bed_three = findViewById(R.id.bed_three);
         bed_four_plus = findViewById(R.id.bed_four_plus);
+        bath_zero = findViewById(R.id.bath_zero);
         bath_one = findViewById(R.id.bath_one);
         bath_two = findViewById(R.id.bath_two);
         bath_three = findViewById(R.id.bath_three);
@@ -310,6 +311,12 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
         });
 
         // Bedroom number
+        bed_zero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _bedroom_number = "0";
+            }
+        });
         bed_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -336,6 +343,12 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
         });
 
         // Bathroom number
+        bath_zero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _bathroom_number = "0";
+            }
+        });
         bath_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -470,15 +483,13 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
             Toast.makeText(AddPost.this, INVALID_FORM_DUE_TO_FILLING, Toast.LENGTH_LONG).show();
             return true;
         }
-
-        if (_houseType.length() == 0 || _bedroom_number.length() == 0
-                || _bathroom_number.length() == 0 || _leaseLength.length() == 0) {
-            String str = _houseType + " " + _bedroom_number+ " " + _bathroom_number +" "+ _leaseLength;
-            Toast.makeText(AddPost.this, _houseType + " " + _bedroom_number+ " " + _bathroom_number +" "+ _leaseLength, Toast.LENGTH_LONG).show();
-            return true;
-        }
         if (roomBoxList.isEmpty() || photoBoxList.isEmpty()) {
             Toast.makeText(AddPost.this, INVALID_FORM_DUE_TO_ADDING, Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (_houseType.length() == 0 || _bedroom_number.length() == 0
+                || _bathroom_number.length() == 0 || _leaseLength.length() == 0) {
+            Toast.makeText(AddPost.this, INVALID_FORM_DUE_TO_SELECTING, Toast.LENGTH_LONG).show();
             return true;
         }
         for (Room r : roomList) {

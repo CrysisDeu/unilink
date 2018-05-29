@@ -432,6 +432,26 @@ public class My_preference extends AppCompatActivity {
                 // if the user is already in our database, we load the data they put in
                 if (dataSnapshot.exists()) {
                     existedPreference = dataSnapshot.getValue(preference.class);
+                    if(dataSnapshot.child("sleepTime").getValue() instanceof Long)
+                        Sleep = ((Long)dataSnapshot.child("sleepTime").getValue()).doubleValue();
+                    else
+                        Sleep = (double)dataSnapshot.child("sleepTime").getValue();
+                    if(dataSnapshot.child("cleanTime").getValue() instanceof Long)
+                        Clean = ((Long)dataSnapshot.child("cleanTime").getValue()).doubleValue();
+                    else
+                        Clean = (double)dataSnapshot.child("cleanTime").getValue();
+                    if(dataSnapshot.child("smoke").getValue() instanceof Long)
+                        Smoke = ((Long)dataSnapshot.child("smoke").getValue()).doubleValue();
+                    else
+                        Smoke = (double)dataSnapshot.child("smoke").getValue();
+                    if(dataSnapshot.child("drink").getValue() instanceof Long)
+                        Drink = ((Long)dataSnapshot.child("drink").getValue()).doubleValue();
+                    else
+                        Drink = (double)dataSnapshot.child("drink").getValue();
+                    existedPreference.setSleepTime(Sleep);
+                    existedPreference.setCleanTime(Clean);
+                    existedPreference.setSmoke(Smoke);
+                    existedPreference.setDrink(Drink);
                     needToRestore = 1;
                     restoreInfo();
                 }
@@ -454,11 +474,7 @@ public class My_preference extends AppCompatActivity {
 
     // method to restore users' information if they have finished the survey before.
     public void restoreInfo(){
-        Sleep = existedPreference.getSleepTime();
         language = existedPreference.getLanguage();
-        Clean = existedPreference.getCleanTime();
-        Smoke = existedPreference.getSmoke();
-        Drink = existedPreference.getDrink();
         Surfing = existedPreference.getSurfing();
         Hiking = existedPreference.getHiking();
         Skiing = existedPreference.getSkiing();
@@ -469,11 +485,11 @@ public class My_preference extends AppCompatActivity {
 
         languageSpinner.setSelection(existedPreference.getLanguage());
 
-        sleep_seekBar.setProgress((int) Math.rint(((1 - existedPreference.getSleepTime()) * 9 / 2)));
-        clean_seekBar.setProgress((int) Math.rint(((1 - existedPreference.getCleanTime()) * 7 / 2)));
+        sleep_seekBar.setProgress((int) Math.rint(((1 - existedPreference.getSleepTime()) * 9 / (double)2)));
+        clean_seekBar.setProgress((int) Math.rint(((1 - existedPreference.getCleanTime()) * 7 / (double)2)));
 
-        smoke_seekBar.setProgress((int)Math.rint(((1 + existedPreference.getSmoke()) * 7 / 2)));
-        drink_seekBar.setProgress((int)Math.rint(((1 + existedPreference.getDrink()) * 7 / 2)));
+        smoke_seekBar.setProgress((int)Math.rint(((1 + existedPreference.getSmoke()) * 7 / (double)2)));
+        drink_seekBar.setProgress((int)Math.rint(((1 + existedPreference.getDrink()) * 7 / (double)2)));
 
         if(existedPreference.getSmoke() != -1) {
             smoke1.toggle();
