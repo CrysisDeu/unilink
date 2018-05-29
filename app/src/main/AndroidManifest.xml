@@ -72,6 +72,9 @@
         </provider>
 
         <activity android:name=".AddPost"></activity>
+        <activity android:name=".RealtimeDbChatActivity" />
+        <activity android:name=".RealtimeDbChatIndexActivity" />
+
     </application>
 
 </manifest>
