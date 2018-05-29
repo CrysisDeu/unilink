@@ -46,6 +46,7 @@
             android:textColor="#000000"
             android:textSize="@dimen/m_font_size"
             android:textStyle="bold"
+            android:layout_marginTop="4dp"
             tools:text="single room . town house" />
 
 

@@ -6,7 +6,7 @@ public class HousePost {
 
     private String room_title;
 
-    private String room_price;
+    private int room_price;
 
     private String room_location;
 
@@ -15,10 +15,10 @@ public class HousePost {
     private boolean isFavorite;
 
 
+    public HousePost(){}
 
 
-
-    public HousePost(String p_room_type, String p_room_title, String p_room_price,
+    public HousePost(String p_room_type, String p_room_title, int p_room_price,
                 String p_room_location, String p_imageResourceId, boolean favorite)
     {
         room_type = p_room_type;
@@ -40,7 +40,7 @@ public class HousePost {
         return room_title;
     }
 
-    public String getRoom_price() {
+    public int getRoom_price() {
         return room_price;
     }
 
