@@ -103,6 +103,7 @@ public class User {
         result.put("gender", gender);
         result.put("yearGraduate", yearGraduate);
         result.put("description", description);
+        result.put("roommates", roommates);
         result.put("favorite_houses", favorite_houses);
         result.put("my_house_posts",my_house_posts);
         return result;
