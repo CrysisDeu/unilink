@@ -24,7 +24,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HousingFragment extends Fragment {
 
@@ -34,26 +42,76 @@ public class HousingFragment extends Fragment {
     FloatingActionButton addPost;
     View header;
     int touchSlop = 5;
+    final ArrayList<HousePost> posts = new ArrayList<HousePost>();
+
+    private DatabaseReference HouseDatabase;
+    private String HouseUid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_housing, container, false); // get the GUI
-        //create an array of post
-        ArrayList<HousePost> posts = new ArrayList<HousePost>();
-
-        //posts.add(new HousePost());
-        posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg",true));
-        posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg",false));
-        posts.add(new HousePost("single room", "beautiful room","$90090/MO","Gary's house","https://vignette.wikia.nocookie.net/animal-jam-clans-1/images/e/ea/Chic-Rich-Houses-with-Pool.jpg",true));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://media.gettyimages.com/photos/exterior-view-of-custom-home-picture-id159087139",false));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg",false));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg",false));
-
 
         //initialize
         listView = (ListView) layout.findViewById(R.id.list_view);
         searchBar = layout.findViewById(R.id.searchView);
         addPost = layout.findViewById(R.id.add_post_btn);
+
+
+
+
+        //firebase
+        HouseDatabase = FirebaseDatabase.getInstance().getReference("House");
+        HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //create an array of post
+               // ArrayList<HousePost> posts = new ArrayList<HousePost>();
+
+                int price = 1190;
+                for(DataSnapshot house : dataSnapshot.getChildren()){
+
+
+
+                    String HouseUid = house.toString();
+                    String location = house.child("room_location").getValue(String.class);
+                    String type = house.child("room_type").getValue(String.class);
+                    String title = house.child("room_title").getValue(String.class);
+                    //int price = (int)house.child("room_price").getValue();
+                    String imageId = house.child("imageResourceId").getValue(String.class);
+                    boolean favorite = (boolean)house.child("isFavorite").getValue();
+                    HousePost post = new HousePost(type,title,price,location,imageId,favorite);
+                    //HousePost post = house.getValue(HousePost.class);
+                    posts.add(post);
+
+                    price = price-200;
+
+                }
+                if(!posts.isEmpty()){
+                    HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+                    listView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        //Log.d("array size", "outside: "+posts.size());
+
+
+        //posts.add(new HousePost());
+       /* posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg",true));
+        posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg",false));
+        posts.add(new HousePost("single room", "beautiful room","$90090/MO","Gary's house","https://vignette.wikia.nocookie.net/animal-jam-clans-1/images/e/ea/Chic-Rich-Houses-with-Pool.jpg",true));
+        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://media.gettyimages.com/photos/exterior-view-of-custom-home-picture-id159087139",false));
+        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg",false));
+        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg",false));
+*/
+
+
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -62,8 +120,8 @@ public class HousingFragment extends Fragment {
             }
         });
 
-        HousePostAdapter adapter = new HousePostAdapter(this.getActivity(), posts,listView);
-        listView.setAdapter(adapter);
+       // Log.d("array size", "outside: "+posts.size());
+
         // listView.setOnScrollListener(adapter);
 
         spinner = (Spinner)layout.findViewById(R.id.spinner);
@@ -85,16 +143,21 @@ public class HousingFragment extends Fragment {
                         break;
                     //select price low to high
                     case 1:
+                        sortPrice(true);
                         Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                     //select price high to low
                     case 2:
+                        sortPrice(false);
+                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                     //select term short to long
                     case 3:
+                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                     //select term long to short
                     case 4:
+                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -122,7 +185,7 @@ public class HousingFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SingleHousePostActivity.class);
-                //myIntent.putExtra("uid", );
+                //myIntent.putExtra("uid",HouseUid);
                 startActivity(myIntent);
 
             }
@@ -136,6 +199,38 @@ public class HousingFragment extends Fragment {
         });*/
         return layout;
     }
+
+    //sort method
+    private void sortPrice(boolean order){
+
+        Collections.sort(posts, new Comparator<HousePost>() {
+            @Override
+            public int compare(HousePost p1, HousePost p2) {
+                return p1.getRoom_price() - p2.getRoom_price();
+            }
+        });
+        if(!order) {
+            Collections.reverse(posts);
+        }
+
+        HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+        listView.setAdapter(adapter);
+    }
+    /*
+    private void sortTerm(boolean order){
+        Collections.sort(posts, new Comparator<HousePost>() {
+            @Override
+            public int compare(HousePost p1, HousePost p2) {
+                return p1.getRoom_price() - p2.getRoom_price();
+            }
+        });
+        if(!order) {
+            Collections.reverse(posts);
+        }
+
+        HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+        listView.setAdapter(adapter);
+    }*/
 
 
     //set the back animator

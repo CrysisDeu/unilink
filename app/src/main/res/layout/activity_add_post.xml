@@ -24,7 +24,7 @@
             android:text="Add Post"
             android:textColor="#FFFFFF"
             android:textSize="@dimen/l_font_size"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/back_btn"
@@ -34,13 +34,14 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/small_margin"
             android:background="@drawable/ic_back"
-            android:backgroundTint="@color/white"  />
+            android:backgroundTint="@color/white" />
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
             <GridLayout
                 android:id="@+id/gridlayout"
                 android:layout_width="360dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="#eee"
@@ -72,7 +73,8 @@
                     android:layout_height="80dp"
                     android:layout_margin="5dp"
                     android:background="#fff"
-                    app:srcCompat="@drawable/camera"/>
+                    android:tint="#6d48e5"
+                    app:srcCompat="@drawable/ic_plus" />
 
             </GridLayout>
 
@@ -82,7 +84,7 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
-                android:text="Title"
+                android:text="Post Title"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size"
                 android:textStyle="bold" />
@@ -94,41 +96,48 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:hint="Title of the post"
+                android:singleLine="true"
                 android:textSize="@dimen/m_font_size" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="left"
                     android:layout_marginLeft="16dp"
                     android:paddingTop="@dimen/large_margin"
-                    android:text="Price Per Month"
+                    android:text="Rooms"
                     android:textColor="@color/black"
                     android:textSize="@dimen/m_font_size"
                     android:textStyle="bold" />
 
-                <TextView
+                <Button
+                    android:id="@+id/addroom_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="152dp"
-                    android:paddingTop="@dimen/large_margin"
-                    android:text="$"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/m_font_size"
-                    android:textStyle="bold" />
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/cursor"
+                    android:gravity="center_horizontal|center"
+                    android:text="Add room"
+                    android:textColor="#fff"/>
+            </RelativeLayout>
 
-                <EditText
-                    android:id="@+id/price"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="0dp"
-                    android:gravity="center_horizontal"
-                    android:hint="Price"
-                    android:inputType="number"
-                    android:textSize="@dimen/m_font_size" />
+            <LinearLayout
+                android:id="@+id/linearlayout_room"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="#eee"
+                android:orientation="vertical">
+
+                <!-- room will be dynamically added here -->
+
             </LinearLayout>
 
             <TextView
@@ -149,8 +158,9 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:hint="Street and Number"
+                android:singleLine="true"
                 android:textSize="@dimen/m_font_size" />
-
+<!--
             <EditText
                 android:id="@+id/building"
                 android:layout_width="match_parent"
@@ -158,8 +168,9 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:hint="Apartment, Suite, Unit, Building, etc."
+                android:singleLine="true"
                 android:textSize="@dimen/m_font_size" />
-
+-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -177,55 +188,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:hint="City Name"
+                android:singleLine="true"
                 android:textSize="@dimen/m_font_size" />
-
-
-            <!-- One Question -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="16dp"
-                android:paddingTop="@dimen/large_margin"
-                android:text="Room Type"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
-
-            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/room_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="0dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/small_margin">
-
-                <RadioButton
-                    android:id="@+id/living_room"
-                    style="@style/RadioButton"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="living Room"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/private_room"
-                    style="@style/RadioButton"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Private Room"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/entire_place"
-                    style="@style/RadioButton"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Entire Place"
-                    android:textStyle="bold" />
-            </info.hoang8f.android.segmented.SegmentedGroup>
 
             <!-- One Question -->
             <TextView
@@ -445,25 +409,32 @@
                     android:textStyle="bold" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:paddingTop="@dimen/large_margin"
-                android:text="Start Date"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
 
-
-            <EditText
-                android:id="@+id/start_date"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="date"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:hint="Start Date"
-                android:textSize="@dimen/m_font_size"/>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:paddingTop="@dimen/large_margin"
+                    android:text="Leasing Start Date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/m_font_size"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/start_date"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Start Date"
+                    android:inputType="none"
+                    android:textSize="@dimen/m_font_size" />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -599,7 +570,8 @@
                 android:layout_marginTop="8dp"
                 android:gravity="top"
                 android:hint="More information about the place"
-                android:lines="4"
+                android:lines="1"
+                android:maxLines="8"
                 android:textSize="@dimen/m_font_size" />
 
             <Button

@@ -15,7 +15,15 @@ class Room {
         return roomType;
     }
 
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
     public int getPrice() {
         return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
