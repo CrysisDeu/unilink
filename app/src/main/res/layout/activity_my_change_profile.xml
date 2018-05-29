@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="My Profile"
+                android:text="Edit Profile"
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:textStyle="bold" />

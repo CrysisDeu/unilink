@@ -19,6 +19,6 @@
     <item
         android:id="@+id/navigation_my"
         android:icon="@drawable/ic_account"
-        android:title="My" />
+        android:title="Me" />
 
 </menu>
