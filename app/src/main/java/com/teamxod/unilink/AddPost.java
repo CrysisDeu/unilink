@@ -417,7 +417,7 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
                 writeNewPost(new House(_posterId, _houseType, _title, _location,
                         _description, _startDate, _leaseLength,
                         pictureStringList, roomList, _tv, _ac, _bus,
-                        _parking, _videoGame, _gym, _laundry, _pet));
+                        _parking, _videoGame, _gym, _laundry, _pet, _bedroom_number, _bathroom_number));
                 uploadToFirebase(pictureList);
                 Intent mainIntent = new Intent(AddPost.this, MainActivity.class);
                 startActivity(mainIntent);
