@@ -41,7 +41,7 @@ public class preference {
         return sleepTime;
     }
 
-    public void setSleepTime(int sleepTime) {
+    public void setSleepTime(double sleepTime) {
         this.sleepTime = sleepTime;
     }
 
@@ -49,7 +49,7 @@ public class preference {
         return cleanTime;
     }
 
-    public void setCleanTime(int cleanTime) {
+    public void setCleanTime(double cleanTime) {
         this.cleanTime = cleanTime;
     }
 
@@ -105,7 +105,7 @@ public class preference {
         return smoke;
     }
 
-    public void setSmoke(int smoke) {
+    public void setSmoke(double smoke) {
         this.smoke = smoke;
     }
 
@@ -113,7 +113,7 @@ public class preference {
         return drink;
     }
 
-    public void setDrink(int drink) {
+    public void setDrink(double drink) {
         this.drink = drink;
     }
 
