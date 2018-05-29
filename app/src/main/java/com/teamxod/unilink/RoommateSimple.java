@@ -16,7 +16,7 @@ public class RoommateSimple {
 
     private String[] rConTag;
 
-    public RoommateSimple(String name, String pic, String major, int score, int year, String[] pro, String[] con){
+    RoommateSimple(String name, String pic, String major, int score, int year, String[] pro, String[] con){
         rName = name;
         rPicture = pic;
         rMajor = major;
