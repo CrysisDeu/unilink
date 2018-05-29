@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -38,7 +37,7 @@ public class HousePictureAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.house_picture, null);
+        View view = layoutInflater.inflate(R.layout.house_picture_list_item, null);
         ImageView housePicture = (ImageView) view.findViewById(R.id.house_image);
         Glide.with(context)
                 .load(images.get(position))

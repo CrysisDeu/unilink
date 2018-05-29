@@ -1,7 +1,6 @@
 package com.teamxod.unilink;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ChatFragment();
                         break;
                     case R.id.navigation_my:
-                        fragment = new MyFragment();
+                        fragment = new MeFragment();
                         break;
                 }
                 return loadFragment(fragment);
