@@ -45,7 +45,6 @@ public class HousingFragment extends Fragment {
     final ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
     private DatabaseReference HouseDatabase;
-    private String HouseUid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +70,7 @@ public class HousingFragment extends Fragment {
 
                 for(DataSnapshot house : dataSnapshot.getChildren()){
 
-                    HouseUid = house.toString();
+                    String key = house.getKey();
                     String location = house.child("location").getValue(String.class);
                     String type = house.child("houseType").getValue(String.class);
                     String title = house.child("title").getValue(String.class);
@@ -79,7 +78,8 @@ public class HousingFragment extends Fragment {
                     int price = (int)house.child("rooms").child("0").child("price").getValue(Integer.class);
                     String imageId = house.child("pictures").child("0").getValue(String.class);
                     boolean favorite = true;
-                    HousePost post = new HousePost(type,title,price,term,location,imageId,favorite);
+                    HousePost post = new HousePost(key,type,title,price,term,location,imageId,favorite);
+                    Log.d("check key", "#####"+key);
                     posts.add(post);
 
 
@@ -183,8 +183,10 @@ public class HousingFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SingleHousePostActivity.class);
-                Log.d("check uid",".."+HouseUid);
-                myIntent.putExtra("uid",HouseUid);
+                Log.d("check uid","*********"+posts.get(0).getRoom_key());
+                Log.d("check uid","@@@@@@@@@"+position);
+                Log.d("check uid",".."+posts.get(position-1).getRoom_key());
+                myIntent.putExtra("uid",posts.get(position-1).getRoom_key());
                 startActivity(myIntent);
 
             }

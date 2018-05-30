@@ -2,6 +2,8 @@ package com.teamxod.unilink;
 
 public class HousePost {
     //item shown below the image
+    private String room_key;
+
     private String room_type;
 
     private String room_title;
@@ -20,9 +22,10 @@ public class HousePost {
     public HousePost(){}
 
 
-    public HousePost(String p_room_type, String p_room_title, int p_room_price,String lease,
+    public HousePost(String key,String p_room_type, String p_room_title, int p_room_price,String lease,
                 String p_room_location, String p_imageResourceId, boolean favorite)
     {
+        room_key = key;
         room_type = p_room_type;
         room_title = p_room_title;
         room_price = p_room_price;
@@ -66,5 +69,9 @@ public class HousePost {
 
     public String getTerm() {
         return term;
+    }
+
+    public String getRoom_key() {
+        return room_key;
     }
 }
