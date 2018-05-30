@@ -60,7 +60,7 @@ public class HousingFragment extends Fragment {
 
 
         //firebase
-        HouseDatabase = FirebaseDatabase.getInstance().getReference("House");
+        HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
         HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,21 +68,22 @@ public class HousingFragment extends Fragment {
                 //create an array of post
                // ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
-                int price = 1190;
+
                 for(DataSnapshot house : dataSnapshot.getChildren()){
 
                     String HouseUid = house.toString();
-                    String location = house.child("room_location").getValue(String.class);
-                    String type = house.child("room_type").getValue(String.class);
-                    String title = house.child("room_title").getValue(String.class);
+                    String location = house.child("location").getValue(String.class);
+                    String type = house.child("houseType").getValue(String.class);
+                    String title = house.child("title").getValue(String.class);
+                    String term = house.child("leasingLength").getValue(String.class);
                     //int price = (int)house.child("room_price").getValue();
-                    String imageId = house.child("imageResourceId").getValue(String.class);
-                    boolean favorite = (boolean)house.child("isFavorite").getValue();
-                    HousePost post = new HousePost(type,title,price,location,imageId,favorite);
+                    String imageId = house.child("pictures").child("0").getValue(String.class);
+                    boolean favorite = true;
+                    HousePost post = new HousePost(type,title,1190,term,location,imageId,favorite);
                     //HousePost post = house.getValue(HousePost.class);
                     posts.add(post);
 
-                    price = price-200;
+
 
                 }
                 if(!posts.isEmpty()){
@@ -183,7 +184,7 @@ public class HousingFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SingleHousePostActivity.class);
-                //myIntent.putExtra("uid",HouseUid);
+                myIntent.putExtra("uid",HouseUid);
                 startActivity(myIntent);
 
             }

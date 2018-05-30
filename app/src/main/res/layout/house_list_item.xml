@@ -13,25 +13,28 @@
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
-                <ToggleButton
-                    android:id="@+id/favorite_btn"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:padding="8dp"
-                    android:background="@drawable/selector_favorite_btn"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:text=""
-                    android:textOff=""
-                    android:textOn="" />
-                <ImageView
-                    android:id="@+id/house_list_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/my_bg" />
+            <ToggleButton
+                android:id="@+id/favorite_btn"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/selector_favorite_btn"
+                android:clickable="true"
+                android:focusable="false"
+                android:layout_margin="8dp"
+                android:text=""
+                android:textOff=""
+                android:textOn="" />
+
+            <ImageView
+                android:id="@+id/house_list_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/my_bg" />
         </RelativeLayout>
 
 

@@ -14,16 +14,19 @@ public class HousePost {
 
     private boolean isFavorite;
 
+    private String term;
+
 
     public HousePost(){}
 
 
-    public HousePost(String p_room_type, String p_room_title, int p_room_price,
+    public HousePost(String p_room_type, String p_room_title, int p_room_price,String lease,
                 String p_room_location, String p_imageResourceId, boolean favorite)
     {
         room_type = p_room_type;
         room_title = p_room_title;
         room_price = p_room_price;
+        term = lease;
         room_location = p_room_location;
         imageResourceId = p_imageResourceId;
         isFavorite = favorite;
@@ -59,5 +62,9 @@ public class HousePost {
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
+    }
+
+    public String getTerm() {
+        return term;
     }
 }
