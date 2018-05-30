@@ -245,7 +245,7 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
-                android:text="Total Badroom Amounts"
+                android:text="Number of Bedrooms"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size"
                 android:textStyle="bold" />
@@ -307,7 +307,7 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
-                android:text="Total Badroom Amounts"
+                android:text="Number of Bathrooms"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size"
                 android:textStyle="bold" />
