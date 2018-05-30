@@ -15,6 +15,8 @@ public class MyFavoriteFragment extends Fragment {
 
         setupButton(layout);
 
+        setupList();
+
         return layout;
     }
 
@@ -30,5 +32,9 @@ public class MyFavoriteFragment extends Fragment {
                         .commit();
             }
         });
+    }
+
+    private void setupList() {
+
     }
 }
