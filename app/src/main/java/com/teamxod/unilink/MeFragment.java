@@ -61,6 +61,9 @@ public class MeFragment extends Fragment {
         mUserReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if (getContext() == null) {
+                    return;
+                }
                 user = dataSnapshot.getValue(User.class);
                 setProfileUI(user);
             }
