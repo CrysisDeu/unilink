@@ -32,19 +32,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".My_favorite" />
-        <activity android:name=".My_post" />
         <activity android:name=".My_changePassword" />
         <activity android:name=".My_preference" />
+        <activity android:name=".StartActivity" />
+        <activity android:name=".my_change_profile"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".SingleHousePostActivity" />
+        <activity android:name=".AddPost"/>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".StartActivity" />
-        <activity android:name=".my_change_profile"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".SingleHousePostActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -71,7 +70,9 @@
                 android:resource="@xml/picker_provider_paths" />
         </provider>
 
-        <activity android:name=".AddPost"></activity>
+        <activity android:name=".RealtimeDbChatActivity" />
+        <activity android:name=".RealtimeDbChatIndexActivity" />
+
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package com.teamxod.unilink;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -48,10 +47,13 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new RoommateFragment();
                         break;
                     case R.id.navigation_chat:
-                        fragment = new ChatFragment();
+                        fragment = new ChatsFragment();
+//                        Intent InitiateProfileIntent = new Intent(MainActivity.this, RealtimeDbChatActivity.class);
+//                        startActivity(InitiateProfileIntent);
+//                        finish();
                         break;
                     case R.id.navigation_my:
-                        fragment = new MyFragment();
+                        fragment = new MeFragment();
                         break;
                 }
                 return loadFragment(fragment);

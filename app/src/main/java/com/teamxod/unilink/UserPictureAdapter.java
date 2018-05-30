@@ -31,7 +31,7 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View view = inflater.inflate(R.layout.house_roommate, parent, false);
+        View view = inflater.inflate(R.layout.house_roommate_list_item, parent, false);
 
         return new SimpleProfileViewHolder(view);
     }

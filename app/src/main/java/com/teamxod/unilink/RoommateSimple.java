@@ -1,7 +1,7 @@
 package com.teamxod.unilink;
 
 
-public class RoommateSimp {
+public class RoommateSimple {
     private String rName;
 
     private String rPicture;
@@ -16,7 +16,7 @@ public class RoommateSimp {
 
     private String[] rConTag;
 
-    public RoommateSimp(String name, String pic, String major, int score, int year, String[] pro, String[] con){
+    RoommateSimple(String name, String pic, String major, int score, int year, String[] pro, String[] con){
         rName = name;
         rPicture = pic;
         rMajor = major;

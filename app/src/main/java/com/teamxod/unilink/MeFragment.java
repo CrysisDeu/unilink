@@ -1,8 +1,7 @@
 package com.teamxod.unilink;
 
-import android.app.Activity;
+
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,9 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 
-public class MyFragment extends Fragment {
+public class MeFragment extends Fragment {
 
     private ImageView mProfilePic;
     private TextView mName;
@@ -49,7 +47,7 @@ public class MyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_my, container, false); // get the GUI
+        View layout = inflater.inflate(R.layout.fragment_me, container, false); // get the GUI
 
         mName = layout.findViewById(R.id.name);
         mProfilePic = layout.findViewById(R.id.profile_pic);
@@ -110,16 +108,22 @@ public class MyFragment extends Fragment {
         my_favorite.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(getActivity(), My_favorite.class);
-                startActivity(i);
+                Fragment fragment = new MyFavoriteFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.fragment_container,fragment,"favorite")
+                        .commit();
             }
         });
 
         my_post.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(getActivity(), My_post.class);
-                startActivity(i);
+                Fragment fragment = new MyPostFragment();
+                getFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.fragment_container,fragment,"my_post")
+                        .commit();
             }
         });
 

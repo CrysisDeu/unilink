@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eee"
-    tools:context=".MyFragment">
+    tools:context=".MeFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="224dp"
+                android:layout_height="200dp"
                 android:orientation="vertical">
 
                 <ImageView
@@ -29,29 +29,22 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/my_bg4" />
 
-                <!--ImageView
-                    android:layout_width="112dp"
-                    android:layout_height="112dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="56dp"
-                    android:src="@drawable/profile_circle_bg"/-->
                 <android.support.v7.widget.CardView
                     android:id="@+id/profile_card"
-                    android:layout_width="104dp"
-                    android:layout_height="104dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="56dp"
                     app:cardBackgroundColor="#EEEEEE"
-                    app:cardElevation="8dp"
-                    app:cardCornerRadius="52dp">
+                    app:cardCornerRadius="52dp"
+                    app:cardElevation="8dp">
 
                     <ImageView
-                    android:id="@+id/profile_pic"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_gravity="center" />
+                        android:id="@+id/profile_pic"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="center" />
 
                 </android.support.v7.widget.CardView>
 

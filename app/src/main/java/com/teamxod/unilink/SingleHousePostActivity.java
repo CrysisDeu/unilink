@@ -147,7 +147,6 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void setupRoom() {
-        //TODO
         ArrayList<Room> roomList = (ArrayList)house.getRooms();
         roomListView = (RecyclerView) findViewById(R.id.house_rooms);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
