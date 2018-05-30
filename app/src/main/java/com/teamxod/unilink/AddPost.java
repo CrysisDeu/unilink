@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -44,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Objects;
 
 /* TODO @ Etsu:
     First, try to read through the whole file. I did lots of comments. Just make sure u know what i did.
@@ -411,18 +413,14 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
                 _laundry = isChecked(laundry);
                 _bus = isChecked(bus);
 
-                ArrayList<String> pictureStringList = new ArrayList<>();
-                for (Uri uri : pictureList)
-                    pictureStringList.add(uri.toString());
-                writeNewPost(new House(_posterId, _houseType, _title, _location,
-                        _description, _startDate, _leaseLength,
-                        pictureStringList, roomList, _tv, _ac, _bus,
-                        _parking, _videoGame, _gym, _laundry, _pet, _bedroom_number, _bathroom_number));
+//                ArrayList<String> pictureStringList = new ArrayList<>();
+//                for (Uri uri : pictureList)
+//                    pictureStringList.add(uri.toString());
                 uploadToFirebase(pictureList);
                 Intent mainIntent = new Intent(AddPost.this, MainActivity.class);
                 startActivity(mainIntent);
                 // notify user submitted
-                Snackbar.make(findViewById(R.id.Coordinator), "Congratulation, you successfully post your house! ", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.Coordinator), "Congrudulation, you successfully post your house! ", Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -622,9 +620,10 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
 
     // TODO create house obj here
     private void writeNewPost(House house) {
-        post = mDatabase.child("House_post").push();
         post.setValue(house);
     }
+
+
 
     // TODO DELETE
     static class TempHouse {
@@ -640,17 +639,32 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
     }
 
     private void uploadToFirebase(ArrayList<Uri> uriList) {
-        final StorageReference house_images = mStorageRef.child("House_Images").child(post.getKey());
+        post = mDatabase.child("House_post").push();
+        writeNewPost(new House(_posterId, _houseType, _title, _location,
+                _description, _startDate, _leaseLength,
+                new ArrayList<String>(0), roomList, _tv, _ac, _bus,
+                _parking, _videoGame, _gym, _laundry, _pet, _bedroom_number, _bathroom_number));
 
+        final StorageReference baseref = mStorageRef.child("House_Images").child(post.getKey());
+        StorageReference image_ref;
+        final ArrayList<String> pictureStringList = new ArrayList<>(0);
+        int i = 0;
         for (Uri uri : uriList) {
-            house_images.putFile(uri)
+            image_ref = baseref.child(String.valueOf(i));
+            final int finalI = i;
+            i++;
+            final StorageReference finalImage_ref = image_ref;
+            image_ref.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             // Get a URL to the uploaded content
-                            house_images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            finalImage_ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+//                                    pictureStringList.add(uri.toString());
+//                                    Log.d("Addpost",uri.toString());
+                                    post.child("pictures").child(String.valueOf(finalI)).setValue(uri.toString());
                                 /*picture = uri;
                                 Glide.with(AddPost.this)
                                         .load(picture)
