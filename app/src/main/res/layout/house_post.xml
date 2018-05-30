@@ -18,15 +18,19 @@
             android:textColor="@color/white"
             android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/house_button_favourite"
+        <ToggleButton
+            android:id="@+id/house_button_favorite"
             android:layout_width="@dimen/small_icon_side"
             android:layout_height="@dimen/small_icon_side"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/small_margin"
-            android:background="@drawable/ic_empty_heart"
-            android:backgroundTint="@color/white" />
+            android:background="@drawable/selector_favorite_btn"
+            android:clickable="true"
+            android:focusable="true"
+            android:text=""
+            android:textOff=""
+            android:textOn="" />
 
         <Button
             android:id="@+id/house_button_back"

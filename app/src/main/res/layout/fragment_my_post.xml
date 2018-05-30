@@ -20,20 +20,29 @@
 
             <ImageView
                 android:id="@+id/back_button"
-                style="@style/back_button"
+                android:layout_height="@dimen/middle_icon_side"
+                android:layout_width="@dimen/middle_icon_side"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/small_margin"
                 android:tint="#ffffff"
                 app:srcCompat="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="My Posts"
+                android:gravity="center_vertical"
+                android:text="Me"
                 android:textColor="#fff"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/my_favorite_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
