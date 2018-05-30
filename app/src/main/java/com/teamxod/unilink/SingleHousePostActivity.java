@@ -139,6 +139,14 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
 
         TextView houseDescriptionTextView = (TextView)findViewById(R.id.house_description);
         houseDescriptionTextView.setText(house.getDescription());
+
+        TextView bottomPriceTextView = (TextView)findViewById(R.id.house_bottom_price);
+        temp = "$ " + house.getRooms().get(0).getPrice() + " ";
+        bottomPriceTextView.setText(temp);
+
+        TextView bottomTimeTextView = (TextView)findViewById(R.id.house_bottom_time);
+        temp = house.getLeasingLength() + " · From " + house.getStartDate();
+        bottomTimeTextView.setText(temp);
     }
 
     private void setupHousePicture() {

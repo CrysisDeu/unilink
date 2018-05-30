@@ -365,7 +365,7 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
         annual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _leaseLength = "Annual";
+                _leaseLength = "Annually";
             }
         });
         quarterly.setOnClickListener(new View.OnClickListener() {
@@ -377,7 +377,7 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
         short_term.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _leaseLength = "Short";
+                _leaseLength = "Monthly";
             }
         });
 
@@ -422,7 +422,7 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
                 Intent mainIntent = new Intent(AddPost.this, MainActivity.class);
                 startActivity(mainIntent);
                 // notify user submitted
-                Snackbar.make(findViewById(R.id.Coordinator), "Congrudulation, you successfully post your house! ", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.Coordinator), "Congratulation, you successfully post your house! ", Snackbar.LENGTH_LONG).show();
             }
         });
 
