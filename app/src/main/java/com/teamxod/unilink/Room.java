@@ -6,11 +6,15 @@ class Room {
 
     private int price;
 
-    public Room(String roomType, int price) {
+    Room(String roomType, int price) {
         this.roomType = roomType;
         this.price = price;
     }
 
+    Room(){
+       //empty constructor for firebaase
+    }
+    
     public String getRoomType() {
         return roomType;
     }

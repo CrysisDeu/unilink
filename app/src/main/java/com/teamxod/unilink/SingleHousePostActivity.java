@@ -134,7 +134,8 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         houseAddressTextView.setText(house.getLocation());
 
         TextView posterNameTextView = (TextView)findViewById(R.id.house_poster);
-        posterNameTextView.setText(poster.getName());
+        String temp = "posted by " + poster.getName();
+        posterNameTextView.setText(temp);
 
         TextView houseDescriptionTextView = (TextView)findViewById(R.id.house_description);
         houseDescriptionTextView.setText(house.getDescription());
@@ -158,6 +159,9 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
 
     private void setupRoommate() {
         roommateList = (ArrayList)(poster.getRoommates());
+        if(roommateList == null)
+            roommateList = new ArrayList<>();
+        roommateList.add(poster);
         roommateListView = (RecyclerView) findViewById(R.id.house_roommate);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         roommateListView.setLayoutManager(layoutManager);

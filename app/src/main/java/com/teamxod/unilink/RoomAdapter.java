@@ -39,7 +39,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
         holder.typeTextView.setText(room.getRoomType());
 
-        holder.priceTextView.setText(room.getPrice());
+        String price = "$ " + room.getPrice() + "/MO";
+        holder.priceTextView.setText(price);
 
     }
 
