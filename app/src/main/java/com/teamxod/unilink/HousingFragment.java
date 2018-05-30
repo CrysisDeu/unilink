@@ -71,16 +71,15 @@ public class HousingFragment extends Fragment {
 
                 for(DataSnapshot house : dataSnapshot.getChildren()){
 
-                    String HouseUid = house.toString();
+                    HouseUid = house.toString();
                     String location = house.child("location").getValue(String.class);
                     String type = house.child("houseType").getValue(String.class);
                     String title = house.child("title").getValue(String.class);
                     String term = house.child("leasingLength").getValue(String.class);
-                    //int price = (int)house.child("room_price").getValue();
+                    int price = (int)house.child("rooms").child("0").child("price").getValue(Integer.class);
                     String imageId = house.child("pictures").child("0").getValue(String.class);
                     boolean favorite = true;
-                    HousePost post = new HousePost(type,title,1190,term,location,imageId,favorite);
-                    //HousePost post = house.getValue(HousePost.class);
+                    HousePost post = new HousePost(type,title,price,term,location,imageId,favorite);
                     posts.add(post);
 
 
@@ -184,6 +183,7 @@ public class HousingFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SingleHousePostActivity.class);
+                Log.d("check uid",".."+HouseUid);
                 myIntent.putExtra("uid",HouseUid);
                 startActivity(myIntent);
 
