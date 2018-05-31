@@ -12,4 +12,5 @@
     <dimen name="s_font_size">12sp</dimen>
     <dimen name="m_font_size">14sp</dimen>
     <dimen name="l_font_size">24sp</dimen>
+    <dimen name="header_roommate">82dp</dimen>
 </resources>
