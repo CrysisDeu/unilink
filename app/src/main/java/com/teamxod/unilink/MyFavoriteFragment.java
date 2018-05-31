@@ -59,8 +59,8 @@ public class MyFavoriteFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         houseListView.setLayoutManager(layoutManager);
         houseListView.setHasFixedSize(true);
-        final FavoriteAdapter favoriteAdapter = new FavoriteAdapter(getContext(), houseList);
-        houseListView.setAdapter(favoriteAdapter);
+        favoriteListAdapter = new FavoriteAdapter(getContext(), houseList);
+        houseListView.setAdapter(favoriteListAdapter);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -73,7 +73,7 @@ public class MyFavoriteFragment extends Fragment {
                     houseList.clear();
                     for (DataSnapshot postID : dataSnapshot.getChildren()) {
                         addHouse(postID.getValue(String.class));
-                        favoriteAdapter.notifyDataSetChanged();
+                        favoriteListAdapter.notifyDataSetChanged();
                     }
                         //HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts, listView);
                         //listView.setAdapter(adapter);
