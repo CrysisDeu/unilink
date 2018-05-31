@@ -161,9 +161,7 @@ public class HousingFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SingleHousePostActivity.class);
-                Log.d("check uid","*********"+posts.get(0).getRoom_key());
-                Log.d("check uid","@@@@@@@@@"+position);
-                Log.d("check uid",".."+posts.get(position-1).getRoom_key());
+
                 myIntent.putExtra("uid",posts.get(position-1).getRoom_key());
                 startActivity(myIntent);
 

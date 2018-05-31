@@ -46,12 +46,12 @@ import java.util.List;
           isFirstIn = true;
           mContext = context;
 
-          imageLoader = new ImageLoader(mListView);
+          /*imageLoader = new ImageLoader(mListView);
           imageLoader.mUrls = new String[mList.size()];
           for(int i=0;i<mList.size();i++){
               imageLoader.mUrls[i] = mList.get(i).getImageResourceId();
           }
-          mListView.setOnScrollListener(this);
+          mListView.setOnScrollListener(this);*/
       }
 
 
