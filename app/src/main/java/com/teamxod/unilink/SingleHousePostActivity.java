@@ -195,7 +195,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-        Button moreBtn = (Button)findViewById(R.id.house_button_favourite);
+        Button moreBtn = (Button)findViewById(R.id.house_button_favorite);
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
