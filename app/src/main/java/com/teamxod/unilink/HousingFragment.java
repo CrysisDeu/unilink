@@ -55,7 +55,7 @@ public class HousingFragment extends Fragment {
         addPost = layout.findViewById(R.id.add_post_btn);
 
         //firebase
-        HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
+        DatabaseReference HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
         HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

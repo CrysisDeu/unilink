@@ -45,7 +45,10 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
 
         holder.nameTextView.setText(user.getName());
 
-        Glide.with(context).load(user.getPicture()).apply(RequestOptions.circleCropTransform()).into(holder.pictureImageView);
+        Glide.with(context)
+                .load(user.getPicture())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.pictureImageView);
     }
 
     @Override

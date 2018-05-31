@@ -20,8 +20,8 @@
 
             <ImageView
                 android:id="@+id/back_button"
-                android:layout_height="@dimen/middle_icon_side"
                 android:layout_width="@dimen/middle_icon_side"
+                android:layout_height="@dimen/middle_icon_side"
                 android:layout_gravity="center_vertical|start"
                 android:layout_marginStart="@dimen/small_margin"
                 android:tint="#ffffff"
@@ -38,11 +38,10 @@
 
         </LinearLayout>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/my_favorite_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </ListView>
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

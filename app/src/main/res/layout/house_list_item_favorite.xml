@@ -31,6 +31,7 @@
                 tools:text="Beautiful Bedroom in a Quiet Area Near UTC"/>
 
             <TextView
+                android:id="@+id/post_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -38,6 +39,7 @@
                 tools:text="$ 1199/Mo Annual Lease" />
 
             <TextView
+                android:id="@+id/post_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
