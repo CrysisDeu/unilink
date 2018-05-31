@@ -39,7 +39,7 @@ import java.util.List;
 
 
 
-      public HousePostAdapter(Context context, List<HousePost> objects, ListView listView){
+      HousePostAdapter(Context context, List<HousePost> objects, ListView listView){
           mList = (ArrayList<HousePost>) objects;
           mInflater=LayoutInflater.from(context);
           mListView = listView;

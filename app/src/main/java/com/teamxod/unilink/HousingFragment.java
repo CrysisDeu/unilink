@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -42,7 +41,7 @@ public class HousingFragment extends Fragment {
     FloatingActionButton addPost;
     View header;
     int touchSlop = 5;
-    final ArrayList<HousePost> posts = new ArrayList<HousePost>();
+    final ArrayList<HousePost> posts = new ArrayList<>();
 
     private DatabaseReference HouseDatabase;
 
@@ -55,9 +54,6 @@ public class HousingFragment extends Fragment {
         searchBar = layout.findViewById(R.id.searchView);
         addPost = layout.findViewById(R.id.add_post_btn);
 
-
-
-
         //firebase
         HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
         HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -67,9 +63,8 @@ public class HousingFragment extends Fragment {
                 //create an array of post
                // ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
-
+                posts.clear();
                 for(DataSnapshot house : dataSnapshot.getChildren()){
-
                     String key = house.getKey();
                     String location = house.child("location").getValue(String.class);
                     String type = house.child("houseType").getValue(String.class);
@@ -79,12 +74,9 @@ public class HousingFragment extends Fragment {
                     String imageId = house.child("pictures").child("0").getValue(String.class);
                     boolean favorite = true;
                     HousePost post = new HousePost(key,type,title,price,term,location,imageId,favorite);
-                    Log.d("check key", "#####"+key);
                     posts.add(post);
-
-
-
                 }
+
                 if(!posts.isEmpty()){
                     HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
                     listView.setAdapter(adapter);
@@ -96,20 +88,6 @@ public class HousingFragment extends Fragment {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-
-        //Log.d("array size", "outside: "+posts.size());
-
-
-        //posts.add(new HousePost());
-       /* posts.add(new HousePost("Master Bedroom", "Regents La Jolla","$1190/MO","La Jolla","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg",true));
-        posts.add(new HousePost("Shared Master Bedroom", "Villas of Renaissance","$690/MO","5360 Toscana way","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg",false));
-        posts.add(new HousePost("single room", "beautiful room","$90090/MO","Gary's house","https://vignette.wikia.nocookie.net/animal-jam-clans-1/images/e/ea/Chic-Rich-Houses-with-Pool.jpg",true));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://media.gettyimages.com/photos/exterior-view-of-custom-home-picture-id159087139",false));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","http://www.bestinsurancecompaniesinfo.com/wp-content/uploads/2015/03/house-1.jpg",false));
-        posts.add(new HousePost("single room", "beautiful room","$1190/MO","San Diego","https://www.sloaepi.org/wp-content/uploads/2016/11/Latest-House-Designs-Inspirations.jpg",false));
-*/
-
-
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

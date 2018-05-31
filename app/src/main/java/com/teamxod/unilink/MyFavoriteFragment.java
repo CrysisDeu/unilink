@@ -7,7 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+
 public class MyFavoriteFragment extends Fragment {
+
+    private ArrayList<House> houselist;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -15,7 +19,7 @@ public class MyFavoriteFragment extends Fragment {
 
         setupButton(layout);
 
-        setupList();
+        setupFirebase();
 
         return layout;
     }
@@ -34,7 +38,7 @@ public class MyFavoriteFragment extends Fragment {
         });
     }
 
-    private void setupList() {
+    private void setupFirebase() {
 
     }
 }
