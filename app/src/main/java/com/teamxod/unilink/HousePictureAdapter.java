@@ -8,8 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,10 @@ class HousePictureAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.house_picture_list_item, null);
+
+        TextView pageView = (TextView) view.findViewById(R.id.page_count);
+        String page = (position+1) + " / " + images.size();
+        pageView.setText(page);
         ImageView housePicture = (ImageView) view.findViewById(R.id.house_image);
         Glide.with(context)
                 .load(images.get(position))
