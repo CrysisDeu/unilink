@@ -41,7 +41,6 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     User poster;
     String postID;
     boolean isFavourite;
-    String favouriteKey;
     ArrayList<User> roommateList;
     ArrayList<String> favoriteList;
 
@@ -95,14 +94,12 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 isFavourite = false;
-                favouriteKey = "";
                 favoriteList = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String item = snapshot.getValue(String.class);
                     favoriteList.add(item);
                     if(postID.equals(item)){
                         isFavourite = true;
-                        favouriteKey = snapshot.getKey();
                     }
                 }
                 loadHouseData();
