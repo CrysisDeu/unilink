@@ -25,7 +25,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private ArrayList<String> postList;
 
-    Context context;
+    private Context context;
 
     private DatabaseReference favoriteReference;
 

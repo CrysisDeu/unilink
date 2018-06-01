@@ -23,15 +23,14 @@ import java.util.ArrayList;
 
 public class RoommateFragment extends Fragment {
 
-    View header;
-    int touchSlop = 5;
+    private View header;
+    private int touchSlop = 5;
     private ListView listView;
 
     private Button preference;
     private ToggleButton toggle;
 
     private RelativeLayout layer;
-    private TagViewGroup tagViewLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +85,7 @@ public class RoommateFragment extends Fragment {
 
 
     //set the back animator
-    AnimatorSet backAnimatorSet;
+    private AnimatorSet backAnimatorSet;
 
     private void animateBack() {
         //eliminate other animator
@@ -114,7 +113,7 @@ public class RoommateFragment extends Fragment {
 
 
     //aniamtor to hide element
-    AnimatorSet hideAnimatorSet;
+    private AnimatorSet hideAnimatorSet;
 
     private void animateHide() {
         //eliminate other animators

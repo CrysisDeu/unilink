@@ -18,7 +18,7 @@ public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.
 
     private ArrayList<User> users;
 
-    Context context;
+    private Context context;
 
     UserPictureAdapter(Context context, ArrayList<User> users){
         this.users = users;

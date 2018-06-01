@@ -21,13 +21,13 @@ import com.app.progresviews.ProgressWheel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoommateListAdapter extends BaseAdapter {
+class RoommateListAdapter extends BaseAdapter {
 
     private ArrayList<RoommateSimple> mList;
     private ListView mListView;
     private LayoutInflater mInflater;
     private Context mContext;
-    final static int MARGIN = 15;
+    private final static int MARGIN = 15;
 
     public RoommateListAdapter(Context context, List<RoommateSimple> objects, ListView listView) {
         mList = (ArrayList<RoommateSimple>) objects;

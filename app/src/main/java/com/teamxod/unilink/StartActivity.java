@@ -475,7 +475,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         return px;
     }
 
-    boolean isEmailValid(CharSequence email) {
+    private boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

@@ -3,7 +3,7 @@ package com.teamxod.unilink;
 /**
  * Common interface for chat messages, helps share code between RTDB and Firestore examples.
  */
-public abstract class AbstractChat {
+abstract class AbstractChat {
 
     public abstract String getName();
 

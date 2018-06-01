@@ -23,11 +23,11 @@ public class MyFavoriteFragment extends Fragment {
 
     private DatabaseReference mDatabase;
 
-    ArrayList<String> postList;
+    private ArrayList<String> postList;
 
-    FavoriteAdapter favoriteListAdapter;
+    private FavoriteAdapter favoriteListAdapter;
 
-    RecyclerView houseListView;
+    private RecyclerView houseListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -37,30 +37,30 @@ import java.util.List;
 
 public class SingleHousePostActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    House house;
-    User poster;
-    String postID;
-    boolean isFavourite;
-    ArrayList<User> roommateList;
-    ArrayList<String> favoriteList;
+    private House house;
+    private User poster;
+    private String postID;
+    private boolean isFavourite;
+    private ArrayList<User> roommateList;
+    private ArrayList<String> favoriteList;
 
-    ViewPager housePicture;
-    RecyclerView roommateListView;
-    RecyclerView roomListView;
+    private ViewPager housePicture;
+    private RecyclerView roommateListView;
+    private RecyclerView roomListView;
 
-    HousePictureAdapter housePictureAdapter;
-    UserPictureAdapter roommateAdapter;
-    RoomAdapter roomAdapter;
+    private HousePictureAdapter housePictureAdapter;
+    private UserPictureAdapter roommateAdapter;
+    private RoomAdapter roomAdapter;
 
-    LinearLayoutManager layoutManager;
+    private LinearLayoutManager layoutManager;
 
-    GoogleMap houseMap;
-    MapFragment mapFragment;
+    private GoogleMap houseMap;
+    private MapFragment mapFragment;
 
-    DatabaseReference database;
-    DatabaseReference favoriteReference;
+    private DatabaseReference database;
+    private DatabaseReference favoriteReference;
 
-    ToggleButton favorite_btn;
+    private ToggleButton favorite_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

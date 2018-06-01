@@ -126,13 +126,12 @@
         android:paddingTop="@dimen/large_margin"
         android:textStyle="bold"/>
 
-    <info.hoang8f.android.segmented.SegmentedGroup
-        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/bring_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_margin"
-        android:orientation="horizontal">
+         <info.hoang8f.android.segmented.SegmentedGroup
+             android:id="@+id/bring_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/small_margin"
+             android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/bring_button_1"
@@ -168,13 +167,12 @@
         android:paddingTop="@dimen/large_margin"
         android:textStyle="bold"/>
 
-    <info.hoang8f.android.segmented.SegmentedGroup
-        xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/pet_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/small_margin"
-        android:orientation="horizontal">
+         <info.hoang8f.android.segmented.SegmentedGroup
+             android:id="@+id/pet_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/small_margin"
+             android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/pet_button_1"
@@ -204,7 +202,6 @@
              android:textStyle="bold" />
 
          <info.hoang8f.android.segmented.SegmentedGroup
-             xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
              android:id="@+id/party_button"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -306,13 +303,12 @@
             android:paddingTop="@dimen/large_margin"
             android:textStyle="bold"/>
 
-        <info.hoang8f.android.segmented.SegmentedGroup
-            xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/smoke_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/small_margin"
-            android:orientation="horizontal">
+         <info.hoang8f.android.segmented.SegmentedGroup
+             android:id="@+id/smoke_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/small_margin"
+             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/smoke_button_1"
@@ -378,13 +374,12 @@
             android:paddingTop="@dimen/large_margin"
             android:textStyle="bold"/>
 
-        <info.hoang8f.android.segmented.SegmentedGroup
-            xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/drink_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/small_margin"
-            android:orientation="horizontal">
+         <info.hoang8f.android.segmented.SegmentedGroup
+             android:id="@+id/drink_button"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/small_margin"
+             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/drink_button_1"

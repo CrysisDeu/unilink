@@ -1,6 +1,6 @@
 package com.teamxod.unilink;
 
-public class HousePost {
+class HousePost {
     //item shown below the image
     private String room_key;
 
@@ -58,14 +58,6 @@ public class HousePost {
         return imageResourceId;
     }
 
-
-    public boolean isFavorite() {
-        return isFavorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
-    }
 
     public String getTerm() {
         return term;

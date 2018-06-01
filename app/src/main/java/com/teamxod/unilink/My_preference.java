@@ -466,14 +466,14 @@ public class My_preference extends AppCompatActivity {
 
 
     // report new preference to the firebase
-    public void newPreference(){
+    private void newPreference(){
         preference preference = new preference(Sleep, Clean, Bring, Pet, Surfing, Hiking,
                 Skiing, Gaming, Smoke, Drink, Party, language);
         mDatabase.child("Preference").child(uid).setValue(preference);
     }
 
     // method to restore users' information if they have finished the survey before.
-    public void restoreInfo(){
+    private void restoreInfo(){
         language = existedPreference.getLanguage();
         Surfing = existedPreference.getSurfing();
         Hiking = existedPreference.getHiking();
@@ -560,7 +560,7 @@ public class My_preference extends AppCompatActivity {
     }
 
     // set language variable based on what the user selected
-    public void setLanguage(String languageSelected){
+    private void setLanguage(String languageSelected){
         switch(languageSelected) {
             case "Arabic": language = 0;
                 break;

@@ -21,14 +21,14 @@ import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
-public class ImageLoader {
+class ImageLoader {
 
 
     private LruCache<String, Bitmap> mMemoryCaches;
     private Set<NewsAsyncTask> mTasks;
     private ListView mListView;
 
-    public String mUrls[];
+    private String[] mUrls;
 
     public ImageLoader(ListView listView) {
 
@@ -49,12 +49,12 @@ public class ImageLoader {
 
     }
 
-    public Bitmap getBitmapFromLrucache(String url) {
+    private Bitmap getBitmapFromLrucache(String url) {
 
         return mMemoryCaches.get(url);
     }
 
-    public void addBitmapToLrucaches(String url, Bitmap bitmap) {
+    private void addBitmapToLrucaches(String url, Bitmap bitmap) {
 
         if (getBitmapFromLrucache(url) == null) {
             mMemoryCaches.put(url, bitmap);
@@ -121,7 +121,7 @@ public class ImageLoader {
             };
         }.start();
     }*/
-    public Bitmap getBitmapFromUrl(String urlString) {
+   private Bitmap getBitmapFromUrl(String urlString) {
         Bitmap bitmap;
         InputStream is = null;
         try {
@@ -160,7 +160,7 @@ public class ImageLoader {
         //private ImageView myImageView;
         private String mUrl;
 
-        public NewsAsyncTask(String url){
+        NewsAsyncTask(String url){
             //myImageView = imageView;
             mUrl = url;
         }
