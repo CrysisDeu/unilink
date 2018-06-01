@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:4.0.0'
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:4.0.0'
-    implementation 'com.github.sudotoeat:PickImage:bf10466'
+    implementation 'com.github.sudotoeat:PickImage:362ab76'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
