@@ -7,6 +7,15 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#6d48e5" />
+
+    <ListView
+        android:id="@+id/roomate_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp">
+
+    </ListView>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,12 +82,5 @@
 
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/roomate_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp">
-
-    </ListView>
 
 </RelativeLayout>
