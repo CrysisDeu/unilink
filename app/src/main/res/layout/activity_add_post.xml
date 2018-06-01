@@ -286,8 +286,7 @@
                     style="@style/RadioButton"
                     android:layout_width="72dp"
                     android:layout_height="wrap_content"
-                    android:text="4+"
-                    android:textStyle="bold" />
+                    android:text="4+" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
             <TextView
@@ -297,9 +296,7 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Number of Bathrooms"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                style="@style/text_field"/>
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/bathroom"
