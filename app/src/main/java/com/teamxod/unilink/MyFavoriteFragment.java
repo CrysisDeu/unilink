@@ -20,9 +20,9 @@ import java.util.ArrayList;
 
 public class MyFavoriteFragment extends Fragment {
 
-    private ArrayList<House> houseList;
-
     private DatabaseReference mDatabase;
+
+    ArrayList<String> postList;
 
     FavoriteAdapter favoriteListAdapter;
 
@@ -54,50 +54,30 @@ public class MyFavoriteFragment extends Fragment {
     }
 
     private void setupFirebase(View layout) {
-        houseList = new ArrayList<>();
+
         houseListView = (RecyclerView) layout.findViewById(R.id.my_favorite_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         houseListView.setLayoutManager(layoutManager);
         houseListView.setHasFixedSize(true);
-        favoriteListAdapter = new FavoriteAdapter(getContext(), houseList);
-        houseListView.setAdapter(favoriteListAdapter);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        if (mAuth != null && mAuth.getCurrentUser() != null) {
-            String uid = mAuth.getCurrentUser().getUid();
-            DatabaseReference favoriteReference = mDatabase.child("Users").child(uid).child("favorite_houses");
-            favoriteReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    houseList.clear();
-                    for (DataSnapshot postID : dataSnapshot.getChildren()) {
-                        addHouse(postID.getValue(String.class));
-                        favoriteListAdapter.notifyDataSetChanged();
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    System.out.println("The read failed: " + databaseError.getCode());
-                }
-            });
-        }
-    }
-
-    private void addHouse(String postID) {
-        DatabaseReference postReference = mDatabase.child("House_post").child(postID);
-
-        postReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        String uid = mAuth.getCurrentUser().getUid();
+        DatabaseReference favoriteReference = mDatabase.child("Users").child(uid).child("favorite_houses");
+        favoriteReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                houseList.add(dataSnapshot.getValue(House.class));
+                postList = new ArrayList<>();
+                for (DataSnapshot postID : dataSnapshot.getChildren()) {
+                    postList.add(postID.getValue(String.class));
+                }
+                favoriteListAdapter = new FavoriteAdapter(getActivity(), postList);
+                houseListView.setAdapter(favoriteListAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
+                System.out.println("The read failed: " + databaseError.getCode()); }
         });
     }
 }
