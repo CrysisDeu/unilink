@@ -10,31 +10,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="#6d48e5">
 
             <ImageView
                 android:id="@+id/back_button"
-                android:layout_width="@dimen/middle_icon_side"
-                android:layout_height="@dimen/middle_icon_side"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/small_margin"
                 android:tint="#ffffff"
-                app:srcCompat="@drawable/ic_back" />
+                app:srcCompat="@drawable/ic_back"
+                style="@style/back_button"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="My Favorite"
                 android:textColor="#fff"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_favorite_list"
