@@ -33,6 +33,12 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
     private RecyclerView mRecyclerView;
 
+    private boolean isChecked;
+
+    public void setFlag(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -40,12 +46,12 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
         mRecyclerView = recyclerView;
     }
 
-    MyPostAdapter(Context context, ArrayList<String> postList){
+    MyPostAdapter(Context context, ArrayList<String> postList, boolean isChecked){
         this.postList = postList;
         this.context = context;
+        this.isChecked = isChecked;
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         myPostReference = database.child("Users").child(uid).child("my_house_posts");
         housePostReference = database.child("House_post");
@@ -75,6 +81,13 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
     public void onBindViewHolder(@NonNull final MyPostViewHolder holder, final int position) {
 
         String postID = postList.get(position);
+
+        if(isChecked){
+            holder.delete_btn.setVisibility(View.VISIBLE);
+        } else {
+            holder.delete_btn.setVisibility(View.GONE);
+        }
+
         housePostReference.child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,7 +97,6 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
                 Glide.with(context)
                         .load(house.getPictures().get(0))
                         .into(holder.housePictureView);
-
                 holder.titleTextView.setText(house.getTitle());
                 holder.priceTextView.setText(price);
                 holder.addressTextView.setText(house.getLocation());
@@ -118,7 +130,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
         MyPostViewHolder (View itemView) {
             super(itemView);
-            delete_btn = (ToggleButton) itemView.findViewById((R.id.delete_btn));
+            delete_btn = (Button) itemView.findViewById((R.id.delete_btn));
             titleTextView = (TextView) itemView.findViewById(R.id.post_title);
             priceTextView = (TextView) itemView.findViewById(R.id.post_price);
             addressTextView = (TextView) itemView.findViewById(R.id.post_address);
