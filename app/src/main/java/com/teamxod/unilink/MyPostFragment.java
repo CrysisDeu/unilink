@@ -85,6 +85,7 @@ public class MyPostFragment extends Fragment {
                 mEditButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        myPostAdapter.setFlag(mEditButton.isChecked());
                         myPostAdapter.notifyDataSetChanged();
                     }
                 });

@@ -35,6 +35,10 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
     private boolean isChecked;
 
+    public void setFlag(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
+
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -77,6 +81,13 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
     public void onBindViewHolder(@NonNull final MyPostViewHolder holder, final int position) {
 
         String postID = postList.get(position);
+
+        if(isChecked){
+            holder.delete_btn.setVisibility(View.VISIBLE);
+        } else {
+            holder.delete_btn.setVisibility(View.GONE);
+        }
+
         housePostReference.child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -89,18 +100,13 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
                 holder.titleTextView.setText(house.getTitle());
                 holder.priceTextView.setText(price);
                 holder.addressTextView.setText(house.getLocation());
-                if(isChecked){
-                    holder.delete_btn.setVisibility(View.VISIBLE);
-                    holder.delete_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String postID = postList.get(holder.getAdapterPosition());
-                            //TODO
-                        }
-                    });
-                } else {
-                    holder.delete_btn.setVisibility(View.GONE);
-                }
+                holder.delete_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String postID = postList.get(holder.getAdapterPosition());
+                        //TODO
+                    }
+                });
             }
 
             @Override
@@ -124,7 +130,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
         MyPostViewHolder (View itemView) {
             super(itemView);
-            delete_btn = (ToggleButton) itemView.findViewById((R.id.delete_btn));
+            delete_btn = (Button) itemView.findViewById((R.id.delete_btn));
             titleTextView = (TextView) itemView.findViewById(R.id.post_title);
             priceTextView = (TextView) itemView.findViewById(R.id.post_price);
             addressTextView = (TextView) itemView.findViewById(R.id.post_address);
