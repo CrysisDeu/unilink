@@ -187,6 +187,13 @@ public class My_preference extends AppCompatActivity {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         progressV = progress;
+                        if (progressV < 4) {
+                            int time = progressV + 9;
+                            sleep_seekbar_text.setText(time + " PM");
+                        } else {
+                            int time = progressV - 3;
+                            sleep_seekbar_text.setText(time + " AM");
+                        };
                     }
 
                     @Override
@@ -195,15 +202,6 @@ public class My_preference extends AppCompatActivity {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                        if (progressV < 4) {
-                            int time = progressV + 9;
-                            sleep_seekbar_text.setText(time + " PM");
-                            Toast.makeText(getApplicationContext(), "Setting to " + time + " AM", Toast.LENGTH_SHORT).show();
-                        } else {
-                            int time = progressV - 3;
-                            sleep_seekbar_text.setText(time + " AM");
-                            Toast.makeText(getApplicationContext(), "Setting to " + time + " AM", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 });
 
@@ -215,6 +213,7 @@ public class My_preference extends AppCompatActivity {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         progressV = progress;
+                        clean_seekbar_text.setText(progressV + " times");
                     }
 
                     @Override
@@ -224,8 +223,6 @@ public class My_preference extends AppCompatActivity {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                        clean_seekbar_text.setText("             " + progressV + " times");
-                        Toast.makeText(getApplicationContext(), "Setting to " + progressV + " times", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -238,6 +235,7 @@ public class My_preference extends AppCompatActivity {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         progressV = progress;
+                        smoke_seekbar_text.setText(progressV + " days");
                     }
 
                     @Override
@@ -246,8 +244,6 @@ public class My_preference extends AppCompatActivity {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                        smoke_seekbar_text.setText(progressV + " days");
-                        Toast.makeText(getApplicationContext(), "Setting to " + progressV + " days", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -259,6 +255,7 @@ public class My_preference extends AppCompatActivity {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         progressV = progress;
+                        drink_seekbar_text.setText(progressV + " days");
                     }
 
                     @Override
@@ -267,8 +264,6 @@ public class My_preference extends AppCompatActivity {
 
                     @Override
                     public void onStopTrackingTouch(SeekBar seekBar) {
-                        drink_seekbar_text.setText(progressV + " days");
-                        Toast.makeText(getApplicationContext(), "setting to " + progressV + " days", Toast.LENGTH_SHORT).show();
                     }
                 });
 
