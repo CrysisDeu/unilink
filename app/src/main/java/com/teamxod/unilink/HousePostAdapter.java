@@ -24,8 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-  class HousePostAdapter extends BaseAdapter implements OnScrollListener {
+class HousePostAdapter extends BaseAdapter implements OnScrollListener {
 
 
       private ArrayList<HousePost> mList;
@@ -88,7 +89,7 @@ import java.util.List;
           viewHolder.vhPrice.setText(temp);
           viewHolder.vhLocation.setText(mList.get(position).getRoom_location());
 
-          String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+          String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
           final DatabaseReference favoriteReference =
                   FirebaseDatabase.getInstance().getReference()
                   .child("Users")

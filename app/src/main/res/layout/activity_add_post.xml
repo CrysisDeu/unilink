@@ -97,7 +97,8 @@
                 android:layout_marginRight="16dp"
                 android:hint="Title of the post"
                 android:singleLine="true"
-                android:textSize="@dimen/m_font_size" />
+                android:textSize="@dimen/m_font_size"
+                style="@style/edit_text"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -159,7 +160,8 @@
                 android:layout_marginRight="16dp"
                 android:hint="Street and Number"
                 android:singleLine="true"
-                android:textSize="@dimen/m_font_size" />
+                android:textSize="@dimen/m_font_size"
+                style="@style/edit_text"/>
 <!--
             <EditText
                 android:id="@+id/building"
@@ -189,7 +191,8 @@
                 android:layout_marginRight="16dp"
                 android:hint="City Name"
                 android:singleLine="true"
-                android:textSize="@dimen/m_font_size" />
+                android:textSize="@dimen/m_font_size"
+                style="@style/edit_text"/>
 
             <!-- One Question -->
             <TextView
@@ -201,7 +204,8 @@
                 android:text="House Type"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/edit_text"/>
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/house_type"
@@ -432,7 +436,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Start Date"
                     android:inputType="none"
-                    android:textSize="@dimen/m_font_size" />
+                    android:textSize="@dimen/m_font_size"
+                    style="@style/edit_text"/>
 
             </RelativeLayout>
 
@@ -562,7 +567,6 @@
 
             <EditText
                 android:id="@+id/description"
-                style="@style/Widget.AppCompat.EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -572,7 +576,8 @@
                 android:hint="More information about the place"
                 android:lines="1"
                 android:maxLines="8"
-                android:textSize="@dimen/m_font_size" />
+                android:textSize="@dimen/m_font_size"
+                style="@style/edit_text"/>
 
             <Button
                 android:id="@+id/submit"
