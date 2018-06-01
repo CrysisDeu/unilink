@@ -15,6 +15,10 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <!--style name="AppTheme.Launcher">
+    <item name="android:windowBackground">@layout/activity_splash</item>
+    </style-->
+
     <style name="menu_text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

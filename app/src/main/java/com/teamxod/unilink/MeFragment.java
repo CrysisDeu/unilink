@@ -111,11 +111,14 @@ public class MeFragment extends Fragment {
         my_favorite.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Fragment fragment = new MyFavoriteFragment();
+                /*Fragment fragment = new MyFavoriteActivity();
                 getFragmentManager()
                         .beginTransaction()
                         .add(R.id.fragment_container,fragment,"favorite")
-                        .commit();
+                        .commit();*/
+
+                Intent i = new Intent(getActivity(), MyFavoriteActivity.class);
+                startActivity(i);
             }
         });
 
