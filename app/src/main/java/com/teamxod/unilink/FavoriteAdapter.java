@@ -1,6 +1,7 @@
 package com.teamxod.unilink;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,6 +31,15 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private DatabaseReference housePostReference;
 
+    RecyclerView mRecyclerView;
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        mRecyclerView = recyclerView;
+    }
+
     FavoriteAdapter(Context context, ArrayList<String> postList){
         this.postList = postList;
         this.context = context;
@@ -45,9 +55,18 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     @Override
     public FavoriteAdapter.FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.house_list_item_favorite, parent, false);
 
-        View view = inflater.inflate(R.layout.house_list_item_favorite, parent, false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = mRecyclerView.getChildLayoutPosition(v);
+                String postID = postList.get(itemPosition);
+                Intent myIntent = new Intent(context, SingleHousePostActivity.class);
+                myIntent.putExtra("postID",postID);
+                context.startActivity(myIntent);
+            }
+        });
 
         return new FavoriteAdapter.FavoriteViewHolder(view);
     }

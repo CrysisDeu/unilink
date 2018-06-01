@@ -34,7 +34,7 @@ public class MyFavoriteFragment extends Fragment {
 
         setupButton(layout);
 
-        setupFirebase(layout);
+        loadData(layout);
 
         return layout;
     }
@@ -53,7 +53,7 @@ public class MyFavoriteFragment extends Fragment {
         });
     }
 
-    private void setupFirebase(View layout) {
+    private void loadData(View layout) {
 
         houseListView = (RecyclerView) layout.findViewById(R.id.my_favorite_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -64,7 +64,7 @@ public class MyFavoriteFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
         DatabaseReference favoriteReference = mDatabase.child("Users").child(uid).child("favorite_houses");
-        favoriteReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        favoriteReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 postList = new ArrayList<>();
