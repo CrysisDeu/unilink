@@ -247,29 +247,63 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void setupFeatures() {
+        String temp;
+
+        if(house.getAc().equals("1"))
+            temp = "Equipped";
+        else
+            temp = "No Data";
         TextView acTextView = (TextView)findViewById(R.id.house_ac);
-        acTextView.setText(house.getAc());
+        acTextView.setText(temp);
 
+        if(house.getTv().equals("1"))
+            temp = "Equipped";
+        else
+            temp = "No Data";
         TextView tvTextView = (TextView)findViewById(R.id.house_tv);
-        tvTextView.setText(house.getTv());
+        tvTextView.setText(temp);
 
+        if(house.getParking().equals("1"))
+            temp = "Reserved Parking";
+        else
+            temp = "Street Parking";
         TextView parkingTextView = (TextView)findViewById(R.id.house_parking);
-        parkingTextView.setText(house.getParking());
+        parkingTextView.setText(temp);
 
+        if(house.getBus().equals("1"))
+            temp = "Close to Bus Station";
+        else
+            temp = "Far from Bus Station";
         TextView busTextView = (TextView)findViewById(R.id.house_bus);
-        busTextView.setText(house.getBus());
+        busTextView.setText(temp);
 
+        if(house.getGym().equals("1"))
+            temp = "Equipped";
+        else
+            temp = "No Data";
         TextView gymTextView = (TextView)findViewById(R.id.house_gym);
-        gymTextView.setText(house.getGym());
+        gymTextView.setText(temp);
 
+        if(house.getVideoGame().equals("1"))
+            temp = "Equipped";
+        else
+            temp = "No Data";
         TextView gameTextView = (TextView)findViewById(R.id.house_game);
-        gameTextView.setText(house.getVideoGame());
+        gameTextView.setText(temp);
 
+        if(house.getPet().equals("1"))
+            temp = "Allowed";
+        else
+            temp = "Not Allowed";
         TextView petTextView = (TextView)findViewById(R.id.house_pet);
-        petTextView.setText(house.getPet());
+        petTextView.setText(temp);
 
+        if(house.getLaundry().equals("1"))
+            temp = "Built-in Laundry";
+        else
+            temp = "Public Laundry";
         TextView laundryTextView = (TextView)findViewById(R.id.house_laundry);
-        laundryTextView.setText(house.getLaundry());
+        laundryTextView.setText(temp);
     }
 
     @Override
