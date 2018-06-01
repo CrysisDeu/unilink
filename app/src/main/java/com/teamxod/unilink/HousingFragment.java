@@ -78,7 +78,7 @@ public class HousingFragment extends Fragment {
                 }
 
                 if(!posts.isEmpty()){
-                    HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+                    HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts, listView);
                     listView.setAdapter(adapter);
                 }
             }

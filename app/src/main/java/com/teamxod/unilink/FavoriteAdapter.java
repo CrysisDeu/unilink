@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,10 +31,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private DatabaseReference housePostReference;
 
-    RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView;
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
 
         mRecyclerView = recyclerView;
@@ -72,10 +72,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final FavoriteAdapter.FavoriteViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FavoriteAdapter.FavoriteViewHolder holder, final int position) {
 
         String postID = postList.get(position);
-        Log.i("debug", postID);
         housePostReference.child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -89,6 +88,18 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                 holder.titleTextView.setText(house.getTitle());
                 holder.priceTextView.setText(price);
                 holder.addressTextView.setText(house.getLocation());
+                holder.favorite_btn.setChecked(true);
+                holder.favorite_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String postID = postList.get(position);
+                        if(!holder.favorite_btn.isChecked()) {
+                            postList.remove(postID);
+                            favoriteReference.setValue(postList);
+                            notifyDataSetChanged();
+                        }
+                    }
+                });
             }
 
             @Override
@@ -104,6 +115,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     }
 
     class FavoriteViewHolder extends RecyclerView.ViewHolder {
+        ToggleButton favorite_btn;
         ImageView housePictureView;
         TextView titleTextView;
         TextView priceTextView;
@@ -111,6 +123,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
         FavoriteViewHolder (View itemView) {
             super(itemView);
+            favorite_btn = (ToggleButton) itemView.findViewById((R.id.favorite_btn));
             titleTextView = (TextView) itemView.findViewById(R.id.post_title);
             priceTextView = (TextView) itemView.findViewById(R.id.post_price);
             addressTextView = (TextView) itemView.findViewById(R.id.post_address);
