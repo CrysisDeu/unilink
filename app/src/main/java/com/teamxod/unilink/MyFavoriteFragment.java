@@ -2,6 +2,7 @@ package com.teamxod.unilink;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,11 +23,11 @@ public class MyFavoriteFragment extends Fragment {
 
     private DatabaseReference mDatabase;
 
-    ArrayList<String> postList;
+    private ArrayList<String> postList;
 
-    FavoriteAdapter favoriteListAdapter;
+    private FavoriteAdapter favoriteListAdapter;
 
-    RecyclerView houseListView;
+    private RecyclerView houseListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MyFavoriteFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         houseListView.setLayoutManager(layoutManager);
         houseListView.setHasFixedSize(true);
+        houseListView.addItemDecoration(new DividerItemDecoration(houseListView.getContext(), DividerItemDecoration.VERTICAL));
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();

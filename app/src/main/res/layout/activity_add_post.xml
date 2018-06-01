@@ -207,7 +207,7 @@
                 android:textStyle="bold"
                 style="@style/edit_text"/>
 
-            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+            <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/house_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                 android:textSize="@dimen/m_font_size"
                 android:textStyle="bold" />
 
-            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+            <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/bedroom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -316,7 +316,7 @@
                 android:textSize="@dimen/m_font_size"
                 android:textStyle="bold" />
 
-            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+            <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/bathroom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -378,7 +378,7 @@
                 android:textSize="@dimen/m_font_size"
                 android:textStyle="bold" />
 
-            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+            <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/lease_length"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

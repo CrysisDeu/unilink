@@ -43,7 +43,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     /**
      * Get the last 50 chat messages.
      */
-    protected static final Query sChatQuery =
+    static final Query sChatQuery =
             FirebaseDatabase.getInstance().getReference().child("chats").limitToLast(50);
 
     @BindView(R.id.messagesList)
@@ -118,7 +118,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         mMessageEdit.setText("");
     }
 
-    protected RecyclerView.Adapter newAdapter() {
+    RecyclerView.Adapter newAdapter() {
         FirebaseRecyclerOptions<Chat> options =
                 new FirebaseRecyclerOptions.Builder<Chat>()
                         .setQuery(sChatQuery, Chat.class)
@@ -145,7 +145,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         };
     }
 
-    protected void onAddMessage(Chat chat) {
+    void onAddMessage(Chat chat) {
         sChatQuery.getRef().push().setValue(chat, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError error, DatabaseReference reference) {

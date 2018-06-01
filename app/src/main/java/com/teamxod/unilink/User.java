@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class User {
+class User {
     private String name;
     private String picture;
     private String gender;

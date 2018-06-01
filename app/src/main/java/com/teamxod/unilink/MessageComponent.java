@@ -1,6 +1,6 @@
 package com.teamxod.unilink;
 
-public class MessageComponent {
+class MessageComponent {
     private String userPhoto;
     private String name;
     private String text;

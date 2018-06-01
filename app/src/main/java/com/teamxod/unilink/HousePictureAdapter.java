@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class HousePictureAdapter extends PagerAdapter {
+class HousePictureAdapter extends PagerAdapter {
 
     private Context context;
     private ArrayList<String> images;

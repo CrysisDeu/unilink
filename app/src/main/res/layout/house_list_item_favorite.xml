@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="96dp"
-    android:orientation="vertical">
 
-    <LinearLayout
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="64dp"
         android:layout_margin="@dimen/large_margin"
         android:orientation="horizontal">
 
@@ -38,16 +34,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
                 android:textColor="@color/black"
-                android:textSize="10sp"
-                tools:text="$ 1199/Mo Annual Lease" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/post_address"
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
                 android:textColor="@color/black"
-                android:textSize="10sp"
-                tools:text="Costa Verde, San Diego" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
@@ -66,10 +60,5 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
 
-</LinearLayout>
 

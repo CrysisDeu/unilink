@@ -3,18 +3,13 @@ package com.teamxod.unilink;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -30,26 +25,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-  public class HousePostAdapter extends BaseAdapter implements OnScrollListener {
+  class HousePostAdapter extends BaseAdapter implements OnScrollListener {
 
 
       private ArrayList<HousePost> mList;
-      private ImageLoader imageLoader;
-      private ListView mListView;
       private LayoutInflater mInflater;
       private Context mContext;
 
-      private int mStart;
-      private int mEnd;
-      private boolean isFirstIn;
 
-
-
-      HousePostAdapter(Context context, List<HousePost> objects, ListView listView){
+      HousePostAdapter(Context context, List<HousePost> objects){
           mList = (ArrayList<HousePost>) objects;
           mInflater  = LayoutInflater.from(context);
-          mListView = listView;
-          isFirstIn = true;
           mContext = context;
       }
 
