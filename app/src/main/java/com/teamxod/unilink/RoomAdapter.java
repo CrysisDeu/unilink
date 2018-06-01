@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder>{
     private ArrayList<Room> rooms;
 
-    Context context;
+    private Context context;
 
     RoomAdapter(Context context, ArrayList<Room> rooms){
         this.rooms = rooms;
@@ -33,7 +33,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RoomAdapter.RoomViewHolder holder, int position) {
-        //User user = (User) getItemId(position);
 
         Room room = rooms.get(position);
 

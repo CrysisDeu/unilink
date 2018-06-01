@@ -97,11 +97,6 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
     private String _laundry;
     private String _pet;
 
-    //TODO delete these
-    private List<String> pictures;
-    private List<Room> rooms;
-
-
     //  ------------- UI fields ---------------- //
 
     // gridview and things inside
@@ -413,9 +408,6 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
                 _laundry = isChecked(laundry);
                 _bus = isChecked(bus);
 
-//                ArrayList<String> pictureStringList = new ArrayList<>();
-//                for (Uri uri : pictureList)
-//                    pictureStringList.add(uri.toString());
                 uploadToFirebase(pictureList);
                 Intent mainIntent = new Intent(AddPost.this, MainActivity.class);
                 startActivity(mainIntent);
@@ -623,21 +615,6 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
         post.setValue(house);
     }
 
-
-
-    // TODO DELETE
-    static class TempHouse {
-        public String poster;
-        public boolean gym;
-        public List<String> pictures;
-
-        public TempHouse(String p, boolean g, List<String> pictures) {
-            this.poster = new String(p);
-            this.gym = g;
-            this.pictures = pictures;
-        }
-    }
-
     private void uploadToFirebase(ArrayList<Uri> uriList) {
         post = mDatabase.child("House_post").push();
         writeNewPost(new House(_posterId, _houseType, _title, _location,
@@ -662,14 +639,7 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
                             finalImage_ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-//                                    pictureStringList.add(uri.toString());
-//                                    Log.d("Addpost",uri.toString());
                                     post.child("pictures").child(String.valueOf(finalI)).setValue(uri.toString());
-                                /*picture = uri;
-                                Glide.with(AddPost.this)
-                                        .load(picture)
-                                        .apply(RequestOptions.circleCropTransform())
-                                        .into(mProfilePic);*/
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override

@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,15 +34,13 @@ import java.util.Comparator;
 
 public class HousingFragment extends Fragment {
 
-    ListView listView;
-    LinearLayout searchBar;
-    Spinner spinner;
-    FloatingActionButton addPost;
-    View header;
-    int touchSlop = 5;
-    final ArrayList<HousePost> posts = new ArrayList<>();
-
-    private DatabaseReference HouseDatabase;
+    private ListView listView;
+    private LinearLayout searchBar;
+    private Spinner spinner;
+    private FloatingActionButton addPost;
+    private View header;
+    private int touchSlop = 5;
+    private final ArrayList<HousePost> posts = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class HousingFragment extends Fragment {
         addPost = layout.findViewById(R.id.add_post_btn);
 
         //firebase
-        HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
+        DatabaseReference HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
         HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,7 +75,7 @@ public class HousingFragment extends Fragment {
                 }
 
                 if(!posts.isEmpty()){
-                    HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+                    HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts);
                     listView.setAdapter(adapter);
                 }
             }
@@ -162,7 +159,7 @@ public class HousingFragment extends Fragment {
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SingleHousePostActivity.class);
 
-                myIntent.putExtra("uid",posts.get(position-1).getRoom_key());
+                myIntent.putExtra("postID",posts.get(position-1).getRoom_key());
                 startActivity(myIntent);
 
             }
@@ -190,7 +187,7 @@ public class HousingFragment extends Fragment {
             Collections.reverse(posts);
         }
 
-        HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+        HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts);
         listView.setAdapter(adapter);
     }
     /*
@@ -211,7 +208,7 @@ public class HousingFragment extends Fragment {
 
 
     //set the back animator
-    AnimatorSet backAnimatorSet;
+    private AnimatorSet backAnimatorSet;
 
     private void animateBack() {
         //eliminate other animator
@@ -241,7 +238,7 @@ public class HousingFragment extends Fragment {
 
 
     //aniamtor to hide element
-    AnimatorSet hideAnimatorSet;
+    private AnimatorSet hideAnimatorSet;
 
     private void animateHide() {
         //eliminate other animators
@@ -268,7 +265,7 @@ public class HousingFragment extends Fragment {
 
 
     //set up onTouchListener
-    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
 
         float lastY = 0f;

@@ -85,7 +85,7 @@
                 android:layout_width="32dp"
                 android:layout_gravity="right"
                 android:layout_marginBottom="-24dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+                android:src="@drawable/ic_close_black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                 android:layout_width="32dp"
                 android:layout_gravity="right"
                 android:layout_marginBottom="-24dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+                android:src="@drawable/ic_close_black"/>
 
             <TextView
                 android:layout_width="wrap_content"

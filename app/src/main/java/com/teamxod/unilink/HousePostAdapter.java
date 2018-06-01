@@ -3,55 +3,41 @@ package com.teamxod.unilink;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-  public class HousePostAdapter extends BaseAdapter implements OnScrollListener {
+class HousePostAdapter extends BaseAdapter implements OnScrollListener {
 
 
       private ArrayList<HousePost> mList;
-      private ImageLoader imageLoader;
-      private ListView mListView;
       private LayoutInflater mInflater;
       private Context mContext;
 
-      private int mStart;
-      private int mEnd;
-      private boolean isFirstIn;
 
-
-
-      HousePostAdapter(Context context, List<HousePost> objects, ListView listView){
+      HousePostAdapter(Context context, List<HousePost> objects){
           mList = (ArrayList<HousePost>) objects;
-          mInflater=LayoutInflater.from(context);
-          mListView = listView;
-          isFirstIn = true;
+          mInflater  = LayoutInflater.from(context);
           mContext = context;
-
-          /*imageLoader = new ImageLoader(mListView);
-          imageLoader.mUrls = new String[mList.size()];
-          for(int i=0;i<mList.size();i++){
-              imageLoader.mUrls[i] = mList.get(i).getImageResourceId();
-          }
-          mListView.setOnScrollListener(this);*/
       }
 
 
@@ -73,21 +59,16 @@ import java.util.List;
       @Override
       public View getView(final int position, @Nullable View view, @NonNull ViewGroup parent) {
 
+          final ViewHolder viewHolder = new ViewHolder();
+          view = mInflater.inflate(R.layout.house_list_item,null);
+          viewHolder.vhImage = (ImageView) view.findViewById(R.id.house_list_image);
+          viewHolder.vhType = (TextView) view.findViewById(R.id.room_type);
+          viewHolder.vhTitle = (TextView) view.findViewById(R.id.room_title);
+          viewHolder.vhLocation = (TextView) view.findViewById(R.id.location);
+          viewHolder.vhPrice = (TextView) view.findViewById(R.id.price);
+          viewHolder.vhFavorate = (ToggleButton)view.findViewById(R.id.favorite_btn);
+          view.setTag(viewHolder);
 
-          ViewHolder viewHolder = null;
-          if (view == null) {
-              viewHolder = new ViewHolder();
-              view = mInflater.inflate(R.layout.house_list_item,null);
-              viewHolder.vhImage = (ImageView) view.findViewById(R.id.house_list_image);
-              viewHolder.vhType = (TextView) view.findViewById(R.id.room_type);
-              viewHolder.vhTitle = (TextView) view.findViewById(R.id.room_title);
-              viewHolder.vhLocation = (TextView) view.findViewById(R.id.location);
-              viewHolder.vhPrice = (TextView) view.findViewById(R.id.price);
-              viewHolder.vhFavorate = (ToggleButton)view.findViewById(R.id.favorite_btn);
-              view.setTag(viewHolder);
-          } else {
-              viewHolder = (ViewHolder) view.getTag();
-          }
 
           HousePost post = (HousePost)getItem(position);
 
@@ -102,30 +83,53 @@ import java.util.List;
               viewHolder.vhImage.setImageDrawable(null);
           }
 
-
-
-         // viewHolder.vhImage.setTag(mList.get(position).getImageResourceId());
-         // viewHolder.vhImage.setImageResource(R.drawable.my_bg);
-
-          //imageLoader.showImageByAsyncTask(viewHolder.vhImage,mList.get(position).getImageResourceId());
-          //Log.d("checkTag","**************");
-          //imageLoader.showImage(viewHolder.vhImage, mList.get(position).getImageResourceId());
-
-
+          String temp = "$" + mList.get(position).getRoom_price()+"/Mo  " + mList.get(position).getTerm();
           viewHolder.vhType.setText(mList.get(position).getRoom_type());
           viewHolder.vhTitle.setText(mList.get(position).getRoom_title());
-          viewHolder.vhPrice.setText("$"+mList.get(position).getRoom_price()+"/MO  "+mList.get(position).getTerm());
+          viewHolder.vhPrice.setText(temp);
           viewHolder.vhLocation.setText(mList.get(position).getRoom_location());
-          viewHolder.vhFavorate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+          String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+          final DatabaseReference favoriteReference =
+                  FirebaseDatabase.getInstance().getReference()
+                  .child("Users")
+                  .child(uid)
+                  .child("favorite_houses");
+          final String key = mList.get(position).getRoom_key();
+          final ArrayList<String> favoriteList = new ArrayList<>();
+          favoriteReference.addValueEventListener(new ValueEventListener() {
               @Override
-              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                  //add to favorite
-                  HousePost post = (HousePost)getItem(position);
-                  post.setFavorite(isChecked);
+              public void onDataChange(DataSnapshot dataSnapshot) {
+                  favoriteList.clear();
+                  viewHolder.vhFavorate.setChecked(false);
+                  for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                      String item = snapshot.getValue(String.class);
+                      favoriteList.add(item);
+                      if(key.equals(item)){
+                          viewHolder.vhFavorate.setChecked(true);
+                      }
+                  }
+              }
+
+              @Override
+              public void onCancelled(DatabaseError databaseError) {
+                  System.out.println("The read failed: " + databaseError.getCode());
               }
           });
 
-          viewHolder.vhFavorate.setChecked(post.isFavorite());
+          viewHolder.vhFavorate.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  if(!viewHolder.vhFavorate.isChecked()) {
+                      favoriteList.remove(key);
+                      favoriteReference.setValue(favoriteList);
+                  } else {
+                      favoriteList.add(key);
+                      favoriteReference.setValue(favoriteList);
+                  }
+              }
+          });
+
           return view;
 
       }

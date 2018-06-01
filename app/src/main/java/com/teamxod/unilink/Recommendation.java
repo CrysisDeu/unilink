@@ -14,7 +14,7 @@ import java.math.*;
 /**
  * This class provides an algorithm to calculate the similarity between two given users.
  */
-public class Recommendation {
+class Recommendation {
 
     private final int paramNumber = 12;
     private final DatabaseReference mDatabase;

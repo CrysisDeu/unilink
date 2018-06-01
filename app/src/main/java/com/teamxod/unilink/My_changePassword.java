@@ -42,12 +42,6 @@ public class My_changePassword extends AppCompatActivity {
 
 
     @Override
-    protected void onUserLeaveHint() {
-        super.onUserLeaveHint();
-    }
-
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_change_password);

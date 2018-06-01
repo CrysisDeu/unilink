@@ -1,7 +1,7 @@
 package com.teamxod.unilink;
 
 
-public class RoommateSimple {
+class RoommateSimple {
     private String rName;
 
     private String rPicture;
