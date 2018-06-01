@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".My_changePassword">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#eee"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="#6d48e5"
-            android:orientation="horizontal">
+            android:background="#6d48e5">
 
             <ImageView
                 android:id="@+id/back_button"
                 android:layout_height="@dimen/middle_icon_side"
                 android:layout_width="@dimen/middle_icon_side"
-                android:layout_gravity="center_vertical|start"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/small_margin"
                 android:tint="#ffffff"
                 app:srcCompat="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="My Post"
                 android:textColor="#fff"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-        </LinearLayout>
+            <ToggleButton
+                android:id="@+id/favorite_btn"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_edit_btn"
+                android:clickable="true"
+                android:focusable="true"
+                android:text=""
+                android:textOff=""
+                android:textOn="" />
 
-        <ListView
-            android:id="@+id/my_favorite_list"
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_post_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </ListView>
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

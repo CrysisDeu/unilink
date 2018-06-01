@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_margin="@dimen/large_margin"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="0"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/ic_remove" />
+
+    <ImageView
+        android:id="@+id/post_image"
+        android:layout_width="88dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/post_title"
+            android:textSize="@dimen/m_font_size"
+            android:textColor="@color/black"
+            android:layout_height="36dp"
+            android:layout_width="match_parent"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/post_price"
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/post_address"
+            android:layout_width="match_parent"
+            android:layout_height="14dp"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

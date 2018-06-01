@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -21,13 +22,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
-
+public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostViewHolder> {
     private ArrayList<String> postList;
 
     private Context context;
 
-    private DatabaseReference favoriteReference;
+    private DatabaseReference myPostReference;
 
     private DatabaseReference housePostReference;
 
@@ -40,22 +40,22 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         mRecyclerView = recyclerView;
     }
 
-    FavoriteAdapter(Context context, ArrayList<String> postList){
+    MyPostAdapter(Context context, ArrayList<String> postList){
         this.postList = postList;
         this.context = context;
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        favoriteReference = database.child("Users").child(uid).child("favorite_houses");
+        myPostReference = database.child("Users").child(uid).child("my_house_posts");
         housePostReference = database.child("House_post");
     }
 
     @NonNull
     @Override
-    public FavoriteAdapter.FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyPostAdapter.MyPostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.house_list_item_favorite, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.house_list_item_mypost, parent, false);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,11 +68,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             }
         });
 
-        return new FavoriteAdapter.FavoriteViewHolder(view);
+        return new MyPostAdapter.MyPostViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final FavoriteViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyPostViewHolder holder, final int position) {
 
         String postID = postList.get(position);
         housePostReference.child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,16 +88,11 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                 holder.titleTextView.setText(house.getTitle());
                 holder.priceTextView.setText(price);
                 holder.addressTextView.setText(house.getLocation());
-                holder.favorite_btn.setChecked(true);
-                holder.favorite_btn.setOnClickListener(new View.OnClickListener() {
+                holder.delete_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String postID = postList.get(holder.getAdapterPosition());
-                        if(!holder.favorite_btn.isChecked()) {
-                            postList.remove(postID);
-                            favoriteReference.setValue(postList);
-                            notifyDataSetChanged();
-                        }
+                        //TODO
                     }
                 });
             }
@@ -114,16 +109,16 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         return postList.size();
     }
 
-    class FavoriteViewHolder extends RecyclerView.ViewHolder {
-        ToggleButton favorite_btn;
+    class MyPostViewHolder extends RecyclerView.ViewHolder {
+        Button delete_btn;
         ImageView housePictureView;
         TextView titleTextView;
         TextView priceTextView;
         TextView addressTextView;
 
-        FavoriteViewHolder (View itemView) {
+        MyPostViewHolder (View itemView) {
             super(itemView);
-            favorite_btn = (ToggleButton) itemView.findViewById((R.id.favorite_btn));
+            delete_btn = (ToggleButton) itemView.findViewById((R.id.delete_btn));
             titleTextView = (TextView) itemView.findViewById(R.id.post_title);
             priceTextView = (TextView) itemView.findViewById(R.id.post_price);
             addressTextView = (TextView) itemView.findViewById(R.id.post_address);

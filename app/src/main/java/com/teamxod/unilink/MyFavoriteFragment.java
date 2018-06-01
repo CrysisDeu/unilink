@@ -1,5 +1,6 @@
 package com.teamxod.unilink;
 
+import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -41,7 +42,7 @@ public class MyFavoriteFragment extends Fragment {
     }
 
     private void setupButton(View layout) {
-        ImageView mBackButton = layout.findViewById(R.id.back_button);
+        ImageView mBackButton = (ImageView) layout.findViewById(R.id.back_button);
         mBackButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

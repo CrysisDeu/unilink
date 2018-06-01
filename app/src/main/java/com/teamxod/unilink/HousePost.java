@@ -14,8 +14,6 @@ class HousePost {
 
     private String imageResourceId;
 
-    private boolean isFavorite;
-
     private String term;
 
 
@@ -23,7 +21,7 @@ class HousePost {
 
 
     public HousePost(String key,String p_room_type, String p_room_title, int p_room_price,String lease,
-                String p_room_location, String p_imageResourceId, boolean favorite)
+                String p_room_location, String p_imageResourceId)
     {
         room_key = key;
         room_type = p_room_type;
@@ -32,8 +30,6 @@ class HousePost {
         term = lease;
         room_location = p_room_location;
         imageResourceId = p_imageResourceId;
-        isFavorite = favorite;
-
     }
 
 
@@ -57,7 +53,6 @@ class HousePost {
     public String getImageResourceId() {
         return imageResourceId;
     }
-
 
     public String getTerm() {
         return term;

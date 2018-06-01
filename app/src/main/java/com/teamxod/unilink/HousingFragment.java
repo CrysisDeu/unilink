@@ -69,8 +69,7 @@ public class HousingFragment extends Fragment {
                     String term = house.child("leasingLength").getValue(String.class);
                     int price = (int)house.child("rooms").child("0").child("price").getValue(Integer.class);
                     String imageId = house.child("pictures").child("0").getValue(String.class);
-                    boolean favorite = true;
-                    HousePost post = new HousePost(key,type,title,price,term,location,imageId,favorite);
+                    HousePost post = new HousePost(key,type,title,price,term,location,imageId);
                     posts.add(post);
                 }
 
@@ -92,10 +91,6 @@ public class HousingFragment extends Fragment {
                 startActivity(myIntent);
             }
         });
-
-       // Log.d("array size", "outside: "+posts.size());
-
-        // listView.setOnScrollListener(adapter);
 
         spinner = (Spinner)layout.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -229,7 +224,6 @@ public class HousingFragment extends Fragment {
             animators.add(headerAnimator);
             animators.add(addPostAnimator);
 
-
             backAnimatorSet.setDuration(400);
             backAnimatorSet.playTogether(animators);
             backAnimatorSet.start();
@@ -237,7 +231,7 @@ public class HousingFragment extends Fragment {
     }
 
 
-    //aniamtor to hide element
+    //animator to hide element
     private AnimatorSet hideAnimatorSet;
 
     private void animateHide() {
@@ -261,8 +255,6 @@ public class HousingFragment extends Fragment {
             hideAnimatorSet.start();
         }
     }
-
-
 
     //set up onTouchListener
     private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
