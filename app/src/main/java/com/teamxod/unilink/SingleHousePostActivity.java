@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +39,11 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
 
     House house;
     User poster;
+    String postID;
+    boolean isFavourite;
+    String favouriteKey;
     ArrayList<User> roommateList;
+    ArrayList<String> favoriteList;
 
     ViewPager housePicture;
     RecyclerView roommateListView;
@@ -52,26 +58,71 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     GoogleMap houseMap;
     MapFragment mapFragment;
 
+    DatabaseReference database;
+    DatabaseReference favoriteReference;
+
+    ToggleButton favorite_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.house_post);
 
-        loadHouseData();
+        loadData();
     }
 
-    private void loadHouseData(){
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(favorite_btn.isChecked() && !isFavourite){
+            favoriteList.add(postID);
+            favoriteReference.setValue(favoriteList);
+        } else if((!favorite_btn.isChecked()) && isFavourite){
+            favoriteList.remove(postID);
+            favoriteReference.setValue(favoriteList);
+        }
+    }
+
+    private void loadData(){
         Bundle bundle = getIntent().getExtras();
-        String uid = bundle.getString("uid");
+        postID = bundle.getString("postID");
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference postReference = database.child("House_post").child(uid);
+        database = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        favoriteReference = database.child("Users").child(uid).child("favorite_houses");
+        favoriteReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                isFavourite = false;
+                favouriteKey = "";
+                favoriteList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String item = snapshot.getValue(String.class);
+                    favoriteList.add(item);
+                    if(postID.equals(item)){
+                        isFavourite = true;
+                        favouriteKey = snapshot.getKey();
+                    }
+                }
+                loadHouseData();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void loadHouseData() {
+        DatabaseReference postReference = database.child("House_post").child(postID);
         postReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 house = dataSnapshot.getValue(House.class);
                 loadPosterData();
+                setupButton(isFavourite);
             }
 
             @Override
@@ -99,7 +150,6 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void updateUI() {
-        setupButton();
 
         setupBasicData();
 
@@ -186,7 +236,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         mapFragment.getMapAsync(this);
     }
 
-    private void setupButton() {
+    private void setupButton(boolean isChecked) {
         Button backBtn = (Button)findViewById(R.id.house_button_back);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,13 +245,8 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-        Button moreBtn = (Button)findViewById(R.id.house_button_favorite);
-        moreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        favorite_btn = (ToggleButton)findViewById(R.id.house_button_favorite);
+        favorite_btn.setChecked(isChecked);
     }
 
     private void setupFeatures() {

@@ -75,8 +75,6 @@ public class MyFavoriteFragment extends Fragment {
                         addHouse(postID.getValue(String.class));
                         favoriteListAdapter.notifyDataSetChanged();
                     }
-                        //HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts, listView);
-                        //listView.setAdapter(adapter);
                 }
 
                 @Override
