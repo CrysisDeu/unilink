@@ -33,6 +33,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
     private RecyclerView mRecyclerView;
 
+    private boolean isChecked;
+
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -40,12 +42,12 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
         mRecyclerView = recyclerView;
     }
 
-    MyPostAdapter(Context context, ArrayList<String> postList){
+    MyPostAdapter(Context context, ArrayList<String> postList, boolean isChecked){
         this.postList = postList;
         this.context = context;
+        this.isChecked = isChecked;
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         myPostReference = database.child("Users").child(uid).child("my_house_posts");
         housePostReference = database.child("House_post");
@@ -84,17 +86,21 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
                 Glide.with(context)
                         .load(house.getPictures().get(0))
                         .into(holder.housePictureView);
-
                 holder.titleTextView.setText(house.getTitle());
                 holder.priceTextView.setText(price);
                 holder.addressTextView.setText(house.getLocation());
-                holder.delete_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String postID = postList.get(holder.getAdapterPosition());
-                        //TODO
-                    }
-                });
+                if(isChecked){
+                    holder.delete_btn.setVisibility(View.VISIBLE);
+                    holder.delete_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String postID = postList.get(holder.getAdapterPosition());
+                            //TODO
+                        }
+                    });
+                } else {
+                    holder.delete_btn.setVisibility(View.GONE);
+                }
             }
 
             @Override
