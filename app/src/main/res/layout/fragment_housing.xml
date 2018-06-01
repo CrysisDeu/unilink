@@ -31,13 +31,14 @@
         android:gravity="center"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
-        android:clickable="true"
         android:focusable="false">
 
         <SearchView
+            android:id="@+id/search_bar"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:clickable="true" />
 
         <ImageView
             android:layout_width="2dp"
