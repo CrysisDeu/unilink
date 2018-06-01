@@ -1,5 +1,6 @@
 package com.teamxod.unilink;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,6 +46,12 @@ public class RealtimeDbChatActivity extends AppCompatActivity
      */
     static final Query sChatQuery =
             FirebaseDatabase.getInstance().getReference().child("chats").limitToLast(50);
+    static final DatabaseReference messages= FirebaseDatabase.getInstance().getReference().child("messages");
+
+    private String other_id;
+    private String other_name;
+    private String uid;
+    private String name;
 
     @BindView(R.id.messagesList)
     RecyclerView mRecyclerView;
@@ -66,6 +73,13 @@ public class RealtimeDbChatActivity extends AppCompatActivity
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Intent intent = getIntent();
+        other_id = intent.getStringExtra("user_id");
+        other_name = intent.getStringExtra("user_name");
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
 
         ImeHelper.setImeOnDoneListener(mMessageEdit, new ImeHelper.DonePressedListener() {
             @Override
@@ -109,8 +123,6 @@ public class RealtimeDbChatActivity extends AppCompatActivity
 
     @OnClick(R.id.sendButton)
     public void onSendClick() {
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String name = "User " + uid.substring(0, 6);
         long tsLong = System.currentTimeMillis()/1000;
 
         onAddMessage(new Chat(name, mMessageEdit.getText().toString(), uid, tsLong));
@@ -146,7 +158,9 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     }
 
     void onAddMessage(Chat chat) {
-        sChatQuery.getRef().push().setValue(chat, new DatabaseReference.CompletionListener() {
+        DatabaseReference self;//TODO
+        self = messages.child(uid).child(other_id).push();
+        self.setValue(chat, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError error, DatabaseReference reference) {
                 if (error != null) {
@@ -154,6 +168,8 @@ public class RealtimeDbChatActivity extends AppCompatActivity
                 }
             }
         });
+
+
     }
 
     @Override

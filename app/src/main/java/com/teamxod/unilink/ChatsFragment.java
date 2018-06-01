@@ -108,7 +108,7 @@ public class ChatsFragment extends Fragment {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                        String data = dataSnapshot.child("message").getValue().toString();
+                        String data = dataSnapshot.child("mMessage").getValue().toString();
                         Log.d("onBindViewHolder", data);
                         holder.setMessage(data);
 
