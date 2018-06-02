@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.math.*;
+import java.util.ArrayList;
 
 /**
  * This class provides an algorithm to calculate the similarity between two given users.
@@ -17,11 +18,14 @@ import java.math.*;
 class Recommendation {
 
     private final int paramNumber = 12;
+    private final double close = 0.2;   // decide if they are close for a parameter
     private final DatabaseReference mDatabase;
     private DatabaseReference user1Data;
     private DatabaseReference user2Data;
     private preference preference1;
     private preference preference2;
+    private ArrayList<String> tagList;
+
     /**
      * Arrays are used to store users' parameter.
      * The order is : Bring, Pet, Smoke, Drink, Party, sleepTime, cleanTime, surfing, hiking,
@@ -33,6 +37,7 @@ class Recommendation {
     public Recommendation(String user1, String user2){
         Array1 = new double[paramNumber];
         Array2 = new double[paramNumber];
+        tagList = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user1Data = mDatabase.child("Preference").child("user1");
         user2Data = mDatabase.child("Preference").child("user2");
@@ -103,6 +108,7 @@ class Recommendation {
      *  Proper lengths of individual component are dealed in getData()
      */
     public double calculate(){
+        getData();
         // final result
         double score = 0;
 
@@ -112,6 +118,7 @@ class Recommendation {
         double lengthTwo = 0;
 
         for(int i = 0; i < paramNumber; i++) {
+            // add to Tags
             innerProduct += Array1[i]*Array2[i];
             lengthOne += Math.pow(Array1[i], 2);
             lengthTwo += Math.pow(Array2[i],2);
@@ -129,5 +136,39 @@ class Recommendation {
         double base = Math.pow(180, 1/100);
         score = Math.log(score) / Math.log(base);
         return score;
+    }
+
+    // implemented to only be used once!
+    public ArrayList<String> getTagList() {
+        getData();
+        
+        if(Array1[1] == 1 && Array2[1] == 1) {
+            tagList.add("Love pets");
+        }
+        if(Array1[2] - Array2[2] < close) {
+            tagList.add("Close in smoking habits");
+        }
+        if(Array1[3] - Array2[3] < close){
+            tagList.add("Close in drinking habits");
+        }
+        if(Array1[5] - Array2[5] < close){
+            tagList.add("Close in Sleep time");
+        }
+        if(Array1[7] == 1 && Array2[7] == 1){
+            tagList.add("Love surfing");
+        }
+        if(Array1[8] - Array2[8] == 1){
+            tagList.add("Love hiking");
+        }
+        if(Array1[9] - Array2[9] == 1){
+            tagList.add("Love skiing");
+        }
+        if(Array1[10] - Array2[10] == 1){
+            tagList.add("Love gaming");
+        }
+        if(Array1[11] - Array2[11] == 1){
+            tagList.add("Same language");
+        }
+        return tagList;
     }
 }
