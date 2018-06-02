@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,7 +36,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingleHousePostActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class HousePostActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private House house;
     private User poster;
@@ -271,7 +270,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         contact_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent chatIntent = new Intent(SingleHousePostActivity.this, RealtimeDbChatActivity.class);
+                Intent chatIntent = new Intent(HousePostActivity.this, RealtimeDbChatActivity.class);
                 chatIntent.putExtra("user_id", house.getPosterId());
                 chatIntent.putExtra("user_name", poster.getName());
                 startActivity(chatIntent);

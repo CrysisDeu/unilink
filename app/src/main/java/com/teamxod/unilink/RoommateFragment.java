@@ -46,6 +46,18 @@ public class RoommateFragment extends Fragment {
 
         ArrayList<RoommateSimple> roommates = new ArrayList<>();
 
+        Button refreshButton = (Button)layout.findViewById(R.id.roommate_refresh);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new RoommateFragment())
+                        .commit();
+            }
+        });
+
 
         String [] pros = {"clean","quite","sleep early"};
         String [] cons = {"drink often","smoke"};
