@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class ChatHolder extends RecyclerView.ViewHolder {
-    private final TextView mNameField;
+    //private final TextView mNameField;
     private final TextView mTextField;
     private final FrameLayout mLeftArrow;
     private final FrameLayout mRightArrow;
@@ -27,7 +27,7 @@ public class ChatHolder extends RecyclerView.ViewHolder {
 
     public ChatHolder(View itemView) {
         super(itemView);
-        mNameField = itemView.findViewById(R.id.name_text);
+        //mNameField = itemView.findViewById(R.id.name_text);
         mTextField = itemView.findViewById(R.id.message_text);
         mLeftArrow = itemView.findViewById(R.id.left_arrow);
         mRightArrow = itemView.findViewById(R.id.right_arrow);
@@ -38,16 +38,16 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Chat chat) {
-        setName(chat.getmName());
+//        setName(chat.getmName());
         setText(chat.getmMessage());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         setIsSender(currentUser != null && chat.getmUid().equals(currentUser.getUid()));
     }
 
-    public void setName(String name) {
-        mNameField.setText(name);
-    }
+//    public void setName(String name) {
+//        mNameField.setText(name);
+//    }
 
     public void setText(String text) {
         mTextField.setText(text);
