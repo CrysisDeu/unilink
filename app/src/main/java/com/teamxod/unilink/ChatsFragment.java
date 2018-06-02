@@ -169,8 +169,6 @@ public class ChatsFragment extends Fragment {
 
                         holder.setName(userName);
                         holder.setUserImage(userThumb, getContext());
-
-
                         holder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
