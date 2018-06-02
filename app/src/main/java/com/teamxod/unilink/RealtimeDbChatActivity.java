@@ -139,6 +139,11 @@ public class RealtimeDbChatActivity extends AppCompatActivity
 
     @OnClick(R.id.sendButton)
     public void onSendClick() {
+        if (mMessageEdit.getText().toString().matches("")) {
+            Toast.makeText(this, "Please send a non-empty message!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         long tsLong = System.currentTimeMillis()/1000;
 
         onAddMessage(tsLong);
