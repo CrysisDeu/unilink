@@ -6,36 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
+    android:background="#FFFFFF"
     tools:context=".AddPost">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#6d48e5"
-        android:elevation="4dp">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back_button"
+            style="@style/back_button"
+            android:tint="#ffffff"
+            app:srcCompat="@drawable/ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="11dp"
-            android:fontFamily="@font/roboto"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="Add Post"
-            android:textColor="#FFFFFF"
-            android:textSize="@dimen/l_font_size"
+            android:textColor="#fff"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/back_btn"
-            android:layout_width="@dimen/small_icon_side"
-            android:layout_height="@dimen/small_icon_side"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/small_margin"
-            android:background="@drawable/ic_back"
-            android:backgroundTint="@color/white" />
-    </android.support.v7.widget.Toolbar>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,9 +49,8 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Photo"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/text_field"/>
 
             <GridLayout
                 android:id="@+id/gridlayout"
@@ -85,9 +79,9 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Post Title"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+
+                style="@style/text_field"/>
 
             <EditText
                 android:id="@+id/title"
@@ -97,32 +91,30 @@
                 android:layout_marginRight="16dp"
                 android:hint="Title of the post"
                 android:singleLine="true"
-                android:textSize="@dimen/m_font_size"
                 style="@style/edit_text"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
-                    android:paddingTop="@dimen/large_margin"
+                    android:layout_alignParentStart="true"
                     android:text="Rooms"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/m_font_size"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/text_field"/>
 
                 <Button
                     android:id="@+id/addroom_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
                     android:background="@drawable/round_button"
-                    android:gravity="center_horizontal|center"
                     android:text="Add room"
                     android:textAllCaps="false"
                     android:textColor="#fff" />
@@ -148,9 +140,8 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Street Address"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/text_field"/>
 
             <EditText
                 android:id="@+id/street"
@@ -160,7 +151,6 @@
                 android:layout_marginRight="16dp"
                 android:hint="Street and Number"
                 android:singleLine="true"
-                android:textSize="@dimen/m_font_size"
                 style="@style/edit_text"/>
 <!--
             <EditText
@@ -179,9 +169,8 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="City"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/text_field"/>
 
             <EditText
                 android:id="@+id/city"
@@ -191,7 +180,6 @@
                 android:layout_marginRight="16dp"
                 android:hint="City Name"
                 android:singleLine="true"
-                android:textSize="@dimen/m_font_size"
                 style="@style/edit_text"/>
 
             <!-- One Question -->
@@ -202,10 +190,8 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="House Type"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
                 android:textStyle="bold"
-                style="@style/edit_text"/>
+                style="@style/text_field"/>
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/house_type"
@@ -250,9 +236,8 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Number of Bedrooms"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/text_field" />
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/bedroom"
@@ -301,8 +286,7 @@
                     style="@style/RadioButton"
                     android:layout_width="72dp"
                     android:layout_height="wrap_content"
-                    android:text="4+"
-                    android:textStyle="bold" />
+                    android:text="4+" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
             <TextView
@@ -312,9 +296,7 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Number of Bathrooms"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                style="@style/text_field"/>
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/bathroom"
@@ -374,9 +356,8 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Lease Length"
-                android:textColor="@color/black"
-                android:textSize="@dimen/m_font_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/text_field"/>
 
             <info.hoang8f.android.segmented.SegmentedGroup
                 android:id="@+id/lease_length"
@@ -416,7 +397,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -424,9 +406,8 @@
                     android:layout_marginLeft="16dp"
                     android:paddingTop="@dimen/large_margin"
                     android:text="Leasing Start Date"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/m_font_size"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/text_field"/>
 
                 <EditText
                     android:id="@+id/start_date"
@@ -436,7 +417,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Start Date"
                     android:inputType="none"
-                    android:textSize="@dimen/m_font_size"
                     style="@style/edit_text"/>
 
             </RelativeLayout>
@@ -447,8 +427,8 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Facilities and Facts"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/text_field"/>
 
 
             <CheckedTextView
@@ -562,8 +542,8 @@
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
                 android:text="Description"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                style="@style/text_field"/>
 
             <EditText
                 android:id="@+id/description"
@@ -576,7 +556,6 @@
                 android:hint="More information about the place"
                 android:lines="1"
                 android:maxLines="8"
-                android:textSize="@dimen/m_font_size"
                 style="@style/edit_text"/>
 
             <Button

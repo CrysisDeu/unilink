@@ -30,8 +30,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -40,6 +43,7 @@ import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.listeners.IPickResult;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,7 +81,6 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
     private String _postId;
 
     private String _houseType;
-    private String _roomType;
     private String _bedroom_number;
     private String _bathroom_number;
 
@@ -159,7 +162,7 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
 
     // toolbar
     private Toolbar toolbar;
-    private Button backBtn;
+    private ImageView backBtn;
 
     // for validation
     private TextWatcher tw;
@@ -409,19 +412,16 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
                 _bus = isChecked(bus);
 
                 uploadToFirebase(pictureList);
-                Intent mainIntent = new Intent(AddPost.this, MainActivity.class);
-                startActivity(mainIntent);
-                // notify user submitted
-                Snackbar.make(findViewById(R.id.Coordinator), "Congrudulation, you successfully post your house! ", Snackbar.LENGTH_LONG).show();
+                finish();
             }
         });
 
         // toolbar setup
-        toolbar = findViewById(R.id.toolbar);
+        /*toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);*/
         // back button setup
-        backBtn = findViewById(R.id.back_btn);
+        backBtn = findViewById(R.id.back_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -617,10 +617,30 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
 
     private void uploadToFirebase(ArrayList<Uri> uriList) {
         post = mDatabase.child("House_post").push();
+        _postId = post.getKey();
         writeNewPost(new House(_posterId, _houseType, _title, _location,
                 _description, _startDate, _leaseLength,
                 new ArrayList<String>(0), roomList, _tv, _ac, _bus,
                 _parking, _videoGame, _gym, _laundry, _pet, _bedroom_number, _bathroom_number));
+
+        String uid = mAuth.getCurrentUser().getUid();
+        final DatabaseReference myPostReference = mDatabase.child("Users").child(uid).child("my_house_posts");
+
+        myPostReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> postList = new ArrayList<>();
+                for (DataSnapshot postID : dataSnapshot.getChildren()) {
+                    postList.add(postID.getValue(String.class));
+                }
+                postList.add(_postId);
+                myPostReference.setValue(postList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode()); }
+        });
 
         final StorageReference baseref = mStorageRef.child("House_Images").child(post.getKey());
         StorageReference image_ref;
