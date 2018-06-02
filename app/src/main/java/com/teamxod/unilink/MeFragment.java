@@ -137,7 +137,7 @@ public class MeFragment extends Fragment {
         changeProfile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(getActivity(), my_change_profile.class);
+                Intent i = new Intent(getActivity(), MyChangeProfileActivity.class);
                 startActivity(i);
             }
         });
@@ -157,7 +157,7 @@ public class MeFragment extends Fragment {
         preference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(),My_preference.class);
+                Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
                 startActivity(i);
         }
     });

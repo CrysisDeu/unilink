@@ -91,7 +91,8 @@ public class MyPostFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode()); }
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
         });
     }
 }

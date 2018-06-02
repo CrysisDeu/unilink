@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    tools:context=".my_change_profile">
+    tools:context=".MyChangeProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -103,21 +103,9 @@
 
     </RelativeLayout>
 
-
-
-
-
     <com.teamxod.unilink.TagViewGroup
-        android:id="@+id/proTag"
+        android:id="@+id/tag"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
-    <com.teamxod.unilink.TagViewGroup
-        android:id="@+id/conTag"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-
 
 </LinearLayout>

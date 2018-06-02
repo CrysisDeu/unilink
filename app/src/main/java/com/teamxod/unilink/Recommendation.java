@@ -46,7 +46,7 @@ class Recommendation {
     /** get data from the database and put them into corresponding slots of arrays.
         Data is from the answer of users' preference survey.
         Data will be processed with coefficient into arrays based on importance.*/
-    public void getData(){
+    private void getData(){
         user1Data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
