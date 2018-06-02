@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
+public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.FavoriteViewHolder> {
 
     private ArrayList<String> postList;
 
@@ -40,7 +40,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         mRecyclerView = recyclerView;
     }
 
-    FavoriteAdapter(Context context, ArrayList<String> postList){
+    MyFavoriteAdapter(Context context, ArrayList<String> postList){
         this.postList = postList;
         this.context = context;
 
@@ -53,7 +53,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     @NonNull
     @Override
-    public FavoriteAdapter.FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyFavoriteAdapter.FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.house_list_item_favorite, parent, false);
 
@@ -68,38 +68,44 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             }
         });
 
-        return new FavoriteAdapter.FavoriteViewHolder(view);
+        return new MyFavoriteAdapter.FavoriteViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final FavoriteViewHolder holder, final int position) {
 
-        String postID = postList.get(position);
+        final String postID = postList.get(position);
         housePostReference.child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                House house = dataSnapshot.getValue(House.class);
-                String price = "$ " + house.getRooms().get(0).getPrice() + "/Mo From " + house.getStartDate();
+                if(!dataSnapshot.exists()) {
+                    postList.remove(postID);
+                    notifyItemRemoved(position);
+                } else {
 
-                Glide.with(context)
+                    House house = dataSnapshot.getValue(House.class);
+                    String price = "$ " + house.getRooms().get(0).getPrice() + "/Mo From " + house.getStartDate();
+
+                    Glide.with(context)
                         .load(house.getPictures().get(0))
                         .into(holder.housePictureView);
 
-                holder.titleTextView.setText(house.getTitle());
-                holder.priceTextView.setText(price);
-                holder.addressTextView.setText(house.getLocation());
-                holder.favorite_btn.setChecked(true);
-                holder.favorite_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String postID = postList.get(holder.getAdapterPosition());
-                        if(!holder.favorite_btn.isChecked()) {
-                            postList.remove(postID);
-                            favoriteReference.setValue(postList);
-                            notifyDataSetChanged();
+                    holder.titleTextView.setText(house.getTitle());
+                    holder.priceTextView.setText(price);
+                    holder.addressTextView.setText(house.getLocation());
+                    holder.favorite_btn.setChecked(true);
+                    holder.favorite_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String postID = postList.get(holder.getAdapterPosition());
+                            if(!holder.favorite_btn.isChecked()) {
+                                postList.remove(postID);
+                                favoriteReference.setValue(postList);
+                                notifyDataSetChanged();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
             @Override

@@ -74,7 +74,7 @@
 
         <activity android:name=".RealtimeDbChatActivity" />
         <activity android:name=".RoommatePostActivity" />
-        <activity android:name=".EditPostActivity"></activity>
+        <activity android:name=".EditPostActivity"/>
     </application>
 
 </manifest>

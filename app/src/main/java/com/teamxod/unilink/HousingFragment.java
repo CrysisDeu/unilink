@@ -165,7 +165,6 @@ public class HousingFragment extends Fragment  {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), SingleHousePostActivity.class);
-
                 myIntent.putExtra("postID",posts.get(position-1).getRoom_key());
                 startActivity(myIntent);
 

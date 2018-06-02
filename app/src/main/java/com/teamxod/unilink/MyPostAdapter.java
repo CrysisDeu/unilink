@@ -1,8 +1,10 @@
 package com.teamxod.unilink;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,8 +113,26 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
                 holder.delete_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String postID = postList.get(holder.getAdapterPosition());
-                        //TODO
+                        final String postID = postList.get(holder.getAdapterPosition());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage("Are you sure you want to delete this post? The action cannot be reversed")
+                                .setTitle("Delete Post");
+                        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                housePostReference.child(postID).removeValue();
+                                postList.remove(postID);
+                                notifyItemRemoved(holder.getAdapterPosition());
+                                myPostReference.setValue(postList);
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                 });
             }

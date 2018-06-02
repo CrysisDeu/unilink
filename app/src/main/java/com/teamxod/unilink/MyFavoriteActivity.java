@@ -23,7 +23,7 @@ public class MyFavoriteActivity extends AppCompatActivity {
 
     private ArrayList<String> postList;
 
-    private FavoriteAdapter favoriteListAdapter;
+    private MyFavoriteAdapter favoriteListAdapter;
 
     private RecyclerView houseListView;
 
@@ -58,10 +58,11 @@ public class MyFavoriteActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 postList = new ArrayList<>();
-                for (DataSnapshot postID : dataSnapshot.getChildren()) {
-                    postList.add(postID.getValue(String.class));
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String postID = snapshot.getValue(String.class);
+                    postList.add(postID);
                 }
-                favoriteListAdapter = new FavoriteAdapter(MyFavoriteActivity.this, postList);
+                favoriteListAdapter = new MyFavoriteAdapter(MyFavoriteActivity.this, postList);
                 houseListView.setAdapter(favoriteListAdapter);
             }
 
