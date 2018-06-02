@@ -267,7 +267,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                     toast.show();
                     return;
                 }
-                    sendResetEmail(mEmail);
+                sendResetEmail(mEmail);
 
                 Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_RESST_SENT,
                         Toast.LENGTH_SHORT);
@@ -373,9 +373,9 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
                     // already set profile
                     /*if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {*/
-                        Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
-                        startActivity(mainIntent);
-                        finish();
+                    Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
 
                     // need to set profile
                     /*} else {
