@@ -60,10 +60,12 @@ public class My_changePassword extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -75,10 +77,12 @@ public class My_changePassword extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -90,16 +94,18 @@ public class My_changePassword extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener(){
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -108,17 +114,17 @@ public class My_changePassword extends AppCompatActivity {
                 // hide kb
                 View v = findViewById(android.R.id.content);
                 if (v != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
 
                 // check all filled first
-                if( new_password.getText().toString().equals("")||new_password.getText().toString().equals("") ||original_password.getText().toString().equals("")) {
+                if (new_password.getText().toString().equals("") || new_password.getText().toString().equals("") || original_password.getText().toString().equals("")) {
                     Snackbar.make(findViewById(R.id.Coordinator), "Please fill in all information !",
                             Snackbar.LENGTH_LONG).show();
                 }
                 // check new == confirm then
-                else if (! new_password.getText().toString().equals(confirm_password.getText().toString())){
+                else if (!new_password.getText().toString().equals(confirm_password.getText().toString())) {
 
                     Snackbar.make(findViewById(R.id.Coordinator), "Please make sure your new password is same as your confirm password !",
                             Snackbar.LENGTH_LONG).show();
@@ -134,7 +140,7 @@ public class My_changePassword extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()) {
+                                    if (task.isSuccessful()) {
                                         Log.d("My_changePassword", "User re-authenticated.");
 
                                         // update password
@@ -145,11 +151,11 @@ public class My_changePassword extends AppCompatActivity {
                                                                                if (task.isSuccessful()) {
                                                                                    Log.d("My_changePassword", "User password updated.");
                                                                                    // logout user
-                                                                                   Snackbar.make(findViewById(R.id.Coordinator), "Your password has been changed!" , Snackbar.LENGTH_LONG)
+                                                                                   Snackbar.make(findViewById(R.id.Coordinator), "Your password has been changed!", Snackbar.LENGTH_LONG)
                                                                                            .show();
                                                                                    FirebaseAuth.getInstance().signOut();
                                                                                    Intent reset = new Intent(My_changePassword.this, StartActivity.class);
-                                                                                   reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                                   reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                                    startActivity(reset);
                                                                                } else {
                                                                                    Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
@@ -173,23 +179,23 @@ public class My_changePassword extends AppCompatActivity {
             }
         });
 
-        forget_password.setOnClickListener(new View.OnClickListener(){
+        forget_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // hide kb
                 View v = findViewById(android.R.id.content);
                 if (v != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
-                sendRestEmail(mAuth.getCurrentUser().getEmail());
-                Snackbar.make(findViewById(R.id.Coordinator), "Your password is sent to your account email !",
+                sendResetEmail(mAuth.getCurrentUser().getEmail());
+                Snackbar.make(findViewById(R.id.Coordinator), "Your password reset link is sent to your email",
                         Snackbar.LENGTH_LONG).show();
 
             }
         });
 
-        mBackButton.setOnClickListener(new View.OnClickListener(){
+        mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -197,7 +203,7 @@ public class My_changePassword extends AppCompatActivity {
         });
     }
 
-    private void sendRestEmail(String email) {
+    private void sendResetEmail(String email) {
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     public void onComplete(@NonNull Task<Void> task) {

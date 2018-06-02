@@ -109,7 +109,7 @@
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-light"
                         android:gravity="top"
-                        android:text="posted by kevin"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="@dimen/m_font_size" />
 
@@ -121,8 +121,7 @@
                     android:layout_height="@dimen/large_icon_side"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/my_bg" />
+                    android:scaleType="centerCrop" />
 
             </RelativeLayout>
 
@@ -132,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/large_margin"
-                android:text="this is the sample display UI for house post, not completed yet. lot of parts is under construction"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/s_font_size" />
 
