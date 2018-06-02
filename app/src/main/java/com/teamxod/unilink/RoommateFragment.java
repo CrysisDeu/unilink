@@ -69,19 +69,37 @@ public class RoommateFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    String userID = userSnapshot.getValue(String.class);
-                    if(!userID.equals(myUid)){
+                    String userID = userSnapshot.getKey();
+                    Boolean isVisible;
+                    if(userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
                         roommateUID.add(userID);
-                    }
+                    if(userSnapshot.hasChild(myUid))
+                        isVisible = userSnapshot.child(myUid).getValue(Boolean.class);
+                    else
+                        isVisible = false;
+
                     RoommateListAdapter adapter = new RoommateListAdapter(getActivity(),roommateUID,listView);
                     listView.setAdapter(adapter);
+                    setupVisible(isVisible);
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void setupVisible(boolean isVisible) {
+        visible_btn.setChecked(isVisible);
+        visible_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(visible_btn.isChecked()){
+                    visibleReference.child(myUid).setValue(true);
+                } else {
+                    visibleReference.child(myUid).setValue(false);
+                }
             }
         });
     }
