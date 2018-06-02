@@ -15,9 +15,8 @@
         android:layout_gravity="left"
         android:paddingTop="@dimen/large_margin"
         android:text="Room Type"
-        android:textColor="@color/black"
-        android:textSize="@dimen/m_font_size"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        style="@style/text_field"/>
 
     <info.hoang8f.android.segmented.SegmentedGroup
         android:id="@+id/room_type"
@@ -64,9 +63,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/large_margin"
             android:text="Price Per Month"
-            android:textColor="@color/black"
-            android:textSize="@dimen/m_font_size"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/text_field"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,9 +72,8 @@
             android:layout_marginStart="136dp"
             android:paddingTop="@dimen/large_margin"
             android:text="$"
-            android:textColor="@color/black"
-            android:textSize="@dimen/m_font_size"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/text_field"/>
 
         <EditText
             android:id="@+id/price"
@@ -88,7 +85,7 @@
             android:hint="Price"
             android:inputType="numberSigned"
             android:singleLine="true"
-            android:textSize="@dimen/m_font_size" />
+            style="@style/edit_text"/>
     </LinearLayout>
 
     <Button

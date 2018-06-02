@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,10 +33,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class HousingFragment extends Fragment {
+public class HousingFragment extends Fragment  {
 
     private ListView listView;
     private LinearLayout searchBar;
+    private SearchView search;
     private Spinner spinner;
     private FloatingActionButton addPost;
     private View header;
@@ -50,6 +52,7 @@ public class HousingFragment extends Fragment {
         listView = (ListView) layout.findViewById(R.id.list_view);
         searchBar = layout.findViewById(R.id.searchView);
         addPost = layout.findViewById(R.id.add_post_btn);
+        search = layout.findViewById(R.id.search_bar);
 
         //firebase
         DatabaseReference HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
@@ -91,6 +94,12 @@ public class HousingFragment extends Fragment {
                 startActivity(myIntent);
             }
         });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search.setIconified(false);
+            }
+        });
 
         spinner = (Spinner)layout.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -108,6 +117,7 @@ public class HousingFragment extends Fragment {
                 switch(spinner.getSelectedItemPosition()) {
                     //select sort --> do nothing
                     case 0:
+
                         break;
                     //select price low to high
                     case 1:
@@ -121,10 +131,12 @@ public class HousingFragment extends Fragment {
                         break;
                     //select term short to long
                     case 3:
+                        sortTerm(true);
                         Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                     //select term long to short
                     case 4:
+                        sortTerm(false);
                         Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -185,21 +197,37 @@ public class HousingFragment extends Fragment {
         HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts);
         listView.setAdapter(adapter);
     }
-    /*
+
     private void sortTerm(boolean order){
         Collections.sort(posts, new Comparator<HousePost>() {
             @Override
             public int compare(HousePost p1, HousePost p2) {
-                return p1.getRoom_price() - p2.getRoom_price();
+                return getTerm(p1) - getTerm(p2);
             }
         });
         if(!order) {
             Collections.reverse(posts);
         }
 
-        HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts,listView);
+        HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts);
         listView.setAdapter(adapter);
-    }*/
+    }
+
+    private void sortTime(){
+
+    }
+
+    private int getTerm(HousePost h){
+        int term = 0;
+        if(h.getTerm().equals("Annually")){
+            term = 2;
+        }else if(h.getTerm().equals("Quaterly")){
+            term = 1;
+        }else{
+            term = 0;
+        }
+        return term;
+    }
 
 
     //set the back animator

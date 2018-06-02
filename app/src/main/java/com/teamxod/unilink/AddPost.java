@@ -162,7 +162,7 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
 
     // toolbar
     private Toolbar toolbar;
-    private Button backBtn;
+    private ImageView backBtn;
 
     // for validation
     private TextWatcher tw;
@@ -412,19 +412,16 @@ public class AddPost extends AppCompatActivity implements IPickResult, DatePicke
                 _bus = isChecked(bus);
 
                 uploadToFirebase(pictureList);
-                Intent mainIntent = new Intent(AddPost.this, MainActivity.class);
-                startActivity(mainIntent);
-                // notify user submitted
-                Snackbar.make(findViewById(R.id.Coordinator), "Congrudulation, you successfully post your house! ", Snackbar.LENGTH_LONG).show();
+                finish();
             }
         });
 
         // toolbar setup
-        toolbar = findViewById(R.id.toolbar);
+        /*toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);*/
         // back button setup
-        backBtn = findViewById(R.id.back_btn);
+        backBtn = findViewById(R.id.back_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
