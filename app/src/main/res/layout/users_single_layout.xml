@@ -30,8 +30,16 @@
         android:layout_alignStart="@+id/user_single_name"
         android:layout_below="@+id/user_single_name"
         android:layout_marginTop="10dp"
-        android:text="User default Status" />
+        android:text="Send a Message Now!" />
 
+    <TextView
+        android:id="@+id/time_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/user_single_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="32dp"
+        android:text="" />
 
 
 </RelativeLayout>

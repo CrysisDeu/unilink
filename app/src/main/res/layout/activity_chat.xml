@@ -44,7 +44,8 @@
             android:layout_weight="1"
             android:hint="Say something…"
             android:imeOptions="actionDone"
-            android:inputType="text" />
+            android:inputType="text"
+            style="@style/edit_text"/>
 
         <Button
             android:id="@+id/sendButton"

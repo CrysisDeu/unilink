@@ -1,6 +1,7 @@
 package com.teamxod.unilink;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,7 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -36,6 +39,7 @@ public class ChatsFragment extends Fragment {
 
     private DatabaseReference mConvDatabase;
     private DatabaseReference mMessageDatabase;
+    private DatabaseReference mChatDatabse;
     private DatabaseReference mUsersDatabase;
     private FirebaseRecyclerAdapter adapter;
 
@@ -67,6 +71,7 @@ public class ChatsFragment extends Fragment {
         mConvDatabase.keepSynced(true);
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("Messages").child(mCurrent_user_id);
+        mChatDatabse = FirebaseDatabase.getInstance().getReference().child("Chat");
         mUsersDatabase.keepSynced(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -135,6 +140,25 @@ public class ChatsFragment extends Fragment {
                     }
                 });
 
+                mChatDatabse.child(list_user_id).child(mCurrent_user_id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild("mTimestamp")) {
+                            long time = Long.parseLong(dataSnapshot.child("mTimestamp").getValue().toString());
+                            Timestamp ts = new Timestamp(time*1000);
+                            String tsStr = "";
+                            @SuppressLint("SimpleDateFormat") DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                            tsStr = sdf.format(ts);
+                            holder.setChatTimeView(tsStr);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -144,6 +168,7 @@ public class ChatsFragment extends Fragment {
 
                         holder.setName(userName);
                         holder.setUserImage(userThumb, getContext());
+
 
                         holder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override

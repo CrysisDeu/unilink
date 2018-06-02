@@ -48,7 +48,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
      */
     static Query sChatQuery;
     static final DatabaseReference messages= FirebaseDatabase.getInstance().getReference().child("Messages");
-    static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chats");
+    static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chat");
 
     private String other_id;
     private String other_name;
@@ -179,8 +179,8 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         self.setValue(chat);
         other.setValue(chat);
 
-        chats.child(uid).child(other_id).setValue(time);
-        chats.child(other_id).child(uid).setValue(time);
+        chats.child(uid).child(other_id).child("mTimestamp").setValue(time);
+        chats.child(other_id).child(uid).child("mTimestamp").setValue(time);
 
     }
 
