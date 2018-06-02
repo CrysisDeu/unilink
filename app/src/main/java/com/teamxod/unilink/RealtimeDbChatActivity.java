@@ -54,6 +54,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     private String other_name;
     private String uid;
     private String name;
+    private TextView mTitleName;
 
     @BindView(R.id.messagesList)
     RecyclerView mRecyclerView;
@@ -83,7 +84,8 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         sChatQuery =  FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(50);
-
+        mTitleName = findViewById(R.id.title_user_name);
+        mTitleName.setText(other_name);
 
         ImeHelper.setImeOnDoneListener(mMessageEdit, new ImeHelper.DonePressedListener() {
             @Override

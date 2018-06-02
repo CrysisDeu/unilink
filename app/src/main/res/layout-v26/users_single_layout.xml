@@ -14,12 +14,14 @@
 
     <TextView
         android:id="@+id/user_single_name"
-        android:layout_width="wrap_content"
+        android:layout_width="208dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/user_single_image"
         android:layout_toEndOf="@+id/user_single_image"
         android:text="Display Name"
         android:textColor="@android:color/black"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textSize="18sp" />
 
     <TextView
@@ -29,7 +31,9 @@
         android:layout_alignStart="@+id/user_single_name"
         android:layout_below="@+id/user_single_name"
         android:layout_marginTop="10dp"
-        android:text="Send a Message Now!" />
+        android:text="Send a Message Now!"
+        android:singleLine="true"
+        android:ellipsize="end"/>
 
     <TextView
         android:id="@+id/time_view"
