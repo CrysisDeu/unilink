@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     private String uid;
     private String name;
     private TextView mTitleName;
+    private ImageView mBackButton;
 
     @BindView(R.id.messagesList)
     RecyclerView mRecyclerView;
@@ -86,6 +88,14 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         sChatQuery =  FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(50);
         mTitleName = findViewById(R.id.title_user_name);
         mTitleName.setText(other_name);
+        mBackButton = findViewById(R.id.back_button);
+
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         ImeHelper.setImeOnDoneListener(mMessageEdit, new ImeHelper.DonePressedListener() {
             @Override
