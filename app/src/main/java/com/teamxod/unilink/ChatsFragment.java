@@ -105,7 +105,8 @@ public class ChatsFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull final ChatListViewHolder holder, int position, @NonNull Chat model) {
-                final String list_user_id = getRef(position).getKey();;
+                final String list_user_id = getRef(position).getKey();
+                ;
 
                 Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
 
@@ -145,7 +146,7 @@ public class ChatsFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild("mTimestamp")) {
                             long time = Long.parseLong(dataSnapshot.child("mTimestamp").getValue().toString());
-                            Timestamp ts = new Timestamp(time*1000);
+                            Timestamp ts = new Timestamp(time * 1000);
                             String tsStr = "";
                             @SuppressLint("SimpleDateFormat") DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                             tsStr = sdf.format(ts);
@@ -187,6 +188,15 @@ public class ChatsFragment extends Fragment {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
+                    }
+                });
+
+                holder.userImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getActivity(), Profile.class);
+                        i.putExtra("uid", list_user_id);
+                        startActivity(i);
                     }
                 });
             }

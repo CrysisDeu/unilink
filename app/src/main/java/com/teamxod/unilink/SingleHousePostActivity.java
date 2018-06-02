@@ -1,5 +1,6 @@
 package com.teamxod.unilink;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -61,6 +62,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     private DatabaseReference favoriteReference;
 
     private ToggleButton favorite_btn;
+    private Button contact_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +132,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void loadPosterData() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference posterReference = database.child("Users").child(house.getPosterId());
         posterReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -241,6 +243,18 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
                 finish();
             }
         });
+
+        contact_btn = findViewById(R.id.house_button_contact);
+        contact_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chatIntent = new Intent(SingleHousePostActivity.this, RealtimeDbChatActivity.class);
+                chatIntent.putExtra("user_id", house.getPosterId());
+                chatIntent.putExtra("user_name", poster.getName());
+                startActivity(chatIntent);
+            }
+        });
+
 
         favorite_btn = (ToggleButton)findViewById(R.id.house_button_favorite);
         favorite_btn.setChecked(isChecked);

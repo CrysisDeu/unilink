@@ -24,7 +24,7 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
     public View mView;
     private TextView userStatusView;
     private TextView userNameView;
-    private ImageView userImageView;
+    public ImageView userImageView;
     private TextView chatTimeView;
 
     ChatListViewHolder(View itemView) {
