@@ -90,7 +90,7 @@ public class HousingFragment extends Fragment  {
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(getActivity(), AddPost.class);
+                Intent myIntent = new Intent(getActivity(), AddPostActivity.class);
                 startActivity(myIntent);
             }
         });

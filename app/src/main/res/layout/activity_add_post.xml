@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
     android:background="#FFFFFF"
-    tools:context=".AddPost">
+    tools:context=".AddPostActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -40,7 +40,7 @@
             android:name=".my_change_profile"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".SingleHousePostActivity" />
-        <activity android:name=".AddPost" />
+        <activity android:name=".AddPostActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -73,8 +73,8 @@
         </provider>
 
         <activity android:name=".RealtimeDbChatActivity" />
-        <activity android:name=".RealtimeDbChatIndexActivity" />
-        <activity android:name=".EditPost"></activity>
+        <activity android:name=".RoommatePostActivity" />
+        <activity android:name=".EditPostActivity"></activity>
     </application>
 
 </manifest>

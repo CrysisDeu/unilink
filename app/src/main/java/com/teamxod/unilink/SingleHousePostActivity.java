@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,7 +69,6 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.house_post);
-
         loadData();
     }
 
@@ -85,8 +85,15 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void loadData(){
-        Bundle bundle = getIntent().getExtras();
-        postID = bundle.getString("postID");
+
+        Intent intent = getIntent();
+
+        if(intent.hasExtra("postID")){
+            postID = intent.getExtras().getString("postID");
+        }else{
+            Toast.makeText(this, "Post does not exist", Toast.LENGTH_LONG).show();
+            finish();
+        }
 
         database = FirebaseDatabase.getInstance().getReference();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -119,6 +126,10 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         postReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) {
+                    Toast.makeText(getApplicationContext(), "Post does not exist", Toast.LENGTH_LONG).show();
+                    finish();
+                }
                 house = dataSnapshot.getValue(House.class);
                 loadPosterData();
                 setupButton(isFavourite);
@@ -158,7 +169,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
 
         setupRoom();
 
-        setupRoommate();
+        //setupRoommate();
 
         setupMap();
     }
@@ -171,6 +182,15 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
                 .load(url)
                 .apply(RequestOptions.circleCropTransform())
                 .into(posterImageView);
+
+        posterImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(),RoommatePostActivity.class);
+                myIntent.putExtra("uid", house.getPosterId());
+                startActivity(myIntent);
+            }
+        });
 
         TextView houseTypeTextView = (TextView)findViewById(R.id.house_type);
         String houseType = house.getNumBedroom() + "B" + house.getNumBathroom() + "B · " + house.getHouseType();
@@ -214,6 +234,8 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         roomListView.setAdapter(roomAdapter);
     }
 
+    //disable for now
+    /*
     private void setupRoommate() {
         roommateList = (ArrayList)(poster.getRoommates());
         if(roommateList == null)
@@ -226,6 +248,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
         roommateAdapter = new UserPictureAdapter(this, roommateList);
         roommateListView.setAdapter(roommateAdapter);
     }
+    */
 
     private void setupMap() {
         ScrollView scrollView = (ScrollView) findViewById(R.id.house_content);
@@ -254,7 +277,6 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
                 startActivity(chatIntent);
             }
         });
-
 
         favorite_btn = (ToggleButton)findViewById(R.id.house_button_favorite);
         favorite_btn.setChecked(isChecked);
