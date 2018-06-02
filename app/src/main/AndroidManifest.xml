@@ -23,8 +23,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-        >
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,10 +36,11 @@
         <activity android:name=".My_preference" />
         <activity android:name=".MyFavoriteActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name=".my_change_profile"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".my_change_profile"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".SingleHousePostActivity" />
-        <activity android:name=".AddPost"/>
+        <activity android:name=".AddPost" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -74,7 +74,7 @@
 
         <activity android:name=".RealtimeDbChatActivity" />
         <activity android:name=".RealtimeDbChatIndexActivity" />
-
+        <activity android:name=".EditPost"></activity>
     </application>
 
 </manifest>

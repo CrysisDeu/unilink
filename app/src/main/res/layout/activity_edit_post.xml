@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    android:background="#FFFFFF"
+    tools:context=".EditPost">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#6d48e5"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back_button"
+            style="@style/back_button"
+            android:tint="#ffffff"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Add Post"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Photo"
+                android:textStyle="bold"
+                style="@style/text_field"/>
+
+            <GridLayout
+                android:id="@+id/gridlayout"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:background="#eee"
+                android:columnCount="4">
+
+                <ImageView
+                    android:id="@+id/addpic_btn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="4dp"
+                    android:background="#fff"
+                    android:tint="#6d48e5"
+                    app:srcCompat="@drawable/ic_plus" />
+
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Post Title"
+                android:textStyle="bold"
+
+                style="@style/text_field"/>
+
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:hint="Title of the post"
+                android:singleLine="true"
+                style="@style/edit_text"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_alignParentStart="true"
+                    android:text="Rooms"
+                    android:textStyle="bold"
+                    style="@style/text_field"/>
+
+                <Button
+                    android:id="@+id/addroom_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/round_button"
+                    android:text="Add room"
+                    android:textAllCaps="false"
+                    android:textColor="#fff" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linearlayout_room"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="#eee"
+                android:orientation="vertical">
+
+                <!-- room will be dynamically added here -->
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Street Address"
+                android:textStyle="bold"
+                style="@style/text_field"/>
+
+            <EditText
+                android:id="@+id/street"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:hint="Street and Number"
+                android:singleLine="true"
+                style="@style/edit_text"/>
+            <!--
+                        <EditText
+                            android:id="@+id/building"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:hint="Apartment, Suite, Unit, Building, etc."
+                            android:singleLine="true"
+                            android:textSize="@dimen/m_font_size" />
+            -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="City"
+                android:textStyle="bold"
+                style="@style/text_field"/>
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:hint="City Name"
+                android:singleLine="true"
+                style="@style/edit_text"/>
+
+            <!-- One Question -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="House Type"
+                android:textStyle="bold"
+                style="@style/text_field"/>
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/house_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="0dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/small_margin">
+
+                <RadioButton
+                    android:id="@+id/house"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="House"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/town_house"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Town House"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/apartment"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Apartment"
+                    android:textStyle="bold" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Number of Bedrooms"
+                android:textStyle="bold"
+                style="@style/text_field" />
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/bedroom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="0dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/small_margin">
+
+                <RadioButton
+                    android:id="@+id/bed_zero"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/bed_one"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/bed_two"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/bed_three"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/bed_four_plus"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="4+" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Number of Bathrooms"
+                style="@style/text_field"/>
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/bathroom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="0dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/small_margin">
+
+                <RadioButton
+                    android:id="@+id/bath_zero"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/bath_one"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/bath_two"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="2"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/bath_three"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="3"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/bath_four_plus"
+                    style="@style/RadioButton"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:text="4+"
+                    android:textStyle="bold" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Lease Length"
+                android:textStyle="bold"
+                style="@style/text_field"/>
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/lease_length"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="0dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/small_margin">
+
+                <RadioButton
+                    android:id="@+id/annual"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Anually"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/quarterly"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Quarterly"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/short_term"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Monthly"
+                    android:textStyle="bold" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:paddingTop="@dimen/large_margin"
+                    android:text="Leasing Start Date"
+                    android:textStyle="bold"
+                    style="@style/text_field"/>
+
+                <EditText
+                    android:id="@+id/start_date"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Start Date"
+                    android:inputType="none"
+                    style="@style/edit_text"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Facilities and Facts"
+                android:textStyle="bold"
+                style="@style/text_field"/>
+
+
+            <CheckedTextView
+                android:id="@+id/ac"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkMark="@drawable/checked"
+                android:checked="false"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/middle_margin"
+                android:text="AC"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size" />
+
+            <CheckedTextView
+                android:id="@+id/allow_pet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkMark="@drawable/checked"
+                android:checked="false"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/middle_margin"
+                android:text="Allow Pets"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size" />
+
+            <CheckedTextView
+                android:id="@+id/parking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkMark="@drawable/checked"
+                android:checked="false"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/middle_margin"
+                android:text="Parking"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size" />
+
+            <CheckedTextView
+                android:id="@+id/tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkMark="@drawable/checked"
+                android:checked="false"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/middle_margin"
+                android:text="TV"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size" />
+
+            <CheckedTextView
+                android:id="@+id/video_game"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkMark="@drawable/checked"
+                android:checked="false"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/middle_margin"
+                android:text="Video Game"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size" />
+
+            <CheckedTextView
+                android:id="@+id/gym"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkMark="@drawable/checked"
+                android:checked="false"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/middle_margin"
+                android:text="Gym"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size" />
+
+            <CheckedTextView
+                android:id="@+id/laundry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkMark="@drawable/checked"
+                android:checked="false"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/middle_margin"
+                android:text="Building-in Laundry"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size" />
+
+            <CheckedTextView
+                android:id="@+id/bus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkMark="@drawable/checked"
+                android:checked="false"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/middle_margin"
+                android:text="Bus"
+                android:textColor="@color/black"
+                android:textSize="@dimen/m_font_size" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Description"
+                android:textStyle="bold"
+                style="@style/text_field"/>
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:gravity="top"
+                android:hint="More information about the place"
+                android:lines="1"
+                android:maxLines="8"
+                style="@style/edit_text"/>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0"
+                android:background="@drawable/round_button"
+                android:gravity="center_horizontal|center"
+                android:text="SUBMIT"
+                android:textColor="#fff" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
