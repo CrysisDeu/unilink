@@ -62,7 +62,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
             public void onClick(View v) {
                 int itemPosition = mRecyclerView.getChildLayoutPosition(v);
                 String postID = postList.get(itemPosition);
-                Intent myIntent = new Intent(context, SingleHousePostActivity.class);
+                Intent myIntent = new Intent(context, HousePostActivity.class);
                 myIntent.putExtra("postID",postID);
                 context.startActivity(myIntent);
             }
@@ -80,7 +80,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()) {
                     postList.remove(postID);
-                    notifyItemRemoved(position);
+                    notifyItemRemoved(holder.getAdapterPosition());
                 } else {
 
                     House house = dataSnapshot.getValue(House.class);

@@ -40,7 +40,7 @@
         <activity
             android:name=".my_change_profile"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".SingleHousePostActivity" />
+        <activity android:name=".HousePostActivity" />
         <activity android:name=".AddPostActivity" />
 
         <meta-data
