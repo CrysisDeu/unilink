@@ -59,7 +59,9 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
     public void setUserImage(String thumb_image, Context ctx){
 
-
+        if(ctx == null) {
+            return;
+        }
 
         Glide.with(ctx)
                 .load(thumb_image)

@@ -168,6 +168,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
 //                holder.setIsSender(true);
 //                holder.setText(model.getMessage());
                 holder.bind(model);
+                //TODO chaneg name
             }
 
             @Override

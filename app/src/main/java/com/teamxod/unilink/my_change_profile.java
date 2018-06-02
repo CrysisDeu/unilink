@@ -20,6 +20,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -183,6 +184,11 @@ public class my_change_profile extends AppCompatActivity implements IPickResult 
                             public void onSuccess(Uri uri) {
                                 picture = uri;
                                 mUserReference.child("picture").setValue(picture.toString());
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(mEditName.getText().toString())
+                                        .setPhotoUri(picture)
+                                        .build();
+                                mAuth.getCurrentUser().updateProfile(profileUpdates);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
