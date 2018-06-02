@@ -184,6 +184,8 @@ public class my_change_profile extends AppCompatActivity implements IPickResult 
                             public void onSuccess(Uri uri) {
                                 picture = uri;
                                 mUserReference.child("picture").setValue(picture.toString());
+
+                                //TODO bug if not change photo using google default
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(mEditName.getText().toString())
                                         .setPhotoUri(picture)
