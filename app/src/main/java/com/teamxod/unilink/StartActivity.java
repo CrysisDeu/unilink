@@ -411,9 +411,15 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(StartActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            try {
+                                throw task.getException();
+                            } catch (Exception e) {
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(StartActivity.this, e.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+
                         }
                     }
                 });
