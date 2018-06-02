@@ -213,7 +213,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:paddingLeft="8dp"
-                        android:text="Set Preference"
+                        android:text="My Preference"
                         android:textColor="@android:color/black"
                         android:textSize="20sp" />
 

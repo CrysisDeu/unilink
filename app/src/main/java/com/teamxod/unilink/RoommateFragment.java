@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,8 +16,10 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -28,9 +31,9 @@ public class RoommateFragment extends Fragment {
     private ListView listView;
 
     private Button preference;
-    private ToggleButton toggle;
+    private Switch mVIsible;
 
-    private RelativeLayout layer;
+    private LinearLayout layer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class RoommateFragment extends Fragment {
 
         listView = layout.findViewById(R.id.roomate_list);
         preference = layout.findViewById(R.id.roommate_preference);
-        toggle = layout.findViewById(R.id.toggle_score);
+        mVIsible = layout.findViewById(R.id.invisible);
         layer = layout.findViewById(R.id.layer);
 
         ArrayList<RoommateSimple> roommates = new ArrayList<>();
@@ -60,7 +63,9 @@ public class RoommateFragment extends Fragment {
             }
         });
 
-        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+
+/*        mVIsible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //show the user in roommate list
@@ -72,7 +77,7 @@ public class RoommateFragment extends Fragment {
 
                 }
             }
-        });
+        });*/
 
         header = new View(this.getActivity());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.header_roommate)));

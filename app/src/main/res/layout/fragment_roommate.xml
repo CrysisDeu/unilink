@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/action_bar"
@@ -27,60 +28,67 @@
         android:textSize="@dimen/l_font_size"
         android:textStyle="bold" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layer"
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/action_bar"
-        android:background="@drawable/edit_search_bar">
+        android:background="@drawable/edit_search_bar"
+        android:orientation="horizontal">
 
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/roommate_preference"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="88dp"
-            android:background="@drawable/ic_equalizer"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:layout_marginLeft="64dp"
-            android:fontFamily="@font/roboto"
-            android:text="Preference"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
+            <Button
+                android:id="@+id/roommate_preference"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_equalizer" />
 
-        <ToggleButton
-            android:id="@+id/toggle_score"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="88dp"
-            android:background="@drawable/selector_see_match_score"
-            android:clickable="true"
-            android:focusable="false"
-            android:text=""
-            android:textOff=""
-            android:textOn="" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:layout_marginEnd="86dp"
-            android:layout_alignParentEnd="true"
-            android:fontFamily="@font/roboto"
-            android:text="Score"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:text="Preference"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="32dp"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <Switch
+                android:id="@+id/visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto"
+                android:text="Visible to Others"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>
