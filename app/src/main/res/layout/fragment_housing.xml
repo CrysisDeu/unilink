@@ -16,8 +16,7 @@
         android:layout_centerHorizontal="true"
         android:headerDividersEnabled="false"
         android:paddingTop="72dp"
-        android:divider="#ffffff"
-        />
+        android:divider="#ffffff" />
 
 
 

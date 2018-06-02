@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,8 +83,10 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
         if(isChecked){
             holder.delete_btn.setVisibility(View.VISIBLE);
+            holder.post_btn.setVisibility(View.VISIBLE);
         } else {
             holder.delete_btn.setVisibility(View.GONE);
+            holder.post_btn.setVisibility(View.GONE);
         }
 
         housePostReference.child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -100,6 +101,13 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
                 holder.titleTextView.setText(house.getTitle());
                 holder.priceTextView.setText(price);
                 holder.addressTextView.setText(house.getLocation());
+                holder.post_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String postID = postList.get(holder.getAdapterPosition());
+                        //TODO
+                    }
+                });
                 holder.delete_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -123,6 +131,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
     class MyPostViewHolder extends RecyclerView.ViewHolder {
         Button delete_btn;
+        Button post_btn;
         ImageView housePictureView;
         TextView titleTextView;
         TextView priceTextView;
@@ -130,7 +139,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
         MyPostViewHolder (View itemView) {
             super(itemView);
-            delete_btn = (Button) itemView.findViewById((R.id.delete_btn));
+            post_btn = (Button) itemView.findViewById(R.id.post_btn);
+            delete_btn = (Button) itemView.findViewById(R.id.delete_btn);
             titleTextView = (TextView) itemView.findViewById(R.id.post_title);
             priceTextView = (TextView) itemView.findViewById(R.id.post_price);
             addressTextView = (TextView) itemView.findViewById(R.id.post_address);
