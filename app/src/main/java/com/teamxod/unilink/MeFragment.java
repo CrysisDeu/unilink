@@ -117,6 +117,7 @@ public class MeFragment extends Fragment {
                         .add(R.id.fragment_container,fragment,"favorite")
                         .commit();*/
 
+                // TODO: CHANGE IT ; FOR TESTING
                 Intent i = new Intent(getActivity(), MyFavoriteActivity.class);
                 startActivity(i);
             }
