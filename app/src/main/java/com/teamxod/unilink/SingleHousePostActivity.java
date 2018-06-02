@@ -234,7 +234,7 @@ public class SingleHousePostActivity extends AppCompatActivity implements OnMapR
     }
 
     private void setupButton(boolean isChecked) {
-        Button backBtn = (Button)findViewById(R.id.house_button_back);
+        ImageView backBtn = findViewById(R.id.back_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

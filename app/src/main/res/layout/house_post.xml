@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,35 +13,33 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/post"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/back_button"
+            android:gravity="center_vertical"
+            android:text="Post"
+            android:textColor="#fff"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <ToggleButton
             android:id="@+id/house_button_favorite"
             android:layout_width="@dimen/small_icon_side"
             android:layout_height="@dimen/small_icon_side"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/small_margin"
             android:background="@drawable/selector_favorite_btn"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:clickable="true"
             android:focusable="true"
             android:text=""
             android:textOff=""
             android:textOn="" />
 
-        <Button
-            android:id="@+id/house_button_back"
-            android:layout_width="@dimen/small_icon_side"
-            android:layout_height="@dimen/small_icon_side"
-            android:layout_marginStart="@dimen/small_margin"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/ic_back"
-            android:backgroundTint="@color/white" />
+        <ImageView
+            android:id="@+id/back_button"
+            android:tint="#ffffff"
+            app:srcCompat="@drawable/ic_back"
+            style="@style/back_button"/>
 
     </RelativeLayout>
 
