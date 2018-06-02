@@ -3,9 +3,9 @@ package com.teamxod.unilink;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,37 +15,78 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
-import android.widget.ToggleButton;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class RoommateFragment extends Fragment {
 
-    private View header;
     private int touchSlop = 5;
     private ListView listView;
-
-    private Button preference;
-    private Switch mVIsible;
+    private Switch visible_btn;
 
     private LinearLayout layer;
+    private ArrayList<String> roommateUID;
+    private String myUid;
+
+    private DatabaseReference visibleReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_roommate, container, false); // get the GUI
 
-        listView = layout.findViewById(R.id.roomate_list);
-        preference = layout.findViewById(R.id.roommate_preference);
-        mVIsible = layout.findViewById(R.id.invisible);
+        listView = layout.findViewById(R.id.roommate_list);
+        visible_btn = layout.findViewById(R.id.invisible);
         layer = layout.findViewById(R.id.layer);
 
-        ArrayList<RoommateSimple> roommates = new ArrayList<>();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        visibleReference = database.child("Visible");
+        myUid = auth.getCurrentUser().getUid();
 
+        roommateUID = new ArrayList<>();
+
+        setButton(layout);
+
+        setHeader();
+
+        loadData();
+
+        return layout;
+    }
+
+    private void loadData() {
+        visibleReference.addListenerForSingleValueEvent(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String userID = userSnapshot.getValue(String.class);
+                    if(!userID.equals(myUid)){
+                        roommateUID.add(userID);
+                    }
+                    RoommateListAdapter adapter = new RoommateListAdapter(getActivity(),roommateUID,listView);
+                    listView.setAdapter(adapter);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void setButton(View layout) {
         Button refreshButton = (Button)layout.findViewById(R.id.roommate_refresh);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,48 +99,22 @@ public class RoommateFragment extends Fragment {
             }
         });
 
-
-        String [] pros = {"clean","quite","sleep early"};
-        String [] cons = {"drink often","smoke"};
-        roommates.add(new RoommateSimple("Eason Chan", "http://cdn.kingston.ac.uk/includes/img/cms/site-images/resized/e57c559-kingston-university-bfe85b4-eason-chan.jpg",
-                "Computer Science", 9, 4,pros, cons));
-
-
-        RoommateListAdapter adapter = new RoommateListAdapter(this.getActivity(),roommates,listView);
-        listView.setAdapter(adapter);
-
-        preference.setOnClickListener(new View.OnClickListener() {
+        Button preference_btn = layout.findViewById(R.id.roommate_preference);
+        preference_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(),My_preference.class);
+                Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
                 startActivity(i);
             }
         });
+    }
 
-
-
-/*        mVIsible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //show the user in roommate list
-                if(isChecked){
-
-                }
-                //eliminate
-                else{
-
-                }
-            }
-        });*/
-
-        header = new View(this.getActivity());
+    private void setHeader() {
+        View header = new View(this.getActivity());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.header_roommate)));
         header.setBackgroundColor(Color.parseColor("#00000000"));
         listView.addHeaderView(header);
         touchSlop = (int) (ViewConfiguration.get(RoommateFragment.this.getActivity()).getScaledTouchSlop() * 0.9);
-        return layout;
     }
-
-
 
     //set the back animator
     private AnimatorSet backAnimatorSet;
@@ -129,7 +144,7 @@ public class RoommateFragment extends Fragment {
     }
 
 
-    //aniamtor to hide element
+    //animator to hide element
     private AnimatorSet hideAnimatorSet;
 
     private void animateHide() {
