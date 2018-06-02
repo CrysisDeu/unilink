@@ -66,7 +66,7 @@ public class ChatsFragment extends Fragment {
 
         mConvDatabase.keepSynced(true);
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
+        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("Messages").child(mCurrent_user_id);
         mUsersDatabase.keepSynced(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

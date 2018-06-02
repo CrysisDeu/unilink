@@ -3,7 +3,7 @@ package com.teamxod.unilink;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
-public class Chat extends AbstractChat {
+public class Chat {
     private String mName;
     private String mMessage;
     private String mUid;
@@ -13,36 +13,34 @@ public class Chat extends AbstractChat {
         // Needed for Firebase
     }
 
-    public Chat(String name, String message, String uid, long timestamp) {
-        mName = name;
-        mMessage = message;
-        mUid = uid;
-        mTimestamp = timestamp;
+    Chat(String mName, String mMessage, String mUid, long timestamp) {
+        this.mName = mName;
+        this.mMessage = mMessage;
+        this.mUid = mUid;
+        this.mTimestamp = timestamp;
     }
+    
 
-    public String getName() {
-        return mName;
-    }
-
-    public void setName(String name) {
+    public void setmName(String name) {
         mName = name;
     }
 
-    public String getMessage() {
+    public String getmMessage() {
         return mMessage;
     }
 
-    public void setMessage(String message) {
+    public void setmMessage(String message) {
         mMessage = message;
     }
 
-    public String getUid() {
+    public String getmUid() {
         return mUid;
     }
 
-    public void setUid(String uid) {
+    public void setmUid(String uid) {
         mUid = uid;
     }
+
 
     public void setmTimestamp(long mTimestamp) {
         this.mTimestamp = mTimestamp;
@@ -79,5 +77,9 @@ public class Chat extends AbstractChat {
                 ", mMessage='" + mMessage + '\'' +
                 ", mUid='" + mUid + '\'' +
                 '}';
+    }
+
+    public String getmName() {
+        return mName;
     }
 }

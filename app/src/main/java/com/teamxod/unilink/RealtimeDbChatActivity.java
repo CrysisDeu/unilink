@@ -1,5 +1,6 @@
 package com.teamxod.unilink;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.firebase.ui.auth.util.ui.ImeHelper;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,9 +46,9 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     /**
      * Get the last 50 chat messages.
      */
-    static final Query sChatQuery =
-            FirebaseDatabase.getInstance().getReference().child("chats").limitToLast(50);
-    static final DatabaseReference messages= FirebaseDatabase.getInstance().getReference().child("messages");
+    static Query sChatQuery;
+    static final DatabaseReference messages= FirebaseDatabase.getInstance().getReference().child("Messages");
+    static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chats");
 
     private String other_id;
     private String other_name;
@@ -65,6 +67,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     @BindView(R.id.emptyTextView)
     TextView mEmptyListMessage;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +82,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         other_name = intent.getStringExtra("user_name");
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        sChatQuery =  FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(50);
 
 
         ImeHelper.setImeOnDoneListener(mMessageEdit, new ImeHelper.DonePressedListener() {
@@ -125,7 +129,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     public void onSendClick() {
         long tsLong = System.currentTimeMillis()/1000;
 
-        onAddMessage(new Chat(name, mMessageEdit.getText().toString(), uid, tsLong));
+        onAddMessage(tsLong);
 
         mMessageEdit.setText("");
     }
@@ -138,6 +142,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
                         .build();
 
         return new FirebaseRecyclerAdapter<Chat, ChatHolder>(options) {
+            @NonNull
             @Override
             public ChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                 return new ChatHolder(LayoutInflater.from(parent.getContext())
@@ -146,6 +151,10 @@ public class RealtimeDbChatActivity extends AppCompatActivity
 
             @Override
             protected void onBindViewHolder(@NonNull ChatHolder holder, int position, @NonNull Chat model) {
+//                holder.setName(model.getName());
+//                holder.setIsSender(uid.equals(model.getmUid()));
+//                holder.setIsSender(true);
+//                holder.setText(model.getMessage());
                 holder.bind(model);
             }
 
@@ -157,18 +166,21 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         };
     }
 
-    void onAddMessage(Chat chat) {
-        DatabaseReference self;//TODO
-        self = messages.child(uid).child(other_id).push();
-        self.setValue(chat, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError error, DatabaseReference reference) {
-                if (error != null) {
-                    Log.e(TAG, "Failed to write message", error.toException());
-                }
-            }
-        });
+    void onAddMessage(long time) {
+        DatabaseReference self;
+        DatabaseReference other;
 
+        // create key
+        self = messages.child(uid).child(other_id).push();
+        other = messages.child(other_id).child(uid).child(self.getKey());
+        Chat chat = new Chat(name, mMessageEdit.getText().toString(), uid, time);
+
+        // save to database
+        self.setValue(chat);
+        other.setValue(chat);
+
+        chats.child(uid).child(other_id).setValue(time);
+        chats.child(other_id).child(uid).setValue(time);
 
     }
 

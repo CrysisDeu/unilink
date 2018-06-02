@@ -37,23 +37,23 @@ public class ChatHolder extends RecyclerView.ViewHolder {
         mGray300 = ContextCompat.getColor(itemView.getContext(), R.color.material_gray_300);
     }
 
-    public void bind(AbstractChat chat) {
-        setName(chat.getName());
-        setText(chat.getMessage());
+    public void bind(Chat chat) {
+        setName(chat.getmName());
+        setText(chat.getmMessage());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        setIsSender(currentUser != null && chat.getUid().equals(currentUser.getUid()));
+        setIsSender(currentUser != null && chat.getmUid().equals(currentUser.getUid()));
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         mNameField.setText(name);
     }
 
-    private void setText(String text) {
+    public void setText(String text) {
         mTextField.setText(text);
     }
 
-    private void setIsSender(boolean isSender) {
+    public void setIsSender(boolean isSender) {
         final int color;
         if (isSender) {
             color = mGreen300;
