@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -54,6 +55,17 @@ public class HousingFragment extends Fragment  {
         addPost = layout.findViewById(R.id.add_post_btn);
         search = layout.findViewById(R.id.search_bar);
 
+        Button refreshButton = (Button)layout.findViewById(R.id.house_refresh);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new HousingFragment())
+                        .commit();
+            }
+        });
         //firebase
         DatabaseReference HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
         HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {

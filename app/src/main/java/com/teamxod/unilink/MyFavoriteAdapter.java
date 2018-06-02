@@ -80,7 +80,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()) {
                     postList.remove(postID);
-                    notifyItemRemoved(position);
+                    notifyItemRemoved(holder.getAdapterPosition());
                 } else {
 
                     House house = dataSnapshot.getValue(House.class);

@@ -107,7 +107,9 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
                     @Override
                     public void onClick(View v) {
                         String postID = postList.get(holder.getAdapterPosition());
-                        //TODO
+                        Intent myIntent = new Intent(context, EditPostActivity.class);
+                        myIntent.putExtra("postID", postID);
+                        context.startActivity(myIntent);
                     }
                 });
                 holder.delete_btn.setOnClickListener(new View.OnClickListener() {
