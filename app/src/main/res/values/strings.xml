@@ -63,4 +63,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password_hint">******</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="myname_unilink_com">myname@unilink.com</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="password">Password</string>
+    <string name="e_mail">E-mail</string>
+    <string name="no_message">No messages. Start chatting at the bottom!</string>
+    <string name="say_something">Say something…</string>
 </resources>

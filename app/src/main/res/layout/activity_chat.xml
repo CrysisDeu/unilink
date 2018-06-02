@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="No messages. Start chatting at the bottom!" />
+        android:text="@string/no_message" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messagesList"
@@ -78,7 +78,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Say something…"
+            android:hint="@string/say_something"
             android:imeOptions="actionDone"
             android:inputType="text"
             style="@style/edit_text"/>
