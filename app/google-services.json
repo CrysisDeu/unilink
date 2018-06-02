@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1081496599819-t5vsu045vrr03mgiug286l3ns4e67r16.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamxod.unilink",
+            "certificate_hash": "3f56519cae49544ca558e4a1eda0787ef1874fc5"
+          }
+        },
+        {
+          "client_id": "1081496599819-5331il15nlqltout9fagtmv2d1p7df5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.teamxod.unilink",
+            "certificate_hash": "61c03aeba2d1b211d6ae79e43391f69e434527cf"
+          }
+        },
+        {
           "client_id": "1081496599819-6rd6sruv0a5vmffmpkpd5tubv54akcq7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -93,6 +109,10 @@
             "package_name": "com.teamxod.unilink",
             "certificate_hash": "272285ff1a7f3b289991a1f2d4f2848cd7c1b904"
           }
+        },
+        {
+          "client_id": "1081496599819-k3pcqqm5913mdurs6ce0ig4utlpe0o42.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "1081496599819-k3pcqqm5913mdurs6ce0ig4utlpe0o42.apps.googleusercontent.com",

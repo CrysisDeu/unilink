@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
     android:background="#FFFFFF"
-    tools:context=".AddPost">
+    tools:context=".EditPost">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,78 +93,6 @@
                 android:singleLine="true"
                 style="@style/edit_text"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="16dp"
-                android:paddingTop="@dimen/large_margin"
-                android:text="Lease Length"
-                android:textStyle="bold"
-                style="@style/text_field"/>
-
-            <info.hoang8f.android.segmented.SegmentedGroup
-                android:id="@+id/lease_length"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="0dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/small_margin">
-
-                <RadioButton
-                    android:id="@+id/annual"
-                    style="@style/RadioButton"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Anually"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/quarterly"
-                    style="@style/RadioButton"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Quarterly"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/short_term"
-                    style="@style/RadioButton"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Monthly"
-                    android:textStyle="bold" />
-            </info.hoang8f.android.segmented.SegmentedGroup>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:paddingTop="@dimen/large_margin"
-                    android:text="Leasing Start Date"
-                    android:textStyle="bold"
-                    style="@style/text_field"/>
-
-                <EditText
-                    android:id="@+id/start_date"
-                    android:layout_marginRight="16dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Start Date"
-                    android:inputType="none"
-                    style="@style/edit_text"/>
-
-            </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,13 +100,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
                     android:layout_marginLeft="16dp"
+                    android:layout_alignParentStart="true"
                     android:text="Rooms"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    style="@style/text_field"/>
 
                 <Button
                     android:id="@+id/addroom_btn"
@@ -217,24 +145,24 @@
 
             <EditText
                 android:id="@+id/street"
-                style="@style/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:hint="Street and Number"
-                android:singleLine="true" />
-<!--
-            <EditText
-                android:id="@+id/building"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:hint="Apartment, Suite, Unit, Building, etc."
                 android:singleLine="true"
-                android:textSize="@dimen/m_font_size" />
--->
+                style="@style/edit_text"/>
+            <!--
+                        <EditText
+                            android:id="@+id/building"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:hint="Apartment, Suite, Unit, Building, etc."
+                            android:singleLine="true"
+                            android:textSize="@dimen/m_font_size" />
+            -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -307,7 +235,7 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
-                android:text="Number of Bedrooms in the house"
+                android:text="Number of Bedrooms"
                 android:textStyle="bold"
                 style="@style/text_field" />
 
@@ -367,7 +295,7 @@
                 android:layout_gravity="left"
                 android:layout_marginLeft="16dp"
                 android:paddingTop="@dimen/large_margin"
-                android:text="Number of Bathrooms in the house"
+                android:text="Number of Bathrooms"
                 style="@style/text_field"/>
 
             <info.hoang8f.android.segmented.SegmentedGroup
@@ -421,7 +349,77 @@
                     android:textStyle="bold" />
             </info.hoang8f.android.segmented.SegmentedGroup>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="16dp"
+                android:paddingTop="@dimen/large_margin"
+                android:text="Lease Length"
+                android:textStyle="bold"
+                style="@style/text_field"/>
 
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/lease_length"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="0dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/small_margin">
+
+                <RadioButton
+                    android:id="@+id/annual"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Anually"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/quarterly"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Quarterly"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/short_term"
+                    style="@style/RadioButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Monthly"
+                    android:textStyle="bold" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:paddingTop="@dimen/large_margin"
+                    android:text="Leasing Start Date"
+                    android:textStyle="bold"
+                    style="@style/text_field"/>
+
+                <EditText
+                    android:id="@+id/start_date"
+                    android:layout_marginRight="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Start Date"
+                    android:inputType="none"
+                    style="@style/edit_text"/>
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -556,6 +554,7 @@
                 android:layout_marginTop="8dp"
                 android:gravity="top"
                 android:hint="More information about the place"
+                android:lines="1"
                 android:maxLines="8"
                 style="@style/edit_text"/>
 

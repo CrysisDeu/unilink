@@ -24,7 +24,8 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
     public View mView;
     private TextView userStatusView;
     private TextView userNameView;
-    private ImageView userImageView;
+    public ImageView userImageView;
+    private TextView chatTimeView;
 
     ChatListViewHolder(View itemView) {
         super(itemView);
@@ -33,6 +34,7 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
         userStatusView = (TextView) mView.findViewById(R.id.user_single_status);
         userNameView = mView.findViewById(R.id.user_single_name);
         userImageView = (ImageView) mView.findViewById(R.id.user_single_image);
+        chatTimeView = mView.findViewById(R.id.time_view);
 
     }
 
@@ -45,6 +47,14 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
     public void setName(String name){
 
         userNameView.setText(name);
+    }
+
+    public String  getChatTimeView() {
+        return chatTimeView.getText().toString();
+    }
+
+    public void setChatTimeView(String time) {
+        this.chatTimeView.setText(time);
     }
 
     public void setUserImage(String thumb_image, Context ctx){

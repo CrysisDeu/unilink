@@ -118,7 +118,13 @@
                 android:inputType="textPassword"
                 android:hint="666666"
                 style="@style/edit_text"/>
-
+            <TextView
+                android:id="@+id/forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Forget Password?"
+                android:textColor="#6D48E5"/>
             <Button
                 android:id="@+id/confirm_sign_in"
                 android:layout_width="112dp"
@@ -126,6 +132,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/sign_in_button" />
+
         </LinearLayout>
 
         <LinearLayout

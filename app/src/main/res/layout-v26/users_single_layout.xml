@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?android:selectableItemBackground"
-    android:layout_marginTop="16dp"
-    android:layout_marginHorizontal="16dp">
+    android:layout_height="80dp"
+    android:layout_marginHorizontal="8dp"
+    android:paddingTop="8dp"
+    android:paddingHorizontal="8dp">
 
     <ImageView
         android:id="@+id/user_single_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp" />
+        android:layout_marginRight="16dp"/>
 
     <TextView
         android:id="@+id/user_single_name"
-        android:layout_width="wrap_content"
+        android:layout_width="208dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/user_single_image"
-        android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/user_single_image"
         android:text="Display Name"
         android:textColor="@android:color/black"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textSize="18sp" />
 
     <TextView
@@ -32,7 +31,9 @@
         android:layout_alignStart="@+id/user_single_name"
         android:layout_below="@+id/user_single_name"
         android:layout_marginTop="10dp"
-        android:text="Send a Message Now!" />
+        android:text="Send a Message Now!"
+        android:singleLine="true"
+        android:ellipsize="end"/>
 
     <TextView
         android:id="@+id/time_view"
@@ -42,6 +43,13 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="0dp"
         android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentBottom="true"
+        android:background="#5a5a5a"></LinearLayout>
 
 
 </RelativeLayout>

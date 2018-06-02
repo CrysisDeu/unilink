@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -47,6 +48,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     private final String PASSWORD_TOO_SHORT = "Your Password is too short!";
     private final String PASSWORD_TOO_SHORT_2 = "Password is at least 6 characters long";
     private final String PASSWORD_NOT_MATCH = "Your Password does not match!";
+    private final String PASSWORD_RESST_SENT = "Your password reset link is sent to your email";
 
     //logo
     private ImageView mSignInLogo;
@@ -67,6 +69,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
     private LinearLayout mSignInContainer;
     private ImageView mCancleSignInButton;
     private Button mConfirmSignIn;
+    private TextView mForgotPassword;
 
 
     //firebase
@@ -100,6 +103,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
         mSignInButton = findViewById(R.id.sign_in_button);
         mCancleSignInButton = findViewById(R.id.cancle_sign_in_button);
         mConfirmSignIn = findViewById(R.id.confirm_sign_in);
+        mForgotPassword = findViewById(R.id.forget_password);
 
 
         // Define the animators
@@ -202,9 +206,8 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
                 //fadeout and resize
                 FadeOutAnimation(mStartContainer,225);
-                //FadeOutAnimation(mSignInLogo,300);
-                resizeAnimation(mStartCard,dpToPx(280),300);//136
-                mSignInContainer = findViewById(R.id.sign_in_container);
+                FadeOutAnimation(mSignInLogo,300);
+                resizeAnimation(mStartCard,dpToPx(304),300);//136
                 FadeInAnimation(mSignInContainer,225);
 
             }
@@ -219,6 +222,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                 FadeOutAnimation(mSignInContainer,225);
                 resizeAnimation(mStartCard,dpToPx(144),300);//-136
                 FadeInAnimation(mStartContainer,225);
+                FadeInAnimation(mSignInLogo,300);
 
             }
         });
@@ -250,6 +254,26 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
+        //SignIn Forget Password onClick
+        mForgotPassword.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                EditText mEmailInput = findViewById(R.id.email_input);
+                String mEmail = mEmailInput.getText().toString();
+
+                if(!isEmailValid(mEmail)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), INVALID_EMAIL,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                    sendResetEmail(mEmail);
+
+                Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_RESST_SENT,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
 
@@ -449,6 +473,17 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                             } catch (Exception e) {
 
                             }
+                        }
+                    }
+                });
+    }
+
+    private void sendResetEmail(String email) {
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Foreget passowrd", "Email sent.");
                         }
                     }
                 });

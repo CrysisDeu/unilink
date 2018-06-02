@@ -48,12 +48,13 @@ public class RealtimeDbChatActivity extends AppCompatActivity
      */
     static Query sChatQuery;
     static final DatabaseReference messages= FirebaseDatabase.getInstance().getReference().child("Messages");
-    static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chats");
+    static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chat");
 
     private String other_id;
     private String other_name;
     private String uid;
     private String name;
+    private TextView mTitleName;
 
     @BindView(R.id.messagesList)
     RecyclerView mRecyclerView;
@@ -83,7 +84,8 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         sChatQuery =  FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(50);
-
+        mTitleName = findViewById(R.id.title_user_name);
+        mTitleName.setText(other_name);
 
         ImeHelper.setImeOnDoneListener(mMessageEdit, new ImeHelper.DonePressedListener() {
             @Override
@@ -179,8 +181,8 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         self.setValue(chat);
         other.setValue(chat);
 
-        chats.child(uid).child(other_id).setValue(time);
-        chats.child(other_id).child(uid).setValue(time);
+        chats.child(uid).child(other_id).child("mTimestamp").setValue(time);
+        chats.child(other_id).child(uid).child("mTimestamp").setValue(time);
 
     }
 
