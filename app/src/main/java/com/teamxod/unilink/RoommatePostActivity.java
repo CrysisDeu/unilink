@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,8 +27,12 @@ public class RoommatePostActivity extends AppCompatActivity {
     private Recommendation recommend;
     private double matchScore;
     private ArrayList<String> tags;
+    private TagViewGroup tagGroup;
+
     private DatabaseReference database;
     private DatabaseReference userReference;
+
+    private final static int MARGIN = 15;
 
 
     @Override
@@ -51,6 +57,22 @@ public class RoommatePostActivity extends AppCompatActivity {
         Log.d("check score","****"+matchScore);
 
         //load tag
+        tagGroup = findViewById(R.id.tag);
+
+        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.leftMargin = MARGIN;
+        lp.rightMargin = MARGIN;
+        lp.topMargin = MARGIN;
+        lp.bottomMargin = MARGIN;
+        for(int i = 0; i < tags.size(); i++){
+            TextView tagView = new TextView(this);
+            tagView.setText(tags.get(i));
+            tagView.setTextAppearance(R.style.tag_text);
+
+            tagView.setBackgroundResource(R.drawable.roommate_tag_layout);
+            tagGroup.addView(tagView,lp);
+        }
 
     }
 
