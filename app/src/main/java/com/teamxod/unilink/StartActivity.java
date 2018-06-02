@@ -267,7 +267,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                     toast.show();
                     return;
                 }
-                    sendResetEmail(mEmail);
+                sendResetEmail(mEmail);
 
                 Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_RESST_SENT,
                         Toast.LENGTH_SHORT);
@@ -373,9 +373,9 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
                     // already set profile
                     /*if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {*/
-                        Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
-                        startActivity(mainIntent);
-                        finish();
+                    Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
 
                     // need to set profile
                     /*} else {
@@ -438,7 +438,6 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(StartActivity.this, "Welcome!", Toast.LENGTH_SHORT).show();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -491,14 +490,6 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d("Foreget passowrd", "Email sent.");
-                        } else {
-                            try {
-                                throw task.getException();
-                            } catch (Exception e) {
-                                Log.w(TAG, "sendResetEmail:failure", task.getException());
-                                Toast.makeText(StartActivity.this, e.getMessage(),
-                                        Toast.LENGTH_SHORT).show();
-                            }
                         }
                     }
                 });

@@ -206,7 +206,7 @@ public class MyPreferenceActivity extends AppCompatActivity {
                 });
 
                 clean_seekBar.setMax(7);
-                clean_seekbar_text.setText("0 times - 7 times");
+                clean_seekbar_text.setText("0 - 7 times");
                 clean_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
@@ -228,7 +228,7 @@ public class MyPreferenceActivity extends AppCompatActivity {
 
                 // smoke and drink seekBar with texts logic
                 smoke_seekBar.setMax(7);
-                smoke_seekbar_text.setText("0 days - 7 days");
+                smoke_seekbar_text.setText("0 - 7 days");
                 smoke_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
@@ -248,7 +248,7 @@ public class MyPreferenceActivity extends AppCompatActivity {
                 });
 
                 drink_seekBar.setMax(7);
-                drink_seekbar_text.setText("0 days - 7 days");
+                drink_seekbar_text.setText("0 - 7 days");
                 drink_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
