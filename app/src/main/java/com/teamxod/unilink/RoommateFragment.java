@@ -153,7 +153,7 @@ public class RoommateFragment extends Fragment {
                     hasPreference = false;
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage("Without preference information, we are unable to provide you with the best possible roommate" +
-                            " and you will be invisible to other users");
+                            " and you will be invisible to other users.");
                     builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
