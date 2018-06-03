@@ -81,6 +81,7 @@ public class MyPreferenceActivity extends AppCompatActivity {
     private String uid;
     private preference existedPreference;
     private int needToRestore = 0;
+    private int finish;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +172,7 @@ public class MyPreferenceActivity extends AppCompatActivity {
                         }
 
                         String languageSelected = languageSpinner.getSelectedItem().toString();
+                        System.out.print("madamada" + languageSelected);
                         setLanguage(languageSelected);
                         // report data to the firebase
                         newPreference();

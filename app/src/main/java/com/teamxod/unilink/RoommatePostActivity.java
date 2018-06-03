@@ -51,8 +51,8 @@ public class RoommatePostActivity extends AppCompatActivity {
         //get current user and user in post
         //loadData();
 
-        recommend = new Recommendation(uid,uid);
-        matchScore = recommend.calculate();
+        recommend = new Recommendation(new preference(),new preference());
+        //matchScore = recommend.calculate();
         tags = recommend.getTagList();
         Log.d("check score","****"+matchScore);
 
