@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.chat.RealtimeDbChatActivity;
+import com.teamxod.unilink.user.User;
 
 import org.w3c.dom.Text;
 
