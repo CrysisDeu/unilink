@@ -77,6 +77,7 @@ public class RoommateFragment extends Fragment {
         visibleReference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                roommateUID.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String userID = userSnapshot.getKey();
                     if(userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
