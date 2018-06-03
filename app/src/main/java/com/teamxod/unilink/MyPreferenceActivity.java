@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
@@ -81,12 +82,18 @@ public class MyPreferenceActivity extends AppCompatActivity {
     private String uid;
     private preference existedPreference;
     private int needToRestore = 0;
-    private int finish;
+    private boolean finish;
+
+    private boolean smokeFinish;
+    private boolean drinkFinish;
+    private boolean partyFinish;
+    private boolean bringFinish;
+    private boolean petFinish;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_preference);
-
         // firebase declaration
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
@@ -161,22 +168,24 @@ public class MyPreferenceActivity extends AppCompatActivity {
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // map getProgress() to value between -1 and 1.
-                        Sleep = 1 - 2 * sleep_seekBar.getProgress() / (double)9;
-                        Clean = 1 - 2 * clean_seekBar.getProgress() / (double)7;
-                        if (Smoke != -1) {
-                            Smoke = -1 + 2 * smoke_seekBar.getProgress() / (double)7;
+                        if(getFinish() == true) {
+                            // map getProgress() to value between -1 and 1.
+                            Sleep = 1 - 2 * sleep_seekBar.getProgress() / (double) 9;
+                            Clean = 1 - 2 * clean_seekBar.getProgress() / (double) 7;
+                            if (Smoke != -1) {
+                                Smoke = -1 + 2 * smoke_seekBar.getProgress() / (double) 7;
+                            }
+                            if (Drink != -1) {
+                                Drink = -1 + 2 * drink_seekBar.getProgress() / (double) 7;
+                            }
+                            String languageSelected = languageSpinner.getSelectedItem().toString();
+                            setLanguage(languageSelected);
+                            // report data to the firebase
+                            newPreference();
+                            finish();
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Please finish the survey.", Toast.LENGTH_LONG).show();
                         }
-                        if (Drink != -1) {
-                            Drink = -1 + 2 * drink_seekBar.getProgress() / (double)7;
-                        }
-
-                        String languageSelected = languageSpinner.getSelectedItem().toString();
-                        System.out.print("madamada" + languageSelected);
-                        setLanguage(languageSelected);
-                        // report data to the firebase
-                        newPreference();
-                        finish();
                     }
                 });
 
@@ -276,12 +285,14 @@ public class MyPreferenceActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Smoke = 1;
+                        smokeFinish = true;
                     }
                 });
                 smoke2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Smoke = -1;
+                        smokeFinish = true;
                     }
                 });
 
@@ -289,12 +300,14 @@ public class MyPreferenceActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Drink = 1;
+                        drinkFinish = true;
                     }
                 });
                 drink2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Drink = -1;
+                        drinkFinish = true;
                     }
                 });
 
@@ -375,18 +388,21 @@ public class MyPreferenceActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Bring = 1;
+                        bringFinish = true;
                     }
                 });
                 bring2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Bring = -1;
+                        bringFinish = true;
                     }
                 });
                 bring3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Bring = 0;
+                        bringFinish = true;
                     }
                 });
 
@@ -394,12 +410,14 @@ public class MyPreferenceActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Pet = 1;
+                        petFinish = true;
                     }
                 });
                 pet2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Pet = -1;
+                        petFinish = true;
                     }
                 });
 
@@ -407,18 +425,21 @@ public class MyPreferenceActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Party = 1;
+                        partyFinish = true;
                     }
                 });
                 party2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Party = -1;
+                        partyFinish = true;
                     }
                 });
                 party3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Party = 0;
+                        partyFinish = true;
                     }
                 });
 
@@ -450,6 +471,11 @@ public class MyPreferenceActivity extends AppCompatActivity {
                     existedPreference.setSmoke(Smoke);
                     existedPreference.setDrink(Drink);
                     needToRestore = 1;
+                    smokeFinish = true;
+                    drinkFinish = true;
+                    partyFinish = true;
+                    bringFinish = true;
+                    petFinish = true;
                     restoreInfo();
                 }
             }
@@ -583,5 +609,8 @@ public class MyPreferenceActivity extends AppCompatActivity {
                 break;
             default: language = 11;
         }
+    }
+    public boolean getFinish(){
+        return (smokeFinish && drinkFinish && bringFinish && petFinish && partyFinish);
     }
 }
