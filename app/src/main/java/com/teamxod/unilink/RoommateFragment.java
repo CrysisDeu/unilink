@@ -74,7 +74,7 @@ public class RoommateFragment extends Fragment {
     }
 
     private void loadData() {
-        visibleReference.addListenerForSingleValueEvent(new ValueEventListener(){
+        visibleReference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
@@ -160,7 +160,7 @@ public class RoommateFragment extends Fragment {
     }
 
     private void checkPreference() {
-        preferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        preferenceReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(myUid)) {
