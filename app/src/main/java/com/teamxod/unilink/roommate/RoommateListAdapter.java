@@ -108,7 +108,7 @@ class RoommateListAdapter extends BaseAdapter {
         else if (currentYear <= 0)
             temp = "Incoming Student";
         else
-            temp = "Class of " + currentYear;
+            temp = "Class of " + roommate.getYearGraduate();
         viewHolder.vhYear.setText(temp);
 
         viewHolder.vhName.setText(roommate.getName());
