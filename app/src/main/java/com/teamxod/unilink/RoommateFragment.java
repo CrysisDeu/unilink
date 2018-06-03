@@ -113,16 +113,7 @@ public class RoommateFragment extends Fragment {
     }
 
     //sort matching score
-    private void sortScore(){
 
-        Collections.sort(roommateUID, new Comparator<String>() {
-            @Override
-            public int compare(String user, String roommate) {
-
-                return p1.getRoom_price() - p2.getRoom_price();
-            }
-        });
-    }
 
 
     private void setupVisible(boolean isVisible) {
