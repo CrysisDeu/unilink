@@ -1,8 +1,10 @@
 package com.teamxod.unilink;
 
 import android.content.Context;
+import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -35,6 +37,7 @@ class RoommateListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context mContext;
     private final static int MARGIN = 15;
+    private DatabaseReference database;
 
     RoommateListAdapter(Context context, List<String> objects, ListView listView) {
         mList = (ArrayList<String>) objects;
@@ -86,8 +89,8 @@ class RoommateListAdapter extends BaseAdapter {
 
         final String roommateUID = (String) getItem(position);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userReference = databaseReference.child("User").child(roommateUID);
+        database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference userReference = database.child("Users").child(roommateUID);
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,7 +107,7 @@ class RoommateListAdapter extends BaseAdapter {
         return view;
     }
 
-    private void loadData(ViewHolder viewHolder, User roommate, String roommateUID) {
+    private void loadData(final ViewHolder viewHolder, User roommate, final String roommateUID) {
         //glide image
         Glide.with(mContext)
                 .load(roommate.getPicture())
@@ -118,33 +121,58 @@ class RoommateListAdapter extends BaseAdapter {
             temp = "Alumni";
         else
             temp = currentYear + "th Year";
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        String myUid = auth.getCurrentUser().getUid();
-        Recommendation recommendation = new Recommendation(roommateUID, myUid);
-        double score = recommendation.calculate();
-        ArrayList<String> tagList = recommendation.getTagList();
+        viewHolder.vhYear.setText(temp);
 
         viewHolder.vhName.setText(roommate.getName());
         viewHolder.vhGender.setText(roommate.getGender());
-        viewHolder.vhYear.setText(temp);
-        viewHolder.vhProgress.setPercentage((int)(score * 36));
-        viewHolder.vhScore.setText(String.valueOf(score));
 
-        ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.leftMargin = MARGIN;
-        lp.rightMargin = MARGIN;
-        lp.topMargin = MARGIN;
-        lp.bottomMargin = MARGIN;
-        for(int i = 0; i < tagList.size(); i++){
-            TextView tagView = new TextView(mContext);
-            tagView.setText(tagList.get(i));
-            tagView.setTextAppearance(R.style.tag_text);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        final String myUid = auth.getCurrentUser().getUid();
 
-            tagView.setBackgroundResource(R.drawable.roommate_tag_layout);
-            viewHolder.tag.addView(tagView,lp);
-        }
+        DatabaseReference preferenceReference = database.child("Preference");
+        preferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                double score;
+                ArrayList<String> tagList;
+
+                preference myPreference = dataSnapshot.child(myUid).getValue(preference.class);
+                preference posterPreference = dataSnapshot.child(roommateUID).getValue(preference.class);
+
+                if(myPreference != null && posterPreference != null) {
+                    Recommendation recommendation = new Recommendation(myPreference, posterPreference);
+                    score = recommendation.getScore();
+                    tagList = recommendation.getTagList();
+                    viewHolder.vhScore.setText(String.valueOf(score));
+                } else {
+                    score = 0;
+                    tagList = new ArrayList<>();
+                    viewHolder.vhScore.setText("?");
+                }
+
+                viewHolder.vhProgress.setPercentage((int)(score * 36));
+
+                ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.leftMargin = MARGIN;
+                lp.rightMargin = MARGIN;
+                lp.topMargin = MARGIN;
+                lp.bottomMargin = MARGIN;
+                for(int i = 0; i < tagList.size(); i++){
+                    TextView tagView = new TextView(mContext);
+                    tagView.setText(tagList.get(i));
+                    tagView.setTextAppearance(R.style.tag_text);
+
+                    tagView.setBackgroundResource(R.drawable.roommate_tag_layout);
+                    viewHolder.tag.addView(tagView,lp);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //default
+            }
+        });
     }
-
 }

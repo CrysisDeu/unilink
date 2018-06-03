@@ -45,7 +45,7 @@ public class RoommateFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_roommate, container, false); // get the GUI
 
         listView = layout.findViewById(R.id.roommate_list);
-        visible_btn = layout.findViewById(R.id.invisible);
+        visible_btn = layout.findViewById(R.id.visible);
         layer = layout.findViewById(R.id.layer);
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
