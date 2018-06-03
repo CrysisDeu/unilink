@@ -108,8 +108,8 @@ public class RoommatePostActivity extends AppCompatActivity {
                 double score;
                 if(myPreference != null && userPreference != null) {
                     Recommendation recommendation = new Recommendation(myPreference, userPreference);
-                    tags = recommendation.getTagList();
                     score = recommendation.getScore();
+                    tags = recommendation.getTagList();
                 } else {
                     tags = new ArrayList<>();
                     score = 0;

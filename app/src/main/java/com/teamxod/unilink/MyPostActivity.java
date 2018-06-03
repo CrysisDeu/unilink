@@ -2,6 +2,7 @@ package com.teamxod.unilink;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MyPostFragment extends Fragment {
+public class MyPostActivity extends AppCompatActivity {
 
     private DatabaseReference database;
 
@@ -30,39 +31,25 @@ public class MyPostFragment extends Fragment {
 
     private MyPostAdapter myPostAdapter;
 
+    private ImageView mBackButton;
     ToggleButton mEditButton;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.activity_my_post, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_post);
 
-        setupButton(layout);
-
-        loadData(layout);
-
-        return layout;
-    }
-
-    private void setupButton(View layout) {
-        ImageView mBackButton = (ImageView)layout.findViewById(R.id.back_button);
-        mBackButton.setOnClickListener(new View.OnClickListener(){
+        mBackButton = findViewById(R.id.back_button);
+        mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = getFragmentManager().findFragmentByTag("my_post");
-                getFragmentManager()
-                        .beginTransaction()
-                        .remove(fragment)
-                        .commit();
+                finish();
             }
         });
+        mEditButton = findViewById(R.id.edit_btn);
 
-        mEditButton = (ToggleButton) layout.findViewById(R.id.edit_btn);
-        mEditButton.setChecked(false);
-    }
-
-    private void loadData(View layout) {
-        houseListView = (RecyclerView) layout.findViewById(R.id.my_post_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        houseListView = findViewById(R.id.my_post_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MyPostActivity.this, LinearLayoutManager.VERTICAL, false);
         houseListView.setLayoutManager(layoutManager);
         houseListView.setHasFixedSize(true);
         houseListView.addItemDecoration(new DividerItemDecoration(houseListView.getContext(), DividerItemDecoration.VERTICAL));
@@ -78,7 +65,7 @@ public class MyPostFragment extends Fragment {
                 for (DataSnapshot postID : dataSnapshot.getChildren()) {
                     postList.add(postID.getValue(String.class));
                 }
-                myPostAdapter = new MyPostAdapter(getActivity(), postList, mEditButton.isChecked());
+                myPostAdapter = new MyPostAdapter(MyPostActivity.this, postList, mEditButton.isChecked());
                 houseListView.setAdapter(myPostAdapter);
                 mEditButton.setOnClickListener(new View.OnClickListener() {
                     @Override

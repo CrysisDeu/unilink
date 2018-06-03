@@ -33,12 +33,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".My_changePassword" />
-        <activity android:name=".MyPreferenceActivity" />
+        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".ChangePreferenceActivity" />
         <activity android:name=".MyFavoriteActivity" />
+        <activity android:name=".MyPostActivity" />
         <activity android:name=".user.AuthenticationActivity" />
         <activity
-            android:name=".MyChangeProfileActivity"
+            android:name=".ChangeProfileActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".HousePostActivity" />
         <activity android:name=".AddPostActivity" />

@@ -116,12 +116,9 @@
                         android:layout_height="88dp"
                         app:barWidth="6dp"
                         app:countText=""
-                        app:countTextColor="#000000"
-                        app:countTextSize="20sp"
-                        app:defTextColor="#000000"
+                        app:percentage="0"
                         app:defTextSize="0sp"
                         app:definitionText=""
-                        app:marginBtwText="0dp"
                         app:progressColor="#6d48e5" />
 
                     <TextView
@@ -151,7 +148,6 @@
                 android:id="@+id/roommate_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="this is the sample display UI for roommate post, not completed yet. lot of parts is under construction"
                 android:textColor="@color/black"
                 android:textSize="@dimen/s_font_size" />
 

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingHorizontal="12dp">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
@@ -20,7 +21,7 @@
         <LinearLayout
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="76dp"
+            android:layout_marginStart="76dp"
             android:layout_marginTop="14dp"
             android:orientation="vertical">
 
@@ -31,8 +32,7 @@
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:fontFamily="@font/roboto"
-                android:textStyle="bold"
-                android:text="" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/rMajor"
@@ -40,8 +40,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                android:fontFamily="@font/roboto"
-                android:text="" />
+                android:fontFamily="@font/roboto" />
 
             <TextView
                 android:id="@+id/rYear"
@@ -49,15 +48,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                android:fontFamily="@font/roboto"
-                android:text="" />
+                android:fontFamily="@font/roboto" />
 
         </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -67,7 +65,6 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="32dp"
                     android:textColor="#000000"
-                    android:text=""
                     android:textSize="16sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"/>
@@ -79,13 +76,8 @@
                     android:layout_marginTop="6dp"
                     app:barWidth="6dp"
                     app:countText=""
-                    app:countTextColor="#000000"
-                    app:countTextSize="20sp"
-                    app:defTextColor="#000000"
-                    app:defTextSize="0sp"
                     app:definitionText=""
-                    app:marginBtwText="0dp"
-                    app:percentage="360"
+                    app:percentage="0"
                     app:progressColor="#6d48e5" />
 
 

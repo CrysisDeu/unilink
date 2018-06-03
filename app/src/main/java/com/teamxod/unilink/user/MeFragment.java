@@ -25,11 +25,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.teamxod.unilink.MyChangeProfileActivity;
+import com.teamxod.unilink.ChangeProfileActivity;
 import com.teamxod.unilink.MyFavoriteActivity;
-import com.teamxod.unilink.MyPostFragment;
-import com.teamxod.unilink.MyPreferenceActivity;
-import com.teamxod.unilink.My_changePassword;
+import com.teamxod.unilink.MyPostActivity;
+import com.teamxod.unilink.ChangePreferenceActivity;
+import com.teamxod.unilink.ChangePasswordActivity;
 import com.teamxod.unilink.R;
 
 
@@ -132,18 +132,15 @@ public class MeFragment extends Fragment {
         my_post.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Fragment fragment = new MyPostFragment();
-                getFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.fragment_container,fragment,"my_post")
-                        .commit();
+                Intent i = new Intent(getActivity(), MyPostActivity.class);
+                startActivity(i);
             }
         });
 
         changeProfile.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent i = new Intent(getActivity(), MyChangeProfileActivity.class);
+                Intent i = new Intent(getActivity(), ChangeProfileActivity.class);
                 startActivity(i);
             }
         });
@@ -152,7 +149,7 @@ public class MeFragment extends Fragment {
             @Override
             public void onClick(View view){
                 if (!getLoginmethod()) {
-                    Intent i = new Intent(getActivity(), My_changePassword.class);
+                    Intent i = new Intent(getActivity(), ChangePasswordActivity.class);
                     startActivity(i);
                 } else {
                     Toast.makeText(getActivity(),"You can only change your password if you sign in using email.",Toast.LENGTH_SHORT).show();
@@ -163,7 +160,7 @@ public class MeFragment extends Fragment {
         preference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
                 startActivity(i);
         }
     });

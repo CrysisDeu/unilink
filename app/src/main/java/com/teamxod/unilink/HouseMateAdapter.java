@@ -15,13 +15,13 @@ import com.teamxod.unilink.user.User;
 
 import java.util.ArrayList;
 
-public class UserPictureAdapter extends RecyclerView.Adapter<UserPictureAdapter.SimpleProfileViewHolder> {
+public class HouseMateAdapter extends RecyclerView.Adapter<HouseMateAdapter.SimpleProfileViewHolder> {
 
     private ArrayList<User> users;
 
     private Context context;
 
-    UserPictureAdapter(Context context, ArrayList<User> users){
+    HouseMateAdapter(Context context, ArrayList<User> users){
         this.users = users;
         this.context = context;
     }

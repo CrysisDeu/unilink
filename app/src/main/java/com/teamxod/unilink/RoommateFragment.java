@@ -3,12 +3,10 @@ package com.teamxod.unilink;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -79,13 +77,8 @@ public class RoommateFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String userID = userSnapshot.getKey();
-                    Boolean isVisible;
                     if(userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
                         roommateUID.add(userID);
-                    if(userSnapshot.hasChild(myUid))
-                        isVisible = userSnapshot.child(myUid).getValue(Boolean.class);
-                    else
-                        isVisible = false;
 
                     RoommateListAdapter adapter = new RoommateListAdapter(getActivity(),roommateUID);
                     listView.setAdapter(adapter);
@@ -95,11 +88,16 @@ public class RoommateFragment extends Fragment {
                             Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
                             myIntent.putExtra("uid",roommateUID.get(position - 1));
                             startActivity(myIntent);
-
                         }
                     });
-                    setupVisible(isVisible);
                 }
+
+                boolean isVisible;
+                if(dataSnapshot.hasChild(myUid))
+                    isVisible = dataSnapshot.child(myUid).getValue(Boolean.class);
+                else
+                    isVisible = false;
+                setupVisible(isVisible);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -122,7 +120,7 @@ public class RoommateFragment extends Fragment {
                     builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
-                            Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                            Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
                             startActivity(i);
                         }
                     });
@@ -152,11 +150,11 @@ public class RoommateFragment extends Fragment {
                     hasPreference = false;
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage("Without preference information, we are unable to provide you with the best possible roommate" +
-                            " and you will be invisible to other users");
+                            " and you will be invisible to other users.");
                     builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
-                            Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                            Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
                             startActivity(i);
                         }
                     });
@@ -194,7 +192,7 @@ public class RoommateFragment extends Fragment {
         Button preference_btn = layout.findViewById(R.id.roommate_preference);
         preference_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
                 startActivity(i);
             }
         });

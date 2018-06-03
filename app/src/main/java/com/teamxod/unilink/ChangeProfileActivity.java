@@ -4,8 +4,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -32,7 +32,7 @@ import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.listeners.IPickResult;
 
-public class MyChangeProfileActivity extends AppCompatActivity implements IPickResult {
+public class ChangeProfileActivity extends AppCompatActivity implements IPickResult {
 
     //spinner selector
     private final int GENDER_MALE = 0;
@@ -45,7 +45,7 @@ public class MyChangeProfileActivity extends AppCompatActivity implements IPickR
 
     //Button
     private ImageView mBackButton;
-    private CardView mSaveButton;
+    private Button mSaveButton;
 
     //Views
     private ImageView mProfilePic;
@@ -120,7 +120,7 @@ public class MyChangeProfileActivity extends AppCompatActivity implements IPickR
 //                user.setDescription(mDescription.getText().toString());
 //                mUserReference.setValue(user);
                 if (mEditName.getText().toString().equals("")) {
-                    Toast.makeText(MyChangeProfileActivity.this,NAME_INVALID,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangeProfileActivity.this,NAME_INVALID,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 uploadToFirebase(picture);
@@ -134,7 +134,7 @@ public class MyChangeProfileActivity extends AppCompatActivity implements IPickR
         mProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PickImageDialog.build(new PickSetup()).show(MyChangeProfileActivity.this);
+                PickImageDialog.build(new PickSetup()).show(ChangeProfileActivity.this);
 
             }
         });
