@@ -9,6 +9,7 @@ import android.os.Bundle;
 // Firebase
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.teamxod.unilink.MainActivity;
 import com.teamxod.unilink.R;
 
@@ -24,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mAuth = FirebaseAuth.getInstance();
 
         new Handler().postDelayed(new Runnable() {
@@ -49,6 +51,6 @@ public class SplashActivity extends AppCompatActivity {
             },SPLASH_TIME
         );
 
-    };
+    }
 
 }

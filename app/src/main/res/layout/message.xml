@@ -9,14 +9,14 @@
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
 
-    <FrameLayout
+    <!--FrameLayout
         android:id="@+id/left_arrow"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/ic_chat_message_arrow"
-        android:rotation="180" />
+        android:rotation="180" /-->
 
 
     <LinearLayout
@@ -39,7 +39,7 @@
 
     </LinearLayout>
 
-    <FrameLayout
+    <!--FrameLayout
         android:id="@+id/right_arrow"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -47,7 +47,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="47dp"
         android:background="@drawable/ic_chat_message_arrow"
-        android:rotation="180" />
+        android:rotation="180" /-->
 
 
 

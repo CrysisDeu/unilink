@@ -24,8 +24,8 @@ import com.teamxod.unilink.R;
 public class ChatHolder extends RecyclerView.ViewHolder {
     //private final TextView mNameField;
     private final TextView mTextField;
-    private final FrameLayout mLeftArrow;
-    private final FrameLayout mRightArrow;
+//    private final FrameLayout mLeftArrow;
+//    private final FrameLayout mRightArrow;
     private final RelativeLayout mMessageContainer;
     private final LinearLayout mMessage;
     private final int mGreen300;
@@ -36,8 +36,8 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     public ChatHolder(View itemView) {
         super(itemView);
         mTextField = itemView.findViewById(R.id.message_text);
-        mLeftArrow = itemView.findViewById(R.id.left_arrow);
-        mRightArrow = itemView.findViewById(R.id.right_arrow);
+//        mLeftArrow = itemView.findViewById(R.id.left_arrow);
+//        mRightArrow = itemView.findViewById(R.id.right_arrow);
         mMessageContainer = itemView.findViewById(R.id.message_container);
         mMessage = itemView.findViewById(R.id.message);
         mGreen300 = ContextCompat.getColor(itemView.getContext(), R.color.material_green_300);
@@ -70,18 +70,18 @@ public class ChatHolder extends RecyclerView.ViewHolder {
         params.setMargins(0,24,0,0);
         if (isSender) {
             color = mGreen300;
-            mLeftArrow.setVisibility(View.GONE);
+//            mLeftArrow.setVisibility(View.GONE);
             mLeftImage.setVisibility(View.GONE);
-            mRightArrow.setVisibility(View.GONE);
+//            mRightArrow.setVisibility(View.GONE);
             mRightImage.setVisibility(View.VISIBLE);
             mMessageContainer.setGravity(Gravity.END);
             params.addRule(RelativeLayout.START_OF, R.id.right_image);
             mMessage.setLayoutParams(params);
         } else {
             color = mGray300;
-            mLeftArrow.setVisibility(View.GONE);
+//            mLeftArrow.setVisibility(View.GONE);
             mLeftImage.setVisibility(View.VISIBLE);
-            mRightArrow.setVisibility(View.GONE);
+//            mRightArrow.setVisibility(View.GONE);
             mRightImage.setVisibility(View.GONE);
             mMessageContainer.setGravity(Gravity.START);
             params.addRule(RelativeLayout.END_OF, R.id.left_image);
@@ -89,10 +89,10 @@ public class ChatHolder extends RecyclerView.ViewHolder {
         }
 
         ((GradientDrawable) mMessage.getBackground()).setColor(color);
-        ((RotateDrawable) mLeftArrow.getBackground()).getDrawable()
-                .setColorFilter(color, PorterDuff.Mode.SRC);
-        ((RotateDrawable) mRightArrow.getBackground()).getDrawable()
-                .setColorFilter(color, PorterDuff.Mode.SRC);
+//        ((RotateDrawable) mLeftArrow.getBackground()).getDrawable()
+//                .setColorFilter(color, PorterDuff.Mode.SRC);
+//        ((RotateDrawable) mRightArrow.getBackground()).getDrawable()
+//                .setColorFilter(color, PorterDuff.Mode.SRC);
     }
 
     public void setImage(Chat chat, Context context, Uri mOtherPhoto, Uri mPhoto) {

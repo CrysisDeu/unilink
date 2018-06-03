@@ -98,8 +98,11 @@ public class MeFragment extends Fragment {
         preference = layout.findViewById(R.id.set_preference_l);
 
         // GoogleApiClient to logout
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()) //Use app context to prevent leaks using activity
-                //.enableAutoManage(this /* FragmentActivity */, connectionFailedListener)
+        //Use app context to prevent leaks using activity
+        if (getActivity() == null) {
+            return layout;
+        }
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
                 .build();
 

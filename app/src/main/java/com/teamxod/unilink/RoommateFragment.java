@@ -82,7 +82,9 @@ public class RoommateFragment extends Fragment {
                     String userID = userSnapshot.getKey();
                     if(userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
                         roommateUID.add(userID);
-
+                    if(getActivity() == null) {
+                        return;
+                    }
                     RoommateListAdapter adapter = new RoommateListAdapter(getActivity(),roommateUID);
                     listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

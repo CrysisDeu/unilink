@@ -3,11 +3,14 @@ package com.teamxod.unilink;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,6 +39,7 @@ import java.util.Comparator;
 
 public class HousingFragment extends Fragment  {
 
+    private static final int ADD_POST = 1;
     private ListView listView;
     private LinearLayout searchBar;
     private SearchView search;
@@ -68,6 +72,7 @@ public class HousingFragment extends Fragment  {
         });
         //firebase
         DatabaseReference HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
+//        HouseDatabase.keepSynced(true);
         HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,6 +89,7 @@ public class HousingFragment extends Fragment  {
                     String term = house.child("leasingLength").getValue(String.class);
                     int price = (int)house.child("rooms").child("0").child("price").getValue(Integer.class);
                     String imageId = house.child("pictures").child("0").getValue(String.class);
+                    Log.d("ADDPOST","a" + imageId);
                     HousePost post = new HousePost(key,type,title,price,term,location,imageId);
                     posts.add(post);
                 }
@@ -92,7 +98,8 @@ public class HousingFragment extends Fragment  {
                     if (getActivity() == null) {
                         return;
                     }
-                    HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts);
+                    Context ctx = getActivity();
+                    HousePostAdapter adapter = new HousePostAdapter(ctx, posts);
                     listView.setAdapter(adapter);
                 }
             }
@@ -106,7 +113,7 @@ public class HousingFragment extends Fragment  {
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), AddPostActivity.class);
-                startActivity(myIntent);
+                startActivityForResult(myIntent, ADD_POST);
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +199,27 @@ public class HousingFragment extends Fragment  {
 
         return layout;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == ADD_POST && getActivity() != null) {
+            new Handler().postDelayed(new Runnable() {
+                                          @Override
+                                          public void run() {
+                                              getActivity()
+                                                      .getSupportFragmentManager()
+                                                      .beginTransaction()
+                                                      .replace(R.id.fragment_container, new HousingFragment())
+                                                      .commit();
+                                          }
+                                      },1000);
+
+        }
+    }
+
 
     //sort method
     private void sortPrice(boolean order){

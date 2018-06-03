@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.chat.RealtimeDbChatActivity;
+import com.teamxod.unilink.user.Profile;
 import com.teamxod.unilink.user.User;
 
 import java.io.IOException;
@@ -187,7 +188,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
         posterImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(),RoommatePostActivity.class);
+                Intent myIntent = new Intent(getApplicationContext(),Profile.class);
                 myIntent.putExtra("uid", house.getPosterId());
                 startActivity(myIntent);
             }

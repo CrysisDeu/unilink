@@ -1,5 +1,6 @@
 package com.teamxod.unilink;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -56,6 +57,7 @@ class HousePostAdapter extends BaseAdapter implements OnScrollListener {
           return position;
       }
 
+      @SuppressLint("ViewHolder")
       @Override
       public View getView(final int position, @Nullable View view, @NonNull ViewGroup parent) {
 
