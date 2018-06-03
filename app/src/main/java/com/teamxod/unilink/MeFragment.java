@@ -171,7 +171,7 @@ public class MeFragment extends Fragment {
                     mGoogleApiClient.disconnect();
                     mGoogleApiClient.connect();
                 }
-                Intent reset = new Intent(getActivity(), StartActivity.class);
+                Intent reset = new Intent(getActivity(), AuthenticationActivity.class);
                 reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(reset);
             }

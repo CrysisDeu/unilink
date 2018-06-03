@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.chat;
 
 
 import android.annotation.SuppressLint;
@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.Profile;
+import com.teamxod.unilink.R;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -34,20 +36,20 @@ import java.text.SimpleDateFormat;
  */
 public class ChatsFragment extends Fragment {
 
-    private RecyclerView mConvList;
-    private Query query;
 
+
+    // Firebase
     private DatabaseReference mConvDatabase;
     private DatabaseReference mMessageDatabase;
     private DatabaseReference mChatDatabse;
     private DatabaseReference mUsersDatabase;
     private FirebaseRecyclerAdapter adapter;
-
     private FirebaseAuth mAuth;
-
     private String mCurrent_user_id;
 
+    // Views
     private View mMainView;
+    private RecyclerView mConvList;
 
 
     public ChatsFragment() {
@@ -59,25 +61,24 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Views
         mMainView = inflater.inflate(R.layout.fragment_chats, container, false);
-
         mConvList = mMainView.findViewById(R.id.conv_list);
+
+        // Database
         mAuth = FirebaseAuth.getInstance();
-
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
-
         mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
-
         mConvDatabase.keepSynced(true);
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("Messages").child(mCurrent_user_id);
         mChatDatabse = FirebaseDatabase.getInstance().getReference().child("Chat");
         mUsersDatabase.keepSynced(true);
 
+        // Layout
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
-
         mConvList.setHasFixedSize(true);
         mConvList.setLayoutManager(linearLayoutManager);
 
@@ -87,29 +88,30 @@ public class ChatsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        // Sort list by last chat time
         Query conversationQuery = mConvDatabase.orderByChild("mTimestamp");
         FirebaseRecyclerOptions<Chat> options =
                 new FirebaseRecyclerOptions.Builder<Chat>()
                         .setQuery(conversationQuery, Chat.class)
                         .build();
 
+        // adapter to hold contacts
         adapter  = new FirebaseRecyclerAdapter<Chat, ChatListViewHolder>(options) {
             @NonNull
             @Override
             public ChatListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.users_single_layout, parent, false);
-
                 return new ChatListViewHolder(view);
             }
 
             @Override
             protected void onBindViewHolder(@NonNull final ChatListViewHolder holder, int position, @NonNull Chat model) {
+
+                // bind last message to each holder
                 final String list_user_id = getRef(position).getKey();
-                ;
-
                 Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
-
                 lastMessageQuery.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -117,7 +119,6 @@ public class ChatsFragment extends Fragment {
                         String data = dataSnapshot.child("mMessage").getValue().toString();
                         Log.d("onBindViewHolder", data);
                         holder.setMessage(data);
-
                     }
 
                     @Override
@@ -141,6 +142,7 @@ public class ChatsFragment extends Fragment {
                     }
                 });
 
+                // set chat date
                 mChatDatabse.child(list_user_id).child(mCurrent_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -160,6 +162,7 @@ public class ChatsFragment extends Fragment {
                     }
                 });
 
+                // set contact image and name
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -169,11 +172,12 @@ public class ChatsFragment extends Fragment {
 
                         holder.setName(userName);
                         holder.setUserImage(userThumb, getContext());
+
+
+                        // click adapter to chat
                         holder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
-
                                 Intent chatIntent = new Intent(getContext(), RealtimeDbChatActivity.class);
                                 chatIntent.putExtra("user_id", list_user_id);
                                 chatIntent.putExtra("user_name", userName);
@@ -189,6 +193,7 @@ public class ChatsFragment extends Fragment {
                     }
                 });
 
+                // click avatar to show profile
                 holder.userImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
