@@ -33,16 +33,14 @@ import java.util.List;
 class RoommateListAdapter extends BaseAdapter {
 
     private ArrayList<String> mList;
-    private ListView mListView;
     private LayoutInflater mInflater;
     private Context mContext;
     private final static int MARGIN = 15;
     private DatabaseReference database;
 
-    RoommateListAdapter(Context context, List<String> objects, ListView listView) {
+    RoommateListAdapter(Context context, List<String> objects) {
         mList = (ArrayList<String>) objects;
         mInflater = LayoutInflater.from(context);
-        mListView = listView;
         mContext = context;
     }
 

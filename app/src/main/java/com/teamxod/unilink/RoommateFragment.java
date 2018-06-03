@@ -4,16 +4,21 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -39,6 +44,9 @@ public class RoommateFragment extends Fragment {
     private String myUid;
 
     private DatabaseReference visibleReference;
+    private DatabaseReference preferenceReference;
+
+    private boolean hasPreference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +60,7 @@ public class RoommateFragment extends Fragment {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         visibleReference = database.child("Visible");
         myUid = auth.getCurrentUser().getUid();
+        preferenceReference = database.child("Preference");
 
         roommateUID = new ArrayList<>();
 
@@ -59,7 +68,7 @@ public class RoommateFragment extends Fragment {
 
         setHeader();
 
-        loadData();
+        checkPreference();
 
         return layout;
     }
@@ -78,8 +87,17 @@ public class RoommateFragment extends Fragment {
                     else
                         isVisible = false;
 
-                    RoommateListAdapter adapter = new RoommateListAdapter(getActivity(),roommateUID,listView);
+                    RoommateListAdapter adapter = new RoommateListAdapter(getActivity(),roommateUID);
                     listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
+                            myIntent.putExtra("uid",roommateUID.get(position));
+                            startActivity(myIntent);
+
+                        }
+                    });
                     setupVisible(isVisible);
                 }
             }
@@ -92,14 +110,70 @@ public class RoommateFragment extends Fragment {
 
     private void setupVisible(boolean isVisible) {
         visible_btn.setChecked(isVisible);
+
         visible_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(visible_btn.isChecked()){
+                if(!hasPreference) {
+                    visible_btn.setChecked(false);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Without preference information, we are unable to provide you with the best possible roommate" +
+                            " and you will be invisible to other users");
+                    builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                            startActivity(i);
+                        }
+                    });
+                    builder.setNegativeButton("Still Look Around", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else if(visible_btn.isChecked()){
                     visibleReference.child(myUid).setValue(true);
                 } else {
                     visibleReference.child(myUid).setValue(false);
                 }
+            }
+        });
+    }
+
+    private void checkPreference() {
+        preferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(myUid)) {
+                    hasPreference = true;
+                } else {
+                    hasPreference = false;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Without preference information, we are unable to provide you with the best possible roommate" +
+                            " and you will be invisible to other users");
+                    builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                            startActivity(i);
+                        }
+                    });
+                    builder.setNegativeButton("Still Look Around", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                loadData();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
@@ -154,7 +228,6 @@ public class RoommateFragment extends Fragment {
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);
 
-
             backAnimatorSet.setDuration(400);
             backAnimatorSet.playTogether(animators);
             backAnimatorSet.start();
@@ -189,8 +262,6 @@ public class RoommateFragment extends Fragment {
 
     //set up onTouchListener
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-
-
         float lastY = 0f;
         float currentY = 0f;
         //represent two scroll direction  >0 : scroll down; <0 : scroll up
