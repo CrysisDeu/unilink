@@ -12,6 +12,7 @@ import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -79,13 +80,8 @@ public class RoommateFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String userID = userSnapshot.getKey();
-                    Boolean isVisible;
                     if(userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
                         roommateUID.add(userID);
-                    if(userSnapshot.hasChild(myUid))
-                        isVisible = userSnapshot.child(myUid).getValue(Boolean.class);
-                    else
-                        isVisible = false;
 
                     RoommateListAdapter adapter = new RoommateListAdapter(getActivity(),roommateUID);
                     listView.setAdapter(adapter);
@@ -95,11 +91,16 @@ public class RoommateFragment extends Fragment {
                             Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
                             myIntent.putExtra("uid",roommateUID.get(position - 1));
                             startActivity(myIntent);
-
                         }
                     });
-                    setupVisible(isVisible);
                 }
+
+                boolean isVisible;
+                if(dataSnapshot.hasChild(myUid))
+                    isVisible = dataSnapshot.child(myUid).getValue(Boolean.class);
+                else
+                    isVisible = false;
+                setupVisible(isVisible);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
