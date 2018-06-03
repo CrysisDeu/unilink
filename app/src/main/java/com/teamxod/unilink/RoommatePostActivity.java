@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.chat.RealtimeDbChatActivity;
 import com.teamxod.unilink.user.User;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -103,8 +100,8 @@ public class RoommatePostActivity extends AppCompatActivity {
         preferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                preference myPreference = dataSnapshot.child(myUID).getValue(preference.class);
-                preference userPreference = dataSnapshot.child(userUID).getValue(preference.class);
+                Preference myPreference = dataSnapshot.child(myUID).getValue(Preference.class);
+                Preference userPreference = dataSnapshot.child(userUID).getValue(Preference.class);
                 ArrayList<String> tags;
                 double score;
                 if(myPreference != null && userPreference != null) {

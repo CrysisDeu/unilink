@@ -136,8 +136,8 @@ class RoommateListAdapter extends BaseAdapter {
                 double score;
                 ArrayList<String> tagList;
 
-                preference myPreference = dataSnapshot.child(myUid).getValue(preference.class);
-                preference posterPreference = dataSnapshot.child(roommateUID).getValue(preference.class);
+                Preference myPreference = dataSnapshot.child(myUid).getValue(Preference.class);
+                Preference posterPreference = dataSnapshot.child(roommateUID).getValue(Preference.class);
 
                 if(myPreference != null && posterPreference != null) {
                     Recommendation recommendation = new Recommendation(myPreference, posterPreference);

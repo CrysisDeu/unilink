@@ -11,8 +11,8 @@ class Recommendation {
 
     private final int paramNumber = 12;
     private final double close = 0.2;   // decide if they are close for a parameter
-    private preference preference1;
-    private preference preference2;
+    private Preference preference1;
+    private Preference preference2;
 
     private ArrayList<String> tagList;
     private double score;
@@ -28,7 +28,7 @@ class Recommendation {
     double lengthOne = 0;
     double lengthTwo = 0;
 
-    Recommendation(preference user1, preference user2){
+    Recommendation(Preference user1, Preference user2){
         Array1 = new double[paramNumber];
         Array2 = new double[paramNumber];
         tagList = new ArrayList<>();
@@ -38,7 +38,7 @@ class Recommendation {
     }
 
     /** get data from the database and put them into corresponding slots of arrays.
-        Data is from the answer of users' preference survey.
+        Data is from the answer of users' Preference survey.
         Data will be processed with coefficient into arrays based on importance.*/
     public double getScore(){
         return score / 10;

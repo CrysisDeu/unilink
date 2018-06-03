@@ -1,6 +1,6 @@
 package com.teamxod.unilink;
 
-class preference {
+class Preference {
     private double sleepTime;
     private double cleanTime;
     private int bring;
@@ -16,10 +16,10 @@ class preference {
 
     // constructor
 
-    public preference(){
+    public Preference(){
     }
 
-    public preference(double sleepTime, double cleanTime, int bring, int pet, int surfing,
+    public Preference(double sleepTime, double cleanTime, int bring, int pet, int surfing,
                       int hiking, int skiing, int gaming, double smoke, double drink, int party, int language)
     {
         this.sleepTime = sleepTime;

@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -63,7 +61,7 @@ public class ChangePreferenceActivity extends AppCompatActivity {
     private RadioButton party2;
     private RadioButton party3;
 
-    // preference variables, used to report to the firebase
+    // Preference variables, used to report to the firebase
     private int Bring;
     private int Pet;
     private double Smoke;
@@ -81,7 +79,7 @@ public class ChangePreferenceActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String uid;
-    private preference existedPreference;
+    private Preference existedPreference;
     private int needToRestore = 0;
     private boolean finish;
 
@@ -450,7 +448,7 @@ public class ChangePreferenceActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // if the user is already in our database, we load the data they put in
                 if (dataSnapshot.exists()) {
-                    existedPreference = dataSnapshot.getValue(preference.class);
+                    existedPreference = dataSnapshot.getValue(Preference.class);
                     if(dataSnapshot.child("sleepTime").getValue() instanceof Long)
                         Sleep = ((Long)dataSnapshot.child("sleepTime").getValue()).doubleValue();
                     else
@@ -489,11 +487,11 @@ public class ChangePreferenceActivity extends AppCompatActivity {
     }
 
 
-    // report new preference to the firebase
+    // report new Preference to the firebase
     private void newPreference(){
-        preference preference = new preference(Sleep, Clean, Bring, Pet, Surfing, Hiking,
+        Preference Preference = new Preference(Sleep, Clean, Bring, Pet, Surfing, Hiking,
                 Skiing, Gaming, Smoke, Drink, Party, language);
-        mDatabase.child("Preference").child(uid).setValue(preference);
+        mDatabase.child("Preference").child(uid).setValue(Preference);
     }
 
     // method to restore users' information if they have finished the survey before.
