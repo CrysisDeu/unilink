@@ -112,6 +112,8 @@ public class RoommateFragment extends Fragment {
         visibleReference = database.child("Visible");
         myUid = auth.getCurrentUser().getUid();
         preferenceReference = database.child("Preference");
+        visibleReference.keepSynced(true);
+        preferenceReference.keepSynced(true);
 
         roommateUID = new ArrayList<>();
 

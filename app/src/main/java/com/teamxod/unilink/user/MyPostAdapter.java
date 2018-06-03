@@ -98,6 +98,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 House house = dataSnapshot.getValue(House.class);
+                if (house == null) return;
                 String price = "$ " + house.getRooms().get(0).getPrice() + "/Mo From " + house.getStartDate();
 
                 Glide.with(context)
