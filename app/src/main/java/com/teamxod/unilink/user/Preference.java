@@ -1,6 +1,6 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.user;
 
-class Preference {
+public class Preference {
     private double sleepTime;
     private double cleanTime;
     private int bring;

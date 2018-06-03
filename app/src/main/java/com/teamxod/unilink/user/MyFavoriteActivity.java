@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.user;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.R;
 
 import java.util.ArrayList;
 

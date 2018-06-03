@@ -25,11 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.teamxod.unilink.ChangeProfileActivity;
-import com.teamxod.unilink.MyFavoriteActivity;
-import com.teamxod.unilink.MyPostActivity;
-import com.teamxod.unilink.ChangePreferenceActivity;
-import com.teamxod.unilink.ChangePasswordActivity;
 import com.teamxod.unilink.R;
 
 

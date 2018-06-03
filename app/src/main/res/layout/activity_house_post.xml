@@ -446,7 +446,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/location" />
 
-            <com.teamxod.unilink.MapContainer
+            <com.teamxod.unilink.house.MapContainer
                 android:id="@+id/map_container"
                 android:layout_height="240dp"
                 android:layout_width="match_parent">
@@ -457,7 +457,7 @@
                     android:layout_height="match_parent"
                     android:name="com.google.android.gms.maps.MapFragment" />
 
-            </com.teamxod.unilink.MapContainer>
+            </com.teamxod.unilink.house.MapContainer>
 
         </LinearLayout>
 

@@ -1,18 +1,13 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.house;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.roommate.Room;
 
-import java.util.ArrayList;
 import java.util.List;
 
-class House {
+public class House {
 
 
-    House(String posterId, String houseType, String title, String location,
+    public House(String posterId, String houseType, String title, String location,
                  String description, String startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
                  String parking, String videoGame, String gym, String laundry, String pet,
@@ -39,7 +34,7 @@ class House {
         this.numBathroom = numBathroom;
     }
 
-    public House(){
+    public House() {
         // Default constructor required for calls to DataSnapshot.getValue(House.class)
     }
     //private field
@@ -157,7 +152,6 @@ class House {
     public String getPet() {
         return pet;
     }
-
 
 
 }

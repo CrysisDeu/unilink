@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.user;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.R;
+import com.teamxod.unilink.house.House;
+import com.teamxod.unilink.house.HousePostActivity;
 
 import java.util.ArrayList;
 

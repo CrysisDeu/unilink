@@ -1,6 +1,8 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.roommate;
 
-import java.math.*;
+import com.teamxod.unilink.user.Preference;
+
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 

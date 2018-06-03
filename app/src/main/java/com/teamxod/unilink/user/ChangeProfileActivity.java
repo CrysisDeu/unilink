@@ -1,9 +1,9 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.user;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.teamxod.unilink.user.User;
+import com.teamxod.unilink.R;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
@@ -120,7 +120,7 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
 //                user.setDescription(mDescription.getText().toString());
 //                mUserReference.setValue(user);
                 if (mEditName.getText().toString().equals("")) {
-                    Toast.makeText(ChangeProfileActivity.this,NAME_INVALID,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangeProfileActivity.this, NAME_INVALID, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 uploadToFirebase(picture);
@@ -167,7 +167,7 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
         }
     }
 
-    private void uploadToFirebase (Uri uri) {
+    private void uploadToFirebase(Uri uri) {
         final StorageReference profile_images = mStorageRef.child("Profile_Images").child(mAuth.getCurrentUser().getUid());
 
         profile_images.putFile(uri)

@@ -33,16 +33,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".ChangePasswordActivity" />
-        <activity android:name=".ChangePreferenceActivity" />
-        <activity android:name=".MyFavoriteActivity" />
-        <activity android:name=".MyPostActivity" />
+        <activity android:name=".user.ChangePasswordActivity" />
+        <activity android:name=".user.ChangePreferenceActivity" />
+        <activity android:name=".user.MyFavoriteActivity" />
+        <activity android:name=".user.MyPostActivity" />
         <activity android:name=".user.AuthenticationActivity" />
         <activity
-            android:name=".ChangeProfileActivity"
+            android:name=".user.ChangeProfileActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".HousePostActivity" />
-        <activity android:name=".AddPostActivity" />
+        <activity android:name=".house.HousePostActivity" />
+        <activity android:name=".house.AddPostActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -75,8 +75,8 @@
         </provider>
 
         <activity android:name=".chat.RealtimeDbChatActivity" />
-        <activity android:name=".RoommatePostActivity" />
-        <activity android:name=".EditPostActivity"/>
+        <activity android:name=".roommate.RoommatePostActivity" />
+        <activity android:name=".user.EditPostActivity" />
     </application>
 
 </manifest>

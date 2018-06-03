@@ -1,12 +1,12 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.roommate;
 
-class Room {
+public class Room {
 
     private String roomType;
 
     private int price;
 
-    Room(String roomType, int price) {
+    public Room(String roomType, int price) {
         this.roomType = roomType;
         this.price = price;
     }

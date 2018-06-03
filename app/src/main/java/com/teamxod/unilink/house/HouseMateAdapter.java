@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.house;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.teamxod.unilink.R;
 import com.teamxod.unilink.user.User;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class HouseMateAdapter extends RecyclerView.Adapter<HouseMateAdapter.Simp
 
     private Context context;
 
-    HouseMateAdapter(Context context, ArrayList<User> users){
+    HouseMateAdapter(Context context, ArrayList<User> users) {
         this.users = users;
         this.context = context;
     }
@@ -62,7 +63,7 @@ public class HouseMateAdapter extends RecyclerView.Adapter<HouseMateAdapter.Simp
         TextView nameTextView;
         TextView yearTextView;
 
-        SimpleProfileViewHolder (View itemView) {
+        SimpleProfileViewHolder(View itemView) {
             super(itemView);
             pictureImageView = (ImageView) itemView.findViewById(R.id.user_profile_image);
             nameTextView = (TextView) itemView.findViewById(R.id.user_name);

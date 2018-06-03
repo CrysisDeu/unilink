@@ -2,16 +2,15 @@ package com.teamxod.unilink;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.chat.ChatsFragment;
+import com.teamxod.unilink.house.HousingFragment;
+import com.teamxod.unilink.roommate.RoommateFragment;
 import com.teamxod.unilink.user.AuthenticationActivity;
 import com.teamxod.unilink.user.InitiateProfile;
 import com.teamxod.unilink.user.MeFragment;

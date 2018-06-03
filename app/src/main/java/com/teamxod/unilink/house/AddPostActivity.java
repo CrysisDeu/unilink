@@ -1,12 +1,12 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.house;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
@@ -35,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.teamxod.unilink.R;
+import com.teamxod.unilink.roommate.Room;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
@@ -46,18 +48,19 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-import info.hoang8f.android.segmented.SegmentedGroup;
-
 /* TODO @ Etsu:
-    (Try to test it if u can. Not sure if firebase part works. My emulator died) -> jump to line 427 later
-   * Gallery and radio buttons
+    First, try to read through the whole file. I did lots of comments. Just make sure u know what i did.
+    Then:
+        (1) use the values got from the UI fields (store in Java fields) to create a house obj and push to firebase.
+            All the values from XML are passed into java fields(If i didn't make mistake), except the date. (search "INFO FOR DATE").
+            Problems: inconsistence between the values we got from xml and the fields in House class. (talk to neal see if we can change it).
+        (2) Grid of image, then pass the images to House obj.
+        (3) Upload imgs from local.
+        (4) U can do a check to see if edit text all have input (not necessary i can do this)
+        (5) Do what else we may need.
 */
-public class EditPostActivity extends AppCompatActivity implements IPickResult, DatePickerDialog.OnDateSetListener {
+public class AddPostActivity extends AppCompatActivity implements IPickResult, DatePickerDialog.OnDateSetListener {
 
-    /* Copied from another file
-    private final int PICK_IMAGE_REQUEST = 71;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    */
 
     // Database field
     private DatabaseReference mDatabase;
@@ -66,9 +69,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private DatabaseReference post;
 
     // Java fields (Used to create House obj and push to firebase)
-
-    private House old_post;
-
+    // TODO @ etsu  (bs. we use start date + lease length.  no end date)
     private String _posterId;
     private String _postId;
 
@@ -170,7 +171,8 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_post);
+        setContentView(R.layout.activity_add_post);
+
 
         // variables
         filledIn = false;
@@ -193,7 +195,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 // pickImage
-                dialog = PickImageDialog.build(new PickSetup()).show(EditPostActivity.this);
+                dialog = PickImageDialog.build(new PickSetup()).show(AddPostActivity.this);
             }
         });
 
@@ -206,8 +208,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 // pickImage
-                Room r = new Room("", -1);
-                addRoom(r);
+                addRoom();
             }
         });
 
@@ -383,6 +384,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                     return;
 
                 _posterId = mAuth.getCurrentUser().getUid();
+                // TODO use Java fields values to create house obj
 
                 // get edit text content
                 _title = title.getText().toString();
@@ -421,149 +423,18 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             }
         });
 
-        // TODO initialize (Maybe put it before the submit listener)
-        // get input house post
-        Bundle bundle = getIntent().getExtras();
-        _postId = bundle.getString("postID");
-
-        // Get house post from database
-        mDatabase.child("House_post").child(_postId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // here
-                    old_post = dataSnapshot.getValue(House.class);
-                    initializeFields();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
     }// on create
-
-    // helper for intiializing the fields
-    private void initializeFields() {
-
-
-        title.setText(old_post.getTitle());
-
-        String[] street_and_city = old_post.getLocation().split(",");
-        String old_street = "";
-        String old_city = "";
-        for (int i = 0; i < street_and_city.length; i++) {
-            if (i < street_and_city.length - 1)
-                old_street += street_and_city[i];
-            else
-                old_city += street_and_city[i];
-        }
-        street.setText(old_street);
-        city.setText(old_city);
-
-        SegmentedGroup houseType = findViewById(R.id.house_type);
-        _houseType = old_post.getHouseType();
-        switch (_houseType) {
-            case "Apartment":
-                houseType.check(R.id.apartment);
-                break;
-            case "House":
-                houseType.check(R.id.house);
-                break;
-            case "Town House":
-                houseType.check(R.id.town_house);
-                break;
-        }
-
-        SegmentedGroup bedNum = findViewById(R.id.bedroom);
-        _bedroom_number = old_post.getNumBedroom();
-        switch (_bedroom_number) {
-            case "0":
-                bedNum.check(R.id.bed_zero);
-                break;
-            case "1":
-                bedNum.check(R.id.bed_one);
-                break;
-            case "2":
-                bedNum.check(R.id.bed_two);
-                break;
-            case "3":
-                bedNum.check(R.id.bed_three);
-                break;
-            case "4+":
-                bedNum.check(R.id.bed_four_plus);
-                break;
-        }
-
-        SegmentedGroup bathNum = findViewById(R.id.bathroom);
-        _bathroom_number = old_post.getNumBathroom();
-        switch (_bathroom_number) {
-            case "0":
-                bathNum.check(R.id.bath_zero);
-                break;
-            case "1":
-                bathNum.check(R.id.bath_one);
-                break;
-            case "2":
-                bathNum.check(R.id.bath_two);
-                break;
-            case "3":
-                bathNum.check(R.id.bath_three);
-                break;
-            case "4+":
-                bathNum.check(R.id.bath_four_plus);
-                break;
-        }
-
-        SegmentedGroup leaseLength = findViewById(R.id.lease_length);
-        _leaseLength = old_post.getLeasingLength();
-        switch (_leaseLength) {
-            case "Annually":
-                leaseLength.check(R.id.annual);
-                break;
-            case "Quarterly":
-                leaseLength.check(R.id.quarterly);
-                break;
-            case "Monthly":
-                leaseLength.check(R.id.short_term);
-                break;
-        }
-
-        start_date.setText(old_post.getStartDate());
-
-        setCheckedTextView_fromResult(ac, old_post.getAc());
-        setCheckedTextView_fromResult(allow_pet, old_post.getPet());
-        setCheckedTextView_fromResult(parking, old_post.getParking());
-        setCheckedTextView_fromResult(tv, old_post.getTv());
-        setCheckedTextView_fromResult(video_game, old_post.getParking());
-        setCheckedTextView_fromResult(gym, old_post.getGym());
-        setCheckedTextView_fromResult(laundry, old_post.getLaundry());
-        setCheckedTextView_fromResult(bus, old_post.getBus());
-
-        description.setText(old_post.getDescription());
-
-        for (String pic : old_post.getPictures()) {
-            addPhoto(Uri.parse(pic));
-        }
-        for (Room r : old_post.getRooms())
-            addRoom(r);
-    }
 
     // helper for date
     private void setDate(final Calendar calendar) {
         final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         start_date.setText(dateFormat.format(calendar.getTime()));
     }
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar cal = new GregorianCalendar(year, month, dayOfMonth);
         setDate(cal);
     }
-
     public static class DatePickerFragment extends DialogFragment {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Calendar c = Calendar.getInstance();
@@ -572,7 +443,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             return new DatePickerDialog(getActivity(),
-                    (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
+                    (DatePickerDialog.OnDateSetListener)getActivity(), year, month, day);
         }
 
     }
@@ -580,21 +451,21 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     // helper validation
     private boolean validation() {
         if (!filledIn || start_date.getText().toString().length() == 0) {
-            Toast.makeText(EditPostActivity.this, INVALID_FORM_DUE_TO_FILLING, Toast.LENGTH_LONG).show();
+            Toast.makeText(AddPostActivity.this, INVALID_FORM_DUE_TO_FILLING, Toast.LENGTH_LONG).show();
             return true;
         }
         if (roomBoxList.isEmpty() || photoBoxList.isEmpty()) {
-            Toast.makeText(EditPostActivity.this, INVALID_FORM_DUE_TO_ADDING, Toast.LENGTH_LONG).show();
+            Toast.makeText(AddPostActivity.this, INVALID_FORM_DUE_TO_ADDING, Toast.LENGTH_LONG).show();
             return true;
         }
         if (_houseType.length() == 0 || _bedroom_number.length() == 0
                 || _bathroom_number.length() == 0 || _leaseLength.length() == 0) {
-            Toast.makeText(EditPostActivity.this, INVALID_FORM_DUE_TO_SELECTING, Toast.LENGTH_LONG).show();
+            Toast.makeText(AddPostActivity.this, INVALID_FORM_DUE_TO_SELECTING, Toast.LENGTH_LONG).show();
             return true;
         }
         for (Room r : roomList) {
             if (r.getRoomType().length() == 0) {
-                Toast.makeText(EditPostActivity.this, INVALID_FORM_DUE_TO_SELECTING, Toast.LENGTH_LONG).show();
+                Toast.makeText(AddPostActivity.this, INVALID_FORM_DUE_TO_SELECTING, Toast.LENGTH_LONG).show();
                 return true;
             }
         }
@@ -629,7 +500,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     }
 
     // add room
-    private void addRoom(Room r) {
+    private void addRoom() {
         final LinearLayout roomBox = (LinearLayout) View.inflate(this,
                 R.layout.add_room, null);
         final Room room = new Room("", 0);
@@ -664,67 +535,10 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             }
         });
 
-        SegmentedGroup roomType = roomBox.findViewById(R.id.room_type);
-        room.setRoomType(r.getRoomType());
-        switch (room.getRoomType()) {
-            case "Master Bedroom":
-                roomType.check(roomBox.findViewById(R.id.master_bedroom).getId());
-                break;
-            case "Living Room":
-                roomType.check(roomBox.findViewById(R.id.living_room).getId());
-                break;
-            case "Loft / Den":
-                roomType.check(roomBox.findViewById(R.id.loft).getId());
-                break;
-        }
-
-        EditText price = roomBox.findViewById(R.id.price);
-        if (r.getPrice() != -1)
-            price.setText(Integer.toString(r.getPrice()));
-        price.addTextChangedListener(tw);
+        ((EditText) roomBox.findViewById(R.id.price)).addTextChangedListener(tw);
         roomBoxList.add(roomBox);
         roomList.add(room);
         roomContainer.addView(roomBox);
-    }
-
-    // add photo
-    private void addPhoto(Uri uri) {
-        final LinearLayout photoBox = (LinearLayout) View.inflate(this,
-                R.layout.add_photo, null);
-        photoBox.findViewById(R.id.deletepic_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int index = photoBoxList.indexOf(photoBox);
-                if (pictureList.get(index).toString().contains("https")) {
-                    FirebaseStorage.getInstance().getReferenceFromUrl(pictureList.get(index).toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // File deleted successfully
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Uh-oh, an error occurred!
-                        }
-                    });
-                }
-                photoBoxList.remove(index);
-                pictureList.remove(index);
-                photoGrid.removeView(photoBox);
-            }
-        });
-        photoBoxList.add(photoBox);
-
-        // Mandatory to refresh image from Uri.
-        // upload to firebase storage
-        picture = uri;
-        Glide.with(EditPostActivity.this)
-                .load(picture)
-                .apply(RequestOptions.centerCropTransform())
-                .into((ImageView) photoBoxList.get(photoBoxList.size() - 1).findViewById(R.id.pic));
-        // add photo box to UI
-        photoGrid.addView(photoBox);
-        pictureList.add(picture);
     }
 
     //PickImage Plug-in
@@ -733,7 +547,31 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     public void onPickResult(PickResult r) {
         if (r.getError() == null) {
             // create photo box
-            addPhoto(r.getUri());
+            final LinearLayout photoBox = (LinearLayout) View.inflate(this,
+                    R.layout.add_photo, null);
+            photoBox.findViewById(R.id.deletepic_btn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int index = photoBoxList.indexOf(photoBox);
+                    photoBoxList.remove(index);
+                    pictureList.remove(index);
+                    photoGrid.removeView(photoBox);
+                }
+            });
+            photoBoxList.add(photoBox);
+
+            //Mandatory to refresh image from Uri.
+            // upload to firebase storage
+            picture = r.getUri();
+            Glide.with(AddPostActivity.this)
+                    .load(picture)
+                    .apply(RequestOptions.centerCropTransform())
+                    .into((ImageView) photoBoxList.get(photoBoxList.size() - 1).findViewById(R.id.pic));
+
+            // add photo box to UI
+            photoGrid.addView(photoBox);
+            pictureList.add(picture);
+
         } else {
             Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -741,6 +579,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
 
     // helper method for ChekedTextView in XML
     private static void setCheckedTextView(final CheckedTextView ctv) {
+
         ctv.setCheckMarkDrawable(R.drawable.unchecked);
         ctv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -752,20 +591,9 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                     ctv.setChecked(false);
                     ctv.setCheckMarkDrawable(R.drawable.unchecked);
                 }
+
             }
         });
-    }
-
-    // helper method for implemnet check state
-    private static void setCheckedTextView_fromResult(final CheckedTextView ctv, final String result) {
-        ctv.setCheckMarkDrawable(R.drawable.unchecked);
-        if (result.equals("1")) {
-            ctv.setChecked(true);
-            ctv.setCheckMarkDrawable(R.drawable.checked);
-        } else {
-            ctv.setChecked(false);
-            ctv.setCheckMarkDrawable(R.drawable.unchecked);
-        }
     }
 
     // Get content of check text view
@@ -776,37 +604,44 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             return "0";
     }
 
-    // write to firebase
+    // TODO create house obj here
     private void writeNewPost(House house) {
         post.setValue(house);
     }
 
     private void uploadToFirebase(ArrayList<Uri> uriList) {
-        post = mDatabase.child("House_post").child(_postId);
-        ArrayList<String> old_uri = new ArrayList<>();
-        int startIndex = -1;
-        for (int i = 0; i < uriList.size(); i++) {
-            if (uriList.get(i).toString().contains("https"))
-                old_uri.add(uriList.get(i).toString());
-            else {
-                startIndex = i;
-                break;
-            }
-        }
+        post = mDatabase.child("House_post").push();
+        _postId = post.getKey();
         writeNewPost(new House(_posterId, _houseType, _title, _location,
                 _description, _startDate, _leaseLength,
-                old_uri, roomList, _tv, _ac, _bus,
+                new ArrayList<String>(0), roomList, _tv, _ac, _bus,
                 _parking, _videoGame, _gym, _laundry, _pet, _bedroom_number, _bathroom_number));
 
-        final StorageReference baseref = mStorageRef.child("House_Images").child(_postId);
+        String uid = mAuth.getCurrentUser().getUid();
+        final DatabaseReference myPostReference = mDatabase.child("Users").child(uid).child("my_house_posts");
+
+        myPostReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<String> postList = new ArrayList<>();
+                for (DataSnapshot postID : dataSnapshot.getChildren()) {
+                    postList.add(postID.getValue(String.class));
+                }
+                postList.add(_postId);
+                myPostReference.setValue(postList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode()); }
+        });
+
+        final StorageReference baseref = mStorageRef.child("House_Images").child(post.getKey());
         StorageReference image_ref;
-        final ArrayList<String> pictureStringList = new ArrayList<>(0);
         int i = 0;
         for (Uri uri : uriList) {
             final int finalI = i;
             i++;
-            if (startIndex >= i)
-                continue;
             image_ref = baseref.child(UUID.randomUUID().toString());
             final StorageReference finalImage_ref = image_ref;
             image_ref.putFile(uri)
@@ -821,14 +656,16 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
-                                public void onFailure(@NonNull Exception exception) {// Handle any errors
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
                                 }
                             });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onFailure(@NonNull Exception exception) {// Handle unsuccessful uploads
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
                             // ...
                         }
                     });

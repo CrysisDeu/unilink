@@ -105,7 +105,7 @@
 
     </RelativeLayout>
 
-    <com.teamxod.unilink.TagViewGroup
+    <com.teamxod.unilink.roommate.TagViewGroup
         android:id="@+id/tag"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

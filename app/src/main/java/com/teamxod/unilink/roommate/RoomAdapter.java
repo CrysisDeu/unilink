@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.roommate;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.teamxod.unilink.R;
+
 import java.util.ArrayList;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder>{
@@ -15,7 +17,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
     private Context context;
 
-    RoomAdapter(Context context, ArrayList<Room> rooms){
+    public RoomAdapter(Context context, ArrayList<Room> rooms) {
         this.rooms = rooms;
         this.context = context;
     }

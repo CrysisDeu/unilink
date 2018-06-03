@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.roommate;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -28,10 +28,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.R;
+import com.teamxod.unilink.user.ChangePreferenceActivity;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class RoommateFragment extends Fragment {
 

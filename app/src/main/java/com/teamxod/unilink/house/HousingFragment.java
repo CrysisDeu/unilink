@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.house;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -26,18 +26,18 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class HousingFragment extends Fragment  {
+public class HousingFragment extends Fragment {
 
     private static final int ADD_POST = 1;
     private ListView listView;
@@ -59,7 +59,7 @@ public class HousingFragment extends Fragment  {
         addPost = layout.findViewById(R.id.add_post_btn);
         search = layout.findViewById(R.id.search_bar);
 
-        Button refreshButton = (Button)layout.findViewById(R.id.house_refresh);
+        Button refreshButton = (Button) layout.findViewById(R.id.house_refresh);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,23 +78,23 @@ public class HousingFragment extends Fragment  {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //create an array of post
-               // ArrayList<HousePost> posts = new ArrayList<HousePost>();
+                // ArrayList<HousePost> posts = new ArrayList<HousePost>();
 
                 posts.clear();
-                for(DataSnapshot house : dataSnapshot.getChildren()){
+                for (DataSnapshot house : dataSnapshot.getChildren()) {
                     String key = house.getKey();
                     String location = house.child("location").getValue(String.class);
                     String type = house.child("houseType").getValue(String.class);
                     String title = house.child("title").getValue(String.class);
                     String term = house.child("leasingLength").getValue(String.class);
-                    int price = (int)house.child("rooms").child("0").child("price").getValue(Integer.class);
+                    int price = (int) house.child("rooms").child("0").child("price").getValue(Integer.class);
                     String imageId = house.child("pictures").child("0").getValue(String.class);
-                    Log.d("ADDPOST","a" + imageId);
-                    HousePost post = new HousePost(key,type,title,price,term,location,imageId);
+                    Log.d("ADDPOST", "a" + imageId);
+                    HousePost post = new HousePost(key, type, title, price, term, location, imageId);
                     posts.add(post);
                 }
 
-                if(!posts.isEmpty()){
+                if (!posts.isEmpty()) {
                     if (getActivity() == null) {
                         return;
                     }
@@ -123,7 +123,7 @@ public class HousingFragment extends Fragment  {
             }
         });
 
-        spinner = (Spinner)layout.findViewById(R.id.spinner);
+        spinner = (Spinner) layout.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.Sort, android.R.layout.simple_spinner_item);
@@ -136,7 +136,7 @@ public class HousingFragment extends Fragment  {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                switch(spinner.getSelectedItemPosition()) {
+                switch (spinner.getSelectedItemPosition()) {
                     //select sort --> do nothing
                     case 0:
 
@@ -144,22 +144,22 @@ public class HousingFragment extends Fragment  {
                     //select price low to high
                     case 1:
                         sortPrice(true);
-                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Click" + parentView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
                         break;
                     //select price high to low
                     case 2:
                         sortPrice(false);
-                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Click" + parentView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
                         break;
                     //select term short to long
                     case 3:
                         sortTerm(true);
-                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Click" + parentView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
                         break;
                     //select term long to short
                     case 4:
                         sortTerm(false);
-                        Toast.makeText(getContext(),"Click"+parentView.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Click" + parentView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -207,22 +207,22 @@ public class HousingFragment extends Fragment  {
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == ADD_POST && getActivity() != null) {
             new Handler().postDelayed(new Runnable() {
-                                          @Override
-                                          public void run() {
-                                              getActivity()
-                                                      .getSupportFragmentManager()
-                                                      .beginTransaction()
-                                                      .replace(R.id.fragment_container, new HousingFragment())
-                                                      .commit();
-                                          }
-                                      },1000);
+                @Override
+                public void run() {
+                    getActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, new HousingFragment())
+                            .commit();
+                }
+            }, 1000);
 
         }
     }
 
 
     //sort method
-    private void sortPrice(boolean order){
+    private void sortPrice(boolean order) {
 
         Collections.sort(posts, new Comparator<HousePost>() {
             @Override
@@ -230,7 +230,7 @@ public class HousingFragment extends Fragment  {
                 return p1.getRoom_price() - p2.getRoom_price();
             }
         });
-        if(!order) {
+        if (!order) {
             Collections.reverse(posts);
         }
 
@@ -238,14 +238,14 @@ public class HousingFragment extends Fragment  {
         listView.setAdapter(adapter);
     }
 
-    private void sortTerm(boolean order){
+    private void sortTerm(boolean order) {
         Collections.sort(posts, new Comparator<HousePost>() {
             @Override
             public int compare(HousePost p1, HousePost p2) {
                 return getTerm(p1) - getTerm(p2);
             }
         });
-        if(!order) {
+        if (!order) {
             Collections.reverse(posts);
         }
 
@@ -253,17 +253,17 @@ public class HousingFragment extends Fragment  {
         listView.setAdapter(adapter);
     }
 
-    private void sortTime(){
+    private void sortTime() {
 
     }
 
-    private int getTerm(HousePost h){
+    private int getTerm(HousePost h) {
         int term = 0;
-        if(h.getTerm().equals("Annually")){
+        if (h.getTerm().equals("Annually")) {
             term = 2;
-        }else if(h.getTerm().equals("Quaterly")){
+        } else if (h.getTerm().equals("Quaterly")) {
             term = 1;
-        }else{
+        } else {
             term = 0;
         }
         return term;
@@ -311,8 +311,8 @@ public class HousingFragment extends Fragment  {
 
         } else {
             hideAnimatorSet = new AnimatorSet();
-            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchBar, "translationY", searchBar.getTranslationY(), -2* searchBar.getHeight());
-            ObjectAnimator addPostAnimator = ObjectAnimator.ofFloat(addPost, "translationY", addPost.getTranslationY(), 2*addPost.getHeight());
+            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(searchBar, "translationY", searchBar.getTranslationY(), -2 * searchBar.getHeight());
+            ObjectAnimator addPostAnimator = ObjectAnimator.ofFloat(addPost, "translationY", addPost.getTranslationY(), 2 * addPost.getHeight());
 
             ArrayList<Animator> animators = new ArrayList<>();
             animators.add(headerAnimator);

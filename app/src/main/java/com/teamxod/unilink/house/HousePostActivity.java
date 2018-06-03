@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.house;
 
 import android.content.Intent;
 import android.location.Address;
@@ -31,7 +31,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.R;
 import com.teamxod.unilink.chat.RealtimeDbChatActivity;
+import com.teamxod.unilink.roommate.Room;
+import com.teamxod.unilink.roommate.RoomAdapter;
 import com.teamxod.unilink.user.Profile;
 import com.teamxod.unilink.user.User;
 
@@ -39,7 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HousePostActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class HousePostActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private House house;
     private User poster;
@@ -77,22 +80,22 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onStop() {
         super.onStop();
-        if(favorite_btn.isChecked() && !isFavourite){
+        if (favorite_btn.isChecked() && !isFavourite) {
             favoriteList.add(postID);
             favoriteReference.setValue(favoriteList);
-        } else if((!favorite_btn.isChecked()) && isFavourite){
+        } else if ((!favorite_btn.isChecked()) && isFavourite) {
             favoriteList.remove(postID);
             favoriteReference.setValue(favoriteList);
         }
     }
 
-    private void loadData(){
+    private void loadData() {
 
         Intent intent = getIntent();
 
-        if(intent.hasExtra("postID")){
+        if (intent.hasExtra("postID")) {
             postID = intent.getExtras().getString("postID");
-        }else{
+        } else {
             Toast.makeText(this, "Post does not exist", Toast.LENGTH_LONG).show();
             finish();
         }
@@ -109,7 +112,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String item = snapshot.getValue(String.class);
                     favoriteList.add(item);
-                    if(postID.equals(item)){
+                    if (postID.equals(item)) {
                         isFavourite = true;
                     }
                 }
@@ -128,7 +131,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
         postReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) {
+                if (!dataSnapshot.exists()) {
                     Toast.makeText(getApplicationContext(), "Post does not exist", Toast.LENGTH_LONG).show();
                     finish();
                 }
@@ -178,7 +181,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
 
     private void setupBasicData() {
         //set poster view
-        ImageView posterImageView = (ImageView)findViewById(R.id.house_poster_image);
+        ImageView posterImageView = (ImageView) findViewById(R.id.house_poster_image);
         String url = poster.getPicture();
         Glide.with(this)
                 .load(url)
@@ -188,46 +191,46 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
         posterImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(),Profile.class);
+                Intent myIntent = new Intent(getApplicationContext(), Profile.class);
                 myIntent.putExtra("uid", house.getPosterId());
                 startActivity(myIntent);
             }
         });
 
-        TextView houseTypeTextView = (TextView)findViewById(R.id.house_type);
+        TextView houseTypeTextView = (TextView) findViewById(R.id.house_type);
         String houseType = house.getNumBedroom() + "B" + house.getNumBathroom() + "B · " + house.getHouseType();
         houseTypeTextView.setText(houseType);
 
-        TextView houseTitleTextView = (TextView)findViewById(R.id.house_title);
+        TextView houseTitleTextView = (TextView) findViewById(R.id.house_title);
         houseTitleTextView.setText(house.getTitle());
 
-        TextView houseAddressTextView = (TextView)findViewById(R.id.house_address);
+        TextView houseAddressTextView = (TextView) findViewById(R.id.house_address);
         houseAddressTextView.setText(house.getLocation());
 
-        TextView posterNameTextView = (TextView)findViewById(R.id.house_poster);
+        TextView posterNameTextView = (TextView) findViewById(R.id.house_poster);
         String temp = "posted by " + poster.getName();
         posterNameTextView.setText(temp);
 
-        TextView houseDescriptionTextView = (TextView)findViewById(R.id.house_description);
+        TextView houseDescriptionTextView = (TextView) findViewById(R.id.house_description);
         houseDescriptionTextView.setText(house.getDescription());
 
-        TextView bottomPriceTextView = (TextView)findViewById(R.id.house_bottom_price);
+        TextView bottomPriceTextView = (TextView) findViewById(R.id.house_bottom_price);
         temp = "$ " + house.getRooms().get(0).getPrice() + " ";
         bottomPriceTextView.setText(temp);
 
-        TextView bottomTimeTextView = (TextView)findViewById(R.id.house_bottom_time);
+        TextView bottomTimeTextView = (TextView) findViewById(R.id.house_bottom_time);
         temp = house.getLeasingLength() + " · From " + house.getStartDate();
         bottomTimeTextView.setText(temp);
     }
 
     private void setupHousePicture() {
-        housePicture = (ViewPager)findViewById(R.id.house_image);
+        housePicture = (ViewPager) findViewById(R.id.house_image);
         housePictureAdapter = new HousePictureAdapter(this, (ArrayList<String>) house.getPictures());
         housePicture.setAdapter(housePictureAdapter);
     }
 
     private void setupRoom() {
-        ArrayList<Room> roomList = (ArrayList)house.getRooms();
+        ArrayList<Room> roomList = (ArrayList) house.getRooms();
         roomListView = (RecyclerView) findViewById(R.id.house_rooms);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         roomListView.setLayoutManager(layoutManager);
@@ -256,7 +259,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
         ScrollView scrollView = (ScrollView) findViewById(R.id.house_content);
         MapContainer map_container = (MapContainer) findViewById(R.id.map_container);
         map_container.setScrollView(scrollView);
-        mapFragment = (MapFragment)getFragmentManager().findFragmentById(R.id.house_map);
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.house_map);
         mapFragment.getMapAsync(this);
     }
 
@@ -280,67 +283,67 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
-        favorite_btn = (ToggleButton)findViewById(R.id.house_button_favorite);
+        favorite_btn = (ToggleButton) findViewById(R.id.house_button_favorite);
         favorite_btn.setChecked(isChecked);
     }
 
     private void setupFeatures() {
         String temp;
 
-        if(house.getAc().equals("1"))
+        if (house.getAc().equals("1"))
             temp = "Equipped";
         else
             temp = "No Data";
-        TextView acTextView = (TextView)findViewById(R.id.house_ac);
+        TextView acTextView = (TextView) findViewById(R.id.house_ac);
         acTextView.setText(temp);
 
-        if(house.getTv().equals("1"))
+        if (house.getTv().equals("1"))
             temp = "Equipped";
         else
             temp = "No Data";
-        TextView tvTextView = (TextView)findViewById(R.id.house_tv);
+        TextView tvTextView = (TextView) findViewById(R.id.house_tv);
         tvTextView.setText(temp);
 
-        if(house.getParking().equals("1"))
+        if (house.getParking().equals("1"))
             temp = "Reserved Parking";
         else
             temp = "Street Parking";
-        TextView parkingTextView = (TextView)findViewById(R.id.house_parking);
+        TextView parkingTextView = (TextView) findViewById(R.id.house_parking);
         parkingTextView.setText(temp);
 
-        if(house.getBus().equals("1"))
+        if (house.getBus().equals("1"))
             temp = "Close to Bus Station";
         else
             temp = "Far from Bus Station";
-        TextView busTextView = (TextView)findViewById(R.id.house_bus);
+        TextView busTextView = (TextView) findViewById(R.id.house_bus);
         busTextView.setText(temp);
 
-        if(house.getGym().equals("1"))
+        if (house.getGym().equals("1"))
             temp = "Equipped";
         else
             temp = "No Data";
-        TextView gymTextView = (TextView)findViewById(R.id.house_gym);
+        TextView gymTextView = (TextView) findViewById(R.id.house_gym);
         gymTextView.setText(temp);
 
-        if(house.getVideoGame().equals("1"))
+        if (house.getVideoGame().equals("1"))
             temp = "Equipped";
         else
             temp = "No Data";
-        TextView gameTextView = (TextView)findViewById(R.id.house_game);
+        TextView gameTextView = (TextView) findViewById(R.id.house_game);
         gameTextView.setText(temp);
 
-        if(house.getPet().equals("1"))
+        if (house.getPet().equals("1"))
             temp = "Allowed";
         else
             temp = "Not Allowed";
-        TextView petTextView = (TextView)findViewById(R.id.house_pet);
+        TextView petTextView = (TextView) findViewById(R.id.house_pet);
         petTextView.setText(temp);
 
-        if(house.getLaundry().equals("1"))
+        if (house.getLaundry().equals("1"))
             temp = "Built-in Laundry";
         else
             temp = "Public Laundry";
-        TextView laundryTextView = (TextView)findViewById(R.id.house_laundry);
+        TextView laundryTextView = (TextView) findViewById(R.id.house_laundry);
         laundryTextView.setText(temp);
     }
 
@@ -352,7 +355,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
 
         String location = house.getLocation();
         List<Address> addressList = new ArrayList<>();
-        if(location != null || !location.equals("")) {
+        if (location != null || !location.equals("")) {
             Geocoder geocoder = new Geocoder(this);
             try {
                 addressList = geocoder.getFromLocationName(location, 1);

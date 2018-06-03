@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.house;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,8 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
+import com.teamxod.unilink.R;
 
 import java.util.ArrayList;
 
@@ -43,7 +42,7 @@ class HousePictureAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.house_picture_list_item, null);
 
         TextView pageView = (TextView) view.findViewById(R.id.page_count);
-        String page = (position+1) + " / " + images.size();
+        String page = (position + 1) + " / " + images.size();
         pageView.setText(page);
         ImageView housePicture = (ImageView) view.findViewById(R.id.house_image);
         Glide.with(context)
