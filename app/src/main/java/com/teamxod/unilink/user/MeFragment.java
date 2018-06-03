@@ -149,7 +149,7 @@ public class MeFragment extends Fragment {
                     Intent i = new Intent(getActivity(), ChangePasswordActivity.class);
                     startActivity(i);
                 } else {
-                    Toast.makeText(getActivity(), "You can only change your password if you sign in using email.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "You can only change your password if you sign up using email, please change your Google password if you use Google login!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
