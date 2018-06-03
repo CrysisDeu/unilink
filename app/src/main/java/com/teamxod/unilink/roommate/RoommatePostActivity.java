@@ -179,11 +179,11 @@ public class RoommatePostActivity extends AppCompatActivity {
         else if (currentYear <= 0)
             temp = "Incoming Student";
         else
-            temp = currentYear + "th Year";
+            temp = "Graduating " + user.getYearGraduate();
         schoolYear.setText(temp);
         bottomYear.setText(temp);
         temp = "Graduating " + user.getYearGraduate();
-        graduateYear.setText(temp);
+        //graduateYear.setText(temp);
         description.setText(user.getDescription());
         Glide.with(this)
                 .load(user.getPicture())

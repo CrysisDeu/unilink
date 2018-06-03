@@ -81,7 +81,7 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_authentication);
 
         //general
         mSignInLogo = findViewById(R.id.sign_in_logo);
