@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -58,6 +59,7 @@ public class RoommatePostActivity extends AppCompatActivity {
         userReference = database.child("Users").child(userUID);
         preferenceReference = database.child("Preference");
         myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         Button back_btn = (Button) findViewById(R.id.roommate_button_back);
         back_btn.setOnClickListener(new View.OnClickListener() {

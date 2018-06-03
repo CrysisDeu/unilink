@@ -3,6 +3,7 @@ package com.teamxod.unilink;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -86,6 +87,7 @@ class RoommateListAdapter extends BaseAdapter {
 
         final String roommateUID = (String) getItem(position);
 
+
         database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userReference = database.child("Users").child(roommateUID);
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,7 +121,7 @@ class RoommateListAdapter extends BaseAdapter {
         else if(currentYear <= 0)
             temp = "Incoming Student";
         else
-            temp = currentYear + "th Year";
+            temp = "Class of "+currentYear;
         viewHolder.vhYear.setText(temp);
 
         viewHolder.vhName.setText(roommate.getName());

@@ -121,26 +121,32 @@ class Recommendation {
         if(Array1[1] == 1 && Array2[1] == 1) {
             tagList.add("Love pets");
         }
-        if(Array1[2] - Array2[2] < close) {
-            tagList.add("Close in smoking habits");
+        if(Array1[2] > -1 && Array2[2] > -1) {
+            tagList.add("smoke");
         }
-        if(Array1[3] - Array2[3] < close){
-            tagList.add("Close in drinking habits");
+        if(Array1[2] == -1 && Array2[2] == -1) {
+            tagList.add("not smoke");
+        }
+        if(Array1[3] > -1 && Array2[3] > -1){
+            tagList.add("drink");
+        }
+        if(Array1[3] == -1 && Array2[3] == -1){
+            tagList.add("not drink");
         }
         if(Array1[5] - Array2[5] < close){
-            tagList.add("Close in Sleep time");
+            tagList.add("similar sleep time");
         }
         if(Array1[7] == 1 && Array2[7] == 1){
-            tagList.add("Surfer");
+            tagList.add("Surf");
         }
         if(Array1[8] == 1 && Array2[8] == 1){
-            tagList.add("Hiker");
+            tagList.add("Hike");
         }
         if(Array1[9] == 1 && Array2[9] == 1){
-            tagList.add("Skier");
+            tagList.add("Ski");
         }
         if(Array1[10] == 1 && Array2[10] == 1){
-            tagList.add("Gamer");
+            tagList.add("Game");
         }
         if(Array1[11] == Array2[11]){
             tagList.add("Same language");

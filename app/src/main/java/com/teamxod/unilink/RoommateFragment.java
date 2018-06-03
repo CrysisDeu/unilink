@@ -30,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class RoommateFragment extends Fragment {
 
@@ -85,11 +87,13 @@ public class RoommateFragment extends Fragment {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
-                            if(position != 0) {
-                                Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
-                                myIntent.putExtra("uid",roommateUID.get(position - 1));
-                                startActivity(myIntent);
+                            Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
+                            if (position > 0) {
+                                myIntent.putExtra("uid", roommateUID.get(position - 1));
+                            } else {
+                                myIntent.putExtra("uid", roommateUID.get(position));
                             }
+                            startActivity(myIntent);
                         }
                     });
                 }
@@ -107,6 +111,10 @@ public class RoommateFragment extends Fragment {
             }
         });
     }
+
+    //sort matching score
+
+
 
     private void setupVisible(boolean isVisible) {
         visible_btn.setChecked(isVisible);
@@ -151,7 +159,7 @@ public class RoommateFragment extends Fragment {
                 } else {
                     hasPreference = false;
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Without Preference information, we are unable to provide you with the best possible roommate" +
+                    builder.setMessage("Without preference information, we are unable to provide you with the best possible roommate" +
                             " and you will be invisible to other users.");
                     builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
