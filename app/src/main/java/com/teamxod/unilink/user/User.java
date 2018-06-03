@@ -1,14 +1,12 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.user;
 
 import com.google.firebase.database.Exclude;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class User {
+public class User {
     private String name;
     private String picture;
     private String gender;

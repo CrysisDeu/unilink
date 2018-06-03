@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.math.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +35,7 @@ class Recommendation {
      */
     private double Array1[];
     private double Array2[];
-    int innerProduct = 0;
+    double innerProduct = 0;
     double lengthOne = 0;
     double lengthTwo = 0;
 
@@ -105,13 +106,19 @@ class Recommendation {
             lengthOne += Math.pow(Array1[i], 2);
             lengthTwo += Math.pow(Array2[i],2);
         }
+        // calculate the angle
         lengthOne = Math.pow(lengthOne, 0.5);
         lengthTwo = Math.pow(lengthTwo, 0.5);
         score = innerProduct / (lengthOne * lengthTwo);
         score = Math.toDegrees(Math.acos(score));
+        // avoid score = 0
         score += 1;
-        double base = Math.pow(180, 1/100);
-        score = Math.log(score) / Math.log(base) / 10;
+        double base = Math.pow(181, 0.01);
+        // de-uniform the score distribution
+        score = Math.log(score) / Math.log(base);
+        DecimalFormat round = new DecimalFormat(".#");
+        round.setRoundingMode(RoundingMode.UP);
+        score = Double.parseDouble(round.format(score));
     }
 
     // implemented to only be used once!
@@ -131,18 +138,18 @@ class Recommendation {
             tagList.add("Close in Sleep time");
         }
         if(Array1[7] == 1 && Array2[7] == 1){
-            tagList.add("Love surfing");
+            tagList.add("Surfer");
         }
-        if(Array1[8] - Array2[8] == 1){
-            tagList.add("Love hiking");
+        if(Array1[8] == 1 && Array2[8] == 1){
+            tagList.add("Hiker");
         }
-        if(Array1[9] - Array2[9] == 1){
-            tagList.add("Love skiing");
+        if(Array1[9] == 1 && Array2[9] == 1){
+            tagList.add("Skier");
         }
-        if(Array1[10] - Array2[10] == 1){
-            tagList.add("Love gaming");
+        if(Array1[10] == 1 && Array2[10] == 1){
+            tagList.add("Gamer");
         }
-        if(Array1[11] - Array2[11] == 1){
+        if(Array1[11] == Array2[11]){
             tagList.add("Same language");
         }
 

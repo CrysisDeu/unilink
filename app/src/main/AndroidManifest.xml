@@ -25,7 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".user.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +36,7 @@
         <activity android:name=".My_changePassword" />
         <activity android:name=".MyPreferenceActivity" />
         <activity android:name=".MyFavoriteActivity" />
-        <activity android:name=".AuthenticationActivity" />
+        <activity android:name=".user.AuthenticationActivity" />
         <activity
             android:name=".MyChangeProfileActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -59,8 +59,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".Profile" />
-        <activity android:name=".InitiateProfile" />
+        <activity android:name=".user.Profile" />
+        <activity android:name=".user.InitiateProfile" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

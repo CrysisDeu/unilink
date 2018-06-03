@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.user;
 
 import android.view.View;
 import android.view.animation.Animation;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AuthenticationActivity">
+    tools:context=".user.AuthenticationActivity">
 
     <ImageView
         android:id="@+id/sign_in_background"
@@ -16,7 +16,8 @@
         android:scaleType="centerCrop"
         android:src="@drawable/splash_background"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:id="@+id/welcome_to_unilink"

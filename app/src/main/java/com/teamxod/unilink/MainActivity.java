@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.chat.ChatsFragment;
+import com.teamxod.unilink.user.AuthenticationActivity;
+import com.teamxod.unilink.user.InitiateProfile;
+import com.teamxod.unilink.user.MeFragment;
 
 import java.lang.reflect.Field;
 

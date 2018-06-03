@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.user;
 
 
 import android.content.Intent;
@@ -25,6 +25,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.MyChangeProfileActivity;
+import com.teamxod.unilink.MyFavoriteActivity;
+import com.teamxod.unilink.MyPostFragment;
+import com.teamxod.unilink.MyPreferenceActivity;
+import com.teamxod.unilink.My_changePassword;
+import com.teamxod.unilink.R;
 
 
 public class MeFragment extends Fragment {

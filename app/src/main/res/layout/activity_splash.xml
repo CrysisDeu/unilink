@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".SplashActivity">
+    tools:context=".user.SplashActivity">
 
     <ImageView
         android:id="@+id/sign_in_background"
