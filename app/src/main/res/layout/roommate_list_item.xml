@@ -32,7 +32,7 @@
                 android:textSize="14sp"
                 android:fontFamily="@font/roboto"
                 android:textStyle="bold"
-                android:text="Jenny Smith" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/rMajor"
@@ -41,7 +41,7 @@
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:fontFamily="@font/roboto"
-                android:text="Computer Science Major" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/rYear"
@@ -50,7 +50,7 @@
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:fontFamily="@font/roboto"
-                android:text="4th Year" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -67,7 +67,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="32dp"
                     android:textColor="#000000"
-                    android:text="10"
+                    android:text=""
                     android:textSize="16sp"
                     android:fontFamily="@font/roboto"
                     android:textStyle="bold"/>

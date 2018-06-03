@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.teamxod.unilink.Profile;
+import com.teamxod.unilink.user.Profile;
 import com.teamxod.unilink.R;
 
 import java.sql.Timestamp;
