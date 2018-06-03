@@ -2,6 +2,7 @@ package com.teamxod.unilink.chat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,9 +22,12 @@ import com.firebase.ui.auth.util.ui.ImeHelper;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.R;
 
 import butterknife.BindView;
@@ -52,6 +56,8 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     private String name;
     private TextView mTitleName;
     private ImageView mBackButton;
+    private Uri other_photo;
+    private Uri photo;
 
     @BindView(R.id.messagesList)
     RecyclerView mRecyclerView;
@@ -82,6 +88,31 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         other_name = intent.getStringExtra("user_name");
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        user_reference.child(other_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                other_photo = Uri.parse(dataSnapshot.child("picture").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        user_reference.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                photo = Uri.parse(dataSnapshot.child("picture").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         sChatQuery =  FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(100);
         mTitleName = findViewById(R.id.title_user_name);
         mTitleName.setText(other_name);
@@ -171,6 +202,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
             @Override
             protected void onBindViewHolder(@NonNull ChatHolder holder, int position, @NonNull Chat model) {
                 holder.bind(model);
+                holder.setImage(model, RealtimeDbChatActivity.this, other_photo, photo);
             }
 
             @Override

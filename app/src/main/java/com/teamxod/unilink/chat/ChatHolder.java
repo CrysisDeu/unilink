@@ -1,17 +1,22 @@
 package com.teamxod.unilink.chat;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RotateDrawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.teamxod.unilink.R;
@@ -25,6 +30,8 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     private final LinearLayout mMessage;
     private final int mGreen300;
     private final int mGray300;
+    private final ImageView mLeftImage;
+    private final ImageView mRightImage;
 
     public ChatHolder(View itemView) {
         super(itemView);
@@ -35,14 +42,20 @@ public class ChatHolder extends RecyclerView.ViewHolder {
         mMessage = itemView.findViewById(R.id.message);
         mGreen300 = ContextCompat.getColor(itemView.getContext(), R.color.material_green_300);
         mGray300 = ContextCompat.getColor(itemView.getContext(), R.color.material_gray_300);
+        mLeftImage = itemView.findViewById(R.id.left_image);
+        mRightImage = itemView.findViewById(R.id.right_image);
     }
 
     public void bind(Chat chat) {
         setText(chat.getmMessage());
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // Check if the messages is sent by current user
-        setIsSender(currentUser != null && chat.getmUid().equals(currentUser.getUid()));
+        setIsSender(is_sender(chat));
+    }
+
+    public boolean is_sender(Chat chat) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        return currentUser != null && chat.getmUid().equals(currentUser.getUid());
     }
 
 
@@ -53,16 +66,25 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     // if the message is sent by current user, the message should appear at right
     public void setIsSender(boolean isSender) {
         final int color;
+        final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         if (isSender) {
             color = mGreen300;
             mLeftArrow.setVisibility(View.GONE);
-            mRightArrow.setVisibility(View.VISIBLE);
+            mLeftImage.setVisibility(View.GONE);
+            mRightArrow.setVisibility(View.GONE);
+            mRightImage.setVisibility(View.VISIBLE);
             mMessageContainer.setGravity(Gravity.END);
+            params.addRule(RelativeLayout.START_OF, R.id.right_image);
+            mMessage.setLayoutParams(params);
         } else {
             color = mGray300;
-            mLeftArrow.setVisibility(View.VISIBLE);
+            mLeftArrow.setVisibility(View.GONE);
+            mLeftImage.setVisibility(View.VISIBLE);
             mRightArrow.setVisibility(View.GONE);
+            mRightImage.setVisibility(View.GONE);
             mMessageContainer.setGravity(Gravity.START);
+            params.addRule(RelativeLayout.END_OF, R.id.left_image);
+            mMessage.setLayoutParams(params);
         }
 
         ((GradientDrawable) mMessage.getBackground()).setColor(color);
@@ -70,5 +92,21 @@ public class ChatHolder extends RecyclerView.ViewHolder {
                 .setColorFilter(color, PorterDuff.Mode.SRC);
         ((RotateDrawable) mRightArrow.getBackground()).getDrawable()
                 .setColorFilter(color, PorterDuff.Mode.SRC);
+    }
+
+    public void setImage(Chat chat, Context context, Uri mOtherPhoto, Uri mPhoto) {
+        ImageView img;
+        Uri uri;
+        if (is_sender(chat)) {
+            img = mRightImage;
+            uri = mPhoto;
+        } else {
+            img = mLeftImage;
+            uri = mOtherPhoto;
+        }
+        Glide.with(context)
+                .load(uri)
+                .apply(RequestOptions.circleCropTransform())
+                .into(img);
     }
 }
