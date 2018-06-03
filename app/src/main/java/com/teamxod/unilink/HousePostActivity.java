@@ -52,7 +52,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
     private RecyclerView roomListView;
 
     private HousePictureAdapter housePictureAdapter;
-    private UserPictureAdapter roommateAdapter;
+    private HouseMateAdapter roommateAdapter;
     private RoomAdapter roomAdapter;
 
     private LinearLayoutManager layoutManager;
@@ -246,7 +246,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         roommateListView.setLayoutManager(layoutManager);
         roommateListView.setHasFixedSize(true);
-        roommateAdapter = new UserPictureAdapter(this, roommateList);
+        roommateAdapter = new HouseMateAdapter(this, roommateList);
         roommateListView.setAdapter(roommateAdapter);
     }
     */

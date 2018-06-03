@@ -1,16 +1,5 @@
 package com.teamxod.unilink;
 
-import android.preference.Preference;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.math.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -45,14 +34,18 @@ class Recommendation {
         tagList = new ArrayList<>();
         preference1 = user1;
         preference2 = user2;
+        loadUserPreference();
     }
 
     /** get data from the database and put them into corresponding slots of arrays.
         Data is from the answer of users' preference survey.
         Data will be processed with coefficient into arrays based on importance.*/
     public double getScore(){
-        loadUserPreference();
         return score / 10;
+    }
+
+    public ArrayList<String> getTagList() {
+        return tagList;
     }
 
     private void loadUserPreference() {
@@ -94,6 +87,7 @@ class Recommendation {
         }
 
         calculate();
+        setTagList();
     }
 
     /** Represent arrays as vectors in higher dimension vector space.
@@ -122,8 +116,7 @@ class Recommendation {
     }
 
     // implemented to only be used once!
-    public ArrayList<String> getTagList() {
-        loadUserPreference();
+    private void setTagList() {
         
         if(Array1[1] == 1 && Array2[1] == 1) {
             tagList.add("Love pets");
@@ -152,7 +145,5 @@ class Recommendation {
         if(Array1[11] == Array2[11]){
             tagList.add("Same language");
         }
-
-        return tagList;
     }
 }

@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 
-public class MyPreferenceActivity extends AppCompatActivity {
+public class ChangePreferenceActivity extends AppCompatActivity {
 
     // UI variables
     private ImageView mBackButton;
