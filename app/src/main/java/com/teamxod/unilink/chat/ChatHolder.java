@@ -1,15 +1,12 @@
 package com.teamxod.unilink.chat;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RotateDrawable;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,7 +21,7 @@ import com.teamxod.unilink.R;
 public class ChatHolder extends RecyclerView.ViewHolder {
     //private final TextView mNameField;
     private final TextView mTextField;
-//    private final FrameLayout mLeftArrow;
+    //    private final FrameLayout mLeftArrow;
 //    private final FrameLayout mRightArrow;
     private final RelativeLayout mMessageContainer;
     private final LinearLayout mMessage;
@@ -67,7 +64,7 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     public void setIsSender(boolean isSender) {
         final int color;
         final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0,24,0,0);
+        params.setMargins(0, 24, 0, 0);
         if (isSender) {
             color = mGreen300;
 //            mLeftArrow.setVisibility(View.GONE);

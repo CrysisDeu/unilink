@@ -23,8 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.teamxod.unilink.user.Profile;
 import com.teamxod.unilink.R;
+import com.teamxod.unilink.user.Profile;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -35,7 +35,6 @@ import java.text.SimpleDateFormat;
  * A simple {@link Fragment} subclass.
  */
 public class ChatsFragment extends Fragment {
-
 
 
     // Firebase
@@ -97,7 +96,7 @@ public class ChatsFragment extends Fragment {
                         .build();
 
         // adapter to hold contacts
-        adapter  = new FirebaseRecyclerAdapter<Chat, ChatListViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<Chat, ChatListViewHolder>(options) {
             @NonNull
             @Override
             public ChatListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

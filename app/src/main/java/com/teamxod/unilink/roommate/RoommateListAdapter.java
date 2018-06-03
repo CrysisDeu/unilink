@@ -30,27 +30,16 @@ import java.util.List;
 
 class RoommateListAdapter extends BaseAdapter {
 
+    private final static int MARGIN = 15;
     private ArrayList<String> mList;
     private LayoutInflater mInflater;
     private Context mContext;
-    private final static int MARGIN = 15;
     private DatabaseReference database;
 
     RoommateListAdapter(Context context, List<String> objects) {
         mList = (ArrayList<String>) objects;
         mInflater = LayoutInflater.from(context);
         mContext = context;
-    }
-
-    class ViewHolder{
-
-        ImageView vhPic;
-        TextView vhName;
-        TextView vhGender;
-        TextView vhYear;
-        ProgressWheel vhProgress;
-        TextView vhScore;
-        TagViewGroup tag;
     }
 
     @Override
@@ -72,7 +61,7 @@ class RoommateListAdapter extends BaseAdapter {
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
 
         final ViewHolder viewHolder = new ViewHolder();
-        view = mInflater.inflate(R.layout.roommate_list_item,null);
+        view = mInflater.inflate(R.layout.roommate_list_item, null);
         viewHolder.vhPic = view.findViewById(R.id.headShot);
         viewHolder.vhName = view.findViewById(R.id.rName);
         viewHolder.vhGender = view.findViewById(R.id.rMajor);
@@ -114,12 +103,12 @@ class RoommateListAdapter extends BaseAdapter {
         int enterYear = Integer.parseInt(roommate.getYearGraduate()) - 4;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR) - enterYear;
         String temp;
-        if(currentYear > 5)
+        if (currentYear > 5)
             temp = "Alumni";
-        else if(currentYear <= 0)
+        else if (currentYear <= 0)
             temp = "Incoming Student";
         else
-            temp = "Class of "+currentYear;
+            temp = "Class of " + currentYear;
         viewHolder.vhYear.setText(temp);
 
         viewHolder.vhName.setText(roommate.getName());
@@ -139,7 +128,7 @@ class RoommateListAdapter extends BaseAdapter {
                 Preference myPreference = dataSnapshot.child(myUid).getValue(Preference.class);
                 Preference posterPreference = dataSnapshot.child(roommateUID).getValue(Preference.class);
 
-                if(myPreference != null && posterPreference != null) {
+                if (myPreference != null && posterPreference != null) {
                     Recommendation recommendation = new Recommendation(myPreference, posterPreference);
                     score = recommendation.getScore();
                     tagList = recommendation.getTagList();
@@ -152,7 +141,7 @@ class RoommateListAdapter extends BaseAdapter {
                     viewHolder.vhScore.setText("?");
                 }
 
-                viewHolder.vhProgress.setPercentage((int)(score * 36));
+                viewHolder.vhProgress.setPercentage((int) (score * 36));
 
                 ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -160,13 +149,13 @@ class RoommateListAdapter extends BaseAdapter {
                 lp.rightMargin = MARGIN;
                 lp.topMargin = MARGIN;
                 lp.bottomMargin = MARGIN;
-                for(int i = 0; i < tagList.size(); i++){
+                for (int i = 0; i < tagList.size(); i++) {
                     TextView tagView = new TextView(mContext);
                     tagView.setText(tagList.get(i));
                     tagView.setTextAppearance(R.style.tag_text);
 
                     tagView.setBackgroundResource(R.drawable.roommate_tag_layout);
-                    viewHolder.tag.addView(tagView,lp);
+                    viewHolder.tag.addView(tagView, lp);
                 }
             }
 
@@ -175,5 +164,16 @@ class RoommateListAdapter extends BaseAdapter {
                 //default
             }
         });
+    }
+
+    class ViewHolder {
+
+        ImageView vhPic;
+        TextView vhName;
+        TextView vhGender;
+        TextView vhYear;
+        ProgressWheel vhProgress;
+        TextView vhScore;
+        TagViewGroup tag;
     }
 }

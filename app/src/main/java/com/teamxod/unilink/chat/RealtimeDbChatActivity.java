@@ -44,12 +44,18 @@ import butterknife.OnClick;
  */
 public class RealtimeDbChatActivity extends AppCompatActivity
         implements FirebaseAuth.AuthStateListener {
-    private static final String TAG = "RealtimeDatabase";
-
-    static Query sChatQuery;
-    static final DatabaseReference messages= FirebaseDatabase.getInstance().getReference().child("Messages");
+    static final DatabaseReference messages = FirebaseDatabase.getInstance().getReference().child("Messages");
     static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chat");
-
+    private static final String TAG = "RealtimeDatabase";
+    static Query sChatQuery;
+    @BindView(R.id.messagesList)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.sendButton)
+    Button mSendButton;
+    @BindView(R.id.messageEdit)
+    EditText mMessageEdit;
+    @BindView(R.id.emptyTextView)
+    TextView mEmptyListMessage;
     private String other_id;
     private String other_name;
     private String uid;
@@ -58,18 +64,6 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     private ImageView mBackButton;
     private Uri other_photo;
     private Uri photo;
-
-    @BindView(R.id.messagesList)
-    RecyclerView mRecyclerView;
-
-    @BindView(R.id.sendButton)
-    Button mSendButton;
-
-    @BindView(R.id.messageEdit)
-    EditText mMessageEdit;
-
-    @BindView(R.id.emptyTextView)
-    TextView mEmptyListMessage;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -113,7 +107,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
             }
         });
 
-        sChatQuery =  FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(100);
+        sChatQuery = FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(100);
         mTitleName = findViewById(R.id.title_user_name);
         mTitleName.setText(other_name);
 
@@ -138,7 +132,9 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-        if (isSignedIn()) { attachRecyclerViewAdapter(); }
+        if (isSignedIn()) {
+            attachRecyclerViewAdapter();
+        }
         FirebaseAuth.getInstance().addAuthStateListener(this);
     }
 
@@ -177,7 +173,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         }
 
         // get timestamp
-        long tsLong = System.currentTimeMillis()/1000;
+        long tsLong = System.currentTimeMillis() / 1000;
 
         // add to firebase
         onAddMessage(tsLong);

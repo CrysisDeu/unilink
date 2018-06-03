@@ -12,7 +12,7 @@ import com.teamxod.unilink.R;
 
 import java.util.ArrayList;
 
-public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder>{
+public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
     private ArrayList<Room> rooms;
 
     private Context context;
@@ -54,10 +54,10 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         TextView typeTextView;
         TextView priceTextView;
 
-        RoomViewHolder (View itemView) {
+        RoomViewHolder(View itemView) {
             super(itemView);
-            typeTextView = (TextView) itemView.findViewById(R.id.room_type);
-            priceTextView = (TextView) itemView.findViewById(R.id.room_price);
+            typeTextView = itemView.findViewById(R.id.room_type);
+            priceTextView = itemView.findViewById(R.id.room_price);
         }
     }
 }

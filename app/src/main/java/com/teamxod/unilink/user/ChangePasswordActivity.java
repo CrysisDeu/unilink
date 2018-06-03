@@ -44,11 +44,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
         mBackButton = findViewById(R.id.back_button);
 
         mAuth = FirebaseAuth.getInstance();
-        original_password = (EditText) findViewById(R.id.original_password);
-        new_password = (EditText) findViewById(R.id.new_password);
-        confirm_password = (EditText) findViewById(R.id.confirm_password);
-        save = (CardView) findViewById(R.id.Save);
-        forget_password = (TextView) findViewById(R.id.forget_password);
+        original_password = findViewById(R.id.original_password);
+        new_password = findViewById(R.id.new_password);
+        confirm_password = findViewById(R.id.confirm_password);
+        save = findViewById(R.id.Save);
+        forget_password = findViewById(R.id.forget_password);
         original_password.addTextChangedListener(new TextWatcher() {
 
             @Override

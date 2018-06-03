@@ -16,12 +16,11 @@ public class Preference {
 
     // constructor
 
-    public Preference(){
+    public Preference() {
     }
 
     public Preference(double sleepTime, double cleanTime, int bring, int pet, int surfing,
-                      int hiking, int skiing, int gaming, double smoke, double drink, int party, int language)
-    {
+                      int hiking, int skiing, int gaming, double smoke, double drink, int party, int language) {
         this.sleepTime = sleepTime;
         this.cleanTime = cleanTime;
         this.bring = bring;

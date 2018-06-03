@@ -36,14 +36,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
 
     private RecyclerView mRecyclerView;
 
-    @Override
-    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-
-        mRecyclerView = recyclerView;
-    }
-
-    MyFavoriteAdapter(Context context, ArrayList<String> postList){
+    MyFavoriteAdapter(Context context, ArrayList<String> postList) {
         this.postList = postList;
         this.context = context;
 
@@ -52,6 +45,13 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         favoriteReference = database.child("Users").child(uid).child("favorite_houses");
         housePostReference = database.child("House_post");
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        mRecyclerView = recyclerView;
     }
 
     @NonNull
@@ -66,7 +66,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
                 int itemPosition = mRecyclerView.getChildLayoutPosition(v);
                 String postID = postList.get(itemPosition);
                 Intent myIntent = new Intent(context, HousePostActivity.class);
-                myIntent.putExtra("postID",postID);
+                myIntent.putExtra("postID", postID);
                 context.startActivity(myIntent);
             }
         });
@@ -81,7 +81,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
         housePostReference.child(postID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) {
+                if (!dataSnapshot.exists()) {
                     postList.remove(postID);
                     notifyItemRemoved(holder.getAdapterPosition());
                 } else {
@@ -90,8 +90,8 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
                     String price = "$ " + house.getRooms().get(0).getPrice() + "/Mo From " + house.getStartDate();
 
                     Glide.with(context)
-                        .load(house.getPictures().get(0))
-                        .into(holder.housePictureView);
+                            .load(house.getPictures().get(0))
+                            .into(holder.housePictureView);
 
                     holder.titleTextView.setText(house.getTitle());
                     holder.priceTextView.setText(price);
@@ -101,7 +101,7 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
                         @Override
                         public void onClick(View v) {
                             String postID = postList.get(holder.getAdapterPosition());
-                            if(!holder.favorite_btn.isChecked()) {
+                            if (!holder.favorite_btn.isChecked()) {
                                 postList.remove(postID);
                                 favoriteReference.setValue(postList);
                                 notifyDataSetChanged();
@@ -113,7 +113,8 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode()); }
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
         });
 
     }
@@ -130,13 +131,13 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
         TextView priceTextView;
         TextView addressTextView;
 
-        FavoriteViewHolder (View itemView) {
+        FavoriteViewHolder(View itemView) {
             super(itemView);
-            favorite_btn = (ToggleButton) itemView.findViewById((R.id.favorite_btn));
-            titleTextView = (TextView) itemView.findViewById(R.id.post_title);
-            priceTextView = (TextView) itemView.findViewById(R.id.post_price);
-            addressTextView = (TextView) itemView.findViewById(R.id.post_address);
-            housePictureView = (ImageView) itemView.findViewById(R.id.post_image);
+            favorite_btn = itemView.findViewById((R.id.favorite_btn));
+            titleTextView = itemView.findViewById(R.id.post_title);
+            priceTextView = itemView.findViewById(R.id.post_price);
+            addressTextView = itemView.findViewById(R.id.post_address);
+            housePictureView = itemView.findViewById(R.id.post_image);
         }
     }
 }

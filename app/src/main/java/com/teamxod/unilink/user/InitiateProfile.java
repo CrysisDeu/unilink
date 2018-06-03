@@ -3,9 +3,9 @@ package com.teamxod.unilink.user;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
@@ -35,24 +35,22 @@ import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.listeners.IPickResult;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class InitiateProfile extends AppCompatActivity implements IPickResult {
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private final Uri MALE_PROFILE_PIC = Uri.parse("https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/male.png?alt=media&token=02a80321-a6ae-4194-af4d-bd658de9348f");
     private final Uri FEMALE_PROFILE_PIC = Uri.parse("https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/female.png?alt=media&token=69a0c9c9-eda5-481d-9043-b718d899121b");
     private final String NAME_INVALID = "Please enter a valid name!";
-
+    private final int PICK_IMAGE_REQUEST = 71;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
-
     private String uid;
     private String name;
     private Uri picture;
     private String gender;
     private String yearGraduate;
     private String description;
-
     private ImageView mProfilePic;
     private EditText mEditName;
     private TextView mEmail;
@@ -62,9 +60,6 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
     private Bitmap imageBitmap;
     private CardView mSave;
     private PickImageDialog dialog;
-
-    private final int PICK_IMAGE_REQUEST = 71;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +82,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
             uid = mAuth.getCurrentUser().getUid();
 
             // using google login
-            if(getLoginmethod()) {
+            if (getLoginmethod()) {
                 mEditName.setText(mAuth.getCurrentUser().getDisplayName());
                 Uri mPhoto = mAuth.getCurrentUser().getPhotoUrl();
                 if (mPhoto != null) {
@@ -115,21 +110,20 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
             public void onClick(View v) {
                 name = mEditName.getText().toString();
                 if (name.equals("")) {
-                    Toast.makeText(InitiateProfile.this,NAME_INVALID,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InitiateProfile.this, NAME_INVALID, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 gender = mGenderSpinner.getSelectedItem().toString();
-                if(picture == null) {
+                if (picture == null) {
                     if (gender.equals("Female")) {
                         picture = FEMALE_PROFILE_PIC;
-                    }
-                    else {
+                    } else {
                         picture = MALE_PROFILE_PIC;
                     }
                 }
                 yearGraduate = mYearSpinner.getSelectedItem().toString();
                 description = mDescription.getText().toString();
-                writeNewUser(name, picture.toString(),gender,yearGraduate,description);
+                writeNewUser(name, picture.toString(), gender, yearGraduate, description);
                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                         .setDisplayName(name)
                         .setPhotoUri(picture)
@@ -167,17 +161,16 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
 
     private void writeNewUser(String name, String picture, String gender, String yearGraduate,
                               String description) {
-        User user = new User(name, picture, gender, yearGraduate, description,(List<User>)new ArrayList<User>(),(List<String>) new ArrayList<String>(0),(List<String>) new ArrayList<String>(0));
+        User user = new User(name, picture, gender, yearGraduate, description, new ArrayList<User>(), new ArrayList<String>(0), new ArrayList<String>(0));
 
         mDatabase.child("Users").child(uid).setValue(user);
     }
 
 
-
     private boolean getLoginmethod() {
-        if(mAuth != null && mAuth.getCurrentUser() != null) {
+        if (mAuth != null && mAuth.getCurrentUser() != null) {
             for (UserInfo user : mAuth.getCurrentUser().getProviderData()) {
-                Log.d("TAG",user.getProviderId());
+                Log.d("TAG", user.getProviderId());
                 if (user.getProviderId().equals("google.com")) { // google login
                     return true;
                 }
@@ -188,7 +181,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
         }
     }
 
-    private void uploadToFirebase (Uri uri) {
+    private void uploadToFirebase(Uri uri) {
         final StorageReference profile_images = mStorageRef.child("Profile_Images").child(mAuth.getCurrentUser().getUid());
 
         profile_images.putFile(uri)

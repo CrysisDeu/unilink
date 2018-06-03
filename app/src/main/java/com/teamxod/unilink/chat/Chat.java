@@ -45,12 +45,12 @@ public class Chat {
         mUid = uid;
     }
 
-    public void setmTimestamp(long mTimestamp) {
-        this.mTimestamp = mTimestamp;
-    }
-
     public long getmTimestamp() {
         return mTimestamp;
+    }
+
+    public void setmTimestamp(long mTimestamp) {
+        this.mTimestamp = mTimestamp;
     }
 
     @Override

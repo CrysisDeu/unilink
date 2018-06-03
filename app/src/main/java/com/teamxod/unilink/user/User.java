@@ -21,7 +21,7 @@ public class User {
     }
 
     User(String name, String picture, String gender, String yearGraduate,
-         String description,List<User> roommates, List<String> favorite_houses,
+         String description, List<User> roommates, List<String> favorite_houses,
          List<String> my_house_posts) {
 
         this.picture = picture;
@@ -74,20 +74,20 @@ public class User {
         return this.description;
     }
 
-    public List<String> getFavorite_houses() {
-        return favorite_houses;
-    }
-
-    public List<String> getMy_house_posts() {
-        return my_house_posts;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public List<String> getFavorite_houses() {
+        return favorite_houses;
+    }
+
     public void setFavorite_houses(List<String> favorite_houses) {
         this.favorite_houses = favorite_houses;
+    }
+
+    public List<String> getMy_house_posts() {
+        return my_house_posts;
     }
 
     public void setMy_house_posts(List<String> my_house_posts) {
@@ -105,7 +105,7 @@ public class User {
         result.put("description", description);
         result.put("roommates", roommates);
         result.put("favorite_houses", favorite_houses);
-        result.put("my_house_posts",my_house_posts);
+        result.put("my_house_posts", my_house_posts);
         return result;
     }
 

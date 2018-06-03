@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager()

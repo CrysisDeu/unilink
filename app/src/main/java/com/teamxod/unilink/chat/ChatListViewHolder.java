@@ -13,34 +13,34 @@ import com.teamxod.unilink.R;
 public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
     public View mView;
+    public ImageView userImageView;
     private TextView userStatusView;
     private TextView userNameView;
-    public ImageView userImageView;
     private TextView chatTimeView;
 
     ChatListViewHolder(View itemView) {
         super(itemView);
 
         mView = itemView;
-        userStatusView = (TextView) mView.findViewById(R.id.user_single_status);
+        userStatusView = mView.findViewById(R.id.user_single_status);
         userNameView = mView.findViewById(R.id.user_single_name);
-        userImageView = (ImageView) mView.findViewById(R.id.user_single_image);
+        userImageView = mView.findViewById(R.id.user_single_image);
         chatTimeView = mView.findViewById(R.id.time_view);
 
     }
 
-    public void setMessage(String message){
+    public void setMessage(String message) {
 
         userStatusView.setText(message);
 
     }
 
-    public void setName(String name){
+    public void setName(String name) {
 
         userNameView.setText(name);
     }
 
-    public String  getChatTimeView() {
+    public String getChatTimeView() {
         return chatTimeView.getText().toString();
     }
 
@@ -48,9 +48,9 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
         this.chatTimeView.setText(time);
     }
 
-    public void setUserImage(String thumb_image, Context ctx){
+    public void setUserImage(String thumb_image, Context ctx) {
 
-        if(ctx == null) {
+        if (ctx == null) {
             return;
         }
 

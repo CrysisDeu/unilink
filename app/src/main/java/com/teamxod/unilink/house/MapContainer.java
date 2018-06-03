@@ -8,6 +8,7 @@ import android.widget.ScrollView;
 
 public class MapContainer extends FrameLayout {
     private ScrollView scrollView;
+
     public MapContainer(Context context) {
         super(context);
     }

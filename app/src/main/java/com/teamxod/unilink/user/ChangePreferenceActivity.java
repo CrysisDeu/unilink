@@ -111,44 +111,44 @@ public class ChangePreferenceActivity extends AppCompatActivity {
          *      sections are managed by : declaring + logic in order
          */
 
-        languageSpinner = (Spinner) findViewById(R.id.languege_spinner);
+        languageSpinner = findViewById(R.id.languege_spinner);
 
-        save = (Button) findViewById(R.id.save);
+        save = findViewById(R.id.save);
         mBackButton = findViewById(R.id.back_button);
 
-        sleep_seekBar = (SeekBar) findViewById(R.id.sleep_seekbar);
-        sleep_seekbar_text = (TextView) findViewById(R.id.sleep_seekbar_text);
-        clean_seekBar = (SeekBar) findViewById(R.id.clean_seekbar);
-        clean_seekbar_text = (TextView) findViewById(R.id.clean_seekbar_text);
+        sleep_seekBar = findViewById(R.id.sleep_seekbar);
+        sleep_seekbar_text = findViewById(R.id.sleep_seekbar_text);
+        clean_seekBar = findViewById(R.id.clean_seekbar);
+        clean_seekbar_text = findViewById(R.id.clean_seekbar_text);
 
-        smoke = (SegmentedGroup) findViewById(R.id.smoke_button);
-        drink = (SegmentedGroup) findViewById(R.id.drink_button);
-        smoke_seekBar = (SeekBar) findViewById(R.id.smoke_seekbar);
-        drink_seekBar = (SeekBar) findViewById(R.id.drink_seekbar);
-        smoke_seekbar_text = (TextView) findViewById(R.id.smoke_seekbar_text);
-        drink_seekbar_text = (TextView) findViewById(R.id.drink_seekbar_text);
-        smoke1 = (RadioButton) findViewById(R.id.smoke_button_1);
-        smoke2 = (RadioButton) findViewById(R.id.smoke_button_2);
-        drink1 = (RadioButton) findViewById(R.id.drink_button_1);
-        drink2 = (RadioButton) findViewById(R.id.drink_button_2);
+        smoke = findViewById(R.id.smoke_button);
+        drink = findViewById(R.id.drink_button);
+        smoke_seekBar = findViewById(R.id.smoke_seekbar);
+        drink_seekBar = findViewById(R.id.drink_seekbar);
+        smoke_seekbar_text = findViewById(R.id.smoke_seekbar_text);
+        drink_seekbar_text = findViewById(R.id.drink_seekbar_text);
+        smoke1 = findViewById(R.id.smoke_button_1);
+        smoke2 = findViewById(R.id.smoke_button_2);
+        drink1 = findViewById(R.id.drink_button_1);
+        drink2 = findViewById(R.id.drink_button_2);
 
-        surfing = (CheckedTextView) findViewById(R.id.surfing);
-        hiking = (CheckedTextView) findViewById(R.id.hiking);
-        skiing = (CheckedTextView) findViewById(R.id.skiing);
-        gaming = (CheckedTextView) findViewById(R.id.gaming);
+        surfing = findViewById(R.id.surfing);
+        hiking = findViewById(R.id.hiking);
+        skiing = findViewById(R.id.skiing);
+        gaming = findViewById(R.id.gaming);
 
-        bring = (SegmentedGroup) findViewById(R.id.bring_button);
-        pet = (SegmentedGroup) findViewById(R.id.pet_button);
-        party = (SegmentedGroup) findViewById(R.id.party_button);
+        bring = findViewById(R.id.bring_button);
+        pet = findViewById(R.id.pet_button);
+        party = findViewById(R.id.party_button);
 
-        bring1 = (RadioButton) findViewById(R.id.bring_button_1);
-        bring2 = (RadioButton) findViewById(R.id.bring_button_2);
-        bring3 = (RadioButton) findViewById(R.id.bring_button_3);
-        pet1 = (RadioButton) findViewById(R.id.pet_button_1);
-        pet2 = (RadioButton) findViewById(R.id.pet_button_2);
-        party1 = (RadioButton) findViewById(R.id.party_button_1);
-        party2 = (RadioButton) findViewById(R.id.party_button_2);
-        party3 = (RadioButton) findViewById(R.id.party_button_3);
+        bring1 = findViewById(R.id.bring_button_1);
+        bring2 = findViewById(R.id.bring_button_2);
+        bring3 = findViewById(R.id.bring_button_3);
+        pet1 = findViewById(R.id.pet_button_1);
+        pet2 = findViewById(R.id.pet_button_2);
+        party1 = findViewById(R.id.party_button_1);
+        party2 = findViewById(R.id.party_button_2);
+        party3 = findViewById(R.id.party_button_3);
 
 
         // language spinner logic
@@ -205,7 +205,6 @@ public class ChangePreferenceActivity extends AppCompatActivity {
                     int time = progressV - 3;
                     sleep_seekbar_text.setText(time + " AM");
                 }
-                ;
             }
 
             @Override

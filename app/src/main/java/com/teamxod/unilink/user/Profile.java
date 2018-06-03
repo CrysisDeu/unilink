@@ -1,8 +1,8 @@
 package com.teamxod.unilink.user;
 
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +19,7 @@ import com.teamxod.unilink.R;
 
 import java.io.Serializable;
 
-public class Profile extends AppCompatActivity implements Serializable{
+public class Profile extends AppCompatActivity implements Serializable {
 
     private ImageView mBackButton;
     private String uid;
@@ -62,7 +62,7 @@ public class Profile extends AppCompatActivity implements Serializable{
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-        mBackButton.setOnClickListener(new View.OnClickListener(){
+        mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

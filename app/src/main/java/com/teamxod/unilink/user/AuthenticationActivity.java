@@ -89,7 +89,7 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
 
         // start card
         mStartContainer = findViewById(R.id.start_container);
-        mGoogleSignInButton =  findViewById(R.id.google_sign_in_button);
+        mGoogleSignInButton = findViewById(R.id.google_sign_in_button);
         mSignUpButton = findViewById(R.id.email_sign_up);
 
 
@@ -132,37 +132,37 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
         mAuth = FirebaseAuth.getInstance();
 
         //SignUp onClick
-        mSignUpButton.setOnClickListener(new View.OnClickListener(){
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
                 //fadeout and resize
-                FadeOutAnimation(mStartContainer,225);
-                FadeOutAnimation(mSignInLogo,300);
-                resizeAnimation(mStartCard,dpToPx(344),450);//200
-                FadeInAnimation(mSignUpContainer,225);
+                FadeOutAnimation(mStartContainer, 225);
+                FadeOutAnimation(mSignInLogo, 300);
+                resizeAnimation(mStartCard, dpToPx(344), 450);//200
+                FadeInAnimation(mSignUpContainer, 225);
 
             }
         });
 
         //Cancle SignUp onClick
-        mCancleSignUpButton.setOnClickListener(new View.OnClickListener(){
+        mCancleSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
                 //fadeout and resize
-                FadeOutAnimation(mSignUpContainer,225);
-                resizeAnimation(mStartCard,dpToPx(144),450); //-200
-                FadeInAnimation(mStartContainer,225);
-                FadeInAnimation(mSignInLogo,300);
+                FadeOutAnimation(mSignUpContainer, 225);
+                resizeAnimation(mStartCard, dpToPx(144), 450); //-200
+                FadeInAnimation(mStartContainer, 225);
+                FadeInAnimation(mSignInLogo, 300);
 
             }
         });
 
         //Confirm SignUp onClick
-        mConfirmSignUp.setOnClickListener(new View.OnClickListener(){
+        mConfirmSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 EditText mEmailSignUpInput = findViewById(R.id.email_sign_up_input);
                 String mEmail = mEmailSignUpInput.getText().toString();
 
@@ -171,7 +171,7 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
 
                 EditText mPasswordReenterInput = findViewById(R.id.password_reenter_input);
                 String mPasswordReenter = mPasswordReenterInput.getText().toString();
-                if(!isEmailValid(mEmail)) {
+                if (!isEmailValid(mEmail)) {
                     Toast toast = Toast.makeText(getApplicationContext(), INVALID_EMAIL,
                             Toast.LENGTH_SHORT);
                     toast.show();
@@ -190,54 +190,52 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
                     toast.show();
                     return;
                 } else {
-                    createAccount(mEmail,mPassword);
+                    createAccount(mEmail, mPassword);
                 }
-
 
 
             }
         });
 
 
-
         //SignIn onClick
-        mSignInButton.setOnClickListener(new View.OnClickListener(){
+        mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
                 //fadeout and resize
-                FadeOutAnimation(mStartContainer,225);
-                FadeOutAnimation(mSignInLogo,300);
-                resizeAnimation(mStartCard,dpToPx(304),300);//136
-                FadeInAnimation(mSignInContainer,225);
+                FadeOutAnimation(mStartContainer, 225);
+                FadeOutAnimation(mSignInLogo, 300);
+                resizeAnimation(mStartCard, dpToPx(304), 300);//136
+                FadeInAnimation(mSignInContainer, 225);
 
             }
         });
 
         //Cancel SignIn onClick
-        mCancleSignInButton.setOnClickListener(new View.OnClickListener(){
+        mCancleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
 
                 //fadeout and resize
-                FadeOutAnimation(mSignInContainer,225);
-                resizeAnimation(mStartCard,dpToPx(144),300);//-136
-                FadeInAnimation(mStartContainer,225);
-                FadeInAnimation(mSignInLogo,300);
+                FadeOutAnimation(mSignInContainer, 225);
+                resizeAnimation(mStartCard, dpToPx(144), 300);//-136
+                FadeInAnimation(mStartContainer, 225);
+                FadeInAnimation(mSignInLogo, 300);
 
             }
         });
 
         //Confirm SignIn onClick
-        mConfirmSignIn.setOnClickListener(new View.OnClickListener(){
+        mConfirmSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 EditText mEmailInput = findViewById(R.id.email_input);
                 String mEmail = mEmailInput.getText().toString();
                 EditText mPasswordInput = findViewById(R.id.password_input);
                 String mPassword = mPasswordInput.getText().toString();
 
-                if(!isEmailValid(mEmail)) {
+                if (!isEmailValid(mEmail)) {
                     Toast toast = Toast.makeText(getApplicationContext(), INVALID_EMAIL,
                             Toast.LENGTH_SHORT);
                     toast.show();
@@ -249,20 +247,20 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
                     toast.show();
                     return;
                 } else {
-                    signIn(mEmail,mPassword);
+                    signIn(mEmail, mPassword);
                 }
 
             }
         });
 
         //SignIn Forget Password onClick
-        mForgotPassword.setOnClickListener(new View.OnClickListener(){
+        mForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 EditText mEmailInput = findViewById(R.id.email_input);
                 String mEmail = mEmailInput.getText().toString();
 
-                if(!isEmailValid(mEmail)) {
+                if (!isEmailValid(mEmail)) {
                     Toast toast = Toast.makeText(getApplicationContext(), INVALID_EMAIL,
                             Toast.LENGTH_SHORT);
                     toast.show();
@@ -278,8 +276,7 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
     }
 
 
-
-    private EditText createEditText (String hint) {
+    private EditText createEditText(String hint) {
         EditText newInputView = new EditText(this);
         newInputView.setHint(hint);
         newInputView.setLayoutParams(new LinearLayout.LayoutParams(
@@ -309,7 +306,7 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
         view.setVisibility(View.VISIBLE);
     }
 
-    private void resizeAnimation (View view, int target, int duration) {
+    private void resizeAnimation(View view, int target, int duration) {
         ResizeAnimation resizeAnimation = new ResizeAnimation(
                 view,
                 target,
@@ -454,8 +451,6 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
     }
 
 
-
-
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -511,9 +506,9 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
     }
 
     //helper method
-    private int dpToPx (int dp) {
+    private int dpToPx(int dp) {
         Resources r = getResources();
-        int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
         return px;
     }
 

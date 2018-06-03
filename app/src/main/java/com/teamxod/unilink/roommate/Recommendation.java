@@ -13,24 +13,22 @@ class Recommendation {
 
     private final int paramNumber = 12;
     private final double close = 0.2;   // decide if they are close for a parameter
-    private Preference preference1;
-    private Preference preference2;
-
-    private ArrayList<String> tagList;
-    private double score;
-
-    /**
-     * Arrays are used to store users' parameter.
-     * The order is : Bring, Pet, Smoke, Drink, Party, sleepTime, cleanTime, surfing, hiking,
-     *                skiing, gaming, language
-     */
-    private double Array1[];
-    private double Array2[];
     double innerProduct = 0;
     double lengthOne = 0;
     double lengthTwo = 0;
+    private Preference preference1;
+    private Preference preference2;
+    private ArrayList<String> tagList;
+    private double score;
+    /**
+     * Arrays are used to store users' parameter.
+     * The order is : Bring, Pet, Smoke, Drink, Party, sleepTime, cleanTime, surfing, hiking,
+     * skiing, gaming, language
+     */
+    private double Array1[];
+    private double Array2[];
 
-    Recommendation(Preference user1, Preference user2){
+    Recommendation(Preference user1, Preference user2) {
         Array1 = new double[paramNumber];
         Array2 = new double[paramNumber];
         tagList = new ArrayList<>();
@@ -39,10 +37,12 @@ class Recommendation {
         loadUserPreference();
     }
 
-    /** get data from the database and put them into corresponding slots of arrays.
-        Data is from the answer of users' Preference survey.
-        Data will be processed with coefficient into arrays based on importance.*/
-    public double getScore(){
+    /**
+     * get data from the database and put them into corresponding slots of arrays.
+     * Data is from the answer of users' Preference survey.
+     * Data will be processed with coefficient into arrays based on importance.
+     */
+    public double getScore() {
         return score / 10;
     }
 
@@ -64,7 +64,7 @@ class Recommendation {
         Array1[9] = preference1.getSkiing();
         Array1[10] = preference1.getGaming();
         Array1[11] = preference1.getLanguage();
-        for(int i = 0; i < paramNumber; i++) {
+        for (int i = 0; i < paramNumber; i++) {
             lengthOne += Math.pow(Array1[i], 2);
         }
 
@@ -83,7 +83,7 @@ class Recommendation {
 
         // if their languages are different, we reassign the languages to be -1 and 1.
         // This is because languages have no natural ordering.
-        if(Array1[11] != Array2[11]) {
+        if (Array1[11] != Array2[11]) {
             Array1[11] = 1;
             Array2[11] = -1;
         }
@@ -92,15 +92,16 @@ class Recommendation {
         setTagList();
     }
 
-    /** Represent arrays as vectors in higher dimension vector space.
-     *  Similarity is calculated based on the angle between these two vectors.
-     *  Proper lengths of individual component are dealed in getData()
+    /**
+     * Represent arrays as vectors in higher dimension vector space.
+     * Similarity is calculated based on the angle between these two vectors.
+     * Proper lengths of individual component are dealed in getData()
      */
-    private void calculate(){
-        for(int i = 0; i < paramNumber; i++) {
-            innerProduct += Array1[i]*Array2[i];
+    private void calculate() {
+        for (int i = 0; i < paramNumber; i++) {
+            innerProduct += Array1[i] * Array2[i];
             lengthOne += Math.pow(Array1[i], 2);
-            lengthTwo += Math.pow(Array2[i],2);
+            lengthTwo += Math.pow(Array2[i], 2);
         }
         // calculate the angle
         lengthOne = Math.pow(lengthOne, 0.5);
@@ -119,38 +120,38 @@ class Recommendation {
 
     // implemented to only be used once!
     private void setTagList() {
-        
-        if(Array1[1] == 1 && Array2[1] == 1) {
+
+        if (Array1[1] == 1 && Array2[1] == 1) {
             tagList.add("Love pets");
         }
-        if(Array1[2] > -1 && Array2[2] > -1) {
+        if (Array1[2] > -1 && Array2[2] > -1) {
             tagList.add("smoke");
         }
-        if(Array1[2] == -1 && Array2[2] == -1) {
+        if (Array1[2] == -1 && Array2[2] == -1) {
             tagList.add("not smoke");
         }
-        if(Array1[3] > -1 && Array2[3] > -1){
+        if (Array1[3] > -1 && Array2[3] > -1) {
             tagList.add("drink");
         }
-        if(Array1[3] == -1 && Array2[3] == -1){
+        if (Array1[3] == -1 && Array2[3] == -1) {
             tagList.add("not drink");
         }
-        if(Array1[5] - Array2[5] < close){
+        if (Array1[5] - Array2[5] < close) {
             tagList.add("similar sleep time");
         }
-        if(Array1[7] == 1 && Array2[7] == 1){
+        if (Array1[7] == 1 && Array2[7] == 1) {
             tagList.add("Surf");
         }
-        if(Array1[8] == 1 && Array2[8] == 1){
+        if (Array1[8] == 1 && Array2[8] == 1) {
             tagList.add("Hike");
         }
-        if(Array1[9] == 1 && Array2[9] == 1){
+        if (Array1[9] == 1 && Array2[9] == 1) {
             tagList.add("Ski");
         }
-        if(Array1[10] == 1 && Array2[10] == 1){
+        if (Array1[10] == 1 && Array2[10] == 1) {
             tagList.add("Game");
         }
-        if(Array1[11] == Array2[11]){
+        if (Array1[11] == Array2[11]) {
             tagList.add("Same language");
         }
     }

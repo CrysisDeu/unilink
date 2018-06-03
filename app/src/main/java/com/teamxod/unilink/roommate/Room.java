@@ -11,10 +11,10 @@ public class Room {
         this.price = price;
     }
 
-    Room(){
-       //empty constructor for firebaase
+    Room() {
+        //empty constructor for firebaase
     }
-    
+
     public String getRoomType() {
         return roomType;
     }

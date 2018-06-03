@@ -65,9 +65,9 @@ public class HouseMateAdapter extends RecyclerView.Adapter<HouseMateAdapter.Simp
 
         SimpleProfileViewHolder(View itemView) {
             super(itemView);
-            pictureImageView = (ImageView) itemView.findViewById(R.id.user_profile_image);
-            nameTextView = (TextView) itemView.findViewById(R.id.user_name);
-            yearTextView = (TextView) itemView.findViewById(R.id.user_school_year);
+            pictureImageView = itemView.findViewById(R.id.user_profile_image);
+            nameTextView = itemView.findViewById(R.id.user_name);
+            yearTextView = itemView.findViewById(R.id.user_school_year);
         }
     }
 

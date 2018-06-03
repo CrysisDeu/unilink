@@ -47,230 +47,12 @@ public class RoommateFragment extends Fragment {
     private DatabaseReference preferenceReference;
 
     private boolean hasPreference;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_roommate, container, false); // get the GUI
-
-        listView = layout.findViewById(R.id.roommate_list);
-        visible_btn = layout.findViewById(R.id.visible);
-        layer = layout.findViewById(R.id.layer);
-
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        visibleReference = database.child("Visible");
-        myUid = auth.getCurrentUser().getUid();
-        preferenceReference = database.child("Preference");
-
-        roommateUID = new ArrayList<>();
-
-        setButton(layout);
-
-        setHeader();
-
-        checkPreference();
-
-        return layout;
-    }
-
-    private void loadData() {
-        visibleReference.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                roommateUID.clear();
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    String userID = userSnapshot.getKey();
-                    if(userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
-                        roommateUID.add(userID);
-                    if(getActivity() == null) {
-                        return;
-                    }
-                    RoommateListAdapter adapter = new RoommateListAdapter(getActivity(),roommateUID);
-                    listView.setAdapter(adapter);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        public void onItemClick(AdapterView<?> parent, View view,
-                                                int position, long id) {
-                            Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
-                            if (position > 0) {
-                                myIntent.putExtra("uid", roommateUID.get(position - 1));
-                            } else {
-                                myIntent.putExtra("uid", roommateUID.get(position));
-                            }
-                            startActivity(myIntent);
-                        }
-                    });
-                }
-
-                boolean isVisible;
-                if(dataSnapshot.hasChild(myUid))
-                    isVisible = dataSnapshot.child(myUid).getValue(Boolean.class);
-                else
-                    isVisible = false;
-                setupVisible(isVisible);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-    }
-
-    //sort matching score
-
-
-
-    private void setupVisible(boolean isVisible) {
-        visible_btn.setChecked(isVisible);
-
-        visible_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!hasPreference) {
-                    visible_btn.setChecked(false);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Without Preference information, we are unable to provide you with the best possible roommate" +
-                            " and you will be invisible to other users");
-                    builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                            Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
-                            startActivity(i);
-                        }
-                    });
-                    builder.setNegativeButton("Still Look Around", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                } else if(visible_btn.isChecked()){
-                    visibleReference.child(myUid).setValue(true);
-                } else {
-                    visibleReference.child(myUid).setValue(false);
-                }
-            }
-        });
-    }
-
-    private void checkPreference() {
-        preferenceReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(myUid)) {
-                    hasPreference = true;
-                } else {
-                    hasPreference = false;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Without preference information, we are unable to provide you with the best possible roommate" +
-                            " and you will be invisible to other users.");
-                    builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                            Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
-                            startActivity(i);
-                        }
-                    });
-                    builder.setNegativeButton("Still Look Around", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-                loadData();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void setButton(View layout) {
-        Button refreshButton = (Button)layout.findViewById(R.id.roommate_refresh);
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new RoommateFragment())
-                        .commit();
-            }
-        });
-
-        Button preference_btn = layout.findViewById(R.id.roommate_preference);
-        preference_btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
-                startActivity(i);
-            }
-        });
-    }
-
-    private void setHeader() {
-        View header = new View(this.getActivity());
-        header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.header_roommate)));
-        header.setBackgroundColor(Color.parseColor("#00000000"));
-        listView.addHeaderView(header);
-        touchSlop = (int) (ViewConfiguration.get(RoommateFragment.this.getActivity()).getScaledTouchSlop() * 0.9);
-    }
-
     //set the back animator
     private AnimatorSet backAnimatorSet;
-
-    private void animateBack() {
-        //eliminate other animator
-        if (hideAnimatorSet != null && hideAnimatorSet.isRunning()) {
-            hideAnimatorSet.cancel();
-        }
-        if (backAnimatorSet != null && backAnimatorSet.isRunning()) {
-
-        } else {
-            backAnimatorSet = new AnimatorSet();
-
-            //move the element back to originial position
-            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(layer, "translationY", layer.getTranslationY(), 0f);
-
-            //add animator object to arraylist
-            ArrayList<Animator> animators = new ArrayList<>();
-            animators.add(headerAnimator);
-
-            backAnimatorSet.setDuration(400);
-            backAnimatorSet.playTogether(animators);
-            backAnimatorSet.start();
-        }
-    }
-
-
     //animator to hide element
     private AnimatorSet hideAnimatorSet;
 
-    private void animateHide() {
-        //eliminate other animators
-        if (backAnimatorSet != null && backAnimatorSet.isRunning()) {
-            backAnimatorSet.cancel();
-        }
-        if (hideAnimatorSet != null && hideAnimatorSet.isRunning()) {
-
-        } else {
-            hideAnimatorSet = new AnimatorSet();
-            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(layer, "translationY", layer.getTranslationY(), -2*layer.getHeight());
-
-            ArrayList<Animator> animators = new ArrayList<>();
-            animators.add(headerAnimator);
-
-            hideAnimatorSet.setDuration(400);
-            hideAnimatorSet.playTogether(animators);
-            hideAnimatorSet.start();
-        }
-    }
-
-
-
+    //sort matching score
     //set up onTouchListener
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         float lastY = 0f;
@@ -317,6 +99,216 @@ public class RoommateFragment extends Fragment {
         }
     };
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View layout = inflater.inflate(R.layout.fragment_roommate, container, false); // get the GUI
+
+        listView = layout.findViewById(R.id.roommate_list);
+        visible_btn = layout.findViewById(R.id.visible);
+        layer = layout.findViewById(R.id.layer);
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        visibleReference = database.child("Visible");
+        myUid = auth.getCurrentUser().getUid();
+        preferenceReference = database.child("Preference");
+
+        roommateUID = new ArrayList<>();
+
+        setButton(layout);
+
+        setHeader();
+
+        checkPreference();
+
+        return layout;
+    }
+
+    private void loadData() {
+        visibleReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                roommateUID.clear();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String userID = userSnapshot.getKey();
+                    if (userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
+                        roommateUID.add(userID);
+                    if (getActivity() == null) {
+                        return;
+                    }
+                    RoommateListAdapter adapter = new RoommateListAdapter(getActivity(), roommateUID);
+                    listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
+                            if (position > 0) {
+                                myIntent.putExtra("uid", roommateUID.get(position - 1));
+                            } else {
+                                myIntent.putExtra("uid", roommateUID.get(position));
+                            }
+                            startActivity(myIntent);
+                        }
+                    });
+                }
+
+                boolean isVisible;
+                if (dataSnapshot.hasChild(myUid))
+                    isVisible = dataSnapshot.child(myUid).getValue(Boolean.class);
+                else
+                    isVisible = false;
+                setupVisible(isVisible);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void setupVisible(boolean isVisible) {
+        visible_btn.setChecked(isVisible);
+
+        visible_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!hasPreference) {
+                    visible_btn.setChecked(false);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Without Preference information, we are unable to provide you with the best possible roommate" +
+                            " and you will be invisible to other users");
+                    builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            Intent i = new Intent(getActivity(), ChangePreferenceActivity.class);
+                            startActivity(i);
+                        }
+                    });
+                    builder.setNegativeButton("Still Look Around", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else if (visible_btn.isChecked()) {
+                    visibleReference.child(myUid).setValue(true);
+                } else {
+                    visibleReference.child(myUid).setValue(false);
+                }
+            }
+        });
+    }
+
+    private void checkPreference() {
+        preferenceReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(myUid)) {
+                    hasPreference = true;
+                } else {
+                    hasPreference = false;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Without preference information, we are unable to provide you with the best possible roommate" +
+                            " and you will be invisible to other users.");
+                    builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            Intent i = new Intent(getActivity(), ChangePreferenceActivity.class);
+                            startActivity(i);
+                        }
+                    });
+                    builder.setNegativeButton("Still Look Around", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                loadData();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void setButton(View layout) {
+        Button refreshButton = layout.findViewById(R.id.roommate_refresh);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new RoommateFragment())
+                        .commit();
+            }
+        });
+
+        Button preference_btn = layout.findViewById(R.id.roommate_preference);
+        preference_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ChangePreferenceActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void setHeader() {
+        View header = new View(this.getActivity());
+        header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.header_roommate)));
+        header.setBackgroundColor(Color.parseColor("#00000000"));
+        listView.addHeaderView(header);
+        touchSlop = (int) (ViewConfiguration.get(RoommateFragment.this.getActivity()).getScaledTouchSlop() * 0.9);
+    }
+
+    private void animateBack() {
+        //eliminate other animator
+        if (hideAnimatorSet != null && hideAnimatorSet.isRunning()) {
+            hideAnimatorSet.cancel();
+        }
+        if (backAnimatorSet != null && backAnimatorSet.isRunning()) {
+
+        } else {
+            backAnimatorSet = new AnimatorSet();
+
+            //move the element back to originial position
+            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(layer, "translationY", layer.getTranslationY(), 0f);
+
+            //add animator object to arraylist
+            ArrayList<Animator> animators = new ArrayList<>();
+            animators.add(headerAnimator);
+
+            backAnimatorSet.setDuration(400);
+            backAnimatorSet.playTogether(animators);
+            backAnimatorSet.start();
+        }
+    }
+
+    private void animateHide() {
+        //eliminate other animators
+        if (backAnimatorSet != null && backAnimatorSet.isRunning()) {
+            backAnimatorSet.cancel();
+        }
+        if (hideAnimatorSet != null && hideAnimatorSet.isRunning()) {
+
+        } else {
+            hideAnimatorSet = new AnimatorSet();
+            ObjectAnimator headerAnimator = ObjectAnimator.ofFloat(layer, "translationY", layer.getTranslationY(), -2 * layer.getHeight());
+
+            ArrayList<Animator> animators = new ArrayList<>();
+            animators.add(headerAnimator);
+
+            hideAnimatorSet.setDuration(400);
+            hideAnimatorSet.playTogether(animators);
+            hideAnimatorSet.start();
+        }
+    }
 
 
 }

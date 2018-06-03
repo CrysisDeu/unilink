@@ -7,6 +7,27 @@ import java.util.List;
 public class House {
 
 
+    private String numBedroom;
+    private String numBathroom;
+    //private field
+    private String posterId;
+    private String houseType;
+    private String title;
+    private String location;
+    private String description;
+    private String startDate;
+    private String leasingLength;
+    private List<String> pictures;
+    private List<Room> rooms;
+    private String tv;
+    private String ac;
+    private String bus;
+    private String parking;
+    private String videoGame;
+    private String gym;
+    private String laundry;
+    private String pet;
+
     public House(String posterId, String houseType, String title, String location,
                  String description, String startDate, String leasingLength,
                  List<String> pictures, List<Room> rooms, String tv, String ac, String bus,
@@ -37,45 +58,6 @@ public class House {
     public House() {
         // Default constructor required for calls to DataSnapshot.getValue(House.class)
     }
-    //private field
-
-    private String numBedroom;
-
-    private String numBathroom;
-
-    private String posterId;
-
-    private String houseType;
-
-    private String title;
-
-    private String location;
-
-    private String description;
-
-    private String startDate;
-
-    private String leasingLength;
-
-    private List<String> pictures;
-
-    private List<Room> rooms;
-
-    private String tv;
-
-    private String ac;
-
-    private String bus;
-
-    private String parking;
-
-    private String videoGame;
-
-    private String gym;
-
-    private String laundry;
-
-    private String pet;
 
     public String getNumBedroom() {
         return numBedroom;

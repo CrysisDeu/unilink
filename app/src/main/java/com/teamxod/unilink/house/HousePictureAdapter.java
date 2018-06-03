@@ -41,10 +41,10 @@ class HousePictureAdapter extends PagerAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.house_picture_list_item, null);
 
-        TextView pageView = (TextView) view.findViewById(R.id.page_count);
+        TextView pageView = view.findViewById(R.id.page_count);
         String page = (position + 1) + " / " + images.size();
         pageView.setText(page);
-        ImageView housePicture = (ImageView) view.findViewById(R.id.house_image);
+        ImageView housePicture = view.findViewById(R.id.house_image);
         Glide.with(context)
                 .load(images.get(position))
                 .into(housePicture);

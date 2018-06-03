@@ -62,41 +62,37 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     */
 
+    private final String INVALID_FORM_DUE_TO_FILLING = "Please fill in all the information!";
+    private final String INVALID_FORM_DUE_TO_ADDING = "Please add at least one picture and one room information!";
+    private final String INVALID_FORM_DUE_TO_SELECTING = "Please select all the choices!";
     // Database field
     private DatabaseReference mDatabase;
+
+    // Java fields (Used to create House obj and push to firebase)
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private DatabaseReference post;
-
-    // Java fields (Used to create House obj and push to firebase)
-
     private House old_post;
-
     private String _posterId;
     private String _postId;
-
     private String _houseType;
     private String _bedroom_number;
     private String _bathroom_number;
-
     private String _title;
     private String _location;
     private String _description;
-
     private String _startDate;
     private String _leaseLength;
-
     private String _tv;
     private String _ac;
     private String _bus;
     private String _parking;
     private String _videoGame;
+
+    //  ------------- UI fields ---------------- //
     private String _gym;
     private String _laundry;
     private String _pet;
-
-    //  ------------- UI fields ---------------- //
-
     // gridview and things inside
     private ImageView addpic;
     private GridLayout photoGrid;
@@ -104,20 +100,17 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private PickImageDialog dialog;
     private Uri picture;
     private ArrayList<Uri> pictureList;
-
     // linearlayout for room
     private Button addroom;
     private LinearLayout roomContainer;
     private ArrayList<LinearLayout> roomBoxList;
     private ArrayList<Room> roomList;
-
     // edit text
     private EditText title;
     private EditText street;
     private EditText city;
     private EditText start_date;
     private EditText description;
-
     // room type
     private RadioButton living_room;
     private RadioButton private_room;
@@ -142,7 +135,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private RadioButton annual;
     private RadioButton quarterly;
     private RadioButton short_term;
-
     // Facilities
     private CheckedTextView ac;
     private CheckedTextView allow_pet;
@@ -152,22 +144,53 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private CheckedTextView gym;
     private CheckedTextView laundry;
     private CheckedTextView bus;
-
     private Button submit;
-
     // toolbar
     private Toolbar toolbar;
     private ImageView backBtn;
-
     // for validation
     private TextWatcher tw;
     private boolean filledIn;
-    private final String INVALID_FORM_DUE_TO_FILLING = "Please fill in all the information!";
-    private final String INVALID_FORM_DUE_TO_ADDING = "Please add at least one picture and one room information!";
-    private final String INVALID_FORM_DUE_TO_SELECTING = "Please select all the choices!";
 
 
     // --------------- UI fields above --------------- //
+
+    // helper method for ChekedTextView in XML
+    private static void setCheckedTextView(final CheckedTextView ctv) {
+        ctv.setCheckMarkDrawable(R.drawable.unchecked);
+        ctv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!ctv.isChecked()) {
+                    ctv.setChecked(true);
+                    ctv.setCheckMarkDrawable(R.drawable.checked);
+                } else {
+                    ctv.setChecked(false);
+                    ctv.setCheckMarkDrawable(R.drawable.unchecked);
+                }
+            }
+        });
+    }
+
+    // helper method for implemnet check state
+    private static void setCheckedTextView_fromResult(final CheckedTextView ctv, final String result) {
+        ctv.setCheckMarkDrawable(R.drawable.unchecked);
+        if (result.equals("1")) {
+            ctv.setChecked(true);
+            ctv.setCheckMarkDrawable(R.drawable.checked);
+        } else {
+            ctv.setChecked(false);
+            ctv.setCheckMarkDrawable(R.drawable.unchecked);
+        }
+    }
+
+    // Get content of check text view
+    private static String isChecked(final CheckedTextView ctv) {
+        if (ctv.isChecked())
+            return "1";
+        else
+            return "0";
+    }
 
     // On create
     @Override
@@ -567,19 +590,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         setDate(cal);
     }
 
-    public static class DatePickerFragment extends DialogFragment {
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            return new DatePickerDialog(getActivity(),
-                    (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
-        }
-
-    }
-
     // helper validation
     private boolean validation() {
         if (!filledIn || start_date.getText().toString().length() == 0) {
@@ -602,33 +612,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             }
         }
         return false;
-    }
-
-    class MyTextWatcher implements TextWatcher {
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (title.getText().toString().length() > 0 &&
-                    street.getText().toString().length() > 0 &&
-                    city.getText().toString().length() > 0 &&
-                    description.getText().toString().length() > 0) {
-                for (LinearLayout layout : roomBoxList)
-                    if (((EditText) layout.findViewById(R.id.price)).getText().toString().length() <= 0) {
-                        filledIn = false;
-                        return;
-                    }
-                filledIn = true;
-            } else {
-                filledIn = false;
-            }
-        }
     }
 
     // add room
@@ -742,43 +725,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         }
     }
 
-    // helper method for ChekedTextView in XML
-    private static void setCheckedTextView(final CheckedTextView ctv) {
-        ctv.setCheckMarkDrawable(R.drawable.unchecked);
-        ctv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!ctv.isChecked()) {
-                    ctv.setChecked(true);
-                    ctv.setCheckMarkDrawable(R.drawable.checked);
-                } else {
-                    ctv.setChecked(false);
-                    ctv.setCheckMarkDrawable(R.drawable.unchecked);
-                }
-            }
-        });
-    }
-
-    // helper method for implemnet check state
-    private static void setCheckedTextView_fromResult(final CheckedTextView ctv, final String result) {
-        ctv.setCheckMarkDrawable(R.drawable.unchecked);
-        if (result.equals("1")) {
-            ctv.setChecked(true);
-            ctv.setCheckMarkDrawable(R.drawable.checked);
-        } else {
-            ctv.setChecked(false);
-            ctv.setCheckMarkDrawable(R.drawable.unchecked);
-        }
-    }
-
-    // Get content of check text view
-    private static String isChecked(final CheckedTextView ctv) {
-        if (ctv.isChecked())
-            return "1";
-        else
-            return "0";
-    }
-
     // write to firebase
     private void writeNewPost(House house) {
         post.setValue(house);
@@ -835,6 +781,46 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                             // ...
                         }
                     });
+        }
+    }
+
+    public static class DatePickerFragment extends DialogFragment {
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(),
+                    (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
+        }
+
+    }
+
+    class MyTextWatcher implements TextWatcher {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (title.getText().toString().length() > 0 &&
+                    street.getText().toString().length() > 0 &&
+                    city.getText().toString().length() > 0 &&
+                    description.getText().toString().length() > 0) {
+                for (LinearLayout layout : roomBoxList)
+                    if (((EditText) layout.findViewById(R.id.price)).getText().toString().length() <= 0) {
+                        filledIn = false;
+                        return;
+                    }
+                filledIn = true;
+            } else {
+                filledIn = false;
+            }
         }
     }
 }

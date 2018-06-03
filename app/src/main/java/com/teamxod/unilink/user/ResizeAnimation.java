@@ -19,7 +19,7 @@ class ResizeAnimation extends Animation {
     protected void applyTransformation(float interpolatedTime, Transformation t) {
         //int newHeight = (int) (startHeight + targetHeight * interpolatedTime);
         //to support decent animation, change new heigt as Nico S. recommended in comments
-        int newHeight = (int) (startHeight+(targetHeight - startHeight) * interpolatedTime);
+        int newHeight = (int) (startHeight + (targetHeight - startHeight) * interpolatedTime);
         view.getLayoutParams().height = newHeight;
         view.requestLayout();
     }

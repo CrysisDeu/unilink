@@ -21,16 +21,12 @@ import java.util.ArrayList;
 
 public class MyPostActivity extends AppCompatActivity {
 
-    private DatabaseReference database;
-
-    private ArrayList<String> postList;
-
-    private RecyclerView houseListView;
-
-    private MyPostAdapter myPostAdapter;
-
-    private ImageView mBackButton;
     ToggleButton mEditButton;
+    private DatabaseReference database;
+    private ArrayList<String> postList;
+    private RecyclerView houseListView;
+    private MyPostAdapter myPostAdapter;
+    private ImageView mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

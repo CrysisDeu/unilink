@@ -56,32 +56,31 @@ public class MeFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
-        if(mAuth != null && mAuth.getCurrentUser() != null) {
-        uid = mAuth.getCurrentUser().getUid();
-        DatabaseReference mUserReference = mDatabase.child("Users").child(uid);
-        mUserReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (getContext() == null) {
-                    return;
+        if (mAuth != null && mAuth.getCurrentUser() != null) {
+            uid = mAuth.getCurrentUser().getUid();
+            DatabaseReference mUserReference = mDatabase.child("Users").child(uid);
+            mUserReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (getContext() == null) {
+                        return;
+                    }
+                    user = dataSnapshot.getValue(User.class);
+                    setProfileUI(user);
                 }
-                user = dataSnapshot.getValue(User.class);
-                setProfileUI(user);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
 
-        // not logged in
+            // not logged in
         } else {
             Intent reset = new Intent(getActivity(), SplashActivity.class);
-            reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(reset);
         }
-
 
 
         // my :
@@ -102,9 +101,9 @@ public class MeFragment extends Fragment {
                 .build();
 
 
-        mProfilePic.setOnClickListener(new View.OnClickListener(){
+        mProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent i = new Intent(getActivity(), Profile.class);
                 i.putExtra("uid", uid);
                 startActivity(i);
@@ -112,9 +111,9 @@ public class MeFragment extends Fragment {
         });
 
         // set on click
-        my_favorite.setOnClickListener(new View.OnClickListener(){
+        my_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 /*Fragment fragment = new MyFavoriteActivity();
                 getFragmentManager()
                         .beginTransaction()
@@ -127,30 +126,30 @@ public class MeFragment extends Fragment {
             }
         });
 
-        my_post.setOnClickListener(new View.OnClickListener(){
+        my_post.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent i = new Intent(getActivity(), MyPostActivity.class);
                 startActivity(i);
             }
         });
 
-        changeProfile.setOnClickListener(new View.OnClickListener(){
+        changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent i = new Intent(getActivity(), ChangeProfileActivity.class);
                 startActivity(i);
             }
         });
 
-        changePassword.setOnClickListener(new View.OnClickListener(){
+        changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 if (!getLoginmethod()) {
                     Intent i = new Intent(getActivity(), ChangePasswordActivity.class);
                     startActivity(i);
                 } else {
-                    Toast.makeText(getActivity(),"You can only change your password if you sign in using email.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "You can only change your password if you sign in using email.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -158,14 +157,14 @@ public class MeFragment extends Fragment {
         preference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
+                Intent i = new Intent(getActivity(), ChangePreferenceActivity.class);
                 startActivity(i);
-        }
-    });
+            }
+        });
 
-        logout.setOnClickListener(new View.OnClickListener(){
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 if (mGoogleApiClient.isConnected()) {
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient);
@@ -173,7 +172,7 @@ public class MeFragment extends Fragment {
                     mGoogleApiClient.connect();
                 }
                 Intent reset = new Intent(getActivity(), AuthenticationActivity.class);
-                reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(reset);
             }
         });
@@ -196,9 +195,9 @@ public class MeFragment extends Fragment {
     }
 
     private boolean getLoginmethod() {
-        if(mAuth != null && mAuth.getCurrentUser() != null) {
+        if (mAuth != null && mAuth.getCurrentUser() != null) {
             for (UserInfo user : mAuth.getCurrentUser().getProviderData()) {
-                Log.d("TAG",user.getProviderId());
+                Log.d("TAG", user.getProviderId());
                 if (user.getProviderId().equals("google.com")) { // google login
                     return true;
                 }

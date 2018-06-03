@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -40,6 +38,7 @@ import java.util.Comparator;
 public class HousingFragment extends Fragment {
 
     private static final int ADD_POST = 1;
+    private final ArrayList<HousePost> posts = new ArrayList<>();
     private ListView listView;
     private LinearLayout searchBar;
     private SearchView search;
@@ -47,33 +46,83 @@ public class HousingFragment extends Fragment {
     private FloatingActionButton addPost;
     private View header;
     private int touchSlop = 5;
-    private final ArrayList<HousePost> posts = new ArrayList<>();
+    //set the back animator
+    private AnimatorSet backAnimatorSet;
+    //animator to hide element
+    private AnimatorSet hideAnimatorSet;
+    //set up onTouchListener
+    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+
+
+        float lastY = 0f;
+        float currentY = 0f;
+        //represent two scroll direction  >0 : scroll down; <0 : scroll up
+        int lastDirection = 0;
+        int currentDirection = 0;
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    lastY = event.getY();
+                    currentY = event.getY();
+                    currentDirection = 0;
+                    lastDirection = 0;
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    if (listView.getFirstVisiblePosition() > 0) {
+                        //hide or show element only if listView.getFirstVisiblePosition()>0
+                        float tmpCurrentY = event.getY();
+                        //start only if movement didtance > toushSlop
+                        if (Math.abs(tmpCurrentY - lastY) > touchSlop) {
+                            currentY = tmpCurrentY;
+                            currentDirection = (int) (currentY - lastY);
+                            if (lastDirection != currentDirection) {
+                                //if the direction of movement is different from lat time, then hide or show elements
+                                if (currentDirection < 0) {
+                                    animateHide();
+                                } else {
+                                    animateBack();
+                                }
+                            }
+                            lastY = currentY;
+                        }
+                    }
+                    break;
+
+                case MotionEvent.ACTION_CANCEL:
+
+            }
+            return false;
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_housing, container, false); // get the GUI
 
         //initialize
-        listView = (ListView) layout.findViewById(R.id.list_view);
+        listView = layout.findViewById(R.id.list_view);
         searchBar = layout.findViewById(R.id.searchView);
         addPost = layout.findViewById(R.id.add_post_btn);
         search = layout.findViewById(R.id.search_bar);
 
-        Button refreshButton = (Button) layout.findViewById(R.id.house_refresh);
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new HousingFragment())
-                        .commit();
-            }
-        });
+//        Button refreshButton = (Button) layout.findViewById(R.id.house_refresh);
+//        refreshButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getActivity()
+//                        .getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, new HousingFragment())
+//                        .commit();
+//            }
+//        });
         //firebase
         DatabaseReference HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
-//        HouseDatabase.keepSynced(true);
-        HouseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        HouseDatabase.keepSynced(true);
+        HouseDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -87,7 +136,7 @@ public class HousingFragment extends Fragment {
                     String type = house.child("houseType").getValue(String.class);
                     String title = house.child("title").getValue(String.class);
                     String term = house.child("leasingLength").getValue(String.class);
-                    int price = (int) house.child("rooms").child("0").child("price").getValue(Integer.class);
+                    int price = house.child("rooms").child("0").child("price").getValue(Integer.class);
                     String imageId = house.child("pictures").child("0").getValue(String.class);
                     Log.d("ADDPOST", "a" + imageId);
                     HousePost post = new HousePost(key, type, title, price, term, location, imageId);
@@ -113,7 +162,7 @@ public class HousingFragment extends Fragment {
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), AddPostActivity.class);
-                startActivityForResult(myIntent, ADD_POST);
+                startActivity(myIntent);
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +172,7 @@ public class HousingFragment extends Fragment {
             }
         });
 
-        spinner = (Spinner) layout.findViewById(R.id.spinner);
+        spinner = layout.findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.Sort, android.R.layout.simple_spinner_item);
@@ -200,27 +249,6 @@ public class HousingFragment extends Fragment {
         return layout;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == ADD_POST && getActivity() != null) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getActivity()
-                            .getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.fragment_container, new HousingFragment())
-                            .commit();
-                }
-            }, 1000);
-
-        }
-    }
-
-
     //sort method
     private void sortPrice(boolean order) {
 
@@ -269,10 +297,6 @@ public class HousingFragment extends Fragment {
         return term;
     }
 
-
-    //set the back animator
-    private AnimatorSet backAnimatorSet;
-
     private void animateBack() {
         //eliminate other animator
         if (hideAnimatorSet != null && hideAnimatorSet.isRunning()) {
@@ -298,10 +322,6 @@ public class HousingFragment extends Fragment {
         }
     }
 
-
-    //animator to hide element
-    private AnimatorSet hideAnimatorSet;
-
     private void animateHide() {
         //eliminate other animators
         if (backAnimatorSet != null && backAnimatorSet.isRunning()) {
@@ -323,52 +343,4 @@ public class HousingFragment extends Fragment {
             hideAnimatorSet.start();
         }
     }
-
-    //set up onTouchListener
-    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-
-
-        float lastY = 0f;
-        float currentY = 0f;
-        //represent two scroll direction  >0 : scroll down; <0 : scroll up
-        int lastDirection = 0;
-        int currentDirection = 0;
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    lastY = event.getY();
-                    currentY = event.getY();
-                    currentDirection = 0;
-                    lastDirection = 0;
-                    break;
-
-                case MotionEvent.ACTION_MOVE:
-                    if (listView.getFirstVisiblePosition() > 0) {
-                        //hide or show element only if listView.getFirstVisiblePosition()>0
-                        float tmpCurrentY = event.getY();
-                        //start only if movement didtance > toushSlop
-                        if (Math.abs(tmpCurrentY - lastY) > touchSlop) {
-                            currentY = tmpCurrentY;
-                            currentDirection = (int) (currentY - lastY);
-                            if (lastDirection != currentDirection) {
-                                //if the direction of movement is different from lat time, then hide or show elements
-                                if (currentDirection < 0) {
-                                    animateHide();
-                                } else {
-                                    animateBack();
-                                }
-                            }
-                            lastY = currentY;
-                        }
-                    }
-                    break;
-
-                case MotionEvent.ACTION_CANCEL:
-
-            }
-            return false;
-        }
-    };
 }

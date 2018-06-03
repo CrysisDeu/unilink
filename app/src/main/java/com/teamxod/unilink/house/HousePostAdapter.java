@@ -64,12 +64,12 @@ class HousePostAdapter extends BaseAdapter implements OnScrollListener {
 
         final ViewHolder viewHolder = new ViewHolder();
         view = mInflater.inflate(R.layout.house_list_item, null);
-        viewHolder.vhImage = (ImageView) view.findViewById(R.id.house_list_image);
-        viewHolder.vhType = (TextView) view.findViewById(R.id.room_type);
-        viewHolder.vhTitle = (TextView) view.findViewById(R.id.room_title);
-        viewHolder.vhLocation = (TextView) view.findViewById(R.id.location);
-        viewHolder.vhPrice = (TextView) view.findViewById(R.id.price);
-        viewHolder.vhFavorate = (ToggleButton) view.findViewById(R.id.favorite_btn);
+        viewHolder.vhImage = view.findViewById(R.id.house_list_image);
+        viewHolder.vhType = view.findViewById(R.id.room_type);
+        viewHolder.vhTitle = view.findViewById(R.id.room_title);
+        viewHolder.vhLocation = view.findViewById(R.id.location);
+        viewHolder.vhPrice = view.findViewById(R.id.price);
+        viewHolder.vhFavorate = view.findViewById(R.id.favorite_btn);
         view.setTag(viewHolder);
 
 
@@ -137,15 +137,6 @@ class HousePostAdapter extends BaseAdapter implements OnScrollListener {
 
     }
 
-    class ViewHolder {
-        ImageView vhImage;
-        TextView vhType;
-        TextView vhTitle;
-        TextView vhPrice;
-        TextView vhLocation;
-        ToggleButton vhFavorate;
-    }
-
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
           /*
@@ -172,5 +163,14 @@ class HousePostAdapter extends BaseAdapter implements OnScrollListener {
               isFirstIn=false;
           }*/
 
+    }
+
+    class ViewHolder {
+        ImageView vhImage;
+        TextView vhType;
+        TextView vhTitle;
+        TextView vhPrice;
+        TextView vhLocation;
+        ToggleButton vhFavorate;
     }
 }

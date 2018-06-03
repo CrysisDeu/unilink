@@ -39,6 +39,17 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
     private boolean isChecked;
 
+    MyPostAdapter(Context context, ArrayList<String> postList, boolean isChecked) {
+        this.postList = postList;
+        this.context = context;
+        this.isChecked = isChecked;
+
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        myPostReference = database.child("Users").child(uid).child("my_house_posts");
+        housePostReference = database.child("House_post");
+    }
+
     public void setFlag(boolean isChecked) {
         this.isChecked = isChecked;
     }
@@ -48,17 +59,6 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
         super.onAttachedToRecyclerView(recyclerView);
 
         mRecyclerView = recyclerView;
-    }
-
-    MyPostAdapter(Context context, ArrayList<String> postList, boolean isChecked){
-        this.postList = postList;
-        this.context = context;
-        this.isChecked = isChecked;
-
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        myPostReference = database.child("Users").child(uid).child("my_house_posts");
-        housePostReference = database.child("House_post");
     }
 
     @NonNull
@@ -73,7 +73,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
                 int itemPosition = mRecyclerView.getChildLayoutPosition(v);
                 String postID = postList.get(itemPosition);
                 Intent myIntent = new Intent(context, HousePostActivity.class);
-                myIntent.putExtra("postID",postID);
+                myIntent.putExtra("postID", postID);
                 context.startActivity(myIntent);
             }
         });
@@ -86,7 +86,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
         String postID = postList.get(position);
 
-        if(isChecked){
+        if (isChecked) {
             holder.delete_btn.setVisibility(View.VISIBLE);
             holder.post_btn.setVisibility(View.VISIBLE);
         } else {
@@ -144,7 +144,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode()); }
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
         });
 
     }
@@ -162,14 +163,14 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
         TextView priceTextView;
         TextView addressTextView;
 
-        MyPostViewHolder (View itemView) {
+        MyPostViewHolder(View itemView) {
             super(itemView);
-            post_btn = (Button) itemView.findViewById(R.id.post_btn);
-            delete_btn = (Button) itemView.findViewById(R.id.delete_btn);
-            titleTextView = (TextView) itemView.findViewById(R.id.post_title);
-            priceTextView = (TextView) itemView.findViewById(R.id.post_price);
-            addressTextView = (TextView) itemView.findViewById(R.id.post_address);
-            housePictureView = (ImageView) itemView.findViewById(R.id.post_image);
+            post_btn = itemView.findViewById(R.id.post_btn);
+            delete_btn = itemView.findViewById(R.id.delete_btn);
+            titleTextView = itemView.findViewById(R.id.post_title);
+            priceTextView = itemView.findViewById(R.id.post_price);
+            addressTextView = itemView.findViewById(R.id.post_address);
+            housePictureView = itemView.findViewById(R.id.post_image);
         }
     }
 }

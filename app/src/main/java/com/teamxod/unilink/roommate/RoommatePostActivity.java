@@ -32,15 +32,12 @@ import java.util.Calendar;
 
 public class RoommatePostActivity extends AppCompatActivity {
 
+    private final static int MARGIN = 15;
     private String userUID;
     private String myUID;
     private User user;
-
     private DatabaseReference userReference;
     private DatabaseReference preferenceReference;
-
-    private final static int MARGIN = 15;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,9 +46,9 @@ public class RoommatePostActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(intent.hasExtra("uid")){
+        if (intent.hasExtra("uid")) {
             userUID = intent.getExtras().getString("uid");
-        }else{
+        } else {
             Toast.makeText(this, "User does not exist", Toast.LENGTH_LONG).show();
             finish();
         }
@@ -62,7 +59,7 @@ public class RoommatePostActivity extends AppCompatActivity {
         myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
-        Button back_btn = (Button) findViewById(R.id.roommate_button_back);
+        Button back_btn = findViewById(R.id.roommate_button_back);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +67,7 @@ public class RoommatePostActivity extends AppCompatActivity {
             }
         });
 
-        Button contact_btn = (Button) findViewById(R.id.roommate_contact);
+        Button contact_btn = findViewById(R.id.roommate_contact);
         contact_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +104,7 @@ public class RoommatePostActivity extends AppCompatActivity {
                 Preference userPreference = dataSnapshot.child(userUID).getValue(Preference.class);
                 ArrayList<String> tags;
                 double score;
-                if(myPreference != null && userPreference != null) {
+                if (myPreference != null && userPreference != null) {
                     Recommendation recommendation = new Recommendation(myPreference, userPreference);
                     score = recommendation.getScore();
                     tags = recommendation.getTagList();
@@ -115,7 +112,7 @@ public class RoommatePostActivity extends AppCompatActivity {
                     tags = new ArrayList<>();
                     score = 0;
                 }
-                setScoreAndTags(score,tags);
+                setScoreAndTags(score, tags);
             }
 
             @Override
@@ -125,20 +122,20 @@ public class RoommatePostActivity extends AppCompatActivity {
         });
     }
 
-    private void setScoreAndTags(double score, ArrayList<String> tags){
+    private void setScoreAndTags(double score, ArrayList<String> tags) {
 
-        TextView ScoreTextView = (TextView) findViewById(R.id.roommate_score);
+        TextView ScoreTextView = findViewById(R.id.roommate_score);
 
-        ProgressWheel pw = (ProgressWheel) findViewById(R.id.roommate_progress);
+        ProgressWheel pw = findViewById(R.id.roommate_progress);
 
-        pw.setPercentage((int)(score * 36));
+        pw.setPercentage((int) (score * 36));
 
         TagViewGroup tagGroup = findViewById(R.id.tag);
 
         DecimalFormat df = new DecimalFormat("0.00");
         String temp = df.format(score);
 
-        if(score != 0)
+        if (score != 0)
             ScoreTextView.setText(temp);
         else
             ScoreTextView.setText("?");
@@ -149,26 +146,26 @@ public class RoommatePostActivity extends AppCompatActivity {
         lp.rightMargin = MARGIN;
         lp.topMargin = MARGIN;
         lp.bottomMargin = MARGIN;
-        for(int i = 0; i < tags.size(); i++){
+        for (int i = 0; i < tags.size(); i++) {
             TextView tagView = new TextView(this);
             tagView.setText(tags.get(i));
             tagView.setTextAppearance(R.style.tag_text);
 
             tagView.setBackgroundResource(R.drawable.roommate_tag_layout);
-            tagGroup.addView(tagView,lp);
+            tagGroup.addView(tagView, lp);
         }
     }
 
     private void updateUI() {
-        TextView title = (TextView) findViewById(R.id.roommate_title);
-        TextView name = (TextView) findViewById(R.id.roommate_name);
-        TextView gender = (TextView) findViewById(R.id.roommate_gender);
-        TextView schoolYear = (TextView) findViewById(R.id.school_year);
-        TextView graduateYear = (TextView) findViewById(R.id.graduate_year);
-        TextView description = (TextView) findViewById(R.id.roommate_description);
-        ImageView picture = (ImageView) findViewById(R.id.poster_picture);
-        TextView bottomName = (TextView) findViewById(R.id.roommate_bottom_name);
-        TextView bottomYear = (TextView) findViewById(R.id.roommate_bottom_year);
+        TextView title = findViewById(R.id.roommate_title);
+        TextView name = findViewById(R.id.roommate_name);
+        TextView gender = findViewById(R.id.roommate_gender);
+        TextView schoolYear = findViewById(R.id.school_year);
+        TextView graduateYear = findViewById(R.id.graduate_year);
+        TextView description = findViewById(R.id.roommate_description);
+        ImageView picture = findViewById(R.id.poster_picture);
+        TextView bottomName = findViewById(R.id.roommate_bottom_name);
+        TextView bottomYear = findViewById(R.id.roommate_bottom_year);
 
         title.setText(user.getName());
         name.setText(user.getName());
@@ -177,9 +174,9 @@ public class RoommatePostActivity extends AppCompatActivity {
         int enterYear = Integer.parseInt(user.getYearGraduate()) - 4;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR) - enterYear;
         String temp;
-        if(currentYear > 5)
+        if (currentYear > 5)
             temp = "Alumni";
-        else if(currentYear <= 0)
+        else if (currentYear <= 0)
             temp = "Incoming Student";
         else
             temp = currentYear + "th Year";

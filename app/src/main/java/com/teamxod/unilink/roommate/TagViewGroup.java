@@ -7,11 +7,12 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
 
  */
-public class TagViewGroup extends ViewGroup{
+public class TagViewGroup extends ViewGroup {
 
     //存储所有子View
     private List<List<View>> mAllChildViews = new ArrayList<>();
@@ -22,12 +23,15 @@ public class TagViewGroup extends ViewGroup{
     public TagViewGroup(Context context) {
         this(context, null);
     }
+
     public TagViewGroup(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public TagViewGroup(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
@@ -47,7 +51,7 @@ public class TagViewGroup extends ViewGroup{
 
         //get the number of child view
         int childCount = getChildCount();
-        for(int i = 0;i < childCount; i ++){
+        for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
 
             //measure width and height of child view
@@ -63,7 +67,7 @@ public class TagViewGroup extends ViewGroup{
 
 
             //change line
-            if(lineWidth + childWidth > sizeWidth){
+            if (lineWidth + childWidth > sizeWidth) {
 
                 //get largest width
                 width = Math.max(width, lineWidth);
@@ -74,14 +78,14 @@ public class TagViewGroup extends ViewGroup{
                 lineHeight = childHeight;
 
 
-            }else{//not change line
+            } else {//not change line
                 //add line width
                 lineWidth += childWidth;
                 //get max line height
                 lineHeight = Math.max(lineHeight, childHeight);
             }
             //handle the situation of last child view
-            if(i == childCount -1){
+            if (i == childCount - 1) {
                 width = Math.max(width, lineWidth);
                 height += lineHeight;
             }
@@ -108,14 +112,14 @@ public class TagViewGroup extends ViewGroup{
 
         int childCount = getChildCount();
 
-        for(int i = 0;i < childCount; i ++){
+        for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
             int childWidth = child.getMeasuredWidth();
             int childHeight = child.getMeasuredHeight();
 
             //change line
-            if(childWidth + lineWidth + lp.leftMargin + lp.rightMargin > width){
+            if (childWidth + lineWidth + lp.leftMargin + lp.rightMargin > width) {
                 //record LineHeight
                 mLineHeight.add(lineHeight);
                 //record current line Views
@@ -143,16 +147,16 @@ public class TagViewGroup extends ViewGroup{
 
         //get line count
         int lineCount = mAllChildViews.size();
-        for(int i = 0; i < lineCount; i ++){
+        for (int i = 0; i < lineCount; i++) {
 
             //current line views and width and height
             lineViews = mAllChildViews.get(i);
             lineHeight = mLineHeight.get(i);
-            for(int j = 0; j < lineViews.size(); j ++){
+            for (int j = 0; j < lineViews.size(); j++) {
                 View child = lineViews.get(j);
 
                 //decide show or not
-                if(child.getVisibility() == View.GONE){
+                if (child.getVisibility() == View.GONE) {
                     continue;
                 }
                 MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
@@ -170,6 +174,7 @@ public class TagViewGroup extends ViewGroup{
         }
 
     }
+
     /**
      *
      */
