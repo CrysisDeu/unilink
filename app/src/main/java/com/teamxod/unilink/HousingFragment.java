@@ -89,6 +89,9 @@ public class HousingFragment extends Fragment  {
                 }
 
                 if(!posts.isEmpty()){
+                    if (getActivity() == null) {
+                        return;
+                    }
                     HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts);
                     listView.setAdapter(adapter);
                 }
@@ -177,18 +180,12 @@ public class HousingFragment extends Fragment  {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), HousePostActivity.class);
-                myIntent.putExtra("postID",posts.get(position-1).getRoom_key());
+                myIntent.putExtra("postID",posts.get(position).getRoom_key());
                 startActivity(myIntent);
 
             }
         });
 
-        /*filterButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), HousePostActivity.class);
-                startActivity(myIntent);
-            }
-        });*/
         return layout;
     }
 

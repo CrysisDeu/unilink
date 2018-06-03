@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.chat;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -19,7 +19,11 @@ public class Chat {
         this.mUid = mUid;
         this.mTimestamp = timestamp;
     }
-    
+
+
+    public String getmName() {
+        return mName;
+    }
 
     public void setmName(String name) {
         mName = name;
@@ -40,7 +44,6 @@ public class Chat {
     public void setmUid(String uid) {
         mUid = uid;
     }
-
 
     public void setmTimestamp(long mTimestamp) {
         this.mTimestamp = mTimestamp;
@@ -77,9 +80,5 @@ public class Chat {
                 ", mMessage='" + mMessage + '\'' +
                 ", mUid='" + mUid + '\'' +
                 '}';
-    }
-
-    public String getmName() {
-        return mName;
     }
 }
