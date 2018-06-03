@@ -424,27 +424,17 @@
 
 
     <!-- save button -->
-         <android.support.v7.widget.CardView
+         <Button
              android:id="@+id/save"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_gravity="center"
-             android:layout_marginTop="24dp"
-             android:layout_marginBottom="40dp"
-             app:cardBackgroundColor="#6d48e5"
-             app:cardElevation="4dp">
-
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_marginBottom="8dp"
-                 android:layout_marginLeft="16dp"
-                 android:layout_marginRight="16dp"
-                 android:layout_marginTop="8dp"
-                 android:text="SAVE"
-                 android:textColor="#FFFFFF"
-                 android:textSize="20sp" />
-         </android.support.v7.widget.CardView>
+             android:background="@drawable/round_button"
+             android:text="SAVE"
+             android:textColor="@color/white"
+             android:textSize="20sp"
+             android:layout_marginTop="8dp">
+         </Button>
 
 
 

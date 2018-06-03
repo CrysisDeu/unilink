@@ -3,16 +3,13 @@ package com.teamxod.unilink;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -127,7 +124,7 @@ public class RoommateFragment extends Fragment {
                     builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
-                            Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                            Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
                             startActivity(i);
                         }
                     });
@@ -161,7 +158,7 @@ public class RoommateFragment extends Fragment {
                     builder.setPositiveButton("Set Preference", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.dismiss();
-                            Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                            Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
                             startActivity(i);
                         }
                     });
@@ -199,7 +196,7 @@ public class RoommateFragment extends Fragment {
         Button preference_btn = layout.findViewById(R.id.roommate_preference);
         preference_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(),MyPreferenceActivity.class);
+                Intent i = new Intent(getActivity(),ChangePreferenceActivity.class);
                 startActivity(i);
             }
         });
