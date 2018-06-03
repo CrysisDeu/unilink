@@ -2,6 +2,7 @@ package com.teamxod.unilink.user;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.DatePicker;
@@ -301,18 +303,21 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 _houseType = "Apartment";
+                hideKeyBoard(v);
             }
         });
         town_house.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _houseType = "Town House";
+                hideKeyBoard(v);
             }
         });
         house.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _houseType = "House";
+                hideKeyBoard(v);
             }
         });
 
@@ -321,30 +326,35 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 _bedroom_number = "0";
+                hideKeyBoard(v);
             }
         });
         bed_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _bedroom_number = "1";
+                hideKeyBoard(v);
             }
         });
         bed_two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _bedroom_number = "2";
+                hideKeyBoard(v);
             }
         });
         bed_three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _bedroom_number = "3";
+                hideKeyBoard(v);
             }
         });
         bed_four_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _bedroom_number = "4+";
+                hideKeyBoard(v);
             }
         });
 
@@ -353,30 +363,35 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 _bathroom_number = "0";
+                hideKeyBoard(v);
             }
         });
         bath_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _bathroom_number = "1";
+                hideKeyBoard(v);
             }
         });
         bath_two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _bathroom_number = "2";
+                hideKeyBoard(v);
             }
         });
         bath_three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _bathroom_number = "3";
+                hideKeyBoard(v);
             }
         });
         bath_four_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _bathroom_number = "4+";
+                hideKeyBoard(v);
             }
         });
 
@@ -385,18 +400,21 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 _leaseLength = "Annually";
+                hideKeyBoard(v);
             }
         });
         quarterly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _leaseLength = "Quarterly";
+                hideKeyBoard(v);
             }
         });
         short_term.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 _leaseLength = "Monthly";
+                hideKeyBoard(v);
             }
         });
 
@@ -722,6 +740,15 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             addPhoto(r.getUri());
         } else {
             Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // hide kb
+    private void hideKeyBoard(View view) {
+        View vv = findViewById(android.R.id.content);
+        if (vv != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 
