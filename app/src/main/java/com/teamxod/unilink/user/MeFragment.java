@@ -27,7 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.MyChangeProfileActivity;
 import com.teamxod.unilink.MyFavoriteActivity;
-import com.teamxod.unilink.MyPostFragment;
+import com.teamxod.unilink.MyPostActivity;
 import com.teamxod.unilink.MyPreferenceActivity;
 import com.teamxod.unilink.My_changePassword;
 import com.teamxod.unilink.R;
@@ -132,11 +132,8 @@ public class MeFragment extends Fragment {
         my_post.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Fragment fragment = new MyPostFragment();
-                getFragmentManager()
-                        .beginTransaction()
-                        .add(R.id.fragment_container,fragment,"my_post")
-                        .commit();
+                Intent i = new Intent(getActivity(), MyPostActivity.class);
+                startActivity(i);
             }
         });
 
