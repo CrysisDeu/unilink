@@ -1,28 +1,18 @@
 <resources>
     <string name="app_name">Unilink</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="unilink_cap">UNILINK</string>
     <string name="welcome_to">WELCOME TO</string>
 
-    <string name="bottom_per_month">per month</string>
     <string name="matching_score">matching score</string>
 
     <string name="house_image">house image</string>
-    <string name="user_image">user image</string>
-    <string name="post">Post</string>
-    <string name="major">Major:</string>
 
-    <string name="roommate">Roommates</string>
     <string name="facility">Facts and Features</string>
     <string name="location">Location</string>
     <string name="available_room">Available Rooms</string>
     <string name="description">Description</string>
 
     <string name="button_contact">Contact</string>
-    <string name="button_favorite">Favorite</string>
-    <string name="button_cancel">Cancel</string>
     <string name="default_value">No Data</string>
     <string name="parking">Parking</string>
     <string name="ac">AC set</string>
@@ -62,7 +52,6 @@
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="password_hint">******</string>
     <string name="forget_password">Forget Password?</string>
     <string name="myname_unilink_com">myname@unilink.com</string>

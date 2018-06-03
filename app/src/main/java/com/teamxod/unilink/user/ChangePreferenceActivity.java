@@ -27,17 +27,10 @@ import info.hoang8f.android.segmented.SegmentedGroup;
 
 public class ChangePreferenceActivity extends AppCompatActivity {
 
-    // UI variables
-    private ImageView mBackButton;
     private SeekBar sleep_seekBar;
     private TextView sleep_seekbar_text;
     private SeekBar clean_seekBar;
     private TextView clean_seekbar_text;
-    private SegmentedGroup bring;
-    private SegmentedGroup pet;
-    private SegmentedGroup smoke;
-    private SegmentedGroup drink;
-    private SegmentedGroup party;
     private CheckedTextView surfing;
     private CheckedTextView hiking;
     private CheckedTextView skiing;
@@ -47,7 +40,6 @@ public class ChangePreferenceActivity extends AppCompatActivity {
     private TextView smoke_seekbar_text;
     private TextView drink_seekbar_text;
     private Spinner languageSpinner;
-    private Button save;
 
     private RadioButton bring1;
     private RadioButton bring2;
@@ -78,7 +70,6 @@ public class ChangePreferenceActivity extends AppCompatActivity {
 
     // firebase variables
     private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
     private String uid;
     private Preference existedPreference;
     private int needToRestore = 0;
@@ -96,7 +87,7 @@ public class ChangePreferenceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_preference);
         // firebase declaration
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
 
         /**
@@ -113,16 +104,16 @@ public class ChangePreferenceActivity extends AppCompatActivity {
 
         languageSpinner = findViewById(R.id.languege_spinner);
 
-        save = findViewById(R.id.save);
-        mBackButton = findViewById(R.id.back_button);
+        Button save = findViewById(R.id.save);
+        ImageView mBackButton = findViewById(R.id.back_button);
 
         sleep_seekBar = findViewById(R.id.sleep_seekbar);
         sleep_seekbar_text = findViewById(R.id.sleep_seekbar_text);
         clean_seekBar = findViewById(R.id.clean_seekbar);
         clean_seekbar_text = findViewById(R.id.clean_seekbar_text);
 
-        smoke = findViewById(R.id.smoke_button);
-        drink = findViewById(R.id.drink_button);
+        SegmentedGroup smoke = findViewById(R.id.smoke_button);
+        SegmentedGroup drink = findViewById(R.id.drink_button);
         smoke_seekBar = findViewById(R.id.smoke_seekbar);
         drink_seekBar = findViewById(R.id.drink_seekbar);
         smoke_seekbar_text = findViewById(R.id.smoke_seekbar_text);
@@ -137,9 +128,9 @@ public class ChangePreferenceActivity extends AppCompatActivity {
         skiing = findViewById(R.id.skiing);
         gaming = findViewById(R.id.gaming);
 
-        bring = findViewById(R.id.bring_button);
-        pet = findViewById(R.id.pet_button);
-        party = findViewById(R.id.party_button);
+        SegmentedGroup bring = findViewById(R.id.bring_button);
+        SegmentedGroup pet = findViewById(R.id.pet_button);
+        SegmentedGroup party = findViewById(R.id.party_button);
 
         bring1 = findViewById(R.id.bring_button_1);
         bring2 = findViewById(R.id.bring_button_2);
@@ -168,7 +159,7 @@ public class ChangePreferenceActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getFinish() == true) {
+                if (getFinish()) {
                     // map getProgress() to value between -1 and 1.
                     Sleep = 1 - 2 * sleep_seekBar.getProgress() / (double) 9;
                     Clean = 1 - 2 * clean_seekBar.getProgress() / (double) 7;
@@ -621,7 +612,7 @@ public class ChangePreferenceActivity extends AppCompatActivity {
         }
     }
 
-    public boolean getFinish() {
+    private boolean getFinish() {
         return (smokeFinish && drinkFinish && bringFinish && petFinish && partyFinish);
     }
 }

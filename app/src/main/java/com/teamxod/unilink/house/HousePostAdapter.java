@@ -31,9 +31,9 @@ import java.util.Objects;
 class HousePostAdapter extends BaseAdapter implements OnScrollListener {
 
 
-    private ArrayList<HousePost> mList;
-    private LayoutInflater mInflater;
-    private Context mContext;
+    private final ArrayList<HousePost> mList;
+    private final LayoutInflater mInflater;
+    private final Context mContext;
 
 
     HousePostAdapter(Context context, List<HousePost> objects) {

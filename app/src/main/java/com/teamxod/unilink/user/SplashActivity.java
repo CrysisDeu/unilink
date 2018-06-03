@@ -16,8 +16,6 @@ import com.teamxod.unilink.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME = 1000;
-
     // Firebase
     private FirebaseAuth mAuth;
 
@@ -28,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mAuth = FirebaseAuth.getInstance();
 
+        int SPLASH_TIME = 1000;
         new Handler().postDelayed(new Runnable() {
                                       @Override
                                       public void run() {

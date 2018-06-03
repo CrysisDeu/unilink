@@ -21,19 +21,17 @@ import java.util.ArrayList;
 
 public class MyPostActivity extends AppCompatActivity {
 
-    ToggleButton mEditButton;
-    private DatabaseReference database;
+    private ToggleButton mEditButton;
     private ArrayList<String> postList;
     private RecyclerView houseListView;
     private MyPostAdapter myPostAdapter;
-    private ImageView mBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
 
-        mBackButton = findViewById(R.id.back_button);
+        ImageView mBackButton = findViewById(R.id.back_button);
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +46,7 @@ public class MyPostActivity extends AppCompatActivity {
         houseListView.setHasFixedSize(true);
         houseListView.addItemDecoration(new DividerItemDecoration(houseListView.getContext(), DividerItemDecoration.VERTICAL));
 
-        database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
         DatabaseReference favoriteReference = database.child("Users").child(uid).child("my_house_posts");

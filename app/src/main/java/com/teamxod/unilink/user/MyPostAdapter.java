@@ -27,13 +27,13 @@ import com.teamxod.unilink.house.HousePostActivity;
 import java.util.ArrayList;
 
 public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostViewHolder> {
-    private ArrayList<String> postList;
+    private final ArrayList<String> postList;
 
-    private Context context;
+    private final Context context;
 
-    private DatabaseReference myPostReference;
+    private final DatabaseReference myPostReference;
 
-    private DatabaseReference housePostReference;
+    private final DatabaseReference housePostReference;
 
     private RecyclerView mRecyclerView;
 
@@ -157,12 +157,12 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyPostView
     }
 
     class MyPostViewHolder extends RecyclerView.ViewHolder {
-        Button delete_btn;
-        Button post_btn;
-        ImageView housePictureView;
-        TextView titleTextView;
-        TextView priceTextView;
-        TextView addressTextView;
+        final Button delete_btn;
+        final Button post_btn;
+        final ImageView housePictureView;
+        final TextView titleTextView;
+        final TextView priceTextView;
+        final TextView addressTextView;
 
         MyPostViewHolder(View itemView) {
             super(itemView);

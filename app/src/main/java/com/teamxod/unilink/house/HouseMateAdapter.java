@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 public class HouseMateAdapter extends RecyclerView.Adapter<HouseMateAdapter.SimpleProfileViewHolder> {
 
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
 
-    private Context context;
+    private final Context context;
 
     HouseMateAdapter(Context context, ArrayList<User> users) {
         this.users = users;
@@ -59,9 +59,9 @@ public class HouseMateAdapter extends RecyclerView.Adapter<HouseMateAdapter.Simp
     }
 
     class SimpleProfileViewHolder extends RecyclerView.ViewHolder {
-        ImageView pictureImageView;
-        TextView nameTextView;
-        TextView yearTextView;
+        final ImageView pictureImageView;
+        final TextView nameTextView;
+        final TextView yearTextView;
 
         SimpleProfileViewHolder(View itemView) {
             super(itemView);

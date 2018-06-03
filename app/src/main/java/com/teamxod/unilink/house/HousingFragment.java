@@ -44,14 +44,13 @@ public class HousingFragment extends Fragment {
     private SearchView search;
     private Spinner spinner;
     private FloatingActionButton addPost;
-    private View header;
     private int touchSlop = 5;
     //set the back animator
     private AnimatorSet backAnimatorSet;
     //animator to hide element
     private AnimatorSet hideAnimatorSet;
     //set up onTouchListener
-    private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+    private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
 
 
         float lastY = 0f;
@@ -221,7 +220,7 @@ public class HousingFragment extends Fragment {
         });
 
 
-        header = new View(this.getActivity());
+        View header = new View(this.getActivity());
         header.setLayoutParams(new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.abc_action_bar_default_height_material)));
         header.setBackgroundColor(Color.parseColor("#00000000"));
         listView.addHeaderView(header);
@@ -279,10 +278,6 @@ public class HousingFragment extends Fragment {
 
         HousePostAdapter adapter = new HousePostAdapter(getActivity(), posts);
         listView.setAdapter(adapter);
-    }
-
-    private void sortTime() {
-
     }
 
     private int getTerm(HousePost h) {

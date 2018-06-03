@@ -20,15 +20,11 @@ import java.util.ArrayList;
 
 public class MyFavoriteActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase;
-
     private ArrayList<String> postList;
 
     private MyFavoriteAdapter favoriteListAdapter;
 
     private RecyclerView houseListView;
-
-    private ImageView mBackButton;
 
 
     @Override
@@ -36,7 +32,7 @@ public class MyFavoriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_favorite);
 
-        mBackButton = findViewById(R.id.back_button);
+        ImageView mBackButton = findViewById(R.id.back_button);
 
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +47,7 @@ public class MyFavoriteActivity extends AppCompatActivity {
         houseListView.setHasFixedSize(true);
         houseListView.addItemDecoration(new DividerItemDecoration(houseListView.getContext(), DividerItemDecoration.VERTICAL));
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
         DatabaseReference favoriteReference = mDatabase.child("Users").child(uid).child("favorite_houses");

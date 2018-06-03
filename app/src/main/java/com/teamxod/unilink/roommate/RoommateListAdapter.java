@@ -31,9 +31,9 @@ import java.util.List;
 class RoommateListAdapter extends BaseAdapter {
 
     private final static int MARGIN = 15;
-    private ArrayList<String> mList;
-    private LayoutInflater mInflater;
-    private Context mContext;
+    private final ArrayList<String> mList;
+    private final LayoutInflater mInflater;
+    private final Context mContext;
     private DatabaseReference database;
 
     RoommateListAdapter(Context context, List<String> objects) {

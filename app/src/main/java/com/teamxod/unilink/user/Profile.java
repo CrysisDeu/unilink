@@ -21,11 +21,7 @@ import java.io.Serializable;
 
 public class Profile extends AppCompatActivity implements Serializable {
 
-    private ImageView mBackButton;
-    private String uid;
-    private FirebaseAuth mAuth;
     private User user;
-    private DatabaseReference mDatabaseRef;
 
     //Views
     private ImageView mProfilePic;
@@ -38,8 +34,8 @@ public class Profile extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        mBackButton = findViewById(R.id.back_button);
-        mAuth = FirebaseAuth.getInstance();
+        ImageView mBackButton = findViewById(R.id.back_button);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mProfilePic = findViewById(R.id.profile_pic);
         mName = findViewById(R.id.name);
         mGender = findViewById(R.id.gender);
@@ -47,8 +43,8 @@ public class Profile extends AppCompatActivity implements Serializable {
         mDescription = findViewById(R.id.description);
 
         Bundle b = getIntent().getExtras();
-        uid = b.getString("uid");
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+        String uid = b.getString("uid");
+        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override

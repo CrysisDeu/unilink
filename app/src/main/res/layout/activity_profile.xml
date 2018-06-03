@@ -22,8 +22,6 @@
             <ImageView
                 android:id="@+id/back_button"
                 style="@style/back_button"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
                 android:tint="#ffffff"
                 app:srcCompat="@drawable/ic_back" />
 
@@ -125,7 +123,7 @@
                     <TextView
                         android:layout_width="128dp"
                         android:layout_height="48dp"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="About me"
                         android:textColor="@android:color/black"

@@ -34,18 +34,7 @@ import com.vansuita.pickimage.listeners.IPickResult;
 
 public class ChangeProfileActivity extends AppCompatActivity implements IPickResult {
 
-    //spinner selector
-    private final int GENDER_MALE = 0;
-    private final int GENDER_FEMALE = 1;
-    private final int GENDER_NOT_DISCLOSE = 2;
     private final String NAME_INVALID = "Please enter a valid name!";
-
-    //the most recent graduate the user can choose
-    private final int MIN_GRADUATE_YEAR = 2018;
-
-    //Button
-    private ImageView mBackButton;
-    private Button mSaveButton;
 
     //Views
     private ImageView mProfilePic;
@@ -55,11 +44,8 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
     private Spinner mYearSpinner;
     private EditText mDescription;
 
-    //Firebase
-    private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
     private FirebaseAuth mAuth;
-    private String uid;
     private User user;
     private Uri picture;
     private DatabaseReference mUserReference;
@@ -70,8 +56,8 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
         setContentView(R.layout.activity_my_change_profile);
 
         //Button
-        mBackButton = findViewById(R.id.back_button);
-        mSaveButton = findViewById(R.id.save);
+        ImageView mBackButton = findViewById(R.id.back_button);
+        Button mSaveButton = findViewById(R.id.save);
 
         //Views
         mProfilePic = findViewById(R.id.profile_pic);
@@ -82,9 +68,9 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
         mDescription = findViewById(R.id.description);
 
         //Firebase
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        uid = mAuth.getCurrentUser().getUid();
+        String uid = mAuth.getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mUserReference = mDatabase.child("Users").child(uid);
 
@@ -210,12 +196,15 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
         int genderSelection;
         switch (gender) {
             case "Male":
+                int GENDER_MALE = 0;
                 genderSelection = GENDER_MALE;
                 break;
             case "Female":
+                int GENDER_FEMALE = 1;
                 genderSelection = GENDER_FEMALE;
                 break;
             default:
+                int GENDER_NOT_DISCLOSE = 2;
                 genderSelection = GENDER_NOT_DISCLOSE;
                 break;
         }
@@ -225,6 +214,7 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
     private int getYearSelection(String year) {
 
         Integer yearSelection;
+        int MIN_GRADUATE_YEAR = 2018;
         yearSelection = Integer.parseInt(year) - MIN_GRADUATE_YEAR;
         if (yearSelection < 0) {
             yearSelection = 0;

@@ -3,12 +3,9 @@
     <dimen name="small_margin">8dp</dimen>
     <dimen name="middle_margin">12dp</dimen>
     <dimen name="large_margin">16dp</dimen>
-    <dimen name="xlarge_margin">24dp</dimen>
-    <dimen name="xxlarge_margin">32dp</dimen>
     <dimen name="small_icon_side">32dp</dimen>
     <dimen name="middle_icon_side">36dp</dimen>
     <dimen name="large_icon_side">64dp</dimen>
-    <dimen name="xs_font_size">10sp</dimen>
     <dimen name="s_font_size">12sp</dimen>
     <dimen name="m_font_size">14sp</dimen>
     <dimen name="l_font_size">24sp</dimen>

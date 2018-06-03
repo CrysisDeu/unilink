@@ -3,7 +3,7 @@ package com.teamxod.unilink.chat;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
-public class Chat {
+class Chat {
     private String mName;
     private String mMessage;
     private String mUid;

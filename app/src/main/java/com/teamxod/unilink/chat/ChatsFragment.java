@@ -43,11 +43,8 @@ public class ChatsFragment extends Fragment {
     private DatabaseReference mChatDatabse;
     private DatabaseReference mUsersDatabase;
     private FirebaseRecyclerAdapter adapter;
-    private FirebaseAuth mAuth;
     private String mCurrent_user_id;
 
-    // Views
-    private View mMainView;
     private RecyclerView mConvList;
 
 
@@ -61,11 +58,11 @@ public class ChatsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Views
-        mMainView = inflater.inflate(R.layout.fragment_chats, container, false);
+        View mMainView = inflater.inflate(R.layout.fragment_chats, container, false);
         mConvList = mMainView.findViewById(R.id.conv_list);
 
         // Database
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
         mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
         mConvDatabase.keepSynced(true);

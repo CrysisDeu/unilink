@@ -26,13 +26,13 @@ import java.util.ArrayList;
 
 public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.FavoriteViewHolder> {
 
-    private ArrayList<String> postList;
+    private final ArrayList<String> postList;
 
-    private Context context;
+    private final Context context;
 
-    private DatabaseReference favoriteReference;
+    private final DatabaseReference favoriteReference;
 
-    private DatabaseReference housePostReference;
+    private final DatabaseReference housePostReference;
 
     private RecyclerView mRecyclerView;
 
@@ -125,11 +125,11 @@ public class MyFavoriteAdapter extends RecyclerView.Adapter<MyFavoriteAdapter.Fa
     }
 
     class FavoriteViewHolder extends RecyclerView.ViewHolder {
-        ToggleButton favorite_btn;
-        ImageView housePictureView;
-        TextView titleTextView;
-        TextView priceTextView;
-        TextView addressTextView;
+        final ToggleButton favorite_btn;
+        final ImageView housePictureView;
+        final TextView titleTextView;
+        final TextView priceTextView;
+        final TextView addressTextView;
 
         FavoriteViewHolder(View itemView) {
             super(itemView);

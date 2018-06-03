@@ -62,9 +62,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     */
 
-    private final String INVALID_FORM_DUE_TO_FILLING = "Please fill in all the information!";
-    private final String INVALID_FORM_DUE_TO_ADDING = "Please add at least one picture and one room information!";
-    private final String INVALID_FORM_DUE_TO_SELECTING = "Please select all the choices!";
     // Database field
     private DatabaseReference mDatabase;
 
@@ -93,15 +90,10 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private String _gym;
     private String _laundry;
     private String _pet;
-    // gridview and things inside
-    private ImageView addpic;
     private GridLayout photoGrid;
     private ArrayList<LinearLayout> photoBoxList;
     private PickImageDialog dialog;
-    private Uri picture;
     private ArrayList<Uri> pictureList;
-    // linearlayout for room
-    private Button addroom;
     private LinearLayout roomContainer;
     private ArrayList<LinearLayout> roomBoxList;
     private ArrayList<Room> roomList;
@@ -115,26 +107,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private RadioButton living_room;
     private RadioButton private_room;
     private RadioButton entire_place;
-    // house type
-    private RadioButton apartment;
-    private RadioButton house;
-    private RadioButton town_house;
-    // bedroom amount
-    private RadioButton bed_zero;
-    private RadioButton bed_one;
-    private RadioButton bed_two;
-    private RadioButton bed_three;
-    private RadioButton bed_four_plus;
-    // bathroom amount
-    private RadioButton bath_zero;
-    private RadioButton bath_one;
-    private RadioButton bath_two;
-    private RadioButton bath_three;
-    private RadioButton bath_four_plus;
-    // lease length
-    private RadioButton annual;
-    private RadioButton quarterly;
-    private RadioButton short_term;
     // Facilities
     private CheckedTextView ac;
     private CheckedTextView allow_pet;
@@ -144,10 +116,8 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private CheckedTextView gym;
     private CheckedTextView laundry;
     private CheckedTextView bus;
-    private Button submit;
     // toolbar
     private Toolbar toolbar;
-    private ImageView backBtn;
     // for validation
     private TextWatcher tw;
     private boolean filledIn;
@@ -211,7 +181,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         mAuth = FirebaseAuth.getInstance();
 
         // get UI in gridlayout
-        addpic = findViewById(R.id.addpic_btn);
+        ImageView addpic = findViewById(R.id.addpic_btn);
         photoGrid = findViewById(R.id.gridlayout);
         photoBoxList = new ArrayList<>();
         pictureList = new ArrayList<>();
@@ -224,7 +194,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         });
 
         // get UI in gridlayout
-        addroom = findViewById(R.id.addroom_btn);
+        Button addroom = findViewById(R.id.addroom_btn);
         roomContainer = findViewById(R.id.linearlayout_room);
         roomBoxList = new ArrayList<>();
         roomList = new ArrayList<>();
@@ -240,22 +210,22 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         title = findViewById(R.id.title);
         street = findViewById(R.id.street);
         city = findViewById(R.id.city);
-        apartment = findViewById(R.id.apartment);
-        house = findViewById(R.id.house);
-        town_house = findViewById(R.id.town_house);
-        bed_zero = findViewById(R.id.bed_zero);
-        bed_one = findViewById(R.id.bed_one);
-        bed_two = findViewById(R.id.bed_two);
-        bed_three = findViewById(R.id.bed_three);
-        bed_four_plus = findViewById(R.id.bed_four_plus);
-        bath_zero = findViewById(R.id.bath_zero);
-        bath_one = findViewById(R.id.bath_one);
-        bath_two = findViewById(R.id.bath_two);
-        bath_three = findViewById(R.id.bath_three);
-        bath_four_plus = findViewById(R.id.bath_four_plus);
-        annual = findViewById(R.id.annual);
-        quarterly = findViewById(R.id.quarterly);
-        short_term = findViewById(R.id.short_term);
+        RadioButton apartment = findViewById(R.id.apartment);
+        RadioButton house = findViewById(R.id.house);
+        RadioButton town_house = findViewById(R.id.town_house);
+        RadioButton bed_zero = findViewById(R.id.bed_zero);
+        RadioButton bed_one = findViewById(R.id.bed_one);
+        RadioButton bed_two = findViewById(R.id.bed_two);
+        RadioButton bed_three = findViewById(R.id.bed_three);
+        RadioButton bed_four_plus = findViewById(R.id.bed_four_plus);
+        RadioButton bath_zero = findViewById(R.id.bath_zero);
+        RadioButton bath_one = findViewById(R.id.bath_one);
+        RadioButton bath_two = findViewById(R.id.bath_two);
+        RadioButton bath_three = findViewById(R.id.bath_three);
+        RadioButton bath_four_plus = findViewById(R.id.bath_four_plus);
+        RadioButton annual = findViewById(R.id.annual);
+        RadioButton quarterly = findViewById(R.id.quarterly);
+        RadioButton short_term = findViewById(R.id.short_term);
         start_date = findViewById(R.id.start_date);
         ac = findViewById(R.id.ac);
         allow_pet = findViewById(R.id.allow_pet);
@@ -267,7 +237,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         bus = findViewById(R.id.bus);
         description = findViewById(R.id.description);
 
-        submit = findViewById(R.id.submit);
+        Button submit = findViewById(R.id.submit);
 
         // for validation
         tw = new MyTextWatcher();
@@ -439,7 +409,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);*/
         // back button setup
-        backBtn = findViewById(R.id.back_button);
+        ImageView backBtn = findViewById(R.id.back_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -593,13 +563,16 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     // helper validation
     private boolean validation() {
         if (!filledIn || start_date.getText().toString().length() == 0) {
+            String INVALID_FORM_DUE_TO_FILLING = "Please fill in all the information!";
             Toast.makeText(EditPostActivity.this, INVALID_FORM_DUE_TO_FILLING, Toast.LENGTH_LONG).show();
             return true;
         }
         if (roomBoxList.isEmpty() || photoBoxList.isEmpty()) {
+            String INVALID_FORM_DUE_TO_ADDING = "Please add at least one picture and one room information!";
             Toast.makeText(EditPostActivity.this, INVALID_FORM_DUE_TO_ADDING, Toast.LENGTH_LONG).show();
             return true;
         }
+        String INVALID_FORM_DUE_TO_SELECTING = "Please select all the choices!";
         if (_houseType.length() == 0 || _bedroom_number.length() == 0
                 || _bathroom_number.length() == 0 || _leaseLength.length() == 0) {
             Toast.makeText(EditPostActivity.this, INVALID_FORM_DUE_TO_SELECTING, Toast.LENGTH_LONG).show();
@@ -666,7 +639,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
 
         EditText price = roomBox.findViewById(R.id.price);
         if (r.getPrice() != -1)
-            price.setText(Integer.toString(r.getPrice()));
+            price.setText(String.valueOf(r.getPrice()));
         price.addTextChangedListener(tw);
         roomBoxList.add(roomBox);
         roomList.add(room);
@@ -703,7 +676,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
 
         // Mandatory to refresh image from Uri.
         // upload to firebase storage
-        picture = uri;
+        Uri picture = uri;
         Glide.with(EditPostActivity.this)
                 .load(picture)
                 .apply(RequestOptions.centerCropTransform())

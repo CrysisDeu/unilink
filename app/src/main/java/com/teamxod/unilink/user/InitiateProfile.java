@@ -1,7 +1,6 @@
 package com.teamxod.unilink.user;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -53,12 +52,9 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
     private String description;
     private ImageView mProfilePic;
     private EditText mEditName;
-    private TextView mEmail;
     private Spinner mGenderSpinner;
     private Spinner mYearSpinner;
     private EditText mDescription;
-    private Bitmap imageBitmap;
-    private Button mSave;
     private PickImageDialog dialog;
 
     @Override
@@ -68,11 +64,11 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
 
         mProfilePic = findViewById(R.id.profile_pic);
         mEditName = findViewById(R.id.edit_name);
-        mEmail = findViewById(R.id.email);
+        TextView mEmail = findViewById(R.id.email);
         mGenderSpinner = findViewById(R.id.gender_spinner);
         mYearSpinner = findViewById(R.id.year_spinner);
         mDescription = findViewById(R.id.description);
-        mSave = findViewById(R.id.save);
+        Button mSave = findViewById(R.id.save);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mStorageRef = FirebaseStorage.getInstance().getReference();

@@ -12,11 +12,11 @@ import com.teamxod.unilink.R;
 
 public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
-    public View mView;
-    public ImageView userImageView;
-    private TextView userStatusView;
-    private TextView userNameView;
-    private TextView chatTimeView;
+    public final View mView;
+    public final ImageView userImageView;
+    private final TextView userStatusView;
+    private final TextView userNameView;
+    private final TextView chatTimeView;
 
     ChatListViewHolder(View itemView) {
         super(itemView);

@@ -56,48 +56,24 @@ public class Preference {
         return bring;
     }
 
-    public void setBring(int bring) {
-        this.bring = bring;
-    }
-
     public int getPet() {
         return pet;
-    }
-
-    public void setPet(int pet) {
-        this.pet = pet;
     }
 
     public int getSurfing() {
         return surfing;
     }
 
-    public void setSurfing(int surfing) {
-        this.surfing = surfing;
-    }
-
     public int getHiking() {
         return hiking;
-    }
-
-    public void setHiking(int hiking) {
-        this.hiking = hiking;
     }
 
     public int getSkiing() {
         return skiing;
     }
 
-    public void setSkiing(int skiing) {
-        this.skiing = skiing;
-    }
-
     public int getGaming() {
         return gaming;
-    }
-
-    public void setGaming(int gaming) {
-        this.gaming = gaming;
     }
 
     public double getSmoke() {
@@ -120,15 +96,8 @@ public class Preference {
         return party;
     }
 
-    public void setParty(int party) {
-        this.party = party;
-    }
-
     public int getLanguage() {
         return language;
     }
 
-    public void setLanguage(int language) {
-        this.language = language;
-    }
 }
