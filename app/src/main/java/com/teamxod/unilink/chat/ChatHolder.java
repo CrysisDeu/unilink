@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.chat;
 
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.teamxod.unilink.R;
 
 public class ChatHolder extends RecyclerView.ViewHolder {
     //private final TextView mNameField;
@@ -27,7 +28,6 @@ public class ChatHolder extends RecyclerView.ViewHolder {
 
     public ChatHolder(View itemView) {
         super(itemView);
-        //mNameField = itemView.findViewById(R.id.name_text);
         mTextField = itemView.findViewById(R.id.message_text);
         mLeftArrow = itemView.findViewById(R.id.left_arrow);
         mRightArrow = itemView.findViewById(R.id.right_arrow);
@@ -38,21 +38,19 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Chat chat) {
-//        setName(chat.getmName());
         setText(chat.getmMessage());
-
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Check if the messages is sent by current user
         setIsSender(currentUser != null && chat.getmUid().equals(currentUser.getUid()));
     }
 
-//    public void setName(String name) {
-//        mNameField.setText(name);
-//    }
 
     public void setText(String text) {
         mTextField.setText(text);
     }
 
+    // if the message is sent by current user, the message should appear at right
     public void setIsSender(boolean isSender) {
         final int color;
         if (isSender) {

@@ -1,4 +1,4 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.chat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +21,10 @@ import com.firebase.ui.auth.util.ui.ImeHelper;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.teamxod.unilink.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,9 +42,6 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         implements FirebaseAuth.AuthStateListener {
     private static final String TAG = "RealtimeDatabase";
 
-    /**
-     * Get the last 50 chat messages.
-     */
     static Query sChatQuery;
     static final DatabaseReference messages= FirebaseDatabase.getInstance().getReference().child("Messages");
     static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chat");
@@ -81,15 +76,18 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Intent intent = getIntent();
+
+        // get user uid and name
         other_id = intent.getStringExtra("user_id");
         other_name = intent.getStringExtra("user_name");
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        sChatQuery =  FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(50);
+        sChatQuery =  FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(100);
         mTitleName = findViewById(R.id.title_user_name);
         mTitleName.setText(other_name);
-        mBackButton = findViewById(R.id.back_button);
 
+        // back button
+        mBackButton = findViewById(R.id.back_button);
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,6 +95,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
             }
         });
 
+        // send button
         ImeHelper.setImeOnDoneListener(mMessageEdit, new ImeHelper.DonePressedListener() {
             @Override
             public void onDonePressed() {
@@ -138,16 +137,19 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     }
 
     @OnClick(R.id.sendButton)
+
+    // send button
     public void onSendClick() {
         if (mMessageEdit.getText().toString().matches("")) {
             Toast.makeText(this, "Please send a non-empty message!", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // get timestamp
         long tsLong = System.currentTimeMillis()/1000;
 
+        // add to firebase
         onAddMessage(tsLong);
-
         mMessageEdit.setText("");
     }
 
@@ -168,12 +170,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
 
             @Override
             protected void onBindViewHolder(@NonNull ChatHolder holder, int position, @NonNull Chat model) {
-//                holder.setName(model.getName());
-//                holder.setIsSender(uid.equals(model.getmUid()));
-//                holder.setIsSender(true);
-//                holder.setText(model.getMessage());
                 holder.bind(model);
-                //TODO chaneg name
             }
 
             @Override
@@ -197,6 +194,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         self.setValue(chat);
         other.setValue(chat);
 
+        // update timestamp
         chats.child(uid).child(other_id).child("mTimestamp").setValue(time);
         chats.child(other_id).child(uid).child("mTimestamp").setValue(time);
 

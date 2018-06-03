@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -39,10 +38,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class StartActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
+public class AuthenticationActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
-    private static final String TAG = "StartActivity";
+    private static final String TAG = "AuthenticationActivity";
     private static final int RC_SIGN_IN = 9001;
     private final String INVALID_EMAIL = "Please enter a valid Email!";
     private final String PASSWORD_TOO_SHORT = "Your Password is too short!";
@@ -326,7 +325,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
             Toast.makeText(this, "Welcome " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
             // Go back to the main activity
-            startActivity(new Intent(StartActivity.this, MainActivity.class));
+            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
         }
     }
 
@@ -373,13 +372,13 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
                     // already set profile
                     /*if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {*/
-                    Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
+                    Intent mainIntent = new Intent(AuthenticationActivity.this, MainActivity.class);
                     startActivity(mainIntent);
                     finish();
 
                     // need to set profile
                     /*} else {
-                        Intent initiateProfileIntent = new Intent(StartActivity.this, InitiateProfile.class);
+                        Intent initiateProfileIntent = new Intent(AuthenticationActivity.this, InitiateProfile.class);
                         startActivity(initiateProfileIntent);
                         finish();
                     }*/
@@ -415,7 +414,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                                 throw task.getException();
                             } catch (Exception e) {
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(StartActivity.this, e.getMessage(),
+                                Toast.makeText(AuthenticationActivity.this, e.getMessage(),
                                         Toast.LENGTH_SHORT).show();
                             }
 
@@ -442,7 +441,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(StartActivity.this, "Authentication failed.",
+                            Toast.makeText(AuthenticationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -469,11 +468,11 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(StartActivity.this, "Authentication failed.",
+                            Toast.makeText(AuthenticationActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             try {
-                                Toast.makeText(StartActivity.this, "Welcome " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AuthenticationActivity.this, "Welcome " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 updateUI(user);
                             } catch (Exception e) {

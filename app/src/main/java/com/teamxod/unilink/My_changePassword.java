@@ -2,7 +2,6 @@ package com.teamxod.unilink;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,18 +15,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.text.Editable;
-import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.security.CryptoPrimitive;
 
 public class My_changePassword extends AppCompatActivity {
 
@@ -154,7 +148,7 @@ public class My_changePassword extends AppCompatActivity {
                                                                                    Snackbar.make(findViewById(R.id.Coordinator), "Your password has been changed!", Snackbar.LENGTH_LONG)
                                                                                            .show();
                                                                                    FirebaseAuth.getInstance().signOut();
-                                                                                   Intent reset = new Intent(My_changePassword.this, StartActivity.class);
+                                                                                   Intent reset = new Intent(My_changePassword.this, AuthenticationActivity.class);
                                                                                    reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                                    startActivity(reset);
                                                                                } else {

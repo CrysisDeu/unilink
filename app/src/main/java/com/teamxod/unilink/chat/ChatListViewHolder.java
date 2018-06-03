@@ -1,23 +1,14 @@
-package com.teamxod.unilink;
+package com.teamxod.unilink.chat;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RotateDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.teamxod.unilink.R;
 
 public class ChatListViewHolder extends RecyclerView.ViewHolder {
 

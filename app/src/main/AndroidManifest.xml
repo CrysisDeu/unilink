@@ -36,7 +36,7 @@
         <activity android:name=".My_changePassword" />
         <activity android:name=".MyPreferenceActivity" />
         <activity android:name=".MyFavoriteActivity" />
-        <activity android:name=".StartActivity" />
+        <activity android:name=".AuthenticationActivity" />
         <activity
             android:name=".MyChangeProfileActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -73,7 +73,7 @@
                 android:resource="@xml/picker_provider_paths" />
         </provider>
 
-        <activity android:name=".RealtimeDbChatActivity" />
+        <activity android:name=".chat.RealtimeDbChatActivity" />
         <activity android:name=".RoommatePostActivity" />
         <activity android:name=".EditPostActivity"/>
     </application>

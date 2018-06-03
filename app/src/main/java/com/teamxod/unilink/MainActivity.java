@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.chat.ChatsFragment;
 
 import java.lang.reflect.Field;
 
@@ -35,6 +36,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
+
+        //check the need for initiate user profile
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserReference = mDatabase.child("Users");
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth == null || mAuth.getCurrentUser() == null) {
+            Intent auth = new Intent(MainActivity.this, AuthenticationActivity.class);
+            startActivity(auth);
+            finish();
+        }
+        uid = mAuth.getCurrentUser().getUid();
+        mUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                // already set profile
+                if (!snapshot.hasChild(uid)) {
+                    Intent InitiateProfileIntent = new Intent(MainActivity.this, InitiateProfile.class);
+                    startActivity(InitiateProfileIntent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -62,31 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         loadFragment(new HousingFragment());
         BottomNavigationViewHelper.disableShiftMode(navigation);
-
-
-        //check the need for initiate user profile
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mUserReference = mDatabase.child("Users");
-        mAuth = FirebaseAuth.getInstance();
-        uid = mAuth.getCurrentUser().getUid();
-        mUserReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                // already set profile
-                if (!snapshot.hasChild(uid)) {
-                    Intent InitiateProfileIntent = new Intent(MainActivity.this, InitiateProfile.class);
-                    startActivity(InitiateProfileIntent);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
 

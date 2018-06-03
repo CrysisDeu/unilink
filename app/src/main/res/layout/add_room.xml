@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:background="#FFFFFF"
     android:orientation="vertical">
-
 
     <!-- One Question -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:paddingTop="@dimen/large_margin"
+        android:paddingTop="@dimen/small_margin"
+        android:layout_marginLeft="@dimen/small_margin"
         android:text="Room Type"
         android:textStyle="bold"
         style="@style/text_field"/>
@@ -26,7 +25,8 @@
         android:layout_marginLeft="0dp"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal"
-        android:paddingTop="@dimen/small_margin">
+        android:paddingTop="@dimen/small_margin"
+        app:sc_tint_color="#6D48E5">
 
         <RadioButton
             android:id="@+id/master_bedroom"
@@ -62,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/large_margin"
+            android:layout_marginLeft="@dimen/small_margin"
             android:text="Price Per Month"
             android:textStyle="bold"
             style="@style/text_field"/>
@@ -95,6 +96,7 @@
         android:layout_gravity="end"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="@dimen/small_margin"
         android:textAllCaps="false"
         android:background="@drawable/round_button"
         android:gravity="center_horizontal|center"
