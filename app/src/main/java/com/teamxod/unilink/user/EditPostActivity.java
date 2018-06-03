@@ -103,10 +103,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private EditText city;
     private EditText start_date;
     private EditText description;
-    // room type
-    private RadioButton living_room;
-    private RadioButton private_room;
-    private RadioButton entire_place;
+
     // Facilities
     private CheckedTextView ac;
     private CheckedTextView allow_pet;
@@ -116,8 +113,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     private CheckedTextView gym;
     private CheckedTextView laundry;
     private CheckedTextView bus;
-    // toolbar
-    private Toolbar toolbar;
+
     // for validation
     private TextWatcher tw;
     private boolean filledIn;

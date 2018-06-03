@@ -48,12 +48,11 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
     private User poster;
     private String postID;
     private boolean isFavourite;
-    private ArrayList<User> roommateList;
     private ArrayList<String> favoriteList;
 
-    private RecyclerView roommateListView;
-
-    private HouseMateAdapter roommateAdapter;
+    //private ArrayList<User> roommateList;
+    //private RecyclerView roommateListView;
+    //private HouseMateAdapter roommateAdapter;
 
     private DatabaseReference database;
     private DatabaseReference favoriteReference;

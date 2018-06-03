@@ -37,7 +37,6 @@ import java.util.Comparator;
 
 public class HousingFragment extends Fragment {
 
-    private static final int ADD_POST = 1;
     private final ArrayList<HousePost> posts = new ArrayList<>();
     private ListView listView;
     private LinearLayout searchBar;

@@ -72,8 +72,6 @@ public class ChangePreferenceActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private String uid;
     private Preference existedPreference;
-    private int needToRestore = 0;
-    private boolean finish;
 
     private boolean smokeFinish;
     private boolean drinkFinish;
@@ -461,7 +459,6 @@ public class ChangePreferenceActivity extends AppCompatActivity {
                     existedPreference.setCleanTime(Clean);
                     existedPreference.setSmoke(Smoke);
                     existedPreference.setDrink(Drink);
-                    needToRestore = 1;
                     smokeFinish = true;
                     drinkFinish = true;
                     partyFinish = true;

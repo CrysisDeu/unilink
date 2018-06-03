@@ -102,10 +102,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
     private EditText city;
     private EditText start_date;
     private EditText description;
-    // room type
-    private RadioButton living_room;
-    private RadioButton private_room;
-    private RadioButton entire_place;
+
     // Facilities
     private CheckedTextView ac;
     private CheckedTextView allow_pet;
@@ -115,8 +112,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
     private CheckedTextView gym;
     private CheckedTextView laundry;
     private CheckedTextView bus;
-    // toolbar
-    private Toolbar toolbar;
+
     // for validation
     private TextWatcher tw;
     private boolean filledIn;

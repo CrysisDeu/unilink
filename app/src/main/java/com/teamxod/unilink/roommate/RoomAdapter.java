@@ -14,16 +14,16 @@ import java.util.ArrayList;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
     private final ArrayList<Room> rooms;
+    private Context context;
 
     public RoomAdapter(Context context, ArrayList<Room> rooms) {
+        this.context = context;
         this.rooms = rooms;
-        Context context1 = context;
     }
 
     @NonNull
     @Override
     public RoomAdapter.RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(R.layout.house_room_list_item, parent, false);
