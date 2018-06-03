@@ -28,6 +28,7 @@ import com.teamxod.unilink.user.User;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -136,8 +137,11 @@ public class RoommatePostActivity extends AppCompatActivity {
 
         TagViewGroup tagGroup = findViewById(R.id.tag);
 
+        DecimalFormat df = new DecimalFormat("0.00");
+        String temp = df.format(score);
+
         if(score != 0)
-            ScoreTextView.setText(String.valueOf(score));
+            ScoreTextView.setText(temp);
         else
             ScoreTextView.setText("?");
 

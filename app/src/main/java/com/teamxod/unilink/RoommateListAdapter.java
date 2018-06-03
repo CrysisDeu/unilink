@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.user.User;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -144,7 +145,9 @@ class RoommateListAdapter extends BaseAdapter {
                     Recommendation recommendation = new Recommendation(myPreference, posterPreference);
                     score = recommendation.getScore();
                     tagList = recommendation.getTagList();
-                    viewHolder.vhScore.setText(String.valueOf(score));
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    String temp = df.format(score);
+                    viewHolder.vhScore.setText(temp);
                 } else {
                     score = 0;
                     tagList = new ArrayList<>();
