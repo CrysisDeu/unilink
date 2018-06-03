@@ -133,7 +133,7 @@ public class RoommatePostActivity extends AppCompatActivity {
 
         ProgressWheel pw = (ProgressWheel) findViewById(R.id.roommate_progress);
 
-        pw.setPercentage((int)(score * 3.6));
+        pw.setPercentage((int)(score * 36));
 
         TagViewGroup tagGroup = findViewById(R.id.tag);
 

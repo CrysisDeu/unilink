@@ -154,7 +154,7 @@ class RoommateListAdapter extends BaseAdapter {
                     viewHolder.vhScore.setText("?");
                 }
 
-                viewHolder.vhProgress.setPercentage((int)(score * 3.6));
+                viewHolder.vhProgress.setPercentage((int)(score * 36));
 
                 ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

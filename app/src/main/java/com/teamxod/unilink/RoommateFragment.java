@@ -30,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class RoommateFragment extends Fragment {
 
@@ -109,6 +111,19 @@ public class RoommateFragment extends Fragment {
             }
         });
     }
+
+    //sort matching score
+    private void sortScore(){
+
+        Collections.sort(roommateUID, new Comparator<String>() {
+            @Override
+            public int compare(String user, String roommate) {
+
+                return p1.getRoom_price() - p2.getRoom_price();
+            }
+        });
+    }
+
 
     private void setupVisible(boolean isVisible) {
         visible_btn.setChecked(isVisible);
