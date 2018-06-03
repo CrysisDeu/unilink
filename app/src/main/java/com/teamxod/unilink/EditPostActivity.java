@@ -45,6 +45,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
+
 /* TODO @ Etsu:
     (Try to test it if u can. Not sure if firebase part works. My emulator died) -> jump to line 427 later
    * Gallery and radio buttons
@@ -204,7 +206,8 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 // pickImage
-                addRoom();
+                Room r = new Room("", -1);
+                addRoom(r);
             }
         });
 
@@ -421,7 +424,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         // TODO initialize (Maybe put it before the submit listener)
         // get input house post
         Bundle bundle = getIntent().getExtras();
-        post_ID = bundle.getString("postID");
+        _postId = bundle.getString("postID");
 
         // Get house post from database
         mDatabase.child("House_post").child(post_ID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -430,44 +433,108 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                 if (dataSnapshot.exists()) {
                     // here
                     old_post = dataSnapshot.getValue(House.class);
+                    initializeFields();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-        if (old_post == null)
-            System.out.println("ERR: Cannot get the house from firebase");
-        else { // set UI elements according to firebase
 
-            title.setText(old_post.getTitle());
-            // TODO
-          /*  street.setText(old_post.get);
-            city = findViewById(R.id.city);
+    }// on create
 
-        apartment = findViewById(R.id.apartment);
-        house = findViewById(R.id.house);
-        town_house = findViewById(R.id.town_house);
+    // helper for intiializing the fields
+    private void initializeFields() {
 
-        bed_zero = findViewById(R.id.bed_zero);
-        bed_one = findViewById(R.id.bed_one);
-        bed_two = findViewById(R.id.bed_two);
-        bed_three = findViewById(R.id.bed_three);
-        bed_four_plus = findViewById(R.id.bed_four_plus);
-        bath_zero = findViewById(R.id.bath_zero);
-        bath_one = findViewById(R.id.bath_one);
-        bath_two = findViewById(R.id.bath_two);
-        bath_three = findViewById(R.id.bath_three);
-        bath_four_plus = findViewById(R.id.bath_four_plus);
 
-        annual = findViewById(R.id.annual);
-        quarterly = findViewById(R.id.quarterly);
-        short_term = findViewById(R.id.short_term);
-        start_date = findViewById(R.id.start_date);
-*/
-        setCheckedTextView_fromResult(ac,old_post.getAc());
+        title.setText(old_post.getTitle());
+
+        String[] street_and_city = old_post.getLocation().split(",");
+        String old_street = "";
+        String old_city = "";
+        for (int i = 0; i < street_and_city.length; i++) {
+            if (i < street_and_city.length - 1)
+                old_street += street_and_city[i];
+            else
+                old_city += street_and_city[i];
+        }
+        street.setText(old_street);
+        city.setText(old_city);
+
+        SegmentedGroup houseType = findViewById(R.id.house_type);
+        _houseType = old_post.getHouseType();
+        switch (_houseType) {
+            case "Apartment":
+                houseType.check(R.id.apartment);
+                break;
+            case "House":
+                houseType.check(R.id.house);
+                break;
+            case "Town House":
+                houseType.check(R.id.town_house);
+                break;
+        }
+
+        SegmentedGroup bedNum = findViewById(R.id.bedroom);
+        _bedroom_number = old_post.getNumBedroom();
+        switch (_bedroom_number) {
+            case "0":
+                bedNum.check(R.id.bed_zero);
+                break;
+            case "1":
+                bedNum.check(R.id.bed_one);
+                break;
+            case "2":
+                bedNum.check(R.id.bed_two);
+                break;
+            case "3":
+                bedNum.check(R.id.bed_three);
+                break;
+            case "4+":
+                bedNum.check(R.id.bed_four_plus);
+                break;
+        }
+
+        SegmentedGroup bathNum = findViewById(R.id.bathroom);
+        _bathroom_number = old_post.getNumBathroom();
+        switch (_bathroom_number) {
+            case "0":
+                bathNum.check(R.id.bath_zero);
+                break;
+            case "1":
+                bathNum.check(R.id.bath_one);
+                break;
+            case "2":
+                bathNum.check(R.id.bath_two);
+                break;
+            case "3":
+                bathNum.check(R.id.bath_three);
+                break;
+            case "4+":
+                bathNum.check(R.id.bath_four_plus);
+                break;
+        }
+
+        SegmentedGroup leaseLength = findViewById(R.id.lease_length);
+        _leaseLength = old_post.getLeasingLength();
+        switch (_leaseLength) {
+            case "Annually":
+                leaseLength.check(R.id.annual);
+                break;
+            case "Quarterly":
+                leaseLength.check(R.id.quarterly);
+                break;
+            case "Monthly":
+                leaseLength.check(R.id.short_term);
+                break;
+        }
+
+        start_date.setText(old_post.getStartDate());
+
+        setCheckedTextView_fromResult(ac, old_post.getAc());
         setCheckedTextView_fromResult(allow_pet, old_post.getPet());
         setCheckedTextView_fromResult(parking, old_post.getParking());
         setCheckedTextView_fromResult(tv, old_post.getTv());
@@ -477,21 +544,26 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         setCheckedTextView_fromResult(bus, old_post.getBus());
 
         description.setText(old_post.getDescription());
+
+        for (String pic : old_post.getPictures()) {
+            addPhoto(Uri.parse(pic));
         }
-
-
-    }// on create
+        for (Room r : old_post.getRooms())
+            addRoom(r);
+    }
 
     // helper for date
     private void setDate(final Calendar calendar) {
         final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         start_date.setText(dateFormat.format(calendar.getTime()));
     }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar cal = new GregorianCalendar(year, month, dayOfMonth);
         setDate(cal);
     }
+
     public static class DatePickerFragment extends DialogFragment {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final Calendar c = Calendar.getInstance();
@@ -500,7 +572,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             return new DatePickerDialog(getActivity(),
-                    (DatePickerDialog.OnDateSetListener)getActivity(), year, month, day);
+                    (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
         }
 
     }
@@ -557,7 +629,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     }
 
     // add room
-    private void addRoom() {
+    private void addRoom(Room r) {
         final LinearLayout roomBox = (LinearLayout) View.inflate(this,
                 R.layout.add_room, null);
         final Room room = new Room("", 0);
@@ -592,10 +664,54 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             }
         });
 
-        ((EditText) roomBox.findViewById(R.id.price)).addTextChangedListener(tw);
+        SegmentedGroup roomType = roomBox.findViewById(R.id.room_type);
+        room.setRoomType(r.getRoomType());
+        switch (room.getRoomType()) {
+            case "Master Bedroom":
+                roomType.check(roomBox.findViewById(R.id.master_bedroom).getId());
+                break;
+            case "Living Room":
+                roomType.check(roomBox.findViewById(R.id.living_room).getId());
+                break;
+            case "Loft / Den":
+                roomType.check(roomBox.findViewById(R.id.loft).getId());
+                break;
+        }
+
+        EditText price = roomBox.findViewById(R.id.price);
+        if (r.getPrice() != -1)
+            price.setText(Integer.toString(r.getPrice()));
+        price.addTextChangedListener(tw);
         roomBoxList.add(roomBox);
         roomList.add(room);
         roomContainer.addView(roomBox);
+    }
+
+    // add photo
+    private void addPhoto(Uri uri) {
+        final LinearLayout photoBox = (LinearLayout) View.inflate(this,
+                R.layout.add_photo, null);
+        photoBox.findViewById(R.id.deletepic_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = photoBoxList.indexOf(photoBox);
+                photoBoxList.remove(index);
+                pictureList.remove(index);
+                photoBox.removeAllViews();
+            }
+        });
+        photoBoxList.add(photoBox);
+
+        //Mandatory to refresh image from Uri.
+        // upload to firebase storage
+        picture = uri;
+        Glide.with(EditPostActivity.this)
+                .load(picture)
+                .apply(RequestOptions.centerCropTransform())
+                .into((ImageView) photoBoxList.get(photoBoxList.size() - 1).findViewById(R.id.pic));
+        // add photo box to UI
+        photoGrid.addView(photoBox);
+        pictureList.add(picture);
     }
 
     //PickImage Plug-in
@@ -604,31 +720,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     public void onPickResult(PickResult r) {
         if (r.getError() == null) {
             // create photo box
-            final LinearLayout photoBox = (LinearLayout) View.inflate(this,
-                    R.layout.add_photo, null);
-            photoBox.findViewById(R.id.deletepic_btn).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int index = photoBoxList.indexOf(photoBox);
-                    photoBoxList.remove(index);
-                    pictureList.remove(index);
-                    photoBox.removeAllViews();
-                }
-            });
-            photoBoxList.add(photoBox);
-
-            //Mandatory to refresh image from Uri.
-            // upload to firebase storage
-            picture = r.getUri();
-            Glide.with(EditPostActivity.this)
-                    .load(picture)
-                    .apply(RequestOptions.centerCropTransform())
-                    .into((ImageView) photoBoxList.get(photoBoxList.size() - 1).findViewById(R.id.pic));
-
-            // add photo box to UI
-            photoGrid.addView(photoBox);
-            pictureList.add(picture);
-
+            addPhoto(r.getUri());
         } else {
             Toast.makeText(this, r.getError().getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -654,15 +746,15 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     }
 
     // helper method for implemnet check state
-    private static void setCheckedTextView_fromResult(final CheckedTextView ctv,final String result) {
+    private static void setCheckedTextView_fromResult(final CheckedTextView ctv, final String result) {
 
         ctv.setCheckMarkDrawable(R.drawable.unchecked);
         if (result.equals("1")) {
             ctv.setChecked(true);
             ctv.setCheckMarkDrawable(R.drawable.checked);
         } else {
-                    ctv.setChecked(false);
-                    ctv.setCheckMarkDrawable(R.drawable.unchecked);
+            ctv.setChecked(false);
+            ctv.setCheckMarkDrawable(R.drawable.unchecked);
         }
 
 
@@ -682,8 +774,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     }
 
     private void uploadToFirebase(ArrayList<Uri> uriList) {
-        post = mDatabase.child("House_post").push();
-        _postId = post.getKey();
+        post = mDatabase.child("House_post").child(_postId);
         writeNewPost(new House(_posterId, _houseType, _title, _location,
                 _description, _startDate, _leaseLength,
                 new ArrayList<String>(0), roomList, _tv, _ac, _bus,
@@ -705,7 +796,8 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode()); }
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
         });
 
         final StorageReference baseref = mStorageRef.child("House_Images").child(post.getKey());
