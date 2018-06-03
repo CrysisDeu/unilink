@@ -6,11 +6,10 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#6d48e5"
-        android:orientation="horizontal">
+        android:background="#6d48e5">
 
         <ImageView
             android:id="@+id/back_button"
@@ -22,12 +21,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:text="My Preference"
             android:textColor="#fff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/l_font_size"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 

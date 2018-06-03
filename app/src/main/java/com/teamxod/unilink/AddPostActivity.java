@@ -44,6 +44,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.UUID;
 
 /* TODO @ Etsu:
     First, try to read through the whole file. I did lots of comments. Just make sure u know what i did.
@@ -507,7 +508,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
                 int index = roomBoxList.indexOf(roomBox);
                 roomBoxList.remove(index);
                 roomList.remove(index);
-                roomBox.removeAllViews();
+                roomContainer.removeView(roomBox);
             }
         });
 
@@ -552,7 +553,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
                     int index = photoBoxList.indexOf(photoBox);
                     photoBoxList.remove(index);
                     pictureList.remove(index);
-                    photoBox.removeAllViews();
+                    photoGrid.removeView(photoBox);
                 }
             });
             photoBoxList.add(photoBox);
@@ -635,13 +636,11 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
 
         final StorageReference baseref = mStorageRef.child("House_Images").child(post.getKey());
         StorageReference image_ref;
-        final ArrayList<String> pictureStringList = new ArrayList<>(0);
         int i = 0;
         for (Uri uri : uriList) {
             final int finalI = i;
             i++;
-            String[] temp = uri.toString().split("/");
-            image_ref = baseref.child(temp[temp.length - 1]);
+            image_ref = baseref.child(UUID.randomUUID().toString());
             final StorageReference finalImage_ref = image_ref;
             image_ref.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

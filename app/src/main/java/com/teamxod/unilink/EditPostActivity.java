@@ -44,6 +44,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.UUID;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 
@@ -638,7 +639,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                 int index = roomBoxList.indexOf(roomBox);
                 roomBoxList.remove(index);
                 roomList.remove(index);
-                roomBox.removeAllViews();
+                roomContainer.removeView(roomBox);
             }
         });
 
@@ -694,10 +695,8 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 int index = photoBoxList.indexOf(photoBox);
-                //TODO: uncomment
-                /*if (pictureList.get(index).toString().contains("https")) {
-                    String[] temp = pictureList.get(index).toString().split("/");
-                    mStorageRef.child(_postId).child(temp[temp.length - 1]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                if (pictureList.get(index).toString().contains("https")) {
+                    FirebaseStorage.getInstance().getReferenceFromUrl(pictureList.get(index).toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             // File deleted successfully
@@ -708,15 +707,15 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                             // Uh-oh, an error occurred!
                         }
                     });
-                }*/
+                }
                 photoBoxList.remove(index);
                 pictureList.remove(index);
-                photoBox.removeAllViews();
+                photoGrid.removeView(photoBox);
             }
         });
         photoBoxList.add(photoBox);
 
-        //Mandatory to refresh image from Uri.
+        // Mandatory to refresh image from Uri.
         // upload to firebase storage
         picture = uri;
         Glide.with(EditPostActivity.this)
@@ -742,7 +741,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
 
     // helper method for ChekedTextView in XML
     private static void setCheckedTextView(final CheckedTextView ctv) {
-
         ctv.setCheckMarkDrawable(R.drawable.unchecked);
         ctv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -754,14 +752,12 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                     ctv.setChecked(false);
                     ctv.setCheckMarkDrawable(R.drawable.unchecked);
                 }
-
             }
         });
     }
 
     // helper method for implemnet check state
     private static void setCheckedTextView_fromResult(final CheckedTextView ctv, final String result) {
-
         ctv.setCheckMarkDrawable(R.drawable.unchecked);
         if (result.equals("1")) {
             ctv.setChecked(true);
@@ -770,8 +766,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             ctv.setChecked(false);
             ctv.setCheckMarkDrawable(R.drawable.unchecked);
         }
-
-
     }
 
     // Get content of check text view
@@ -782,7 +776,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             return "0";
     }
 
-    // TODO create house obj here
+    // write to firebase
     private void writeNewPost(House house) {
         post.setValue(house);
     }
@@ -803,38 +797,17 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                 _description, _startDate, _leaseLength,
                 old_uri, roomList, _tv, _ac, _bus,
                 _parking, _videoGame, _gym, _laundry, _pet, _bedroom_number, _bathroom_number));
-/*
-        String uid = mAuth.getCurrentUser().getUid();
-        final DatabaseReference myPostReference = mDatabase.child("Users").child(uid).child("my_house_posts");
 
-        myPostReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<String> postList = new ArrayList<>();
-                for (DataSnapshot postID : dataSnapshot.getChildren()) {
-                    postList.add(postID.getValue(String.class));
-                }
-                postList.add(_postId);
-                myPostReference.setValue(postList);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode()); }
-        });
-*/
         final StorageReference baseref = mStorageRef.child("House_Images").child(_postId);
         StorageReference image_ref;
         final ArrayList<String> pictureStringList = new ArrayList<>(0);
         int i = 0;
         for (Uri uri : uriList) {
-
             final int finalI = i;
             i++;
             if (startIndex >= i)
                 continue;
-            String[] temp = uri.toString().split("/");
-            image_ref = baseref.child(temp[temp.length - 1]);
+            image_ref = baseref.child(UUID.randomUUID().toString());
             final StorageReference finalImage_ref = image_ref;
             image_ref.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
