@@ -67,7 +67,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.house_post);
+        setContentView(R.layout.activity_house_post);
         loadData();
     }
 

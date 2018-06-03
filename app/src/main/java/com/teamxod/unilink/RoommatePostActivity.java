@@ -2,13 +2,18 @@ package com.teamxod.unilink;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.progresviews.ProgressWheel;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,20 +22,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class RoommatePostActivity extends AppCompatActivity {
 
-    private String currentUserUid;
-    private User currentUser;
-    private User roommate;
-    private String uid;
-    private Recommendation recommend;
-    private double matchScore;
-    private ArrayList<String> tags;
-    private TagViewGroup tagGroup;
+    private String userUID;
+    private String myUID;
+    private User user;
 
-    private DatabaseReference database;
     private DatabaseReference userReference;
+    private DatabaseReference preferenceReference;
 
     private final static int MARGIN = 15;
 
@@ -38,26 +39,79 @@ public class RoommatePostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.roommate_post);
+        setContentView(R.layout.activity_roommate_post);
 
         Intent intent = getIntent();
 
         if(intent.hasExtra("uid")){
-            uid = intent.getExtras().getString("uid");
+            userUID = intent.getExtras().getString("uid");
         }else{
             Toast.makeText(this, "User does not exist", Toast.LENGTH_LONG).show();
             finish();
         }
-        //get current user and user in post
-        //loadData();
 
-        recommend = new Recommendation(new preference(),new preference());
-        //matchScore = recommend.calculate();
-        tags = recommend.getTagList();
-        Log.d("check score","****"+matchScore);
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        userReference = database.child("Users").child(userUID);
+        preferenceReference = database.child("Preference");
+        myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        //load tag
-        tagGroup = findViewById(R.id.tag);
+        loadData();
+
+    }
+
+    private void loadData() {
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
+                updateUI();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        preferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                preference myPreference = dataSnapshot.child(myUID).getValue(preference.class);
+                preference userPreference = dataSnapshot.child(userUID).getValue(preference.class);
+                ArrayList<String> tags;
+                double score;
+                if(myPreference != null && userPreference != null) {
+                    Recommendation recommendation = new Recommendation(myPreference, userPreference);
+                    tags = recommendation.getTagList();
+                    score = recommendation.getScore();
+                } else {
+                    tags = new ArrayList<>();
+                    score = 0;
+                }
+                setScoreAndTags(score,tags);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    private void setScoreAndTags(double score, ArrayList<String> tags){
+
+        TextView ScoreTextView = (TextView) findViewById(R.id.roommate_score);
+
+        ProgressWheel pw = (ProgressWheel) findViewById(R.id.roommate_progress);
+
+        pw.setPercentage((int)(score * 36));
+
+        TagViewGroup tagGroup = findViewById(R.id.tag);
+
+        if(score != 0)
+            ScoreTextView.setText(String.valueOf(score));
+        else
+            ScoreTextView.setText("?");
 
         ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -73,53 +127,32 @@ public class RoommatePostActivity extends AppCompatActivity {
             tagView.setBackgroundResource(R.drawable.roommate_tag_layout);
             tagGroup.addView(tagView,lp);
         }
-
     }
 
-    private void loadData() {
-        Intent intent = getIntent();
+    private void updateUI() {
+        TextView name = (TextView) findViewById(R.id.roommate_name);
+        TextView gender = (TextView) findViewById(R.id.roommate_gender);
+        TextView schoolYear = (TextView) findViewById(R.id.school_year);
+        TextView graduateYear = (TextView) findViewById(R.id.graduate_year);
+        TextView description = (TextView) findViewById(R.id.roommate_description);
+        ImageView picture = (ImageView) findViewById(R.id.poster_picture);
 
-        if(intent.hasExtra("postID")){
-            uid = intent.getExtras().getString("postID");
-        }else{
-            Toast.makeText(this, "People does not exist", Toast.LENGTH_LONG).show();
-            finish();
-        }
-
-        database = FirebaseDatabase.getInstance().getReference();
-
-        //current user
-        currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        userReference = database.child("Users").child(currentUserUid);
-        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                currentUser = dataSnapshot.getValue(User.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-        //roommate user
-        userReference = database.child("Users").child(uid);
-        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                roommate = dataSnapshot.getValue(User.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
+        name.setText(user.getName());
+        gender.setText(user.getGender());
+        int enterYear = Integer.parseInt(user.getYearGraduate()) - 4;
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR) - enterYear;
+        String temp;
+        if(currentYear > 5)
+            temp = "Alumni";
+        else
+            temp = currentYear + "th Year";
+        schoolYear.setText(temp);
+        temp = currentYear + "th Year";
+        graduateYear.setText(temp);
+        description.setText(user.getDescription());
+        Glide.with(this)
+                .load(user.getPicture())
+                .apply(RequestOptions.circleCropTransform())
+                .into(picture);
     }
-
-
 }

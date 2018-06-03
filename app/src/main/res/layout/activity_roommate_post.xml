@@ -69,27 +69,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Kevin Spencer"
-                        android:textStyle="bold"
+                        android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textColor="@color/black" />
+                        android:textStyle="bold" />
 
                     <TextView
                         style="@style/normal_text"
-                        android:text="@string/major"/>
+                        android:text="Gender:" />
 
                     <TextView
-                        style="@style/normal_text"
-                        android:id="@+id/roommate_major"
-                        android:text="Computer Science"/>
+                        android:id="@+id/roommate_gender"
+                        style="@style/normal_text" />
 
                     <TextView
-                        android:layout_marginTop="@dimen/small_margin"
+                        android:id="@+id/school_year"
                         style="@style/normal_text"
-                        android:text="4th year"/>
+                        android:layout_marginTop="@dimen/small_margin" />
 
                     <TextView
-                        style="@style/normal_text"
-                        android:text="Graduating 2018"/>
+                        android:id="@+id/graduate_year"
+                        style="@style/normal_text" />
 
                 </LinearLayout>
 

@@ -38,7 +38,7 @@ class Recommendation {
     double lengthOne = 0;
     double lengthTwo = 0;
 
-    public Recommendation(preference user1, preference user2){
+    Recommendation(preference user1, preference user2){
         Array1 = new double[paramNumber];
         Array2 = new double[paramNumber];
         tagList = new ArrayList<>();
@@ -99,7 +99,7 @@ class Recommendation {
      *  Similarity is calculated based on the angle between these two vectors.
      *  Proper lengths of individual component are dealed in getData()
      */
-    public void calculate(){
+    private void calculate(){
         for(int i = 0; i < paramNumber; i++) {
             innerProduct += Array1[i]*Array2[i];
             lengthOne += Math.pow(Array1[i], 2);

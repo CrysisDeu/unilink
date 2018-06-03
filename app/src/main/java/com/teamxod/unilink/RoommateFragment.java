@@ -93,7 +93,7 @@ public class RoommateFragment extends Fragment {
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
                             Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
-                            myIntent.putExtra("uid",roommateUID.get(position));
+                            myIntent.putExtra("uid",roommateUID.get(position - 1));
                             startActivity(myIntent);
 
                         }
