@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -58,7 +59,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
     private Spinner mYearSpinner;
     private EditText mDescription;
     private Bitmap imageBitmap;
-    private CardView mSave;
+    private Button mSave;
     private PickImageDialog dialog;
 
     @Override
