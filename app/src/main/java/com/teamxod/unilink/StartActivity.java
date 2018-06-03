@@ -267,7 +267,7 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                     toast.show();
                     return;
                 }
-                    sendResetEmail(mEmail);
+                sendResetEmail(mEmail);
 
                 Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_RESST_SENT,
                         Toast.LENGTH_SHORT);
@@ -373,9 +373,9 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
 
                     // already set profile
                     /*if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {*/
-                        Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
-                        startActivity(mainIntent);
-                        finish();
+                    Intent mainIntent = new Intent(StartActivity.this, MainActivity.class);
+                    startActivity(mainIntent);
+                    finish();
 
                     // need to set profile
                     /*} else {
@@ -411,9 +411,15 @@ public class StartActivity extends AppCompatActivity implements GoogleApiClient.
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(StartActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            try {
+                                throw task.getException();
+                            } catch (Exception e) {
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(StartActivity.this, e.getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+
                         }
                     }
                 });

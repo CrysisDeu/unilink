@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="E-mail"/>
+                android:text="@string/e_mail"/>
 
             <EditText
                 android:id="@+id/email_input"
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:hint="myname@unilink.com"
+                android:hint="@string/myname_unilink_com"
                 style="@style/edit_text"/>
 
             <TextView
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Password"/>
+                android:text="@string/password"/>
 
             <EditText
                 android:id="@+id/password_input"
@@ -116,14 +116,14 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="666666"
+                android:hint="@string/password_hint"
                 style="@style/edit_text"/>
             <TextView
                 android:id="@+id/forget_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="Forget Password?"
+                android:text="@string/forget_password"
                 android:textColor="#6D48E5"/>
             <Button
                 android:id="@+id/confirm_sign_in"
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="E-mail"/>
+                android:text="@string/e_mail"/>
 
             <EditText
                 android:id="@+id/email_sign_up_input"
@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:hint="myname@unilink.com"
+                android:hint="@string/myname_unilink_com"
                 style="@style/edit_text"/>
 
             <TextView
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
-            android:text="Password"/>
+            android:text="@string/password"/>
 
             <EditText
                 android:id="@+id/password_sign_up_input"
@@ -180,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="666666"
+                android:hint="@string/password_hint"
                 style="@style/edit_text"/>
 
             <TextView
@@ -188,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="Re-enter Password"/>
+                android:text="@string/re_enter_password"/>
 
             <EditText
                 android:id="@+id/password_reenter_input"
@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="666666"
+                android:hint="@string/password_hint"
                 style="@style/edit_text"/>
 
             <Button
@@ -250,7 +250,7 @@
                     android:layout_width="92dp"
                     android:layout_height="1dp"
                     android:layout_gravity="center_vertical"
-                    android:background="#BBBBBB"></LinearLayout>
+                    android:background="#BBBBBB" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -266,7 +266,7 @@
                     android:layout_width="92dp"
                     android:layout_height="1dp"
                     android:layout_gravity="center_vertical"
-                    android:background="#BBBBBB"></LinearLayout>
+                    android:background="#BBBBBB" />
 
             </LinearLayout>
 
@@ -287,7 +287,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="12dp"
-                        android:text="Already have an account?" />
+                        android:text="@string/already_have_an_account" />
 
                     <TextView
                         android:id="@+id/sign_in_button"
@@ -295,7 +295,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="4dp"
                         android:paddingRight="16dp"
-                        android:text="Sign in"
+                        android:text="@string/sign_in"
                         android:textColor="#003F9F" />
 
                 </LinearLayout>

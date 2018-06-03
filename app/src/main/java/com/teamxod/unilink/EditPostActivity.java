@@ -67,7 +67,6 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
     // Java fields (Used to create House obj and push to firebase)
 
     private House old_post;
-    private String post_ID;
 
     private String _posterId;
     private String _postId;
@@ -427,7 +426,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
         _postId = bundle.getString("postID");
 
         // Get house post from database
-        mDatabase.child("House_post").child(post_ID).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("House_post").child(_postId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -695,6 +694,21 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 int index = photoBoxList.indexOf(photoBox);
+                //TODO: uncomment
+                /*if (pictureList.get(index).toString().contains("https")) {
+                    String[] temp = pictureList.get(index).toString().split("/");
+                    mStorageRef.child(_postId).child(temp[temp.length - 1]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // File deleted successfully
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Uh-oh, an error occurred!
+                        }
+                    });
+                }*/
                 photoBoxList.remove(index);
                 pictureList.remove(index);
                 photoBox.removeAllViews();
@@ -775,11 +789,21 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
 
     private void uploadToFirebase(ArrayList<Uri> uriList) {
         post = mDatabase.child("House_post").child(_postId);
+        ArrayList<String> old_uri = new ArrayList<>();
+        int startIndex = -1;
+        for (int i = 0; i < uriList.size(); i++) {
+            if (uriList.get(i).toString().contains("https"))
+                old_uri.add(uriList.get(i).toString());
+            else {
+                startIndex = i;
+                break;
+            }
+        }
         writeNewPost(new House(_posterId, _houseType, _title, _location,
                 _description, _startDate, _leaseLength,
-                new ArrayList<String>(0), roomList, _tv, _ac, _bus,
+                old_uri, roomList, _tv, _ac, _bus,
                 _parking, _videoGame, _gym, _laundry, _pet, _bedroom_number, _bathroom_number));
-
+/*
         String uid = mAuth.getCurrentUser().getUid();
         final DatabaseReference myPostReference = mDatabase.child("Users").child(uid).child("my_house_posts");
 
@@ -796,18 +820,21 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
+                System.out.println("The read failed: " + databaseError.getCode()); }
         });
-
-        final StorageReference baseref = mStorageRef.child("House_Images").child(post.getKey());
+*/
+        final StorageReference baseref = mStorageRef.child("House_Images").child(_postId);
         StorageReference image_ref;
         final ArrayList<String> pictureStringList = new ArrayList<>(0);
         int i = 0;
         for (Uri uri : uriList) {
-            image_ref = baseref.child(String.valueOf(i));
+
             final int finalI = i;
             i++;
+            if (startIndex >= i)
+                continue;
+            String[] temp = uri.toString().split("/");
+            image_ref = baseref.child(temp[temp.length - 1]);
             final StorageReference finalImage_ref = image_ref;
             image_ref.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -821,16 +848,14 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    // Handle any errors
+                                public void onFailure(@NonNull Exception exception) {// Handle any errors
                                 }
                             });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
+                        public void onFailure(@NonNull Exception exception) {// Handle unsuccessful uploads
                             // ...
                         }
                     });

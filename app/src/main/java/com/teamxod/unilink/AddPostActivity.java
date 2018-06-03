@@ -638,9 +638,10 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
         final ArrayList<String> pictureStringList = new ArrayList<>(0);
         int i = 0;
         for (Uri uri : uriList) {
-            image_ref = baseref.child(String.valueOf(i));
             final int finalI = i;
             i++;
+            String[] temp = uri.toString().split("/");
+            image_ref = baseref.child(temp[temp.length - 1]);
             final StorageReference finalImage_ref = image_ref;
             image_ref.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

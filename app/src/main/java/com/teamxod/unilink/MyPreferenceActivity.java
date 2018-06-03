@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
 
-public class My_preference extends AppCompatActivity {
+public class MyPreferenceActivity extends AppCompatActivity {
 
     // UI variables
     private ImageView mBackButton;
@@ -81,6 +81,7 @@ public class My_preference extends AppCompatActivity {
     private String uid;
     private preference existedPreference;
     private int needToRestore = 0;
+    private int finish;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +172,7 @@ public class My_preference extends AppCompatActivity {
                         }
 
                         String languageSelected = languageSpinner.getSelectedItem().toString();
+                        System.out.print("madamada" + languageSelected);
                         setLanguage(languageSelected);
                         // report data to the firebase
                         newPreference();
@@ -206,7 +208,7 @@ public class My_preference extends AppCompatActivity {
                 });
 
                 clean_seekBar.setMax(7);
-                clean_seekbar_text.setText("0 times - 7 times");
+                clean_seekbar_text.setText("0 - 7 times");
                 clean_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
@@ -228,7 +230,7 @@ public class My_preference extends AppCompatActivity {
 
                 // smoke and drink seekBar with texts logic
                 smoke_seekBar.setMax(7);
-                smoke_seekbar_text.setText("0 days - 7 days");
+                smoke_seekbar_text.setText("0 - 7 days");
                 smoke_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 
@@ -248,7 +250,7 @@ public class My_preference extends AppCompatActivity {
                 });
 
                 drink_seekBar.setMax(7);
-                drink_seekbar_text.setText("0 days - 7 days");
+                drink_seekbar_text.setText("0 - 7 days");
                 drink_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progressV;
 

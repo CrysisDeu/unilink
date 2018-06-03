@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    tools:context=".my_change_profile">
+    tools:context=".MyChangeProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="16dp"
                         android:gravity="center_vertical"
-                        android:text="E-mail"
+                        android:text="@string/e_mail"
                         style="@style/text_field" />
 
                     <TextView

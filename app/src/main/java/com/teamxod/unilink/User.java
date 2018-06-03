@@ -71,6 +71,7 @@ class User {
     public void setYearGraduate(String yearGraduate) {
         this.yearGraduate = yearGraduate;
     }
+
     public String getDescription() {
         return this.description;
     }
@@ -94,6 +95,7 @@ class User {
     public void setMy_house_posts(List<String> my_house_posts) {
         this.my_house_posts = my_house_posts;
     }
+
 
     @Exclude
     public Map<String, Object> toMap() {
