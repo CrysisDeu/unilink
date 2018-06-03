@@ -67,6 +67,7 @@ public class ChatHolder extends RecyclerView.ViewHolder {
     public void setIsSender(boolean isSender) {
         final int color;
         final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0,24,0,0);
         if (isSender) {
             color = mGreen300;
             mLeftArrow.setVisibility(View.GONE);
