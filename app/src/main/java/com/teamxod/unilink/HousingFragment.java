@@ -180,7 +180,11 @@ public class HousingFragment extends Fragment  {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent myIntent = new Intent(view.getContext(), HousePostActivity.class);
-                myIntent.putExtra("postID",posts.get(position).getRoom_key());
+                if (position > 0) {
+                    myIntent.putExtra("postID", posts.get(position - 1).getRoom_key());
+                } else {
+                    myIntent.putExtra("postID", posts.get(position).getRoom_key());
+                }
                 startActivity(myIntent);
 
             }
@@ -339,32 +343,4 @@ public class HousingFragment extends Fragment  {
             return false;
         }
     };
-
-
-  /*  //set onScrollListener
-    AbsListView.OnScrollListener onScrollListener = new AbsListView.OnScrollListener() {
-        //meet the situation when user's finger leaves screen,
-        //but the screen is still scrolling
-        int lastPosition = 0;
-        int state = SCROLL_STATE_IDLE;
-        @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
-            //record current list statement
-            state = scrollState;
-        }
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            if (firstVisibleItem == 0) {
-                animateBack();
-            }
-            if (firstVisibleItem > 0) {
-                if (firstVisibleItem > lastPosition && state == SCROLL_STATE_FLING) {
-                    //if the position of last time is smaller than current, hide
-                    animateHide();
-                }
-            }
-            lastPosition = firstVisibleItem;
-        }
-    };*/
-
 }
