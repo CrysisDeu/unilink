@@ -72,7 +72,7 @@ public class RoommateFragment extends Fragment {
     }
 
     private void loadData() {
-        visibleReference.addListenerForSingleValueEvent(new ValueEventListener(){
+        visibleReference.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
@@ -86,7 +86,7 @@ public class RoommateFragment extends Fragment {
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
                             Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
-                            myIntent.putExtra("uid",roommateUID.get(position - 1));
+                            myIntent.putExtra("uid", parent.getItemIdAtPosition(position));
                             startActivity(myIntent);
                         }
                     });
@@ -141,7 +141,7 @@ public class RoommateFragment extends Fragment {
     }
 
     private void checkPreference() {
-        preferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        preferenceReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(myUid)) {
