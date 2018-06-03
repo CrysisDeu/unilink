@@ -52,7 +52,7 @@ class Recommendation {
         Data will be processed with coefficient into arrays based on importance.*/
     public double getScore(){
         loadUserPreference();
-        return score;
+        return score / 10;
     }
 
     private void loadUserPreference() {

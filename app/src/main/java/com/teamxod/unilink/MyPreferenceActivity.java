@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -47,7 +48,7 @@ public class MyPreferenceActivity extends AppCompatActivity {
     private TextView smoke_seekbar_text;
     private TextView drink_seekbar_text;
     private Spinner languageSpinner;
-    private CardView save;
+    private Button save;
 
     private RadioButton bring1;
     private RadioButton bring2;
@@ -113,7 +114,7 @@ public class MyPreferenceActivity extends AppCompatActivity {
 
                 languageSpinner = (Spinner) findViewById(R.id.languege_spinner);
 
-                save = (CardView) findViewById(R.id.save);
+                save = (Button) findViewById(R.id.save);
                 mBackButton = findViewById(R.id.back_button);
 
                 sleep_seekBar = (SeekBar) findViewById(R.id.sleep_seekbar);

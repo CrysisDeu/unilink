@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -45,7 +46,7 @@ public class MyChangeProfileActivity extends AppCompatActivity implements IPickR
 
     //Button
     private ImageView mBackButton;
-    private CardView mSaveButton;
+    private Button mSaveButton;
 
     //Views
     private ImageView mProfilePic;
