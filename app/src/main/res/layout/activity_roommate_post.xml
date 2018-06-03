@@ -13,10 +13,10 @@
         android:background="#6d48e5">
 
         <TextView
+            android:id="@+id/roommate_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Kevin Spencer"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -51,8 +51,9 @@
 
                 <ImageView
                     android:id="@+id/poster_picture"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:layout_weight="0"
                     android:gravity="center_horizontal|top"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/my_bg" />
@@ -60,7 +61,8 @@
                 <LinearLayout
                     android:layout_marginStart="@dimen/small_margin"
                     android:layout_marginEnd="@dimen/small_margin"
-                    android:layout_width="142dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -68,7 +70,6 @@
                         android:id="@+id/roommate_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kevin Spencer"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -93,8 +94,9 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_width="96dp"
+                    android:layout_width="88dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="0"
                     android:orientation="vertical">
 
                     <TextView
@@ -102,17 +104,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="36dp"
+                        android:layout_marginTop="32dp"
                         android:textColor="#000000"
-                        android:text="10"
                         android:textSize="20sp"
                         android:fontFamily="@font/roboto"
                         android:textStyle="bold"/>
 
                     <com.app.progresviews.ProgressWheel
                         android:id="@+id/roommate_progress"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
                         app:barWidth="6dp"
                         app:countText=""
                         app:countTextColor="#000000"
@@ -121,19 +122,17 @@
                         app:defTextSize="0sp"
                         app:definitionText=""
                         app:marginBtwText="0dp"
-                        app:percentage="100"
                         app:progressColor="#6d48e5" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/roommate_progress"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="96dp"
+                        android:layout_below="@id/roommate_progress"
+                        android:gravity="center_horizontal"
+                        android:fontFamily="sans-serif-light"
                         android:text="@string/matching_score"
-                        android:textSize="12sp"
                         android:textColor="@color/black"
-                        android:fontFamily="sans-serif-light" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -177,25 +176,23 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="start|bottom"
-                android:text="Kevin Spencer"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/roommate_bottom_year"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="start|top"
-                android:text="4th Year"
                 android:textColor="@color/black"
                 android:textSize="@dimen/m_font_size" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/house_button_contact"
+            android:id="@+id/roommate_contact"
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"

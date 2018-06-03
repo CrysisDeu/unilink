@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,6 +22,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.teamxod.unilink.chat.RealtimeDbChatActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,6 +59,26 @@ public class RoommatePostActivity extends AppCompatActivity {
         userReference = database.child("Users").child(userUID);
         preferenceReference = database.child("Preference");
         myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        Button back_btn = (Button) findViewById(R.id.roommate_button_back);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        Button contact_btn = (Button) findViewById(R.id.roommate_contact);
+        contact_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chatIntent = new Intent(RoommatePostActivity.this, RealtimeDbChatActivity.class);
+                chatIntent.putExtra("user_id", userUID);
+                chatIntent.putExtra("user_name", user.getName());
+                startActivity(chatIntent);
+            }
+        });
+
 
         loadData();
 
@@ -130,24 +155,32 @@ public class RoommatePostActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
+        TextView title = (TextView) findViewById(R.id.roommate_title);
         TextView name = (TextView) findViewById(R.id.roommate_name);
         TextView gender = (TextView) findViewById(R.id.roommate_gender);
         TextView schoolYear = (TextView) findViewById(R.id.school_year);
         TextView graduateYear = (TextView) findViewById(R.id.graduate_year);
         TextView description = (TextView) findViewById(R.id.roommate_description);
         ImageView picture = (ImageView) findViewById(R.id.poster_picture);
+        TextView bottomName = (TextView) findViewById(R.id.roommate_bottom_name);
+        TextView bottomYear = (TextView) findViewById(R.id.roommate_bottom_year);
 
+        title.setText(user.getName());
         name.setText(user.getName());
+        bottomName.setText(user.getName());
         gender.setText(user.getGender());
         int enterYear = Integer.parseInt(user.getYearGraduate()) - 4;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR) - enterYear;
         String temp;
         if(currentYear > 5)
             temp = "Alumni";
+        else if(currentYear <= 0)
+            temp = "Incoming Student";
         else
             temp = currentYear + "th Year";
         schoolYear.setText(temp);
-        temp = currentYear + "th Year";
+        bottomYear.setText(temp);
+        temp = "Graduating " + user.getYearGraduate();
         graduateYear.setText(temp);
         description.setText(user.getDescription());
         Glide.with(this)
