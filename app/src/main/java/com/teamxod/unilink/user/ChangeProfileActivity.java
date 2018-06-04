@@ -40,6 +40,8 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
 
     private final String NAME_INVALID = "Please enter a valid name!";
 
+    private final String MALE_PROFILE_PIC = "https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/male.png?alt=media&token=02a80321-a6ae-4194-af4d-bd658de9348f";
+    private final String FEMALE_PROFILE_PIC = "https://firebasestorage.googleapis.com/v0/b/fir-project-7cabd.appspot.com/o/female.png?alt=media&token=69a0c9c9-eda5-481d-9043-b718d899121b";
     //the most recent graduate the user can choose
     private final int MIN_GRADUATE_YEAR = 2018;
 
@@ -62,6 +64,8 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
     private User user;
     private Uri picture;
     private DatabaseReference mUserReference;
+
+    private Boolean new_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,8 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
         String uid = mAuth.getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mUserReference = mDatabase.child("Users").child(uid);
+
+        new_image = false;
 
         mUserReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -201,7 +207,7 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
 
             //Mandatory to refresh image from Uri.
             // upload to firebase storage
-
+            new_image = true;
             picture = r.getUri();
             Glide.with(getApplicationContext())
                     .load(picture)
@@ -215,37 +221,53 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
     private void uploadToFirebase(Uri uri) {
         final StorageReference profile_images = mStorageRef.child("Profile_Images").child(mAuth.getCurrentUser().getUid());
 
-        profile_images.putFile(uri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
-                        profile_images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                picture = uri;
-                                mUserReference.child("picture").setValue(picture.toString());
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(mEditName.getText().toString())
-                                        .setPhotoUri(picture)
-                                        .build();
-                                mAuth.getCurrentUser().updateProfile(profileUpdates);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle any errors
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                    }
-                });
+        if (new_image) {
+            profile_images.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                            profile_images.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    picture = uri;
+                                    mUserReference.child("picture").setValue(picture.toString());
+                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(mEditName.getText().toString())
+                                            .setPhotoUri(picture)
+                                            .build();
+                                    mAuth.getCurrentUser().updateProfile(profileUpdates);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle any errors
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+        } else {
+            if (uri.toString().equals(MALE_PROFILE_PIC) || uri.toString().equals(FEMALE_PROFILE_PIC)) {
+                String gender = mGenderSpinner.getSelectedItem().toString();
+                if (gender.equals("Female")) {
+                    picture = Uri.parse(FEMALE_PROFILE_PIC);
+                } else {
+                    picture = Uri.parse(MALE_PROFILE_PIC);
+                }
+                mUserReference.child("picture").setValue(picture.toString());
+                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                        .setDisplayName(mEditName.getText().toString())
+                        .setPhotoUri(picture)
+                        .build();
+            }
+        }
 
 
     }
