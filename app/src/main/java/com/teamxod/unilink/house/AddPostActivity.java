@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -129,6 +128,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
         ctv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (!ctv.isChecked()) {
                     ctv.setChecked(true);
                     ctv.setCheckMarkDrawable(R.drawable.checked);
@@ -178,6 +178,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
             public void onClick(View v) {
                 // pickImage
                 dialog = PickImageDialog.build(new PickSetup()).show(AddPostActivity.this);
+                hideKeyBoard(v);
             }
         });
 
@@ -191,6 +192,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
             public void onClick(View v) {
                 // pickImage
                 addRoom();
+                hideKeyBoard(v);
             }
         });
 
@@ -251,6 +253,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
             public void onClick(View v) {
                 DatePickerFragment datePicker = new DatePickerFragment();
                 datePicker.show(getSupportFragmentManager(), "date");
+                hideKeyBoard(v);
             }
         });
         // House type
@@ -469,6 +472,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
         roomBox.findViewById(R.id.deleteroom_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyBoard(v);
                 int index = roomBoxList.indexOf(roomBox);
                 roomBoxList.remove(index);
                 roomList.remove(index);
@@ -482,17 +486,20 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
             public void onClick(View v) {
                 //TODO: change variable
                 room.setRoomType("Master Bedroom");
+                hideKeyBoard(v);
             }
         });
         roomBox.findViewById(R.id.living_room).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 room.setRoomType("Living Room");
+                hideKeyBoard(v);
             }
         });
         roomBox.findViewById(R.id.loft).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyBoard(v);
                 room.setRoomType("Loft / Den");
             }
         });
@@ -514,6 +521,7 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
             photoBox.findViewById(R.id.deletepic_btn).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    hideKeyBoard(v);
                     int index = photoBoxList.indexOf(photoBox);
                     photoBoxList.remove(index);
                     pictureList.remove(index);

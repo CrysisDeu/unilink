@@ -1,13 +1,17 @@
 package com.teamxod.unilink.user;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +40,15 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
 
     private final String NAME_INVALID = "Please enter a valid name!";
 
+    //the most recent graduate the user can choose
+    private final int MIN_GRADUATE_YEAR = 2018;
+
+    private LinearLayout _gender_layout;
+    private LinearLayout _year_layout;
+
+    //Button
+    private ImageView mBackButton;
+    private Button mSaveButton;
     //Views
     private ImageView mProfilePic;
     private EditText mEditName;
@@ -55,9 +68,12 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_change_profile);
 
+        _gender_layout = findViewById(R.id.gender_layout);
+        _year_layout = findViewById(R.id.year_layout);
+
         //Button
-        ImageView mBackButton = findViewById(R.id.back_button);
-        Button mSaveButton = findViewById(R.id.save);
+        mBackButton = findViewById(R.id.back_button);
+        mSaveButton = findViewById(R.id.save);
 
         //Views
         mProfilePic = findViewById(R.id.profile_pic);
@@ -105,6 +121,7 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
 //                user.setYearGraduate(mYearSpinner.getSelectedItem().toString());
 //                user.setDescription(mDescription.getText().toString());
 //                mUserReference.setValue(user);
+                hideKeyBoard(view);
                 if (mEditName.getText().toString().equals("")) {
                     Toast.makeText(ChangeProfileActivity.this, NAME_INVALID, Toast.LENGTH_SHORT).show();
                     return;
@@ -121,6 +138,7 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
             @Override
             public void onClick(View v) {
                 PickImageDialog.build(new PickSetup()).show(ChangeProfileActivity.this);
+                hideKeyBoard(v);
 
             }
         });
@@ -129,9 +147,50 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
             @Override
             public void onClick(View view) {
                 finish();
+                hideKeyBoard(view);
             }
         });
-        //}
+
+        // hide kb for gender spinner
+        mGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hideKeyBoard(view);
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Add new category")) {
+                    // do your stuff
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        mYearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hideKeyBoard(view);
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Add new category")) {
+                    // do your stuff
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        _gender_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyBoard(view);
+            }
+        });
+        _year_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyBoard(view);
+            }
+        });
+
+
     }
 
     //PickImage Plug-in
@@ -221,4 +280,17 @@ public class ChangeProfileActivity extends AppCompatActivity implements IPickRes
         }
         return yearSelection;
     }
+
+    // hide keyboard
+    // This method is used to hide the keyboard
+    // If want to use, simply copy the whole method to your file
+    // Then call hideKeyBoard(v) in the onclick method
+    private void hideKeyBoard(View view) {
+        View vv = findViewById(android.R.id.content);
+        if (vv != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 }

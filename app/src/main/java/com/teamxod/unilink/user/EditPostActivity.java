@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -201,6 +200,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             public void onClick(View v) {
                 // pickImage
                 Room r = new Room("", -1);
+                hideKeyBoard(v);
                 addRoom(r);
             }
         });
@@ -262,6 +262,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             public void onClick(View v) {
                 DatePickerFragment datePicker = new DatePickerFragment();
                 datePicker.show(getSupportFragmentManager(), "date");
+                hideKeyBoard(v);
             }
         });
         // House type
@@ -613,6 +614,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                 roomBoxList.remove(index);
                 roomList.remove(index);
                 roomContainer.removeView(roomBox);
+                hideKeyBoard(v);
             }
         });
 
@@ -622,18 +624,21 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             public void onClick(View v) {
                 //TODO: change variable
                 room.setRoomType("Master Bedroom");
+                hideKeyBoard(v);
             }
         });
         roomBox.findViewById(R.id.living_room).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 room.setRoomType("Living Room");
+                hideKeyBoard(v);
             }
         });
         roomBox.findViewById(R.id.loft).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 room.setRoomType("Loft / Den");
+                hideKeyBoard(v);
             }
         });
 
@@ -668,6 +673,7 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
             @Override
             public void onClick(View v) {
                 int index = photoBoxList.indexOf(photoBox);
+                hideKeyBoard(v);
                 if (pictureList.get(index).toString().contains("https")) {
                     FirebaseStorage.getInstance().getReferenceFromUrl(pictureList.get(index).toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
