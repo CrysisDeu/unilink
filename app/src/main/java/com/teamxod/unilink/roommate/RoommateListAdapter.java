@@ -1,6 +1,7 @@
 package com.teamxod.unilink.roommate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.R;
 import com.teamxod.unilink.user.Preference;
+import com.teamxod.unilink.user.Profile;
 import com.teamxod.unilink.user.User;
 
 import java.text.DecimalFormat;
@@ -74,6 +76,16 @@ class RoommateListAdapter extends BaseAdapter {
 
         final String roommateUID = (String) getItem(position);
 
+        // click avatar to show profile
+        viewHolder.vhPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mContext, Profile.class);
+                i.putExtra("uid", roommateUID);
+                mContext.startActivity(i);
+            }
+        });
+
 
         database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference userReference = database.child("Users").child(roommateUID);
@@ -108,7 +120,7 @@ class RoommateListAdapter extends BaseAdapter {
         else if (currentYear <= 0)
             temp = "Incoming Student";
         else
-            temp = "Class of " + currentYear;
+            temp = "Class of " + roommate.getYearGraduate();
         viewHolder.vhYear.setText(temp);
 
         viewHolder.vhName.setText(roommate.getName());

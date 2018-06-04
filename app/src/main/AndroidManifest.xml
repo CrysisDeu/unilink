@@ -34,16 +34,30 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".user.ChangePasswordActivity" />
-        <activity android:name=".user.ChangePreferenceActivity" />
-        <activity android:name=".user.MyFavoriteActivity" />
-        <activity android:name=".user.MyPostActivity" />
-        <activity android:name=".user.AuthenticationActivity" />
+        <activity
+            android:name=".user.ChangePasswordActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".user.ChangePreferenceActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".user.MyFavoriteActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".user.MyPostActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".user.AuthenticationActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".user.ChangeProfileActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".house.HousePostActivity" />
-        <activity android:name=".house.AddPostActivity" />
+        <activity
+            android:name=".house.HousePostActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".house.AddPostActivity"
+            android:windowSoftInputMode="stateHidden" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -62,7 +76,9 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".user.Profile" />
-        <activity android:name=".user.InitiateProfile" />
+        <activity
+            android:name=".user.InitiateProfile"
+            android:windowSoftInputMode="stateHidden" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -75,9 +91,15 @@
                 android:resource="@xml/picker_provider_paths" />
         </provider>
 
-        <activity android:name=".chat.RealtimeDbChatActivity" />
-        <activity android:name=".roommate.RoommatePostActivity" />
-        <activity android:name=".user.EditPostActivity" />
+        <activity
+            android:name=".chat.RealtimeDbChatActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".roommate.RoommatePostActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".user.EditPostActivity"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>
