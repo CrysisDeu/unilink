@@ -410,11 +410,6 @@ public class AddPostActivity extends AppCompatActivity implements IPickResult, D
             }
         });
 
-        // toolbar setup
-        /*toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);*/
-        // back button setup
         ImageView backBtn = findViewById(R.id.back_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
