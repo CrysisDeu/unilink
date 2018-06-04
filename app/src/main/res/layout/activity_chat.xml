@@ -10,7 +10,7 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="#6d48e5">
 
         <ImageView
