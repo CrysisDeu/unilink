@@ -75,7 +75,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".user.Profile" />
+        <activity
+            android:name=".user.Profile"
+            android:windowSoftInputMode="stateHidden"
+            />
         <activity
             android:name=".user.InitiateProfile"
             android:windowSoftInputMode="stateHidden" />
