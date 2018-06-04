@@ -1,5 +1,6 @@
 package com.teamxod.unilink.user;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -96,6 +99,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
             @Override
             public void onClick(View v) {
                 dialog = PickImageDialog.build(new PickSetup()).show(InitiateProfile.this);
+                hideKeyBoard(v);
 
             }
         });
@@ -104,6 +108,7 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyBoard(v);
                 name = mEditName.getText().toString();
                 if (name.equals("")) {
                     Toast.makeText(InitiateProfile.this, NAME_INVALID, Toast.LENGTH_SHORT).show();
@@ -129,6 +134,32 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
                 Intent mainIntent = new Intent(InitiateProfile.this, MainActivity.class);
                 startActivity(mainIntent);
                 finish();
+            }
+        });
+
+        // hide kb for gender spinner
+        mGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hideKeyBoard(view);
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Add new category")) {
+                    // do your stuff
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        mYearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                hideKeyBoard(view);
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Add new category")) {
+                    // do your stuff
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
@@ -174,6 +205,18 @@ public class InitiateProfile extends AppCompatActivity implements IPickResult {
             return false;
         } else {
             return true; // not login, no profile photo
+        }
+    }
+
+    // hide keyboard
+    // This method is used to hide the keyboard
+    // If want to use, simply copy the whole method to your file
+    // Then call hideKeyBoard(v) in the onclick method
+    private void hideKeyBoard(View view) {
+        View vv = findViewById(android.R.id.content);
+        if (vv != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 

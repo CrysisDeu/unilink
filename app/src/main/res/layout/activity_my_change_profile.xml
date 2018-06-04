@@ -117,6 +117,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/gender_layout"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"
@@ -125,12 +126,12 @@
 
 
                     <TextView
+                        style="@style/text_field"
                         android:layout_width="128dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
-                        android:text="Gender"
-                        style="@style/text_field" />
+                        android:text="Gender" />
 
                     <Spinner
                         android:id="@+id/gender_spinner"
@@ -143,6 +144,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/year_layout"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="#FFFFFF"
@@ -150,12 +152,12 @@
 
 
                     <TextView
+                        style="@style/text_field"
                         android:layout_width="128dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
-                        android:text="Year of Graduation"
-                        style="@style/text_field" />
+                        android:text="Year of Graduation" />
 
                     <Spinner
                         android:id="@+id/year_spinner"
