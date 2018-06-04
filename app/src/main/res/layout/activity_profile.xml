@@ -148,11 +148,12 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
-                    android:text="Contact"
                     android:textAllCaps="false"
+                    android:background="@drawable/round_button"
+                    android:text="@string/button_contact"
                     android:textColor="@color/white"
-                    android:textSize="20sp"></Button>
+                    android:textSize="@dimen/m_font_size"
+                    android:textStyle="bold" />
             </LinearLayout>
         </ScrollView>
 

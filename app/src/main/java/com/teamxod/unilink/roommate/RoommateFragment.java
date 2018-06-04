@@ -6,10 +6,8 @@ import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -110,7 +108,6 @@ public class RoommateFragment extends Fragment {
         }
     };
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_roommate, container, false); // get the GUI
@@ -127,7 +124,7 @@ public class RoommateFragment extends Fragment {
 //        visibleReference.keepSynced(true);
 //        preferenceReference.keepSynced(true);
         roommateUID = new ArrayList<>();
-        queue = new PriorityQueue<>(new Comparator<Pair>() {
+        queue = new PriorityQueue<>(1000, new Comparator<Pair>() {
             @Override
             public int compare(Pair o1, Pair o2) {
                 return (int) ((o2.getValue() - o1.getValue()) * 1000);
@@ -276,6 +273,8 @@ public class RoommateFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(myUid)) {
                     hasPreference = true;
+                    loadData();
+
                 } else {
                     hasPreference = false;
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -295,13 +294,58 @@ public class RoommateFragment extends Fragment {
                     });
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    loadNaN();
                 }
-                loadData();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    private void loadNaN() {
+        visibleReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                roommateUID.clear();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String userID = userSnapshot.getKey();
+                    if (userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
+                        roommateUID.add(userID);
+                    if (getActivity() == null) {
+                        return;
+                    }
+                    //sort array
+
+                    RoommateListAdapter adapter = new RoommateListAdapter(getActivity(), roommateUID);
+                    listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
+                            if (position > 0) {
+                                myIntent.putExtra("uid", roommateUID.get(position - 1));
+                            } else {
+                                myIntent.putExtra("uid", roommateUID.get(position));
+                            }
+                            startActivity(myIntent);
+                        }
+                    });
+                }
+
+                boolean isVisible;
+                if (dataSnapshot.hasChild(myUid))
+                    isVisible = dataSnapshot.child(myUid).getValue(Boolean.class);
+                else
+                    isVisible = false;
+                setupVisible(isVisible);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
             }
         });
     }
