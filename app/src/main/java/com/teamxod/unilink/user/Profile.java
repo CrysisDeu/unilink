@@ -33,6 +33,8 @@ public class Profile extends AppCompatActivity implements Serializable {
     private TextView mYear;
     private TextView mDescription;
     private Button mContact;
+    private String uid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class Profile extends AppCompatActivity implements Serializable {
 
 
         Bundle b = getIntent().getExtras();
-        String uid = b.getString("uid");
+        uid = b.getString("uid");
         DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -98,7 +100,7 @@ public class Profile extends AppCompatActivity implements Serializable {
             }
         });
 
-        if (uid.equals(mAuth.getCurrentUser().getUid())) {
+        if (uid.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
             mContact.setVisibility(View.GONE);
         }
     }
