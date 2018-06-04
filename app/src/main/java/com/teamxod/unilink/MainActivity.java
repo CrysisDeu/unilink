@@ -38,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
-//        FirebaseDatabase.getInstance().getReference().child("Visible").keepSynced(true);
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        database.child("Visible").keepSynced(true);
+        database.child("Preference").keepSynced(true);
 
         //check the need for initiate user profile
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();

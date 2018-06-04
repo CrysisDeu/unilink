@@ -6,10 +6,13 @@ import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,8 +33,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.R;
 import com.teamxod.unilink.user.ChangePreferenceActivity;
+import com.teamxod.unilink.user.Preference;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 public class RoommateFragment extends Fragment {
 
@@ -51,6 +57,11 @@ public class RoommateFragment extends Fragment {
     private AnimatorSet backAnimatorSet;
     //animator to hide element
     private AnimatorSet hideAnimatorSet;
+//    SharedPreferences sharedPreferences;
+
+
+    private PriorityQueue<Pair> queue;
+    private int user_count;
 
     //sort matching score
     //set up onTouchListener
@@ -99,6 +110,7 @@ public class RoommateFragment extends Fragment {
         }
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_roommate, container, false); // get the GUI
@@ -112,10 +124,15 @@ public class RoommateFragment extends Fragment {
         visibleReference = database.child("Visible");
         myUid = auth.getCurrentUser().getUid();
         preferenceReference = database.child("Preference");
-        visibleReference.keepSynced(true);
-        preferenceReference.keepSynced(true);
-
+//        visibleReference.keepSynced(true);
+//        preferenceReference.keepSynced(true);
         roommateUID = new ArrayList<>();
+        queue = new PriorityQueue<>(new Comparator<Pair>() {
+            @Override
+            public int compare(Pair o1, Pair o2) {
+                return (int) ((o2.getValue() - o1.getValue()) * 1000);
+            }
+        });
 
         setButton(layout);
 
@@ -131,29 +148,27 @@ public class RoommateFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 roommateUID.clear();
+                ArrayList<Double> scores = new ArrayList<>(0);
+
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String userID = userSnapshot.getKey();
-                    if (userSnapshot.getValue(Boolean.class) && !userID.equals(myUid))
+                    if (userSnapshot.getValue(Boolean.class) && !userID.equals(myUid)) {
                         roommateUID.add(userID);
+//                        scores.add(score);
+//                        Log.d("SCORE", Double.toString(score));
+                    }
                     if (getActivity() == null) {
                         return;
                     }
-                    //sort array
+                }
 
-                    RoommateListAdapter adapter = new RoommateListAdapter(getActivity(), roommateUID);
-                    listView.setAdapter(adapter);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        public void onItemClick(AdapterView<?> parent, View view,
-                                                int position, long id) {
-                            Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
-                            if (position > 0) {
-                                myIntent.putExtra("uid", roommateUID.get(position - 1));
-                            } else {
-                                myIntent.putExtra("uid", roommateUID.get(position));
-                            }
-                            startActivity(myIntent);
-                        }
-                    });
+                Log.d("SIZE", Integer.toString(roommateUID.size()));
+                user_count = 0;
+
+                int i = 0;
+                for (String otherUID : roommateUID) {
+                    getScore(myUid, otherUID, i, roommateUID.size());
+                    i++;
                 }
 
                 boolean isVisible;
@@ -167,6 +182,56 @@ public class RoommateFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+
+    private void getScore(final String myUid, final String otherUid, final int index, final int total) {
+
+        preferenceReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Preference myPreference = dataSnapshot.child(myUid).getValue(Preference.class);
+                Preference posterPreference = dataSnapshot.child(otherUid).getValue(Preference.class);
+
+                Recommendation recommendation = new Recommendation(myPreference, posterPreference);
+                queue.add(new Pair(index, recommendation.getScore()));
+                Log.d("WHY", "onDataChange: " + queue.size());
+                user_count++;
+
+                if (index + 1 == total) {
+
+                    final ArrayList<String> sortUID = new ArrayList<>();
+
+                    while (!queue.isEmpty()) {
+                        Pair pair = queue.poll();
+                        Log.d("SORT", Double.toString(pair.getValue()));
+                        sortUID.add(roommateUID.get(pair.getKey()));
+                        RoommateListAdapter adapter = new RoommateListAdapter(getActivity(), sortUID);
+                        listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            public void onItemClick(AdapterView<?> parent, View view,
+                                                    int position, long id) {
+                                Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
+                                if (position > 0) {
+                                    myIntent.putExtra("uid", sortUID.get(position - 1));
+                                } else {
+                                    myIntent.putExtra("uid", sortUID.get(position));
+                                }
+                                startActivity(myIntent);
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //default
             }
         });
     }
