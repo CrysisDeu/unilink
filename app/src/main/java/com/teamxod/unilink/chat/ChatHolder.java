@@ -52,18 +52,18 @@ public class ChatHolder extends RecyclerView.ViewHolder {
         setIsSender(is_sender(chat));
     }
 
-    public boolean is_sender(Chat chat) {
+    private boolean is_sender(Chat chat) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         return currentUser != null && chat.getmUid().equals(currentUser.getUid());
     }
 
 
-    public void setText(String text) {
+    private void setText(String text) {
         mTextField.setText(text);
     }
 
     // if the message is sent by current user, the message should appear at right
-    public void setIsSender(boolean isSender) {
+    private void setIsSender(boolean isSender) {
         final int color;
         final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 24, 0, 0);

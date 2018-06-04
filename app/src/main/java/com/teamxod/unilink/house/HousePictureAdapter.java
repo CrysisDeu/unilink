@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 class HousePictureAdapter extends PagerAdapter {
 
-    private Context context;
-    private ArrayList<String> images;
+    private final Context context;
+    private final ArrayList<String> images;
 
     HousePictureAdapter(Context context, ArrayList<String> images) {
         this.context = context;

@@ -30,8 +30,6 @@ import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
     private String uid;
 
     @Override
@@ -43,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
 //        FirebaseDatabase.getInstance().getReference().child("Visible").keepSynced(true);
 
         //check the need for initiate user profile
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference mUserReference = mDatabase.child("Users");
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if (mAuth == null || mAuth.getCurrentUser() == null) {
             Intent auth = new Intent(MainActivity.this, AuthenticationActivity.class);
             startActivity(auth);

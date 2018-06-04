@@ -15,10 +15,10 @@ import java.util.List;
 public class TagViewGroup extends ViewGroup {
 
     //存储所有子View
-    private List<List<View>> mAllChildViews = new ArrayList<>();
+    private final List<List<View>> mAllChildViews = new ArrayList<>();
 
     //每一行的高度
-    private List<Integer> mLineHeight = new ArrayList<>();
+    private final List<Integer> mLineHeight = new ArrayList<>();
 
     public TagViewGroup(Context context) {
         this(context, null);
@@ -108,7 +108,7 @@ public class TagViewGroup extends ViewGroup {
         int lineHeight = 0;
 
         //get current line view
-        List<View> lineViews = new ArrayList<View>();
+        List<View> lineViews = new ArrayList<>();
 
         int childCount = getChildCount();
 

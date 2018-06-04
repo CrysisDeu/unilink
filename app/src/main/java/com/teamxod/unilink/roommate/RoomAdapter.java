@@ -13,19 +13,17 @@ import com.teamxod.unilink.R;
 import java.util.ArrayList;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder> {
-    private ArrayList<Room> rooms;
-
+    private final ArrayList<Room> rooms;
     private Context context;
 
     public RoomAdapter(Context context, ArrayList<Room> rooms) {
-        this.rooms = rooms;
         this.context = context;
+        this.rooms = rooms;
     }
 
     @NonNull
     @Override
     public RoomAdapter.RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(R.layout.house_room_list_item, parent, false);
@@ -51,8 +49,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     class RoomViewHolder extends RecyclerView.ViewHolder {
-        TextView typeTextView;
-        TextView priceTextView;
+        final TextView typeTextView;
+        final TextView priceTextView;
 
         RoomViewHolder(View itemView) {
             super(itemView);

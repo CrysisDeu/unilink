@@ -44,10 +44,10 @@ import butterknife.OnClick;
  */
 public class RealtimeDbChatActivity extends AppCompatActivity
         implements FirebaseAuth.AuthStateListener {
-    static final DatabaseReference messages = FirebaseDatabase.getInstance().getReference().child("Messages");
-    static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chat");
+    private static final DatabaseReference messages = FirebaseDatabase.getInstance().getReference().child("Messages");
+    private static final DatabaseReference chats = FirebaseDatabase.getInstance().getReference().child("Chat");
     private static final String TAG = "RealtimeDatabase";
-    static Query sChatQuery;
+    private static Query sChatQuery;
     @BindView(R.id.messagesList)
     RecyclerView mRecyclerView;
     @BindView(R.id.sendButton)
@@ -57,11 +57,8 @@ public class RealtimeDbChatActivity extends AppCompatActivity
     @BindView(R.id.emptyTextView)
     TextView mEmptyListMessage;
     private String other_id;
-    private String other_name;
     private String uid;
     private String name;
-    private TextView mTitleName;
-    private ImageView mBackButton;
     private Uri other_photo;
     private Uri photo;
 
@@ -79,7 +76,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
 
         // get user uid and name
         other_id = intent.getStringExtra("user_id");
-        other_name = intent.getStringExtra("user_name");
+        String other_name = intent.getStringExtra("user_name");
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         DatabaseReference user_reference = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -108,11 +105,11 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         });
 
         sChatQuery = FirebaseDatabase.getInstance().getReference().child("Messages").child(uid).child(other_id).limitToLast(100);
-        mTitleName = findViewById(R.id.title_user_name);
+        TextView mTitleName = findViewById(R.id.title_user_name);
         mTitleName.setText(other_name);
 
         // back button
-        mBackButton = findViewById(R.id.back_button);
+        ImageView mBackButton = findViewById(R.id.back_button);
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,7 +177,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         mMessageEdit.setText("");
     }
 
-    RecyclerView.Adapter newAdapter() {
+    private RecyclerView.Adapter newAdapter() {
         FirebaseRecyclerOptions<Chat> options =
                 new FirebaseRecyclerOptions.Builder<Chat>()
                         .setQuery(sChatQuery, Chat.class)
@@ -209,7 +206,7 @@ public class RealtimeDbChatActivity extends AppCompatActivity
         };
     }
 
-    void onAddMessage(long time) {
+    private void onAddMessage(long time) {
         DatabaseReference self;
         DatabaseReference other;
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearlayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,9 +9,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:paddingTop="@dimen/small_margin"
-        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
         android:text="Room Type"
         android:textStyle="bold"
         style="@style/text_field"/>
@@ -21,8 +20,8 @@
         android:id="@+id/room_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginLeft="0dp"
+        android:layout_gravity="start"
+        android:layout_marginStart="0dp"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal"
         android:paddingTop="@dimen/small_margin"
@@ -62,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/large_margin"
-            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
             android:text="Price Per Month"
             android:textStyle="bold"
             style="@style/text_field"/>

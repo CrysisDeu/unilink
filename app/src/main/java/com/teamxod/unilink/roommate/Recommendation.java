@@ -12,21 +12,20 @@ import java.util.ArrayList;
 class Recommendation {
 
     private final int paramNumber = 12;
-    private final double close = 0.2;   // decide if they are close for a parameter
-    double innerProduct = 0;
-    double lengthOne = 0;
-    double lengthTwo = 0;
-    private Preference preference1;
-    private Preference preference2;
-    private ArrayList<String> tagList;
+    private double innerProduct = 0;
+    private double lengthOne = 0;
+    private double lengthTwo = 0;
+    private final Preference preference1;
+    private final Preference preference2;
+    private final ArrayList<String> tagList;
     private double score;
     /**
      * Arrays are used to store users' parameter.
      * The order is : Bring, Pet, Smoke, Drink, Party, sleepTime, cleanTime, surfing, hiking,
      * skiing, gaming, language
      */
-    private double Array1[];
-    private double Array2[];
+    private final double[] Array1;
+    private final double[] Array2;
 
     Recommendation(Preference user1, Preference user2) {
         Array1 = new double[paramNumber];
@@ -136,6 +135,7 @@ class Recommendation {
         if (Array1[3] == -1 && Array2[3] == -1) {
             tagList.add("not drink");
         }
+        double close = 0.2;
         if (Array1[5] - Array2[5] < close) {
             tagList.add("similar sleep time");
         }

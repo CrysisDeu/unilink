@@ -26,12 +26,9 @@ import com.teamxod.unilink.R;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
-    private ImageView mBackButton;
     private EditText original_password;
     private EditText new_password;
     private EditText confirm_password;
-    private CardView save;
-    private TextView forget_password;
     private FirebaseAuth mAuth;
     private String newpasswd;
 
@@ -41,14 +38,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_change_password);
 
-        mBackButton = findViewById(R.id.back_button);
+        ImageView mBackButton = findViewById(R.id.back_button);
 
         mAuth = FirebaseAuth.getInstance();
         original_password = findViewById(R.id.original_password);
         new_password = findViewById(R.id.new_password);
         confirm_password = findViewById(R.id.confirm_password);
-        save = findViewById(R.id.Save);
-        forget_password = findViewById(R.id.forget_password);
+        CardView save = findViewById(R.id.Save);
+        TextView forget_password = findViewById(R.id.forget_password);
         original_password.addTextChangedListener(new TextWatcher() {
 
             @Override

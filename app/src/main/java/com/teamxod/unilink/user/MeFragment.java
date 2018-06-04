@@ -32,16 +32,9 @@ public class MeFragment extends Fragment {
 
     private ImageView mProfilePic;
     private TextView mName;
-    private LinearLayout my_favorite;
-    private LinearLayout my_post;
-    private LinearLayout changePassword;
-    private TextView logout;
-    private LinearLayout changeProfile;
-    private LinearLayout preference;
 
 
     private GoogleApiClient mGoogleApiClient;
-    private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private String uid;
     private User user;
@@ -53,7 +46,7 @@ public class MeFragment extends Fragment {
         mName = layout.findViewById(R.id.name);
         mProfilePic = layout.findViewById(R.id.profile_pic);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth != null && mAuth.getCurrentUser() != null) {
@@ -84,12 +77,12 @@ public class MeFragment extends Fragment {
 
 
         // my :
-        my_favorite = layout.findViewById(R.id.my_favorite_l);
-        my_post = layout.findViewById(R.id.my_post_l);
-        changePassword = layout.findViewById(R.id.change_password_l);
-        logout = layout.findViewById(R.id.logout);
-        changeProfile = layout.findViewById(R.id.change_profile_l);
-        preference = layout.findViewById(R.id.set_preference_l);
+        LinearLayout my_favorite = layout.findViewById(R.id.my_favorite_l);
+        LinearLayout my_post = layout.findViewById(R.id.my_post_l);
+        LinearLayout changePassword = layout.findViewById(R.id.change_password_l);
+        TextView logout = layout.findViewById(R.id.logout);
+        LinearLayout changeProfile = layout.findViewById(R.id.change_profile_l);
+        LinearLayout preference = layout.findViewById(R.id.set_preference_l);
 
         // GoogleApiClient to logout
         //Use app context to prevent leaks using activity

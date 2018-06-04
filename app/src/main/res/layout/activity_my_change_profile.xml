@@ -66,7 +66,7 @@
                     <TextView
                         android:layout_width="128dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="Name"
                         style="@style/text_field" />
@@ -75,13 +75,14 @@
                         android:id="@+id/edit_name"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_weight="1"
-                        android:gravity="right|center_vertical"
+                        android:gravity="end|center_vertical"
                         android:singleLine="true"
                         android:hint="Your Name"
                         android:textSize="20sp"
-                        style="@style/edit_text"/>
+                        style="@style/edit_text"
+                        android:inputType="" />
 
                 </LinearLayout>
 
@@ -97,7 +98,7 @@
                     <TextView
                         android:layout_width="128dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="@string/e_mail"
                         style="@style/text_field" />
@@ -106,9 +107,9 @@
                         android:id="@+id/email"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_weight="1"
-                        android:gravity="right|center_vertical"
+                        android:gravity="end|center_vertical"
                         android:text="myname@unilink.com"
                         android:textSize="20sp" />
 
@@ -126,7 +127,7 @@
                     <TextView
                         android:layout_width="128dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="Gender"
                         style="@style/text_field" />
@@ -137,7 +138,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:entries="@array/genders"
-                        android:paddingRight="16dp" />
+                        android:paddingEnd="16dp" />
 
                 </LinearLayout>
 
@@ -151,7 +152,7 @@
                     <TextView
                         android:layout_width="128dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="Year of Graduation"
                         style="@style/text_field" />
@@ -162,7 +163,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:entries="@array/years"
-                        android:paddingRight="16dp" />
+                        android:paddingEnd="16dp" />
 
                 </LinearLayout>
 
@@ -177,7 +178,7 @@
                     <TextView
                         android:layout_width="128dp"
                         android:layout_height="48dp"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="Description"
                         style="@style/text_field" />

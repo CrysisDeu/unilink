@@ -48,27 +48,16 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
     private User poster;
     private String postID;
     private boolean isFavourite;
-    private ArrayList<User> roommateList;
     private ArrayList<String> favoriteList;
 
-    private ViewPager housePicture;
-    private RecyclerView roommateListView;
-    private RecyclerView roomListView;
-
-    private HousePictureAdapter housePictureAdapter;
-    private HouseMateAdapter roommateAdapter;
-    private RoomAdapter roomAdapter;
-
-    private LinearLayoutManager layoutManager;
-
-    private GoogleMap houseMap;
-    private MapFragment mapFragment;
+    //private ArrayList<User> roommateList;
+    //private RecyclerView roommateListView;
+    //private HouseMateAdapter roommateAdapter;
 
     private DatabaseReference database;
     private DatabaseReference favoriteReference;
 
     private ToggleButton favorite_btn;
-    private Button contact_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,18 +213,18 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void setupHousePicture() {
-        housePicture = findViewById(R.id.house_image);
-        housePictureAdapter = new HousePictureAdapter(this, (ArrayList<String>) house.getPictures());
+        ViewPager housePicture = findViewById(R.id.house_image);
+        HousePictureAdapter housePictureAdapter = new HousePictureAdapter(this, (ArrayList<String>) house.getPictures());
         housePicture.setAdapter(housePictureAdapter);
     }
 
     private void setupRoom() {
         ArrayList<Room> roomList = (ArrayList) house.getRooms();
-        roomListView = findViewById(R.id.house_rooms);
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView roomListView = findViewById(R.id.house_rooms);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         roomListView.setLayoutManager(layoutManager);
         roomListView.setHasFixedSize(true);
-        roomAdapter = new RoomAdapter(this, roomList);
+        RoomAdapter roomAdapter = new RoomAdapter(this, roomList);
         roomListView.setAdapter(roomAdapter);
     }
 
@@ -259,7 +248,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
         ScrollView scrollView = findViewById(R.id.house_content);
         MapContainer map_container = findViewById(R.id.map_container);
         map_container.setScrollView(scrollView);
-        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.house_map);
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.house_map);
         mapFragment.getMapAsync(this);
     }
 
@@ -272,7 +261,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
             }
         });
 
-        contact_btn = findViewById(R.id.house_button_contact);
+        Button contact_btn = findViewById(R.id.house_button_contact);
         contact_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -350,7 +339,7 @@ public class HousePostActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap map) {
 
-        houseMap = map;
+        GoogleMap houseMap = map;
         LatLng houseLatLng;
 
         String location = house.getLocation();

@@ -57,20 +57,12 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
     //start card
     private CardView mStartCard;
     private LinearLayout mStartContainer;
-    private Button mGoogleSignInButton;
-    private Button mSignUpButton;
-    private TextView mSignInButton;
 
     //sign-up card
     private LinearLayout mSignUpContainer;
-    private ImageView mCancleSignUpButton;
-    private Button mConfirmSignUp;
 
     //sign-in card
     private LinearLayout mSignInContainer;
-    private ImageView mCancleSignInButton;
-    private Button mConfirmSignIn;
-    private TextView mForgotPassword;
 
 
     //firebase
@@ -89,22 +81,22 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
 
         // start card
         mStartContainer = findViewById(R.id.start_container);
-        mGoogleSignInButton = findViewById(R.id.google_sign_in_button);
-        mSignUpButton = findViewById(R.id.email_sign_up);
+        Button mGoogleSignInButton = findViewById(R.id.google_sign_in_button);
+        Button mSignUpButton = findViewById(R.id.email_sign_up);
 
 
         // sign-up card
         mSignUpContainer = findViewById(R.id.sign_up_container);
         mSignUpButton = findViewById(R.id.email_sign_up);
-        mCancleSignUpButton = findViewById(R.id.cancle_sign_up_button);
-        mConfirmSignUp = findViewById(R.id.confirm_sign_up);
+        ImageView mCancleSignUpButton = findViewById(R.id.cancle_sign_up_button);
+        Button mConfirmSignUp = findViewById(R.id.confirm_sign_up);
 
         // sign-in card
         mSignInContainer = findViewById(R.id.sign_in_container);
-        mSignInButton = findViewById(R.id.sign_in_button);
-        mCancleSignInButton = findViewById(R.id.cancle_sign_in_button);
-        mConfirmSignIn = findViewById(R.id.confirm_sign_in);
-        mForgotPassword = findViewById(R.id.forget_password);
+        TextView mSignInButton = findViewById(R.id.sign_in_button);
+        ImageView mCancleSignInButton = findViewById(R.id.cancle_sign_in_button);
+        Button mConfirmSignIn = findViewById(R.id.confirm_sign_in);
+        TextView mForgotPassword = findViewById(R.id.forget_password);
 
 
         // Define the animators
@@ -188,7 +180,6 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
                     Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_NOT_MATCH,
                             Toast.LENGTH_SHORT);
                     toast.show();
-                    return;
                 } else {
                     createAccount(mEmail, mPassword);
                 }
@@ -245,7 +236,6 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
                     Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_TOO_SHORT_2,
                             Toast.LENGTH_SHORT);
                     toast.show();
-                    return;
                 } else {
                     signIn(mEmail, mPassword);
                 }
@@ -335,7 +325,6 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
                 signIn();
                 break;
             default:
-                return;
         }
     }
 
@@ -508,8 +497,7 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
     //helper method
     private int dpToPx(int dp) {
         Resources r = getResources();
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
-        return px;
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
     }
 
     private boolean isEmailValid(CharSequence email) {

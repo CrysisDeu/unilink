@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="76dp"
+            android:layout_marginStart="76dp"
             android:layout_marginTop="14dp"
             android:orientation="vertical">
 
@@ -57,7 +57,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -92,7 +92,6 @@
 
 
                 <TextView
-                    android:id="@+id/rScore_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

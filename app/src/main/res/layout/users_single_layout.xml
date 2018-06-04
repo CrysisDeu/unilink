@@ -16,7 +16,7 @@
         android:id="@+id/user_single_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="88dp"
+        android:layout_marginEnd="88dp"
         android:layout_alignTop="@+id/user_single_image"
         android:layout_toEndOf="@+id/user_single_image"
         android:text="Display Name"
@@ -45,12 +45,12 @@
         android:layout_marginEnd="0dp"
         android:text="" />
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="8dp"
-        android:background="#5a5a5a"></LinearLayout>
+        android:background="#5a5a5a" />
 
 
 </RelativeLayout>
