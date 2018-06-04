@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/large_margin"
                 android:text=""
-                android:lineSpacingMultiplier="1.5"
+                android:lineSpacingExtra="6dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/s_font_size" />
 
