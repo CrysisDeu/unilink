@@ -60,7 +60,7 @@ public class RoommatePostActivity extends AppCompatActivity {
         myUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
-        Button back_btn = findViewById(R.id.roommate_button_back);
+        ImageView back_btn = findViewById(R.id.back_button);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
