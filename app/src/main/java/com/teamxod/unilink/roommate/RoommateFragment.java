@@ -138,6 +138,8 @@ public class RoommateFragment extends Fragment {
                     if (getActivity() == null) {
                         return;
                     }
+                    //sort array
+
                     RoommateListAdapter adapter = new RoommateListAdapter(getActivity(), roommateUID);
                     listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
