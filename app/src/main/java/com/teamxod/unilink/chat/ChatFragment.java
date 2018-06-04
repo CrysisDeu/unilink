@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChatsFragment extends Fragment {
+public class ChatFragment extends Fragment {
 
 
     // Firebase
@@ -51,7 +51,7 @@ public class ChatsFragment extends Fragment {
     private RecyclerView mConvList;
 
 
-    public ChatsFragment() {
+    public ChatFragment() {
         // Required empty public constructor
     }
 

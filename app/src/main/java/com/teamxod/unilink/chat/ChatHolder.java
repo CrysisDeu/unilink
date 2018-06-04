@@ -1,6 +1,7 @@
 package com.teamxod.unilink.chat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.teamxod.unilink.R;
+import com.teamxod.unilink.user.Profile;
 
 public class ChatHolder extends RecyclerView.ViewHolder {
     //private final TextView mNameField;
@@ -92,7 +94,7 @@ public class ChatHolder extends RecyclerView.ViewHolder {
 //                .setColorFilter(color, PorterDuff.Mode.SRC);
     }
 
-    public void setImage(Chat chat, Context context, Uri mOtherPhoto, Uri mPhoto) {
+    public void setImage(final Chat chat, final Context context, Uri mOtherPhoto, Uri mPhoto) {
         ImageView img;
         Uri uri;
         if (is_sender(chat)) {
@@ -106,5 +108,15 @@ public class ChatHolder extends RecyclerView.ViewHolder {
                 .load(uri)
                 .apply(RequestOptions.circleCropTransform())
                 .into(img);
+
+        // click avatar to show profile
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, Profile.class);
+                i.putExtra("uid", chat.getmUid());
+                context.startActivity(i);
+            }
+        });
     }
 }

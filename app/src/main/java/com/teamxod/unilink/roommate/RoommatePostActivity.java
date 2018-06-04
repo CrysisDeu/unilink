@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.teamxod.unilink.R;
 import com.teamxod.unilink.chat.RealtimeDbChatActivity;
 import com.teamxod.unilink.user.Preference;
+import com.teamxod.unilink.user.Profile;
 import com.teamxod.unilink.user.User;
 
 import java.text.DecimalFormat;
@@ -189,5 +190,15 @@ public class RoommatePostActivity extends AppCompatActivity {
                 .load(user.getPicture())
                 .apply(RequestOptions.circleCropTransform())
                 .into(picture);
+
+        // click avatar to show profile
+        picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RoommatePostActivity.this, Profile.class);
+                i.putExtra("uid", userUID);
+                startActivity(i);
+            }
+        });
     }
 }
