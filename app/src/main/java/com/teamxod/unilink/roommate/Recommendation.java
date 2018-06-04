@@ -12,6 +12,7 @@ import java.util.ArrayList;
 class Recommendation {
 
     private final int paramNumber = 12;
+    private final double deuniform = 3;
     private double innerProduct = 0;
     private double lengthOne = 0;
     private double lengthTwo = 0;
@@ -107,11 +108,9 @@ class Recommendation {
         lengthTwo = Math.pow(lengthTwo, 0.5);
         score = innerProduct / (lengthOne * lengthTwo);
         score = Math.toDegrees(Math.acos(score));
-        // avoid score = 0
-        score += 1;
-        double base = Math.pow(181, 0.01);
         // de-uniform the score distribution
-        score = Math.log(score) / Math.log(base);
+        score = score / deuniform;
+        score = 100 - score;
         DecimalFormat round = new DecimalFormat(".#");
         round.setRoundingMode(RoundingMode.UP);
         score = Double.parseDouble(round.format(score));
