@@ -148,7 +148,7 @@
                 android:id="@+id/roommate_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="6dp"
+                android:lineSpacingExtra="4dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/s_font_size" />
 
