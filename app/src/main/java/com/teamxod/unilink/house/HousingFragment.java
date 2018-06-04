@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -138,7 +137,7 @@ public class HousingFragment extends Fragment {
                     String term = house.child("leasingLength").getValue(String.class);
                     int price = house.child("rooms").child("0").child("price").getValue(Integer.class);
                     String imageId = house.child("pictures").child("0").getValue(String.class);
-                    Log.d("ADDPOST", "a" + imageId);
+                    //Log.d("ADDPOST", "a" + imageId);
                     HousePost post = new HousePost(key, type, title, price, term, location, imageId);
                     posts.add(post);
                 }

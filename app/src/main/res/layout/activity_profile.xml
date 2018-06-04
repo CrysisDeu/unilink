@@ -144,9 +144,32 @@
 
                 </LinearLayout>
 
-
+                <Button
+                    android:id="@+id/profile_contact"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:text="Contact"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"></Button>
             </LinearLayout>
         </ScrollView>
+
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45">
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
