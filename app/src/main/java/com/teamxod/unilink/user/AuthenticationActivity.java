@@ -257,10 +257,6 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
                     return;
                 }
                 sendResetEmail(mEmail);
-
-                Toast toast = Toast.makeText(getApplicationContext(), PASSWORD_RESST_SENT,
-                        Toast.LENGTH_SHORT);
-                toast.show();
             }
         });
     }
@@ -475,6 +471,15 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d("Foreget passowrd", "Email sent.");
+                            Toast.makeText(getApplicationContext(), PASSWORD_RESST_SENT,
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            try {
+                                throw task.getException();
+                            } catch (Exception e) {
+                                Toast.makeText(getApplicationContext(), "Email is not found.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
