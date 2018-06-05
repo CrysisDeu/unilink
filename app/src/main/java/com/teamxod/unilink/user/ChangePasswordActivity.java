@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
@@ -15,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +23,8 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.teamxod.unilink.R;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -112,14 +114,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                 // check all filled first
                 if (new_password.getText().toString().equals("") || new_password.getText().toString().equals("") || original_password.getText().toString().equals("")) {
-                    Snackbar.make(findViewById(R.id.Coordinator), "Please fill in all information !",
-                            Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(ChangePasswordActivity.this, "Please fill in all information !",
+                            LENGTH_SHORT).show();
                 }
                 // check new == confirm then
                 else if (!new_password.getText().toString().equals(confirm_password.getText().toString())) {
 
-                    Snackbar.make(findViewById(R.id.Coordinator), "Please make sure your new password is same as your confirm password !",
-                            Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(ChangePasswordActivity.this, "Please make sure your new password is same as your confirm password !",
+                            LENGTH_SHORT).show();
                 }
                 // ok
                 else {
@@ -143,21 +145,21 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                                                                if (task.isSuccessful()) {
                                                                                    Log.d("ChangePasswordActivity", "User password updated.");
                                                                                    // logout user
-                                                                                   Snackbar.make(findViewById(R.id.Coordinator), "Your password has been changed!", Snackbar.LENGTH_LONG)
+                                                                                   Toast.makeText(ChangePasswordActivity.this, "Your password has been changed!", LENGTH_SHORT)
                                                                                            .show();
                                                                                    FirebaseAuth.getInstance().signOut();
                                                                                    Intent reset = new Intent(ChangePasswordActivity.this, AuthenticationActivity.class);
                                                                                    reset.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                                    startActivity(reset);
                                                                                } else {
-                                                                                   Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
+                                                                                   Toast.makeText(ChangePasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG)
                                                                                            .show();
                                                                                }
                                                                            }
                                                                        }
                                                 );
                                     } else {
-                                        Snackbar.make(findViewById(R.id.Coordinator), task.getException().getMessage(), Snackbar.LENGTH_LONG)
+                                        Toast.makeText(ChangePasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG)
                                                 .show();
                                     }
                                 }
@@ -181,8 +183,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 sendResetEmail(mAuth.getCurrentUser().getEmail());
-                Snackbar.make(findViewById(R.id.Coordinator), "Your password reset link is sent to your email",
-                        Snackbar.LENGTH_LONG).show();
+                Toast.makeText(ChangePasswordActivity.this, "Your password reset link is sent to your email",
+                        LENGTH_SHORT).show();
 
             }
         });
