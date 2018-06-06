@@ -130,7 +130,7 @@ public class TagViewGroup extends ViewGroup {
                 lineHeight = childHeight + lp.topMargin + lp.bottomMargin;
 
                 //reset view list
-                lineViews = new ArrayList();
+                lineViews = new ArrayList<>();
             }
             lineWidth += childWidth + lp.leftMargin + lp.rightMargin;
             lineHeight = Math.max(lineHeight, childHeight + lp.topMargin + lp.bottomMargin);

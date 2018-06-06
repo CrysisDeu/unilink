@@ -82,7 +82,7 @@ public class AuthenticationActivity extends AppCompatActivity implements GoogleA
         // start card
         mStartContainer = findViewById(R.id.start_container);
         Button mGoogleSignInButton = findViewById(R.id.google_sign_in_button);
-        Button mSignUpButton = findViewById(R.id.email_sign_up);
+        Button mSignUpButton;
 
 
         // sign-up card

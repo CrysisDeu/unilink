@@ -183,7 +183,7 @@ public class RoommatePostActivity extends AppCompatActivity {
             temp = "Graduating " + user.getYearGraduate();
         schoolYear.setText(temp);
         bottomYear.setText(temp);
-        temp = "Graduating " + user.getYearGraduate();
+        //temp = "Graduating " + user.getYearGraduate();
         //graduateYear.setText(temp);
         description.setText(user.getDescription());
         Glide.with(this)
