@@ -19,14 +19,14 @@
             android:textSize="@dimen/l_font_size"
             android:textStyle="bold" />
 
-        <Button
+        <!--Button
             android:id="@+id/roommate_refresh"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_centerVertical="true"
             android:layout_marginTop="@dimen/small_margin"
             android:layout_marginStart="@dimen/small_margin"
-            android:background="@drawable/ic_refresh" />
+            android:background="@drawable/ic_refresh" /-->
 
     </RelativeLayout>
 

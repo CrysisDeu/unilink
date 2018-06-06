@@ -352,17 +352,17 @@ public class RoommateFragment extends Fragment {
     }
 
     private void setButton(View layout) {
-        Button refreshButton = layout.findViewById(R.id.roommate_refresh);
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new RoommateFragment())
-                        .commit();
-            }
-        });
+//        Button refreshButton = layout.findViewById(R.id.roommate_refresh);
+//        refreshButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getActivity()
+//                        .getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, new RoommateFragment())
+//                        .commit();
+//            }
+//        });
 
         Button preference_btn = layout.findViewById(R.id.roommate_preference);
         preference_btn.setOnClickListener(new View.OnClickListener() {
