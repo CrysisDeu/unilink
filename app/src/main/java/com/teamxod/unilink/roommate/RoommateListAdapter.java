@@ -93,6 +93,7 @@ class RoommateListAdapter extends BaseAdapter {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                if (user == null) return;
                 loadData(viewHolder, user, roommateUID);
             }
 
