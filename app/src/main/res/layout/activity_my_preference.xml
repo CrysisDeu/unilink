@@ -51,7 +51,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/large_margin"
-        android:paddingBottom="@dimen/middle_margin"
         >
 
         <TextView
@@ -72,6 +71,7 @@
         android:id="@+id/sleep_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:thumb="@color/purple"
         android:backgroundTint="@color/white"
         android:progressTint="@color/purple" />
@@ -81,8 +81,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/middle_margin"
-        android:paddingTop="@dimen/large_margin"
         >
 
         <TextView
@@ -104,6 +102,7 @@
         android:id="@+id/clean_seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:thumb="@color/purple"
         android:backgroundTint="@color/white"
         android:progressTint="@color/purple"/>
@@ -315,7 +314,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/large_margin"
             android:paddingTop="@dimen/large_margin"
             >
 
@@ -337,6 +335,7 @@
             android:id="@+id/smoke_seekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:thumb="@color/purple"
             android:backgroundTint="@color/white"
             android:progressTint="@color/purple" />
@@ -382,7 +381,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/large_margin"
             android:paddingTop="@dimen/large_margin"
             >
 
@@ -404,6 +402,7 @@
             android:id="@+id/drink_seekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp"
             android:thumb="@color/purple"
             android:backgroundTint="@color/white"
             android:progressTint="@color/purple" />
@@ -428,6 +427,7 @@
              android:id="@+id/save"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
+             android:layout_marginVertical="24dp"
              android:layout_gravity="center"
              android:background="@drawable/round_button"
              android:text="SAVE"
