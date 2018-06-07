@@ -161,6 +161,8 @@ public class ChatFragment extends Fragment {
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.child("name").getValue() == null) return;
+                        if (dataSnapshot.child("picture").getValue() == null) return;
 
                         final String userName = dataSnapshot.child("name").getValue().toString();
                         String userThumb = dataSnapshot.child("picture").getValue().toString();
