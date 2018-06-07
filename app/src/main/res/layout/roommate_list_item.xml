@@ -13,8 +13,7 @@
             android:id="@+id/headShot"
             android:layout_width="66dp"
             android:layout_height="66dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/ic_girl"/>
+            android:layout_marginTop="10dp" />
 
 
         <LinearLayout
