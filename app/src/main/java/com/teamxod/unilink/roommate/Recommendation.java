@@ -12,7 +12,7 @@ import java.util.ArrayList;
 class Recommendation {
 
     private final int paramNumber = 12;
-    private final double deuniform = 3;
+    private final double deuniform = 1.8;
     private double innerProduct = 0;
     private double lengthOne = 0;
     private double lengthTwo = 0;
@@ -64,10 +64,6 @@ class Recommendation {
         Array1[9] = preference1.getSkiing();
         Array1[10] = preference1.getGaming();
         Array1[11] = preference1.getLanguage();
-        for (int i = 0; i < paramNumber; i++) {
-            lengthOne += Math.pow(Array1[i], 2);
-        }
-
         Array2[0] = preference2.getBring();
         Array2[1] = preference2.getPet();
         Array2[2] = preference2.getSmoke();
@@ -111,6 +107,7 @@ class Recommendation {
         // de-uniform the score distribution
         score = score / deuniform;
         score = 100 - score;
+        score = 10 * Math.pow(score,0.5);
         DecimalFormat round = new DecimalFormat(".#");
         round.setRoundingMode(RoundingMode.UP);
         score = Double.parseDouble(round.format(score));
