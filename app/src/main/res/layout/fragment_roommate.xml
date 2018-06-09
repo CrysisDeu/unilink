@@ -3,38 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#6d48e5">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/roboto"
-            android:text="Roommate"
-            android:textColor="#FFFFFF"
-            android:textSize="@dimen/l_font_size"
-            android:textStyle="bold" />
-
-        <!--Button
-            android:id="@+id/roommate_refresh"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginStart="@dimen/small_margin"
-            android:background="@drawable/ic_refresh" /-->
-
-    </RelativeLayout>
 
     <ListView
         android:id="@+id/roommate_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp">
+        android:layout_marginTop="144dp"
+        >
 
     </ListView>
 
@@ -105,5 +80,23 @@
         </LinearLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#6d48e5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/roboto"
+            android:text="Roommate"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/l_font_size"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

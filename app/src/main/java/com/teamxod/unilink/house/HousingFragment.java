@@ -43,57 +43,6 @@ public class HousingFragment extends Fragment {
     private Spinner spinner;
     private FloatingActionButton addPost;
     private int touchSlop = 5;
-    //set the back animator
-    private AnimatorSet backAnimatorSet;
-    //animator to hide element
-    private AnimatorSet hideAnimatorSet;
-    //set up onTouchListener
-    private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-
-
-        float lastY = 0f;
-        float currentY = 0f;
-        //represent two scroll direction  >0 : scroll down; <0 : scroll up
-        int lastDirection = 0;
-        int currentDirection = 0;
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    lastY = event.getY();
-                    currentY = event.getY();
-                    currentDirection = 0;
-                    lastDirection = 0;
-                    break;
-
-                case MotionEvent.ACTION_MOVE:
-                    if (listView.getFirstVisiblePosition() > 0) {
-                        //hide or show element only if listView.getFirstVisiblePosition()>0
-                        float tmpCurrentY = event.getY();
-                        //start only if movement didtance > toushSlop
-                        if (Math.abs(tmpCurrentY - lastY) > touchSlop) {
-                            currentY = tmpCurrentY;
-                            currentDirection = (int) (currentY - lastY);
-                            if (lastDirection != currentDirection) {
-                                //if the direction of movement is different from lat time, then hide or show elements
-                                if (currentDirection < 0) {
-                                    animateHide();
-                                } else {
-                                    animateBack();
-                                }
-                            }
-                            lastY = currentY;
-                        }
-                    }
-                    break;
-
-                case MotionEvent.ACTION_CANCEL:
-
-            }
-            return false;
-        }
-    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -105,17 +54,6 @@ public class HousingFragment extends Fragment {
         addPost = layout.findViewById(R.id.add_post_btn);
         search = layout.findViewById(R.id.search_bar);
 
-//        Button refreshButton = (Button) layout.findViewById(R.id.house_refresh);
-//        refreshButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity()
-//                        .getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.fragment_container, new HousingFragment())
-//                        .commit();
-//            }
-//        });
         //firebase
         DatabaseReference HouseDatabase = FirebaseDatabase.getInstance().getReference("House_post");
         HouseDatabase.keepSynced(true);
@@ -226,7 +164,6 @@ public class HousingFragment extends Fragment {
 
         //set touch and scroll event for listView
         listView.setOnTouchListener(onTouchListener);
-        //listView.setOnScrollListener(onScrollListener);
 
         //set onClickListener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -289,6 +226,58 @@ public class HousingFragment extends Fragment {
         }
         return term;
     }
+
+    //set the back animator
+    private AnimatorSet backAnimatorSet;
+    //animator to hide element
+    private AnimatorSet hideAnimatorSet;
+    //set up onTouchListener
+    private final View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+
+
+        float lastY = 0f;
+        float currentY = 0f;
+        //represent two scroll direction  >0 : scroll down; <0 : scroll up
+        int lastDirection = 0;
+        int currentDirection = 0;
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    lastY = event.getY();
+                    currentY = event.getY();
+                    currentDirection = 0;
+                    lastDirection = 0;
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    if (listView.getFirstVisiblePosition() > 0) {
+                        //hide or show element only if listView.getFirstVisiblePosition()>0
+                        float tmpCurrentY = event.getY();
+                        //start only if movement didtance > toushSlop
+                        if (Math.abs(tmpCurrentY - lastY) > touchSlop) {
+                            currentY = tmpCurrentY;
+                            currentDirection = (int) (currentY - lastY);
+                            if (lastDirection != currentDirection) {
+                                //if the direction of movement is different from lat time, then hide or show elements
+                                if (currentDirection < 0) {
+                                    animateHide();
+                                } else {
+                                    animateBack();
+                                }
+                            }
+                            lastY = currentY;
+                        }
+                    }
+                    break;
+
+                case MotionEvent.ACTION_CANCEL:
+
+            }
+            return false;
+        }
+    };
 
     private void animateBack() {
         //eliminate other animator
