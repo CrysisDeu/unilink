@@ -19,3 +19,5 @@ Wenxuan Huang   |Software Architect  |
 Shijie Ji       |Quality Assurance Lead  |
 Wenshuo Li      |User Interface Specialist  |
 
+# Signed APK
+https://github.com/CrysisDeu/unilink/releases/download/v1.0.0/app-release.apk
