@@ -1,22 +1,15 @@
 package com.teamxod.unilink.roommate;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -161,11 +154,7 @@ public class RoommateFragment extends Fragment {
                             public void onItemClick(AdapterView<?> parent, View view,
                                                     int position, long id) {
                                 Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
-                                if (position > 0) {
-                                    myIntent.putExtra("uid", sortUID.get(position - 1));
-                                } else {
-                                    myIntent.putExtra("uid", sortUID.get(position));
-                                }
+                                myIntent.putExtra("uid", sortUID.get(position));
                                 startActivity(myIntent);
                             }
                         });
