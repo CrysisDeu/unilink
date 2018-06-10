@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,7 +99,7 @@ public class RoommateFragment extends Fragment {
                     }
                 }
 
-                Log.d("SIZE", Integer.toString(roommateUID.size()));
+//                Log.d("SIZE", Integer.toString(roommateUID.size()));
                 user_count = 0;
 
                 int i = 0;
@@ -136,7 +135,7 @@ public class RoommateFragment extends Fragment {
 
                 Recommendation recommendation = new Recommendation(myPreference, posterPreference);
                 queue.add(new Pair(index, recommendation.getScore()));
-                Log.d("WHY", "onDataChange: " + queue.size());
+//                Log.d("WHY", "onDataChange: " + queue.size());
                 user_count++;
 
                 if (index + 1 == total) {
@@ -145,7 +144,7 @@ public class RoommateFragment extends Fragment {
 
                     while (!queue.isEmpty()) {
                         Pair pair = queue.poll();
-                        Log.d("SORT", Double.toString(pair.getValue()));
+//                        Log.d("SORT", Double.toString(pair.getValue()));
                         sortUID.add(roommateUID.get(pair.getKey()));
                         RoommateListAdapter adapter = new RoommateListAdapter(getActivity(), sortUID);
                         listView.setAdapter(adapter);
