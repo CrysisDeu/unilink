@@ -274,11 +274,9 @@ public class RoommateFragment extends Fragment {
                         public void onItemClick(AdapterView<?> parent, View view,
                                                 int position, long id) {
                             Intent myIntent = new Intent(view.getContext(), RoommatePostActivity.class);
-                            if (position > 0) {
-                                myIntent.putExtra("uid", roommateUID.get(position - 1));
-                            } else {
+
                                 myIntent.putExtra("uid", roommateUID.get(position));
-                            }
+                            
                             startActivity(myIntent);
                         }
                     });
