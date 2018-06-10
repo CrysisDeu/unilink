@@ -1,4 +1,4 @@
-# unilink
+# UNILINK
 <p align="center">
 <img src="./logo.png" width="200" align="middle">  
 </p>
@@ -19,5 +19,5 @@ Wenxuan Huang   |Software Architect  |
 Shijie Ji       |Quality Assurance Lead  |
 Wenshuo Li      |User Interface Specialist  |
 
-# Signed APK
+# Signed APK Download Link
 https://github.com/CrysisDeu/unilink/releases/download/v1.0.0/app-release.apk
