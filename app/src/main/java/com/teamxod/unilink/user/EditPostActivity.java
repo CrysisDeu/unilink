@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -760,29 +761,34 @@ public class EditPostActivity extends AppCompatActivity implements IPickResult, 
                 continue;
             image_ref = baseref.child(UUID.randomUUID().toString());
             final StorageReference finalImage_ref = image_ref;
-            image_ref.putFile(uri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // Get a URL to the uploaded content
-                            finalImage_ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    post.child("pictures").child(String.valueOf(finalI)).setValue(uri.toString());
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {// Handle any errors
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {// Handle unsuccessful uploads
-                            // ...
-                        }
-                    });
+
+            try {
+                image_ref.putFile(uri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                finalImage_ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        post.child("pictures").child(String.valueOf(finalI)).setValue(uri.toString());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {// Handle any errors
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {// Handle unsuccessful uploads
+                                // ...
+                            }
+                        });
+            } catch (Exception e) {
+                Log.d("InitiateProfile", e.getMessage());
+            }
         }
     }
 
