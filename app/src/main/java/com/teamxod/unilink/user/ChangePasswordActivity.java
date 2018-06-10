@@ -120,7 +120,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 // check new == confirm then
                 else if (!new_password.getText().toString().equals(confirm_password.getText().toString())) {
 
-                    Toast.makeText(ChangePasswordActivity.this, "Please make sure your new password is same as your confirm password !",
+                    Toast.makeText(ChangePasswordActivity.this, "Please make sure your new password is the same as your confirm password!",
                             LENGTH_SHORT).show();
                 }
                 // ok
