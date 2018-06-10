@@ -20,4 +20,4 @@ Shijie Ji       |Quality Assurance Lead  |
 Wenshuo Li      |User Interface Specialist  |
 
 # Signed APK Download Link
-https://github.com/CrysisDeu/unilink/releases/download/v1.0.0/app-release.apk
+https://github.com/CrysisDeu/unilink/releases/download/v1.0.2/app-release.apk
