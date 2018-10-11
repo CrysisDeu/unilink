@@ -3,7 +3,7 @@
 <img src="./logo.png" width="200" align="middle">  
 </p>
 CSE110 ClassProject- Off-campus housing app  
-
+Additional documents can be viewed in /Documents
 All Members:
 
 Name | Role
