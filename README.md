@@ -2,11 +2,14 @@
 <p align="center">
 <img src="./logo.png" width="200" align="middle">  
 </p>
-CSE110 ClassProject- Off-campus housing app  
+CSE110 ClassProject- Off-campus housing app   
 
-Additional documents can be viewed in /Documents  
+Video: https://www.youtube.com/watch?v=19JCQ92hmjc  
 
-All Members:
+# Documents  
+Additional documents can be viewed in /Documents
+
+# All Members:
 
 Name | Role
 ---- | ---
