@@ -4,7 +4,7 @@
 </p>
 CSE110 ClassProject- Off-campus housing app   
 
-Video: https://www.youtube.com/watch?v=19JCQ92hmjc  
+Video: https://youtu.be/19JCQ92hmjc
 
 # Documents  
 Additional documents can be viewed in /Documents
